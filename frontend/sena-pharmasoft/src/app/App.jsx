@@ -2,9 +2,9 @@ import UserForm from '../features/users/components/UserForm'
 
 export default function App(){
   return (
-    <div className="grid grid-cols-1 items-center gap-6 justify-center justify-items-center">
-      <h1 className="text-black">
-        ¡Hola mundo!
+    <div className="min-h-screen flex flex-col items-center justify-start pt-10 bg-gray-100">
+      <h1 className="text-2xl font-bold text-black mb-6">
+        PHARMASOFT
       </h1>
       <div>
        <UserForm/>

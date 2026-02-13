@@ -22,11 +22,12 @@ export default function Input({label, type = "text", ...props}){
 
         <div
             className="
-            relative
-            h-12
-            flex
-            items-center
+            w-full
+            max-w-md
+            mx-auto
+            mt-2
             "
+            
         >
           {/* Area interactiva visible (48px)*/}
 
@@ -44,21 +45,20 @@ export default function Input({label, type = "text", ...props}){
           <input
             type={type}
             className="
-                    w-full
-                    h-8
-                    relative
-                    text-black
-                    rounded-xl
-                    bg-[#DEFBDD]
-                    border
-                    border-[#F1FDF0]
-                    px-4
-                    text-base
-                    focus:ring-2
-                    focus:ring-[#062d08]
-                    focus:border-[#062d08]
-                    focus:outline-none   
-                    "
+            relative  
+            w-full
+            h-10
+            rounded-b-md
+            border
+            border-gray-300
+            px-4
+            text-base
+
+            focus:outline-none
+            focus:ring-2
+            focus:ring-blue-500
+            focus:border-blue-500
+          "
             {...props}
           />
         </div>
