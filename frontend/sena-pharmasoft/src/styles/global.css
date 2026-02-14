@@ -1,0 +1,35 @@
+@import url("./tokens.css");
+@import url("./semantic.css");
+/*@import url("./base.css");*/
+@import "tailwindcss"; /* Esta linea debe quedar al final para que funcione*/
+
+
+@theme {
+    --color-brand: var(--color-primary-300);
+    --color-brand-hover: var(--color-primary-900);/* Generalmente es de un tono mas alto que el brand */
+    --color-brand-soft: var(--color-primary-200);
+
+    /*========== BACKGROUND ==========*/
+
+    --color-background: var(--color-primary-50); /* Fondo de toda la aplicacion */
+    --color-surface: var(--white); /* Fondo de modales, cards, containers */
+    --color-surface-muted: var(--color-gray-200); /* Zonas secundarias, con menos importancia */
+
+    /*========== TEXT ==========*/   
+
+    --color-text-primary: var(--color-gray-900); /* Color principal de lectura, títulos, texto base del documento */
+    --color-text-secundary: var(--color-gray-700); /* Textos menos dominantes */
+    --color-text-muted: var(--color-gray-500); /* Texto deshabilitado por ejemplo */
+    --color-text-inverse: var(--color-gray-50); /* Texto invertido */
+
+    /*========== BORDER ==========*/
+
+    --color-border: var(--color-primary-800); /* Borde principal de todos los componentes */
+    --color-border-strong: var(--color-primary-950); /* Bordes mas fuertes */
+
+    /*========== STATE ==========*/
+
+    --color-warning: var(--color-secundary-800); /* */
+}
+
+

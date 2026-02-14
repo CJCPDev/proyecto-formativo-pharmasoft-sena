@@ -1,0 +1,54 @@
+/* Se ingresan las variables tal y como se planearon en la guía de estilos */
+
+:root{
+
+    /* Color primario*/
+    --color-primary-950: #062D08;
+    --color-primary-900: #155217;
+    --color-primary-800: #186319;
+    --color-primary-700: #177E19;
+    --color-primary-600: #19A01A;
+    --color-primary-500: #25C226;
+    --color-primary-400: #4DDB4E;
+    --color-primary-300: #90EE90;
+    --color-primary-200: #BDF6BC;
+    --color-primary-100: #DEFBDD;
+    --color-primary-50: #F1FDF0;
+
+        /* Color secundario*/
+
+    --color-secundary-950: #023131;
+    --color-secundary-900: #10514E;
+    --color-secundary-800: #0D625E;
+    --color-secundary-700: #0A7B75;
+    --color-secundary-600: #079A91;
+    --color-secundary-500: #0CC0B1;
+    --color-secundary-400: #40E0D0;
+    --color-secundary-300: #58F0DC;
+    --color-secundary-200: #95FAEA;
+    --color-secundary-100: #CAFDF3;
+    --color-secundary-50: #EFFEFA;
+
+        /* colores basicos*/
+
+    --white: #FFF;
+    --black: #000;
+    --color-gray-950: #F6F6F6;
+    --color-gray-900: #E9E9E9;
+    --color-gray-800: #D1D1D1;
+    --color-gray-700: #B8B8B8;
+    --color-gray-600: #9F9F9F;
+    --color-gray-500: #878787;
+    --color-gray-400: #6E6E6E;
+    --color-gray-300: #565656;
+    --color-gray-200: #3D3D3D;
+    --color-gray-100: #242424;
+    --color-gray-50: #181818;
+
+    /*Tipography*/
+
+    --main-font: 'Piazolla';
+    --secundary-font: Roboto;
+
+
+}
