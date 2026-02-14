@@ -1,13 +1,12 @@
-import UserForm from '../features/users/components/UserForm'
+import FormVentas from '../features/sells/components/FormVentas'
+
 
 export default function App(){
   return (
-    <div className="grid grid-cols-1 items-center gap-6 justify-center justify-items-center">
-      <h1 className="text-black">
-        ¡Hola mundo!
-      </h1>
+    <div className="grid grid-cols-1 items-center gap-6 justify-center justify-items-center h-screen bg-amber-300">
       <div>
-       <UserForm/>
+       <FormVentas/>
+
       </div>
     </div>
   )
