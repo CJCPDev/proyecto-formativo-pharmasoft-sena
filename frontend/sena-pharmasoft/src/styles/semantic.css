@@ -18,7 +18,7 @@
 
     /*========== TEXT ==========*/   
 
-    --color-text-primary: var(--color-gray-900); /* Color principal de lectura, títulos, texto base del documento */
+    --color-text-primary: var(--black); /* Color principal de lectura, títulos, texto base del documento */
     --color-text-secundary: var(--color-gray-700); /* Textos menos dominantes */
     --color-text-muted: var(--color-gray-500); /* Texto deshabilitado por ejemplo */
     --color-text-inverse: var(--color-gray-50); /* Texto invertido */
