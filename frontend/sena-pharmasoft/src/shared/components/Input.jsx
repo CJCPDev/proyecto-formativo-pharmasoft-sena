@@ -58,6 +58,9 @@ export default function Input({label, type = "text", ...props}){
                     focus:border-[#062d08]
                     focus:outline-none   
                     "
+                    style={{
+                      color: "var(--color-text-primary)",
+                    }}
             {...props}
           />
         </div>
