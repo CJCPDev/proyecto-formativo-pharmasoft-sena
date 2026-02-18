@@ -1,18 +1,16 @@
+import './../../styles/global.css'
+
 export default function Input({label, type = "text", ...props}){
     return (
-      <div className="w-[320px]">
+      <div className="w-full">
         {/*Label */}
         {label && (
           <label
             className="
                     block
-                    text-[8px]
-                    
-                    text-gray-500
-                    font-mono     
+                    text-[8px] 
+                    text-text-muted
                     font-light
-                    blur-
-
                 "
           >
             {label}
@@ -47,16 +45,16 @@ export default function Input({label, type = "text", ...props}){
                     w-full
                     h-8
                     relative
-                    text-black
+                    text-text-muted
                     rounded-xl
-                    bg-[#DEFBDD]
+                    bg-(--color-primary-100)
                     border
-                    border-[#F1FDF0]
+                    border-(--color-primary-50)
                     px-4
                     text-base
                     focus:ring-2
-                    focus:ring-[#062d08]
-                    focus:border-[#062d08]
+                    focus:ring-(--color-primary-950)
+                    focus:border-(--color-primary-950)
                     focus:outline-none   
                     "
             {...props}

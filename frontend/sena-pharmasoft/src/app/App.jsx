@@ -1,4 +1,4 @@
-import UserForm from '../features/users/components/UserForm'
+import SuppliersForm from '../features/suppliers/componentes/SuppliersForm'
 
 export default function App(){
   return (
@@ -6,8 +6,8 @@ export default function App(){
       <h1 className="text-black">
         ¡Hola mundo!
       </h1>
-      <div>
-       <UserForm/>
+      <div className='max-w-175 p-4'>
+       <SuppliersForm/>
       </div>
     </div>
   )
