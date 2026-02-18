@@ -2,9 +2,18 @@ import Input from "../../shared/components/Input";
 
 export default function FormMedicamentos() {
   return (
-    <div className="min-h-screen bg-white p-12">
+    <div className="min-h-screen p-12"
+    style={{ backgroundColor: "var(--color-background)"}}
+    >
+        <div
+            className="max-w-7x1 mx-auto rounded-x1 p-10"
+            style={{
+                backgroundColor: "var(--color-surface)",
+                border: "1px solid var(--color-border)",
+            }}
+        >
 
-      <form className="flex gap-12 max-w-7xl mx-auto">
+      <form className="flex gap-12">
 
         {/* Columna 1 */}
         <div className="flex flex-col gap-6 flex-1">
@@ -34,7 +43,7 @@ export default function FormMedicamentos() {
         </div>
 
       </form>
-
+     </div>
     </div>
   );
 }
