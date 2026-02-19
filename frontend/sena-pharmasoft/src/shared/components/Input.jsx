@@ -21,7 +21,7 @@ export default function Input({label, type = "text", ...props}){
 
                 <input
                     type={type}
-                    className="w-full h-10 relative text-black rounded-xl bg-[#DEFBDD] border border-[#F1FDF0] px-4 text-base focus:ring-1 focus:ring-[#062d08] focus:border-[#062d08] focus:outline-none"
+                    className="w-full h-10 relative text-black rounded-xl bg-primary-500 border border-primary-950 px-4 text-base focus:ring-1 focus:ring-primary-950 focus:border-primary-950 focus:outline-none"
                     {...props}  
                 />
             </div>

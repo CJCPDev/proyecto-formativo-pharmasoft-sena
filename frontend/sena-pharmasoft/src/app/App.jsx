@@ -1,5 +1,5 @@
 import FormVentas from '../features/sells/components/FormVentas'
-
+import 'tailwindcss';
 
 export default function App(){
   return (
