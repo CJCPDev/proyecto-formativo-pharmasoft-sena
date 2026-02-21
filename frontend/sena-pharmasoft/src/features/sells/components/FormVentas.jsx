@@ -13,11 +13,11 @@ export default function FormVentas(){
                     placeholder='Número de factura'
                     />
                     <Input 
-                    label='Tercero'
+                    label='Cliente'
                     placeholder='Ingrese el documento'
                     />
                     <div className="grid grid-cols-2 w-80 gap-3">
-                    <Input
+                    <Input  
                     label='Fecha Inicial'
                     type='date'
                     />
