@@ -7,7 +7,7 @@ export default function Button ({
 }){
 
     const variants = {
-        primary: 'border border-border  bg-brand text-inverse hover:bg-brand-hover',
+        primary: 'border border-border bg-brand-hover text-brand-soft hover:bg-brand-soft hover:text-brand-hover',
         secondary: 'border border-border-strong bg-brand text-primary hover:bg-brand-soft',
     };
 
@@ -35,6 +35,8 @@ export default function Button ({
         <button
         type = {type}
         className={`
+            h-10
+            w-40
             relative
             inline-flex items-center justify-center
             rounded-md

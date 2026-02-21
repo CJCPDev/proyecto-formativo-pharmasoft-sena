@@ -16,7 +16,7 @@ export default function Input({label, type = "text", ...props}){
           </label>
         )}
         {/* EL contenedor del input */}
-            <div className="relative h-12 flex items-center">
+            <div className="relative h-14 flex items-center">
             {/* Area interactiva visible (48px)*/}
 
                 <div className="absolute inset-0"
@@ -28,7 +28,7 @@ export default function Input({label, type = "text", ...props}){
 
                 <input
                     type={type}
-                    className="w-full h-10 relative text-black rounded-xl bg-primary-500 border border-primary-950 px-4 text-base focus:ring-1 focus:ring-primary-950 focus:border-primary-950 focus:outline-none"
+                    className="w-full h-12 relative text-black rounded-xl bg-brand border border-brand px-4 text-base focus:ring-1 focus:ring-brand focus:border-brand focus:outline-none"
                     {...props}  
                 />
             </div>

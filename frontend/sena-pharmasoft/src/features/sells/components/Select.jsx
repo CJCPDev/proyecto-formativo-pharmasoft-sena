@@ -2,7 +2,6 @@ export default function Select({
     label,
     name,
     options = [],
-    value
     }
 ){
 
@@ -27,7 +26,7 @@ export default function Select({
                     px-4
                 '
                 >
-                <option value="">{value}</option>
+                <option disabled selected value="">Farmaceuta..</option>
                 {options.map((option) => {
 
                     return(
