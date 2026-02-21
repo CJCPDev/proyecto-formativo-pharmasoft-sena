@@ -1,4 +1,5 @@
 import Input from '../../../shared/components/Input'
+import Select from '../../../shared/components/Select'
 
 
 export default function FormVentas(){
@@ -26,6 +27,7 @@ export default function FormVentas(){
                     type='date'
                     />    
                     </div>
+                    <Select/>
                 </div>           
             </form>
         </div>
