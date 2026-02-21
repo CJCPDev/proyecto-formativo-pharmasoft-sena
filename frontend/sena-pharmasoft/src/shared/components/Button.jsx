@@ -1,5 +1,3 @@
-
-
 export default function Button ({
     variant = 'primary', // Define el estilo visual
     size = 'md',  
@@ -19,7 +17,8 @@ export default function Button ({
             relative
             h-9 px-3
             before:absolute before:content-['']
-            before:inset-y-[10px] before:inset-x-[0px]
+            before:-inset-y-[10px] before:-inset-x-[0px]
+
             
             `,
 
@@ -27,8 +26,7 @@ export default function Button ({
             `
             h-10 px-4
             before:absolute before:content-['']
-            before:inset-y-[4px] before:inset-x-[0px]
-            
+            before:-inset-y-[4px] before:-inset-x-[0px]
             `
           
     }

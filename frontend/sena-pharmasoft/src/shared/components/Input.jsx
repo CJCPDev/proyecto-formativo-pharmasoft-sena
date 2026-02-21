@@ -1,14 +1,21 @@
 export default function Input({label, type = "text", ...props}){
     return (
-      <div className="w-full">
-            {/*Label */}
-            {label && (
-                <label className="block text-[10px] text-gray-500 font-mono font-light">
-                    {label}
-                </label>
-            )}
-            {/* EL contenedor del input */}
 
+
+      <div className="w-full">
+        {/*Label */}
+        {label && (
+          <label
+            className="
+                    block
+                    text-[8px]
+                    mb-1           
+                "
+          >
+            {label}
+          </label>
+        )}
+        {/* EL contenedor del input */}
             <div className="relative h-12 flex items-center">
             {/* Area interactiva visible (48px)*/}
 
@@ -25,6 +32,6 @@ export default function Input({label, type = "text", ...props}){
                     {...props}  
                 />
             </div>
-      </div>
+        </div>
     );
 }

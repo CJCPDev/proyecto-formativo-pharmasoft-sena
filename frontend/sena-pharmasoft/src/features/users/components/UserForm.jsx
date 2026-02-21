@@ -3,13 +3,50 @@ import Button from '@/shared/components/Button'
 
 
 export default function UserForm(){
+
+
+
+/*     const handleNameChange = (e) => {
+        console.log('Nombre del usuario:', e.target.value)
+    }; */
+
+
+    const handleEmailBlur = (e) => {
+        console.log('Email del usuario:', e.target.value)
+    };
+
+    /* Una validación basica */
+
+    const handleNameChange = (e) => {
+        console.log('Nombre del usuario:', e.target.value)
+            if(e.target.value === ''){
+                console.log('Este campo no puede estar vacio')
+            }
+    };
+
+    const handleSubmit = (e) => {
+        console.log('enviaste un archivo',e.target.value)
+    }
+
+
+
     return (
         <div className="justify-items-center"> 
             {/* Formulario para crear el usuarioo*/}
+
+    {/* Chequea de inmediato si se cumple o no un determinado proceso*/}
             <form>
                 <Input
                 label='Nombre'
                 placeholder='Ingrese su nombre'
+                onChange = {handleNameChange}
+                />
+
+    {/*Cheque una vez se da clic por fuera si lo ingresado corresponde */}
+                <Input
+                label='Email'
+                placeholder='Ingrese su email'
+                onBlur = {handleEmailBlur}
                 />
 
                 {/* Actions */}
@@ -27,9 +64,8 @@ export default function UserForm(){
                 <Button
                     variant = 'primary'
                     size = 'md'
-                    onClick={()=>
-                        console.log('cancelar')
-                    }>
+                    type='submit'
+                    onSubmit={handleSubmit}>
                         Guardar
                     </Button>
 

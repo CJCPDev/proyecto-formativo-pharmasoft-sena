@@ -3,7 +3,7 @@ import Input from '../../../shared/components/Input'
 
 export default function FormVentas(){
     return (
-        <div className="flex flex-col bg-white rounded-xl h-auto justify-items-center">
+        <div className="flex flex-col bg-white rounded-xl h-auto justify-items-center ">
             <h1 className="font-extrabold flex justify-center items-center">Filtros</h1>
             {/* Formulario para crear el usuario*/}
             <form className="grid justify-items-center p-2">
