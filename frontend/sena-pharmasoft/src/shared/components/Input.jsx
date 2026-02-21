@@ -11,7 +11,7 @@ export default function Input({label, type = "text", ...props}){
                     text-[8px] 
                     text-text-muted
                     font-light
-                "
+                  "
           >
             {label}
           </label>
