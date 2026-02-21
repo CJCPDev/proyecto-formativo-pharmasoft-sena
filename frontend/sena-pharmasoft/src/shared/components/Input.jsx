@@ -11,7 +11,7 @@ export default function Input({label, type = "text", ...props}){
                     text-gray-500
                     font-mono     
                     font-light
-                    blur-
+                    font-
 
                 "
           >
