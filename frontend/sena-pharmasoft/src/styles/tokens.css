@@ -1,8 +1,8 @@
 /* Se ingresan las variables tal y como se planearon en la guía de estilos */
 
-:root{
+:root {
 
-    /* Color primario*/
+    /* variables del color primario */
     --color-primary-950: #062D08;
     --color-primary-900: #155217;
     --color-primary-800: #186319;
@@ -13,10 +13,9 @@
     --color-primary-300: #90EE90;
     --color-primary-200: #BDF6BC;
     --color-primary-100: #DEFBDD;
-    --color-primary-50: #F1FDF0;
+    --color-primary-50:  #F1FDF0;
 
-        /* Color secundario*/
-
+    /* variables del color secundario */
     --color-secundary-950: #023131;
     --color-secundary-900: #10514E;
     --color-secundary-800: #0D625E;
@@ -27,31 +26,51 @@
     --color-secundary-300: #58F0DC;
     --color-secundary-200: #95FAEA;
     --color-secundary-100: #CAFDF3;
-    --color-secundary-50: #EFFEFA;
+    --color-secundary-50:  #EFFEFA;
 
-        /* colores basicos*/
-
-    --white: #FFF;
-    --black: #000;
+    /* variables de colores base */
+    --white: #ffff;
+    --black: #0000;
     --color-gray-950: #F6F6F6;
     --color-gray-900: #E9E9E9;
     --color-gray-800: #D1D1D1;
     --color-gray-700: #B8B8B8;
-    --color-gray-600: #9F9F9F;
     --color-gray-500: #878787;
     --color-gray-400: #6E6E6E;
     --color-gray-300: #565656;
     --color-gray-200: #3D3D3D;
     --color-gray-100: #242424;
-    --color-gray-50: #181818;
-
-    /*Tipography*/
-
-    --main-font: Piazzolla;
-    --secundary-font: Roboto;
-
-    /* Font-Size*/
+    --color-gray-50:  #181818;
     
+    /* tipografia */
+    --font-family-main: "Piazzola", serif; /* Tipografia de letra principal */
+    --font-family-secundary: "Roboto", sans-serif; /*Tipografia de letra secundaria */
 
+    /* variantes de tipografia */
+    --font-weight-light: 300;
+    --font-weight-semibold: 600;
+    --font-weight-extrabold: 800;
 
+    /* tamaños de tipografia fs (font-size) */
+    --fs-xxxxl: 5rem;   /*80px*/
+    --fs-xxxl: 4rem;    /*64px*/
+    --fs-big: 3.5rem;   /*56px*/
+    --fs-xxl: 3rem;     /*48px*/
+    --fs-xl:  2.5rem;   /*40px*/
+    --fs-lg: 2rem;      /*32px*/
+    --fs-mg: 1.5rem;    /*24px*/
+    --fs-sm: 1.25rem;   /*20px*/
+    --fs-xs: 1rem;      /*16px*/
+    --fs-xxs: 0.875rem; /*14px*/
+    --fs-xxxs: 0.75rem; /*12px*/
+    --fs-xxxxs: 0.5rem; /* 8px*/
+
+    /* Corner Radius */
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 24px;
+        
 }

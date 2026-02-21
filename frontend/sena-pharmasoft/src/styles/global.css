@@ -5,18 +5,40 @@
 
 
 @theme {
-    --color-brand: var(--semantic-brand);
-    --color-brand-hover: var(--semantic-brand-hover);
-    --color-brand-soft: var(--semantic-primary-200);
-    --color-background: var(--semantic-primary-50);
-    --color-surface: var(--white);
-    --color-surface-muted: var(--semantic-gray-200);
-    --color-text-primary: var(--semantic-gray-900); 
-    --color-text-secundary: var(--semantic-gray-700); 
-    --color-text-muted: var(--semantic-gray-500); 
-    --color-text-inverse: var(--semantic-gray-50); 
-    --color-border: var(--semantic-primary-800); 
-    --color-border-strong: var(--semantic-primary-950);
-    --color-warning: var(--semantic-secundary-800); /* */
-}
 
+    /* colores de la aplicación */
+    --color-brand: var(--semantic-brand);
+    --color-brand-hover:var(--semantic-brand-hover);
+    --color-brand-soft: var(--semantic-brand-soft);
+
+    --color-backgraund: var(--semantic-primary-50);
+    --color-surface: var(--semantic-surface);
+    --color-surface: var(--semantic-surface);
+
+    --color-text-primary: var(--semantic-text-primary);
+    --color-text-secundary: var(--semantic-text-secundary);
+    --color-text-mute: var(--semantic-text-mute);
+    --color-text-inverse: var(--semantic-text-inverse);
+
+    --color-border: var(--semantic-border);
+    --color-border-strong: var(--semantic-border-strong);
+
+    --color-warning: var(--semantic-warning);
+
+    /* tamaños y tipografia de la aplicación */
+    --text-font-main: var(--semantic-text-main);
+    --text-font-secundary: var(--semantic-text-secundary);
+
+    /* tamaños */
+    --text-big-tittle: var(--semantic-fs-big);
+    --text-general-tittle: var(--semantic-fs-lg);
+    --text-info-general: var(--semantic-fs-xs);
+    --text-info-regular: var(--semantic--fs-xxs);
+    --text-small-label: var(--semantic-fs-xxxxs);   /*genarlmente en label*/
+
+    /* tamaños de border radius */
+    --border-main-container: var(--semantic-br-xl);
+    --border-inputs: var(--semantic-br-lg);
+    --border-buttons: var(--semantic-br-md);
+
+}
