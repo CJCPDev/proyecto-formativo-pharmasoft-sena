@@ -3,7 +3,7 @@
         console.log('Nombre del usuario:', e.target.value)
     }; */
 
-
+export default function UserForm(){
     const handleEmailBlur = (e) => {
         console.log('Email del usuario:', e.target.value)
     };
@@ -25,9 +25,9 @@
 
     return (
         <div className="justify-items-center"> 
-            {/* Formulario para crear el usuarioo*/}
+                {/* Formulario para crear el usuarioo*/}
 
-    {/* Chequea de inmediato si se cumple o no un determinado proceso*/}
+                {/* Chequea de inmediato si se cumple o no un determinado proceso*/}
             <form>
                 <Input
                 label='Nombre'
@@ -35,7 +35,7 @@
                 onChange = {handleNameChange}
                 />
 
-    {/*Cheque una vez se da clic por fuera si lo ingresado corresponde */}
+                 {/*Cheque una vez se da clic por fuera si lo ingresado corresponde */}
                 <Input
                 label='Email'
                 placeholder='Ingrese su email'
@@ -44,7 +44,7 @@
 
                 {/* Actions */}
                 <div className='flex gap-12 items-center justify-center'>
-                <Button
+                  <Button
                     variant = 'secondary'
                     size = 'sm'
                     onClick={()=>
@@ -54,7 +54,7 @@
                     </Button>
                     
 
-                <Button
+                    <Button
                     variant = 'primary'
                     size = 'md'
                     type='submit'
@@ -65,5 +65,5 @@
                 </div>
             </form>
         </div>
-    )
+    );
 } 
