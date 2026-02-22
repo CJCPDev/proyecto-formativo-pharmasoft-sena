@@ -24,8 +24,8 @@ export default function FormVentas(){
 
 
     return (
-        <div className="flex flex-col bg-white rounded-xl h-auto justify-items-center border border-white">
-            <h1 className="font-extrabold flex justify-center items-center">Filtros</h1>
+        <div className="flex flex-col bg-white rounded-xl h-auto justify-items-center border border-white font-main pt-2">
+            <h1 className="flex font-extrabold text-2xl justify-center items-center">Filtros</h1>
             {/* Formulario para crear el usuario*/}
             <form className="grid justify-items-center p-2 w-full">
                 <div className='grid grid-cols-1 gap-2'>
@@ -35,7 +35,7 @@ export default function FormVentas(){
                     />
                     <Input 
                     label='Cliente'
-                    placeholder='Ingrese el documento'
+                    placeholder='Número de documento'
                     />
                     <div className="grid grid-cols-2 w-80 gap-3">
                     <Input  

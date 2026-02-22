@@ -8,7 +8,7 @@ export default function Input({label, type = "text", ...props}){
           <label
             className="
                     block
-                    text-[8px]
+                    text-small-label
                     mb-1           
                 "
           >
@@ -28,7 +28,7 @@ export default function Input({label, type = "text", ...props}){
 
                 <input
                     type={type}
-                    className="w-full h-12 relative text-black rounded-xl bg-brand border border-brand px-4 text-base focus:ring-1 focus:ring-brand focus:border-brand focus:outline-none"
+                    className="w-full h-12 relative text-black rounded-md bg-brand border border-brand px-4 text-base focus:ring-1 focus:ring-brand focus:border-brand focus:outline-none"
                     {...props}  
                 />
             </div>

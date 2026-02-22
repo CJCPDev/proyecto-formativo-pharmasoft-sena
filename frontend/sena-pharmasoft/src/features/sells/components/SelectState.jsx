@@ -22,7 +22,7 @@ export default function Select({
                     h-12
                     rounded-md
                     border
-                    border-border
+                    border-border-brand
                     px-4
                 '
                 >
@@ -35,14 +35,8 @@ export default function Select({
                     </option>
                     )
                 })
-                };
+            };
             </select>
-
-
-
-
         </div>
-
-
     );
 };

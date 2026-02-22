@@ -1,20 +1,19 @@
 @import url("./tokens.css");
 @import url("./semantic.css");
 /*@import url("./base.css");*/
-@import "tailwindcss"; /* Esta linea debe quedar al final para que funcione*/
 
 
 @theme {
-
+    
     /* colores de la aplicación */
     --color-brand: var(--semantic-brand);
     --color-brand-hover:var(--semantic-brand-hover);
     --color-brand-soft: var(--semantic-brand-soft);
-
+    
     --color-backgraund: var(--semantic-primary-50);
     --color-surface: var(--semantic-surface);
     --color-surface: var(--semantic-surface);
-
+    
     --color-text-primary: var(--semantic-text-primary);
     --color-text-secundary: var(--semantic-text-secundary);
     --color-text-mute: var(--semantic-text-mute);
@@ -22,23 +21,25 @@
 
     --color-border: var(--semantic-border);
     --color-border-strong: var(--semantic-border-strong);
-
+    
     --color-warning: var(--semantic-warning);
 
     /* tamaños y tipografia de la aplicación */
-    --text-font-main: var(--semantic-text-main);
-    --text-font-secundary: var(--semantic-text-secundary);
-
+    --font-main: var(--semantic-font-main);
+    --font-secondary: var(--semantic-font-secondary);
+    
     /* tamaños */
     --text-big-tittle: var(--semantic-fs-big);
     --text-general-tittle: var(--semantic-fs-lg);
     --text-info-general: var(--semantic-fs-xs);
-    --text-info-regular: var(--semantic--fs-xxs);
+    --text-info-regular: var(--semantic-fs-xxs);
+    --text-info-medium: var(--semantic-fs-xxxs);
     --text-small-label: var(--semantic-fs-xxxxs);   /*genarlmente en label*/
-
+    
     /* tamaños de border radius */
     --border-main-container: var(--semantic-br-xl);
     --border-inputs: var(--semantic-br-lg);
     --border-buttons: var(--semantic-br-md);
 
 }
+@import "tailwindcss"; /* Esta linea debe quedar al final para que funcione*/

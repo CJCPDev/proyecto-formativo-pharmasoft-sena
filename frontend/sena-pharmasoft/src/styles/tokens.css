@@ -44,7 +44,7 @@
     
     /* tipografia */
     --font-family-main: "Piazzola", serif; /* Tipografia de letra principal */
-    --font-family-secundary: "Roboto", sans-serif; /*Tipografia de letra secundaria */
+    --font-family-secondary: "Roboto", sans-serif; /*Tipografia de letra secundaria */
 
     /* variantes de tipografia */
     --font-weight-light: 300;
@@ -63,7 +63,7 @@
     --fs-xs: 1rem;      /*16px*/
     --fs-xxs: 0.875rem; /*14px*/
     --fs-xxxs: 0.75rem; /*12px*/
-    --fs-xxxxs: 0.5rem; /* 8px*/
+    --fs-xxxxs: 0.625rem; /* 8px*/
 
     /* Corner Radius */
     --radius-xs: 2px;

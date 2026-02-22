@@ -35,11 +35,14 @@ export default function Button ({
         <button
         type = {type}
         className={`
-            h-10
+            h-12
             w-40
             relative
             inline-flex items-center justify-center
             rounded-md
+            font-main
+            font-extrabold
+            tracking-wide
             transition-colors
             ${variants[variant]}
             ${sizes[size]}

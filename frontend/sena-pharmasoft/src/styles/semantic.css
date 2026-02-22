@@ -9,12 +9,9 @@
     --semantic-brand-hover:var(--color-primary-800); /*generalmente es de un tomo mas oscuro*/
     --semantic-brand-soft: var(--color-primary-100); 
 
-<<<<<<< HEAD
     --semantic-brand: var(--color-primary-);
     --color-brand-hover: var(--color-primary-900);/* Generalmente es de un tono mas alto que el brand */
     --color-brand-soft: var(--color-primary-200);
-=======
->>>>>>> dev
 
     /* ************BACKGROUND******** */
     --semantic-backgraund: var(--color-primary-50); /*Fondo estructural de todo el proyecto*/
@@ -28,27 +25,24 @@
     --semantic-text-inverse: var(--white); /*texto invertido*/
 
     /* *******TIPOGRAFIA********** */
-    --semantic-text-main: var(--font-family-main); /*tipo de letra principal*/
-    --semantic-text-secundary: var(--font-family-secundary); /*tipo de letra secundario*/
+    --semantic-font-main: var(--font-family-main); /*tipo de letra principal*/
+    --semantic-font-secundary: var(--font-family-secondary); /*tipo de letra secundario*/
 
     /* ********VARIANTES DE TIPOGRAFIA******** */
     --semantic-font-light: var(--font-weight-light);
     --semantic-font-semibold: var(--font-weight-semibold);
     --semantic-font-extrabold: var(--font-weight-extrabold);
+    --semantic-fs-xs: var(--fs-xs);
+    --semantic-fs-xxxs: var(--fs-xxxs);
+    --semantic-fs-xxxxs: var(--fs-xxxxs);
+    --semantic-fs-big: var(--fs-big);
+    --semantic-fs-lg: var(--fs-lg);
+    --semantic-fs-xxs: var(--fs-xxs);
 
-<<<<<<< HEAD
     --color-text-primary: var(--black); /* Color principal de lectura, títulos, texto base del documento */
     --color-text-secundary: var(--color-gray-700); /* Textos menos dominantes */
     --color-text-muted: var(--color-gray-500); /* Texto deshabilitado por ejemplo */
     --color-text-inverse: var(--color-gray-50); /* Texto invertido */
-=======
-    /* ********TAMAÑOS************* */
-    --semantic-fs-big: var(--fs-big);     /*56px*/
-    --semantic-fs-lg: var(--fs-lg);       /*32px*/
-    --semantic-fs-xs: var(--fs-xs);       /*16px*/
-    --semantic--fs-xxs: var(--fs-xxs);    /*14px*/
-    --semantic-fs-xxxxs: var(--fs-xxxxs); /* 8px*/
->>>>>>> dev
 
     /* *********BORDER***** *(colores)*/
     --semantic-border: var(--color-primary-50); /*Borde principal de los componentes*/

@@ -22,11 +22,11 @@ export default function Select({
                     h-12
                     rounded-md
                     border
-                    border-border
+                    border-border-brand
                     px-4
                 '
                 >
-                <option disabled selected value="">Farmaceuta..</option>
+                <option disabled selected value="">Farmaceuta</option>
                 {options.map((option) => {
 
                     return(
