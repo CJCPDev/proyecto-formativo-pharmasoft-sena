@@ -1,0 +1,14 @@
+[
+   { 
+    "id" : "1",
+    "label" : "Administrador"
+   },
+   {
+    "id" : "2",
+    "label" : "Cliente"
+   },
+   {
+    "id" : "3",
+    "label" : "Farmaceuta"
+   }
+]

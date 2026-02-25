@@ -7,12 +7,9 @@ export default function Input({label, type = "text", ...props}){
             className="
                     block
                     text-[8px]
-                    
                     text-gray-500
                     font-mono     
                     font-light
-                    blur-
-
                 "
           >
             {label}
@@ -45,9 +42,9 @@ export default function Input({label, type = "text", ...props}){
             type={type}
             className="
                     w-full
-                    h-8
+                    h-12
                     relative
-                    text-black
+                    text-gray-400
                     rounded-xl
                     bg-[#DEFBDD]
                     border

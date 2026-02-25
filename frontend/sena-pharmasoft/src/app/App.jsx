@@ -1,4 +1,5 @@
 import UserForm from '../features/users/components/UserForm'
+import 'tailwindcss';
 
 export default function App(){
   return (
