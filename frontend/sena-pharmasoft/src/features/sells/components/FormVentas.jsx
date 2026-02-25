@@ -1,6 +1,5 @@
 import Input from '../../../shared/components/Input'
-import Select from '../../../features/sells/components/Select'
-import SelectState from '../../../features/sells/components/SelectState'
+import Select from '../../../shared/components/Select'
 import Button from '../../../shared/components/Button'
 import '@/features/users/services/selectService'
 import { useEffect, useState } from 'react'
@@ -20,8 +19,6 @@ export default function FormVentas(){
     useEffect(() => {
     getState().then(setStates)
     },[]);
-
-
 
     return (
         <div className="flex flex-col bg-white rounded-xl h-auto justify-items-center border border-white font-main pt-2">
@@ -49,10 +46,12 @@ export default function FormVentas(){
                     </div>
                     <Select
                     disable selected
-                    options={pharmaUsers}/>
-                    <SelectState
+                    options={pharmaUsers}
+                    text={'Farmaceutas'}/>
+                    <Select
                     disable selected
-                    options={states}/>
+                    options={states}
+                    text={'Estados'}/>
                     <div className='flex justify-center'>
                     <Button
                     variant='primary'
