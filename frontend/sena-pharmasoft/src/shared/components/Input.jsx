@@ -13,7 +13,6 @@ export default function Input({label, type = "text", ...props}){
                     font-mono     
                     font-light
                     font-
-
                 "
           >
             {label}

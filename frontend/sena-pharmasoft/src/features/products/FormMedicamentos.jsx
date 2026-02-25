@@ -32,12 +32,59 @@ export default function FormMedicamentos() {
     getStatesTypes().then(setStatesTypes)
   }, []);
 
+  const [formData, setFormData] = useState({
+  nombre: "",
+  formaFarmaceutica: "",
+  viaAdministracion: "",
+  laboratorio: "",
+  concentracion: "",
+  proveedor: "",
+  lote: "",
+  fechaFabricacion: "",
+  fechaVencimiento: "",
+  stock: "",
+  precioCosto: "",
+  precioVenta: "",
+  requiresPrescription: "",
+  estado: "",
+  description: ""
+});
+
 
   // Maneja cambios en inputs y selects
   const handleChange = (e) => {
-    console.log("Nombre user", e.target.value);
-    
-  }
+  const { name, value } = e.target;
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value
+  }));
+};
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+  console.log("Formulario enviado");
+  console.log(formData);
+
+  setFormData({
+    nombre: "",
+    formaFarmaceutica: "",
+    viaAdministracion: "",
+    laboratorio: "",
+    concentracion: "",
+    proveedor: "",
+    lote: "",
+    fechaFabricacion: "",
+    fechaVencimiento: "",
+    stock: "",
+    precioCosto: "",
+    precioVenta: "",
+    requiresPrescription: "",
+    estado: "",
+    description: ""
+  });
+};
+
 
   return (
     <div
@@ -52,84 +99,109 @@ export default function FormMedicamentos() {
         }}
       >
         {/* Formulario */}
-        <form onSubmit className="flex flex-col gap-10">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-10">
           {/* Contenedor de columnas */}
           <div className="flex gap-12">
             {/* ================= COLUMNA 1 ================= */}
             <div className="flex flex-col gap-6 flex-1">
               <Input
                 label="Nombre del medicamento"
+                name="nombre"
                 onChange={handleChange}
+                value={formData.nombre}
                 placeholder="Nombre del medicamento"
               />
 
               <Select
-                label="Formas Farmacéuticas"
-                name="pharmaForm"
+                label="Forma farmaceutica"
+                name="formaFarmaceutica"
                 onChange={handleChange}
+                value={formData.formaFarmaceutica}
                 options={pharmaForm}
-                placeholder="Formas Farmaceuticas"
+                text="Forma farmaceutica"
               />
-
               <Select
                 label="Vía de administración"
+                name="viaAdministracion"
                 onChange={handleChange}
+                value={formData.viaAdministracion}
                 options={administrationTypes}
-                placeholder="Vía de administración"
+                text="Vía de administración"
               />
 
               <Select
                 label="Laboratorio"
+                name="laboratorio"
                 onChange={handleChange}
+                value={formData.laboratorio}
                 options={laboratoriesTypes}
-                placeholder="Laboratorio"
+                text="Laboratorio"
               />
 
               <Input
                 label="Concentración"
+                name="concentracion"
                 onChange={handleChange}
+                value={formData.concentracion}
                 placeholder="Concentración"
               />
 
               <Select
                 label="Proveedores"
+                name="proveedor"
                 onChange={handleChange}
+                value={formData.proveedor}
                 options={suppliers}
-                placeholder="Proveedores"
+                text="Proveedores"
               />
             </div>
 
             {/* ================= COLUMNA 2 ================= */}
             <div className="flex flex-col gap-6 flex-1">
-              <Input label="Lote" onChange={handleChange} placeholder="Lote" />
+              <Input 
+                label="Lote" 
+                name="lote"
+                onChange={handleChange}
+                value={formData.lote}
+                placeholder="Lote" />
 
               <Input
                 label="Fecha fabricación"
-                type="date"
+                name="fechaFabricacion"
                 onChange={handleChange}
+                value={formData.fechaFabricacion}
+                placeholder="Fecha fabricación"
               />
 
               <Input
                 label="Fecha vencimiento"
-                type="date"
+                name="fechaVencimiento"
                 onChange={handleChange}
+                value={formData.fechaVencimiento}
+                placeholder="Fecha Vencimiento"
               />
 
               <Input
                 label="Stock"
+                name="stock"
                 onChange={handleChange}
+                value={formData.stock}
                 placeholder="Stock"
               />
 
               <Input
                 label="Precio de costo"
+                name="precioCosto"
+                value={formData.precioCosto}
                 onChange={handleChange}
                 placeholder="Precio de costo"
               />
 
               <Input
                 label="Precio de venta"
+                name="precioVenta"
                 onChange={handleChange}
+                value={formData.precioVenta}
                 placeholder="Precio de venta"
               />
             </div>
@@ -140,32 +212,35 @@ export default function FormMedicamentos() {
                 label="Requiere fórmula"
                 name="requiresPrescription"
                 onChange={handleChange}
+                value={formData.requiresPrescription}
                 placeholder="Sí / No"
               />
 
               <Select
                 label="Estados"
+                name="estado"
                 onChange={handleChange}
+                value={formData.estado}
                 options={statesTypes}
-                placeholder="Estados"
+                text="Estados"
               />
 
               <Input
                 label="Descripción"
                 name="description"
                 onChange={handleChange}
+                value={formData.description}
                 placeholder="Descripción"
               />
             </div>
           </div>
           {/* Botón guardar */}
-          <div className="flex gap-3 justify-end mt-6">
+          <div className="flex justify-center items-center gap-6 mt-12">
             {/* Botón primario → “Guardar” */}
             <Button
               variant="primary"
               size="md"
               type="submit"
-              onClick={() => console.log("Guardar")}
             >
               Guardar
             </Button>

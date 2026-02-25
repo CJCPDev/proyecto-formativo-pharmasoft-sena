@@ -1,49 +1,73 @@
 export default function Select({
-    label,
-    name,
-    options = [],
-    text,
-    }
-){
+  label,
+  name,
+  options = [],
+  text,
+  ...props
+}) {
+  return (
+    <div className="w-[320px]">
 
-    return (
+      {/* Label */}
+      {label && (
+        <label
+          className="
+            block
+            text-[8px]
+            text-gray-500
+            font-mono
+            font-light
+          "
+        >
+          {label}
+        </label>
+      )}
 
-        <div className='w-[320px]'>
+      {/* Contenedor igual al Input */}
+      <div
+        className="
+          relative
+          h-12
+          flex
+          items-center
+        "
+      >
 
-            {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
-            {label && (
-            <label className='text-caption mb-1 text-text-secundary'>
-                {label}
-            </label>
-            )}
-            <select 
-                name={name}
-                className='
-                    w-full
-                    h-12
-                    rounded-md
-                    border
-                    border-border
-                    px-4
-                '
-                >
-                <option value="">{text}</option>
-                {options.map((option) => {
+        <select
+          name={name}
+          value=""
+          className="
+            w-full
+            h-8
+            relative
+            text-black
+            rounded-xl
+            bg-[#DEFBDD]
+            border
+            border-[#F1FDF0]
+            px-4
+            text-base
+            focus:ring-2
+            focus:ring-[#062d08]
+            focus:border-[#062d08]
+            focus:outline-none
+          "
+          {...props}
+        >
+          {/* Placeholder */}
+          <option value="" disabled hidden>
+            {text}
+          </option>
 
-                    return(
-                    <option key={option.id} value={option.id}>
-                        {option.label}
-                    </option>
-                    )
-                })
-                };
-            </select>
+          {/* Opciones dinámicas */}
+          {options.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.label}
+            </option>
+          ))}
+        </select>
 
-
-
-
-        </div>
-
-
-    );
+      </div>
+    </div>
+  );
 }
