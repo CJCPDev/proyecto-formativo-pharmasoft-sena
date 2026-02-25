@@ -12,7 +12,7 @@
     
     --color-backgraund: var(--semantic-primary-50);
     --color-surface: var(--semantic-surface);
-    --color-surface: var(--semantic-surface);
+    --color-surface-v2: var(--semantic-surface-v2);
     
     --color-text-primary: var(--semantic-text-primary);
     --color-text-secundary: var(--semantic-text-secundary);
