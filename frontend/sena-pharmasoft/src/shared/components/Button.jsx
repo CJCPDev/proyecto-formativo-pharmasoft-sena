@@ -6,8 +6,8 @@ export default function Button ({
     ...props
 }){
     const variants = {
-        primary: 'border border-border bg-brand hover:bg-brand-soft ',
-        secondary: 'border border-border-strong bg-brand-soft text-primary hover:bg-brand',
+        primary: 'bg-brand text-secondary hover:bg-brand-soft ',
+        secondary: 'bg-brand-soft text-main hover:bg-brand',
     };
 
     const sizes = {

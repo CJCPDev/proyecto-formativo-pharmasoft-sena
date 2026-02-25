@@ -34,6 +34,7 @@ export default function Select({
                     border-[#F1FDF0]
                     px-4
                     text-base
+                    font-main
                     focus:ring-2
                     focus:ring-[#062d08]
                     focus:border-[#062d08]

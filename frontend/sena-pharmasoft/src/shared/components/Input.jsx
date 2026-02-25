@@ -8,8 +8,8 @@ export default function Input({label, type = "text", ...props}){
                     block
                     text-[8px]
                     text-gray-500
-                    font-mono     
-                    font-light
+                    font-secundary     
+                    font-secundary
                 "
           >
             {label}
@@ -37,7 +37,6 @@ export default function Input({label, type = "text", ...props}){
                     e.currentTarget.nextSibling.focus();
                     }}  
           />
-
           <input
             type={type}
             className="
@@ -51,6 +50,7 @@ export default function Input({label, type = "text", ...props}){
                     border-[#F1FDF0]
                     px-4
                     text-base
+                    font-main
                     focus:ring-2
                     focus:ring-[#062d08]
                     focus:border-[#062d08]

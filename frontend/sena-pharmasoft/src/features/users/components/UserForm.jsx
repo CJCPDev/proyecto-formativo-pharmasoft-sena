@@ -2,8 +2,8 @@ import Input from "./../../../shared/components/Input";
 import Select from "./../../../shared/components/Select"
 import Button from "./../../../shared/components/Button"
 import "./../../../features/users/services/selectService"
-import documentTypes from "./../../../assets/data/selects/documentTypes.json"
-import userGroups from "./../../../assets/data/selects/usersGroups.json"
+import documentTypes from "./../../../data/selects/documentTypes.json"
+import userGroups from "./../../../data/selects/usersGroups.json"
 
 export default function UserForm() {
   return (
@@ -85,3 +85,4 @@ export default function UserForm() {
       </div>
   );
 }
+
