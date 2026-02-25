@@ -1,7 +1,75 @@
 [
+<<<<<<< HEAD
   { "id": 1, "label": "Crema" },
   { "id": 2, "label": "Gel" },
   { "id": 3, "label": "Linimento / Bálsamo" },
   { "id": 4, "label": "Pasta" },
   { "id": 5, "label": "Ungüento / Pomada" }
 ]
+=======
+  {
+    "id": 1,
+    "label": "Especial",
+    "options": [
+      { "id": 1, "label": "Colirio" },
+      { "id": 2, "label": "Colutorio / Enjuague Bucal" },
+      { "id": 3, "label": "Dentífrico" },
+      { "id": 4, "label": "Desinfectante / Antiséptico" },
+      { "id": 5, "label": "Loción" },
+      { "id": 6, "label": "Parche transdérmico" },
+      { "id": 7, "label": "Pomada oftálmica" },
+      { "id": 8, "label": "Solución nasal / Spray nasal" }
+    ]
+  },
+  {
+    "id": 2,
+    "label": "Líquidas",
+    "options": [
+      { "id": 1, "label": "Enema" },
+      { "id": 2, "label": "Emulsión" },
+      { "id": 3, "label": "Gotas" },
+      { "id": 4, "label": "Infusión / Concentrado para diluir" },
+      { "id": 5, "label": "Inyectable / Ampolla / Frasco ámpula" },
+      { "id": 6, "label": "Jarabe" },
+      { "id": 7, "label": "Solución oral" },
+      { "id": 8, "label": "Suspensión" }
+    ]
+  },
+  {
+    "id": 3,
+    "label": "Gaseosas",
+    "options": [
+      { "id": 1, "label": "Aerosol / Spray" },
+      { "id": 2, "label": "Inhalador" },
+      { "id": 3, "label": "Nebulizador" }
+    ]
+  },
+  {
+    "id": 4,
+    "label": "Semisólidas",
+    "options": [
+      { "id": 1, "label": "Crema" },
+      { "id": 2, "label": "Gel" },
+      { "id": 3, "label": "Linimento / Bálsamo" },
+      { "id": 4, "label": "Pasta" },
+      { "id": 5, "label": "Ungüento / Pomada" }
+    ]
+  },
+  {
+    "id": 5,
+    "label": "Sólidas",
+    "options": [
+      { "id": 4, "label": "Cápsula" },
+      { "id": 4, "label": "Gragea" },
+      { "id": 4, "label": "Granulado" },
+      { "id": 4, "label": "Implante" },
+      { "id": 4, "label": "Pastilla" },
+      { "id": 4, "label": "Píldora" },
+      { "id": 4, "label": "Polvo" },
+      { "id": 4, "label": "Supositorio" },
+      { "id": 4, "label": "Óvulo" }
+    ]
+  }
+]
+
+>>>>>>> dev
