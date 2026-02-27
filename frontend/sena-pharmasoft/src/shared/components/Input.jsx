@@ -7,9 +7,12 @@ export default function Input({label, type = "text", ...props}){
             className="
                     block
                     text-[8px]
+                    
                     text-gray-500
-                    font-secundary     
-                    font-secundary
+                    font-mono     
+                    font-light
+                    font-
+
                 "
           >
             {label}
@@ -37,20 +40,20 @@ export default function Input({label, type = "text", ...props}){
                     e.currentTarget.nextSibling.focus();
                     }}  
           />
+
           <input
             type={type}
             className="
                     w-full
                     h-12
                     relative
-                    text-gray-400
+                    text-black
                     rounded-xl
-                    bg-[#DEFBDD]
+                    bg-brand
                     border
-                    border-[#F1FDF0]
+                    border-brand-soft
                     px-4
                     text-base
-                    font-main
                     focus:ring-2
                     focus:ring-[#062d08]
                     focus:border-[#062d08]
