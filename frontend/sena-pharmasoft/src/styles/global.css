@@ -19,10 +19,6 @@
     --color-border-strong: var(--semantic-primary-950);
     --color-warning: var(--semantic-secundary-800); /* */
 
-
-/* @import "tailwindcss"; Esta linea debe quedar al final para que funcione */
-
-
     --color-brand-hover:var(--semantic-brand-hover);
     --color-brand-soft: var(--semantic-brand-soft);
     
