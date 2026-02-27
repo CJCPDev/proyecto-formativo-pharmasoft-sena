@@ -5,6 +5,6 @@ export default function Background(){
 
 
     return(
-    <img className='w-full relative' src={background} alt="Imagen de referencia fondo layout" />
+    <img className='w-full relative blur-xs mask--' src={background} alt="Imagen de referencia fondo layout" />
     )
 }   
