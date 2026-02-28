@@ -7,12 +7,8 @@ export default function Input({label, type = "text", ...props}){
             className="
                     block
                     text-[8px]
-                    
-                    text-gray-500
                     font-mono     
                     font-light
-                    font-
-
                 "
           >
             {label}
@@ -47,17 +43,17 @@ export default function Input({label, type = "text", ...props}){
                     w-full
                     h-12
                     relative
-                    text-black
+                    text-text-muted
                     rounded-xl
-                    bg-brand
+                    bg-brand-soft
                     border
-                    border-brand-soft
+                    border-brand
                     px-4
                     text-base
                     focus:ring-2
-                    focus:ring-[#062d08]
-                    focus:border-[#062d08]
-                    focus:outline-none   
+                    focus:ring-brand-hover
+                    focus:border-brand-hover
+                    focus:outline-none
                     "
             {...props}
           />

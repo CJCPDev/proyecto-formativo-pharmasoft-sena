@@ -12,7 +12,6 @@ export default function Select({
             <label className="
                             block
                             text-[8px]
-                            text-gray-500
                             font-mono
                             font-light
                             "
@@ -27,17 +26,16 @@ export default function Select({
                     w-full
                     h-12
                     relative
-                    text-gray-400
+                    text-text-muted
                     rounded-xl
-                    bg-[#DEFBDD]
+                    bg-brand-soft
                     border
-                    border-[#F1FDF0]
+                    border-brand
                     px-4
                     text-base
-                    font-main
                     focus:ring-2
-                    focus:ring-[#062d08]
-                    focus:border-[#062d08]
+                    focus:ring-brand-hover
+                    focus:border-brand-hover
                     focus:outline-none
                 '
                 >

@@ -13,7 +13,7 @@
     --color-surface-muted: var(--semantic-gray-200);
     --color-text-primary: var(--semantic-gray-900); 
     --color-text-secundary: var(--semantic-gray-700); 
-    --color-text-muted: var(--semantic-gray-500); 
+    --color-text-muted: var(--semantic-text-muted); 
     --color-text-inverse: var(--semantic-gray-50); 
     --color-border: var(--semantic-primary-800); 
     --color-border-strong: var(--semantic-primary-950);
@@ -28,7 +28,7 @@
     
     --color-text-primary: var(--semantic-text-primary);
     --color-text-secundary: var(--semantic-text-secundary);
-    --color-text-mute: var(--semantic-text-mute);
+    --color-text-muted: var(--semantic-text-muted);
     --color-text-inverse: var(--semantic-text-inverse);
 
     --color-border: var(--semantic-border);

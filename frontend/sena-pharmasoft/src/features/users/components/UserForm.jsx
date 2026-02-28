@@ -8,11 +8,11 @@ import userGroups from "./../../../data/selects/usersGroups.json"
 export default function UserForm() {
   return (
       <div>
-        <form className="grid grid-cols-2 gap-6 w-full max-w-4xl">
+        <form className="grid grid-cols-2 gap-6 w-full max-w-4xl ">
           {/* Formulario para crear el usuario*/}
           <div>
           <Select
-            label="tipo de documento"
+            label="Tipo de documento"
             name="documentType"
             options={documentTypes}
           />
@@ -23,7 +23,8 @@ export default function UserForm() {
           />
           <Input
           label="Nombre completo"
-          placeholder="Nombre completo" />
+          placeholder="Nombre completo" 
+          />
           <Input
             label="Correo electronico"
             type="email"
