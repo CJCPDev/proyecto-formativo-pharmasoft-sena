@@ -8,9 +8,11 @@ export default function Input({label, type = "text", ...props}){
           <label
             className="
                     block
+                    text
                     text-[8px] 
                     text-text-muted
-                    font-light
+                    mb-1
+                    px-4
                   "
           >
             {label}
@@ -43,10 +45,10 @@ export default function Input({label, type = "text", ...props}){
             type={type}
             className="
                     w-full
-                    h-8
+                    h-12
                     relative
                     text-text-muted
-                    rounded-xl
+                    rounded-lg
                     bg-(--color-primary-100)
                     border
                     border-(--color-primary-50)

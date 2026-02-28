@@ -7,20 +7,21 @@ export default function Select({
 
     return (
 
-        <div className='w-[320px]'>
+        <div className='w-full '>
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
-            <label className='text-caption mb-1 text-text-secundary'>
+            <label className='block text-small-label mb-1 px-4 text-text-secundary'>
                 {label}
             </label>
             )}
             <select 
                 name={name}
                 className='
+                    bg-brand-soft
                     w-full
                     h-12
-                    rounded-md
+                    rounded-lg
                     border
                     border-border
                     px-4

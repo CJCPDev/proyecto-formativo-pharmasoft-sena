@@ -6,9 +6,7 @@ export default function App(){
       <h1 className="text-big-tittle text-family-main">
         Crear Proveedor
       </h1>
-      <div className='max-w-175 p-4'>
        <SuppliersForm/>
-      </div>
     </div>
   )
 }
