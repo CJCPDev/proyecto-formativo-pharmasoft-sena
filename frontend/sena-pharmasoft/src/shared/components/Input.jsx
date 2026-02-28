@@ -1,18 +1,15 @@
 export default function Input({label, type = "text", ...props}){
     return (
-      <div className="w-[320px]">
+      <div className="w-80">
         {/*Label */}
         {label && (
           <label
             className="
                     block
-                    text-[8px]
-                    
-                    text-gray-500
-                    font-mono     
-                    font-light
-                    font-
-
+                    px-2
+                    text-info-medium
+                    text-black
+                    font-main
                 "
           >
             {label}
@@ -45,19 +42,22 @@ export default function Input({label, type = "text", ...props}){
             type={type}
             className="
                     w-full
-                    h-8
+                    h-10
                     relative
                     text-black
                     rounded-xl
-                    bg-[#DEFBDD]
+                    bg-brand
                     border
-                    border-[#F1FDF0]
+                    border-background
                     px-4
                     text-base
-                    focus:ring-2
-                    focus:ring-[#062d08]
-                    focus:border-[#062d08]
-                    focus:outline-none   
+                    focus:ring-1
+                    focus:ring-brand-hover
+                    focus:border-brand-fort
+                    focus:outline-none
+                    focus:bg-white   
+                    hover:bg-white
+                    hover:border-brand-hover
                     "
             {...props}
           />
