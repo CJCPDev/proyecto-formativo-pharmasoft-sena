@@ -1,9 +1,10 @@
 import { Search, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from 'react';
+import Logo from '../../assets/logo.webp'
 
 
-const Navbar = () => {
+export default function Navbar() {
 
 const [isOpen, setIsOpen] = useState(false);
 
@@ -15,7 +16,7 @@ const [isOpen, setIsOpen] = useState(false);
           {/* Logo de marca */}
           <div className="flex items-center">
             <Link to="/" className="text-xl font-bold">
-              Rico Programar
+              <img src={Logo} alt="imagen" />
             </Link>
           </div>
 
@@ -111,7 +112,6 @@ const [isOpen, setIsOpen] = useState(false);
 };
 
 
-export default Navbar;
 
 
 // Paara dirigirme o navegar a una ruta uso link.
