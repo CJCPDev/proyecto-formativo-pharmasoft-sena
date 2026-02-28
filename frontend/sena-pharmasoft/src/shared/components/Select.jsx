@@ -1,14 +1,14 @@
 export default function Select({
     label,
     name,
-    options = [],
-    text
+    string,
+    options = []
     }
 ){
 
     return (
 
-        <div className='w-[320px]'>
+        <div className='font-main w-[320px]'>
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
@@ -20,14 +20,22 @@ export default function Select({
                 name={name}
                 className='
                     w-full
-                    h-12
-                    rounded-md
+                    h-10
+                    bg-brand
+                    rounded-xl
                     border
                     border-border
                     px-4
+                    focus:ring-1
+                    focus:ring-brand-hover
+                    focus:border-brand-fort
+                    focus:outline-none
+                    focus:bg-white   
+                    hover:bg-white
+                    hover:border-brand-hover
                 '
                 >
-                <option value="">{text}</option>
+                <option disabled value="">{string}</option>
                 {options.map((option) => {
 
                     return(

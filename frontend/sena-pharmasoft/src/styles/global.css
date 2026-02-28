@@ -13,6 +13,7 @@
     --color-backgraund: var(--semantic-primary-50);
     --color-surface: var(--semantic-surface);
     --color-surface-v2: var(--semantic-surface-v2);
+    --color-background: var(--semantic-background);
     
     --color-text-primary: var(--semantic-text-primary);
     --color-text-secundary: var(--semantic-text-secundary);
@@ -27,7 +28,7 @@
     /* tamaños y tipografia de la aplicación */
     --font-main: var(--semantic-font-main);
     --font-secondary: var(--semantic-font-secondary);
-    
+    --font-semibold: var(--semantic-font-semibold);
     /* tamaños */
     --text-big-tittle: var(--semantic-fs-big);
     --text-general-tittle: var(--semantic-fs-lg);
