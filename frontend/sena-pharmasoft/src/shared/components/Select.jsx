@@ -2,8 +2,6 @@ export default function Select({
   label,
   name,
   options = [],
-  text,
-  ...props
 }) {
   return (
     <div className="w-[320px]">
@@ -14,7 +12,6 @@ export default function Select({
           className="
             block
             text-[8px]
-            text-gray-500
             font-mono
             font-light
           "
@@ -23,7 +20,7 @@ export default function Select({
         </label>
       )}
 
-      {/* Contenedor igual al Input */}
+      {/* Contenedor igual al Input
       <div
         className="
           relative
@@ -31,14 +28,13 @@ export default function Select({
           flex
           items-center
         "
-      >
+      > */}
 
         <select
           name={name}
-          value=""
           className="
             w-full
-            h-8
+            h-12
             relative
             text-black
             rounded-xl
@@ -52,22 +48,19 @@ export default function Select({
             focus:border-[#062d08]
             focus:outline-none
           "
-          {...props}
         >
           {/* Placeholder */}
-          <option value="" disabled hidden>
-            {text}
-          </option>
+          <option value=""> Seleccione una opción </option>
 
           {/* Opciones dinámicas */}
           {options.map((option) => (
             <option key={option.id} value={option.id}>
               {option.label}
             </option>
-          ))}
+          ))
+          };
         </select>
 
       </div>
-    </div>
   );
 }

@@ -32,60 +32,6 @@ export default function FormMedicamentos() {
     getStatesTypes().then(setStatesTypes)
   }, []);
 
-  const [formData, setFormData] = useState({
-  nombre: "",
-  formaFarmaceutica: "",
-  viaAdministracion: "",
-  laboratorio: "",
-  concentracion: "",
-  proveedor: "",
-  lote: "",
-  fechaFabricacion: "",
-  fechaVencimiento: "",
-  stock: "",
-  precioCosto: "",
-  precioVenta: "",
-  requiresPrescription: "",
-  estado: "",
-  description: ""
-});
-
-
-  // Maneja cambios en inputs y selects
-  const handleChange = (e) => {
-  const { name, value } = e.target;
-
-  setFormData((prev) => ({
-    ...prev,
-    [name]: value
-  }));
-};
-  const handleSubmit = (e) => {
-  e.preventDefault();
-
-  console.log("Formulario enviado");
-  console.log(formData);
-
-  setFormData({
-    nombre: "",
-    formaFarmaceutica: "",
-    viaAdministracion: "",
-    laboratorio: "",
-    concentracion: "",
-    proveedor: "",
-    lote: "",
-    fechaFabricacion: "",
-    fechaVencimiento: "",
-    stock: "",
-    precioCosto: "",
-    precioVenta: "",
-    requiresPrescription: "",
-    estado: "",
-    description: ""
-  });
-};
-
-
   return (
     <div
       className="min-h-screen p-12"
@@ -99,7 +45,7 @@ export default function FormMedicamentos() {
         }}
       >
         {/* Formulario */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-10">
+        <form className="flex flex-col gap-10">
           {/* Contenedor de columnas */}
           <div className="flex gap-12">
             {/* ================= COLUMNA 1 ================= */}
@@ -107,24 +53,19 @@ export default function FormMedicamentos() {
               <Input
                 label="Nombre del medicamento"
                 name="nombre"
-                onChange={handleChange}
-                value={formData.nombre}
                 placeholder="Nombre del medicamento"
               />
 
               <Select
                 label="Forma farmaceutica"
                 name="formaFarmaceutica"
-                onChange={handleChange}
-                value={formData.formaFarmaceutica}
                 options={pharmaForm}
+                placeholder="Forma farmaceutica"
                 text="Forma farmaceutica"
               />
               <Select
                 label="Vía de administración"
                 name="viaAdministracion"
-                onChange={handleChange}
-                value={formData.viaAdministracion}
                 options={administrationTypes}
                 text="Vía de administración"
               />
@@ -132,8 +73,6 @@ export default function FormMedicamentos() {
               <Select
                 label="Laboratorio"
                 name="laboratorio"
-                onChange={handleChange}
-                value={formData.laboratorio}
                 options={laboratoriesTypes}
                 text="Laboratorio"
               />
@@ -141,16 +80,12 @@ export default function FormMedicamentos() {
               <Input
                 label="Concentración"
                 name="concentracion"
-                onChange={handleChange}
-                value={formData.concentracion}
                 placeholder="Concentración"
               />
 
               <Select
                 label="Proveedores"
                 name="proveedor"
-                onChange={handleChange}
-                value={formData.proveedor}
                 options={suppliers}
                 text="Proveedores"
               />
@@ -161,49 +96,37 @@ export default function FormMedicamentos() {
               <Input 
                 label="Lote" 
                 name="lote"
-                onChange={handleChange}
-                value={formData.lote}
                 placeholder="Lote" />
 
               <Input
                 label="Fecha fabricación"
                 name="fechaFabricacion"
-                // onChange={handleChange}
                 type="date"
-                value={formData.fechaFabricacion}
                 placeholder="Fecha fabricación"
               />
 
               <Input
                 label="Fecha vencimiento"
                 name="fechaVencimiento"
-                // onChange={handleChange}
                 type="date"
-                value={formData.fechaVencimiento}
                 placeholder="Fecha Vencimiento"
               />
 
               <Input
                 label="Stock"
                 name="stock"
-                onChange={handleChange}
-                value={formData.stock}
                 placeholder="Stock"
               />
 
               <Input
                 label="Precio de costo"
                 name="precioCosto"
-                value={formData.precioCosto}
-                onChange={handleChange}
                 placeholder="Precio de costo"
               />
 
               <Input
                 label="Precio de venta"
                 name="precioVenta"
-                onChange={handleChange}
-                value={formData.precioVenta}
                 placeholder="Precio de venta"
               />
             </div>
@@ -213,16 +136,12 @@ export default function FormMedicamentos() {
               <Input
                 label="Requiere fórmula"
                 name="requiresPrescription"
-                onChange={handleChange}
-                value={formData.requiresPrescription}
                 placeholder="Sí / No"
               />
 
               <Select
                 label="Estados"
                 name="estado"
-                onChange={handleChange}
-                value={formData.estado}
                 options={statesTypes}
                 text="Estados"
               />
@@ -230,14 +149,11 @@ export default function FormMedicamentos() {
               <Input
                 label="Descripción"
                 name="description"
-                onChange={handleChange}
-                value={formData.description}
                 placeholder="Descripción"
               />
             </div>
           </div>
-          {/* Botón guardar */}
-          <div className="flex justify-center items-center gap-6 mt-12">
+          <div className="col-span-full flex justify-center gap-6 py-6">
             {/* Botón primario → “Guardar” */}
             <Button
               variant="primary"

@@ -45,7 +45,7 @@ export default function Input({label, type = "text", ...props}){
             type={type}
             className="
                     w-full
-                    h-8
+                    h-12
                     relative
                     text-black
                     rounded-xl
