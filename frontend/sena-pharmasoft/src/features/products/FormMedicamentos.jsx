@@ -168,7 +168,8 @@ export default function FormMedicamentos() {
               <Input
                 label="Fecha fabricación"
                 name="fechaFabricacion"
-                onChange={handleChange}
+                // onChange={handleChange}
+                type="date"
                 value={formData.fechaFabricacion}
                 placeholder="Fecha fabricación"
               />
@@ -176,7 +177,8 @@ export default function FormMedicamentos() {
               <Input
                 label="Fecha vencimiento"
                 name="fechaVencimiento"
-                onChange={handleChange}
+                // onChange={handleChange}
+                type="date"
                 value={formData.fechaVencimiento}
                 placeholder="Fecha Vencimiento"
               />
