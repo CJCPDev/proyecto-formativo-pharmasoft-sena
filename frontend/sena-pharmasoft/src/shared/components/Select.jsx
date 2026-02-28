@@ -33,7 +33,6 @@ export default function Select({
                     focus:bg-white   
                     hover:bg-white
                     hover:border-brand-hover
-                    
                 '
                 >
                 <option disabled value="">{string}</option>
