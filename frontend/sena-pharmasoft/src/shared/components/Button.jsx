@@ -8,7 +8,7 @@ export default function Button ({
 
     const variants = {
         primary: 'font-main text-brand-soft font-semibold text-base bg-brand-hover hover:bg-brand-soft hover:text-brand-hover',
-        secondary: "font-main text-brand-hover font-semibold text-base bg-brand-soft hover:bg-brand-hover hover:text-brand-soft",
+        secondary: "font-main text-brand-hover font-semibold text-base bg-brand-softv2 hover:bg-brand-hover hover:text-brand-soft",
     };
 
     const sizes = {
@@ -40,6 +40,7 @@ export default function Button ({
             inline-flex items-center justify-center
             rounded-xl
             transition-colors
+            cursor-pointer
             ${variants[variant]}
             ${sizes[size]}
             `}
