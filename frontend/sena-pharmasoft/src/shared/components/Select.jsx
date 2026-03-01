@@ -1,11 +1,12 @@
 export default function Select({
     label,
     name,
+    string,
     options = []
     }
 ){
     return (
-        <div className='w-[320px]'>
+        <div className='font-main w-[320px]'>
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
@@ -27,8 +28,8 @@ export default function Select({
                     h-12
                     relative
                     text-text-muted
-                    rounded-xl
                     bg-brand-soft
+                    rounded-xl
                     border
                     border-brand
                     px-4
@@ -36,10 +37,12 @@ export default function Select({
                     focus:ring-2
                     focus:ring-brand-hover
                     focus:border-brand-hover
-                    focus:outline-none
+                    focus:bg-white   
+                    hover:bg-white
+                    hover:border-brand-hover
                 '
                 >
-                <option value="">Seleccione un tipo de documento</option>
+                <option disabled value="">{string}</option>
                 {options.map((option) => {
 
                     return(
@@ -51,5 +54,5 @@ export default function Select({
                 };
             </select>
         </div>
-    );
-};
+    )
+}

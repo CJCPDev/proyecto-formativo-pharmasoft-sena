@@ -1,11 +1,12 @@
-// import UserForm from '../features/users/components/UserForm'
-// import 'tailwindcss';
-import { RouterProvider } from "react-router-dom"
-import router from "@/app/router"
+import { RouterProvider } from 'react-router-dom';
+import router from '../app/router/router';
 
 export default function App(){
-  return (
-
+  
+  
+  return (  
     <RouterProvider router={router}/>
-  );
-};
+
+  )
+}
+

@@ -1,6 +1,6 @@
 export default function Input({label, type = "text", ...props}){
     return (
-      <div className="w-[320px]">
+      <div className="w-80">
         {/*Label */}
         {label && (
           <label
@@ -9,6 +9,10 @@ export default function Input({label, type = "text", ...props}){
                     text-[8px]
                     font-mono     
                     font-light
+                    px-2
+                    text-info-medium
+                    text-black
+                    font-main
                 "
           >
             {label}
@@ -54,6 +58,11 @@ export default function Input({label, type = "text", ...props}){
                     focus:ring-brand-hover
                     focus:border-brand-hover
                     focus:outline-none
+                    bg-brand
+                    border-background
+                    focus:bg-white   
+                    hover:bg-white
+                    hover:border-brand-hover
                     "
             {...props}
           />
