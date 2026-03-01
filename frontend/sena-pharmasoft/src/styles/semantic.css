@@ -7,7 +7,7 @@
     /*  *************BRAND********* (colores principales de la marca)*/
     --semantic-brand: var(--color-primary-50); /*color principal del proyecto*/
     --semantic-brand-soft: var(--color-primary-100); 
-    --semantic-brand-soft: var(--color-primary-200);
+    --semantic-brand-soft-v2: var(--color-primary-200);
     --semantic-brand-hover:var(--color-primary-800); /*generalmente es de un tomo mas oscuro*/
     --semantic-brand-hover: var(--color-primary-900);/* Generalmente es de un tono mas alto que el brand */
     --semantic-brand-fort: var(--color-primary-950);
@@ -37,6 +37,7 @@
     --semantic-fs-big: var(--fs-big);
     --semantic-fs-lg: var(--fs-lg);
     --semantic-fs-xxs: var(--fs-xxs);
+    --semanticas-fs-mg: var(--fs-mg);
 
     --color-text-primary: var(--black); /* Color principal de lectura, títulos, texto base del documento */
     --color-text-secundary: var(--color-gray-700); /* Textos menos dominantes */
