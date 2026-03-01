@@ -8,7 +8,6 @@ export default function LoginForm(){
 
     return(
         <div>
-            {/* Formulario para crear el usuario */}
             <form className="
             px-6 py-12 
             grid grid-cols-1 gap-6
@@ -37,10 +36,9 @@ export default function LoginForm(){
             <Link to="/forgot-password" className="text-info-regular text-center underline text-secondary text-brand-hover hover:font-extrabold">
               ¿Olvidaste tu contraseña?
             </Link>
-                {/* Actions */}
                 <div className= "flex items-center justify-center gap-12">
                     <Button
-                        type="submit"
+                        href='/'
                         variant = "secondary"
                         size = "md"
                     >
