@@ -40,6 +40,7 @@ export default function Button ({
             inline-flex items-center justify-center
             rounded-xl
             transition-colors
+            cursor-pointer
             ${variants[variant]}
             ${sizes[size]}
             `}

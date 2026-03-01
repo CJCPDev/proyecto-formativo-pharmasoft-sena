@@ -10,6 +10,7 @@ export default function Input({label, type = "text", ...props}){
                     text-info-medium
                     text-black
                     font-main
+                    font-bold
                 "
           >
             {label}
@@ -46,7 +47,7 @@ export default function Input({label, type = "text", ...props}){
                     relative
                     text-black
                     rounded-xl
-                    bg-brand
+                    bg-brand-soft/60
                     border
                     border-background
                     px-4
