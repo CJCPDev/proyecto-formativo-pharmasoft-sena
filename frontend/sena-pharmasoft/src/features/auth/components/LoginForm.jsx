@@ -12,7 +12,7 @@ export default function LoginForm(){
             px-6 py-12 
             grid grid-cols-1 gap-6
             bg-white
-            dark:bg-brand-soft/40
+            shadow-2xl
             ring-1
             ring-brand-soft/80
             rounded-xl

@@ -6,7 +6,9 @@ export default function AuthLayout (){
     
     const blurPages = [
         '/forgot-password',
-        '/reset-password'
+        '/reset-password',
+        '/validation'
+        
     ]
 
     const location = useLocation();
@@ -16,7 +18,7 @@ export default function AuthLayout (){
         <div className="h-screen grid grid-cols-2 font-main">
             <div className={`grid h-full w-full bg-brand-soft
             ${
-                isblur ? 'blur-xs scale-100' : ''
+                isblur ? 'blur-xs scale-100 pointer-events-none select-none' : ''
             }
             `}>
                 <section className="text-center">
