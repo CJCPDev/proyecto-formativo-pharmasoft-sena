@@ -13,10 +13,6 @@ export default function HomePage (){
             }
         >
             <div className="relative z-10 text-center text-text-inverse">
-
-                <p>
-                    Aprende según tus gusto, desde panaderia hasta control numérico
-                </p>
             </div>
         </section>
     )
