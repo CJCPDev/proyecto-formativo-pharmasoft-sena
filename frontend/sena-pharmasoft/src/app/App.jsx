@@ -1,12 +1,14 @@
-import SuppliersForm from '../features/suppliers/componentes/SuppliersForm'
+import { RouterProvider } from 'react-router-dom';
+import router from '../app/router/router';
+
+
+
 
 export default function App(){
-  return (
-    <div className="grid grid-cols-1 items-center gap-6 justify-center justify-items-center">
-      <h1 className="text-big-tittle text-family-main">
-        Crear Proveedor
-      </h1>
-       <SuppliersForm/>
-    </div>
+  
+  
+  return (  
+    <RouterProvider router={router}/>
+
   )
 }

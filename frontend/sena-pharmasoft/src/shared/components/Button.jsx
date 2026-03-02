@@ -7,8 +7,8 @@ export default function Button ({
 }){
 
     const variants = {
-        primary: 'border border-border-strong bg-brand-soft hover:bg-brand-hover',
-        secondary: 'border border-border bg-brand hover:bg-brand-hover',
+        primary: 'font-main text-brand-soft font-semibold text-base bg-brand-hover hover:bg-brand-soft hover:text-brand-hover',
+        secondary: "font-main text-brand-hover font-semibold text-base bg-brand-softv2 hover:bg-brand-hover hover:text-brand-soft",
     };
 
     const sizes = {
@@ -35,10 +35,12 @@ export default function Button ({
         <button
         type = {type}
         className={`
+            w-40
             relative
             inline-flex items-center justify-center
-            rounded-md
+            rounded-xl
             transition-colors
+            cursor-pointer
             ${variants[variant]}
             ${sizes[size]}
             `}
