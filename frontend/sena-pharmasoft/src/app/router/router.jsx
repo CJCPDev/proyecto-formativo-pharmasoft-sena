@@ -1,10 +1,13 @@
+import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import HomePage from "../../features/home/pages/HomePage";
 import ProfilePage from "../../features/users/pages/ProfilePage";
-import LoginForm from "../../features/users/components/LoginForm";
-import ForgetPassword from "../../features/users/components/ForgetPassword";
-import { createBrowserRouter } from "react-router-dom"
+import LoginPage from "../../features/auth/pages/LoginPage";
+import ForgotPasswordPage from "../../features/auth/pages/ForgotPasswordPage";
+import ResetPasswordPage from '../../features/auth/pages/ResetPasswordPage'
+import Loading from "../../shared/components/Loading";
+import ValidationResetPassword from "../../features/auth/pages/ValidationResetPassword";
 
 const router = createBrowserRouter ([
     {
@@ -18,19 +21,23 @@ const router = createBrowserRouter ([
             },
             {
                 path: "Usuarios",
-                element: <h1 className="p-4">Cursos</h1>
+                element: <h1 className="p-4">Usuarios</h1> //Definir pagina
             },
             {
-                path: "contacto",
-                element: <h1 className="p-4">Contacto</h1>
+                path: "Proveedores",
+                element: <h1 className="p-4">Proveedores</h1> //Definir pagina
             },
             {
-                path: "videos",
-                element: <h1 className="p-4">Videos</h1>
+                path: "Medicamentos",
+                element: <h1 className="p-4">Medicamentos</h1> //Definir pagina
+            },
+            {
+                path: "Ventas",
+                element: <h1 className="p-4">Ventas</h1> //Definir pagina
             },
             {
                 path: "perfil",
-                element: <ProfilePage/>
+                element: <ProfilePage/> //Definir pagina
             }
         ]
     },
@@ -39,15 +46,23 @@ const router = createBrowserRouter ([
         children: [
             {
                 path: "login",
-                element: <LoginForm/>
+                element: <LoginPage/>
             },
             {
                 path: "forgot-password",
-                element: <ForgetPassword/>
+                element: <ForgotPasswordPage/>
             },
             {
                 path: "reset-password",
-                element: <h1 className="p-4">Cambiar contraseña</h1>
+                element: <ResetPasswordPage/>
+            },
+            {
+                path: "validation",
+                element: <Loading/>
+            },
+            {
+                path: "validationPassword",
+                element: <ValidationResetPassword/>
             },
     ]
 
