@@ -1,9 +1,17 @@
 import { Search, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Navbar = ({ variant = "solid" }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Navbar = ({variant = "solid"}) => {
+    const [isOpen, setIsOpen] = useState(false);
+     const navigate = useNavigate();
+
+    const handleClick = ()=> {
+        setTimeout(() => {
+            navigate('/login')
+        }, 100)
+        }
 
   return (
     <nav
@@ -93,10 +101,7 @@ const Navbar = ({ variant = "solid" }) => {
                     <li>
                       <button
                         className="w-full text-left px-4 py-2 hover:bg-surface transition"
-                        onClick={() => {
-                          setIsOpen(false);
-                          console.log("Cerrar sesión");
-                        }}
+                        onClick={handleClick}
                       >
                         Cerrar sesión
                       </button>

@@ -1,12 +1,16 @@
+import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import AuthLayoutUser from "../../shared/layout/AuthLayoutUser";
 import HomePage from "../../features/home/pages/HomePage";
+import LoginPage from "../../features/auth/pages/LoginPage";
+import ForgotPasswordPage from "../../features/auth/components/ForgotPasswordForm"
+import ResetPasswordPage from "../../features/auth/components/ResetPasswordForm"
+import Loading from "../../shared/components/Loading";
+import ValidationResetPassword from "../../features/auth/pages/ValidationResetPassword"
+import UserForm from "../../features/auth/components/UserForm";
 import ProfilePage from "../../features/users/pages/ProfilePage";
-import LoginForm from "../../features/users/components/LoginForm";
-import ForgetPassword from "../../features/users/components/ForgetPassword";
-import UserForm from "../../features/users/components/UserForm";
-import { createBrowserRouter } from "react-router-dom"
+
 
 const router = createBrowserRouter ([
     {
@@ -18,30 +22,7 @@ const router = createBrowserRouter ([
                 path: "/",
                 element: <HomePage/>
             },
-            {
-                path: "usuarios",
-                element: <AuthLayoutUser/>
-            },
-            {
-                path: "proveedores",
-                element: <h1 className="p-4">Proveedores</h1>
-            },
-            {
-                path: "medicamentos",
-                element: <h1 className="p-4">Medicamentos</h1>
-            },
-            {
-                path: "ventas",
-                element: <h1 className="p-4">Ventas</h1>
-            },
-            {
-                path: "carrito",
-                element: <h1 className="p-4">Carrito de ventas</h1>
-            },
-            {
-                path: "perfil",
-                element: <AuthLayout/>
-            }
+            
         ]
     },
     {
@@ -52,12 +33,25 @@ const router = createBrowserRouter ([
                 element: <AuthLayout/>
             },
             {
+                path: "login",
+                element: <LoginPage/>
+
+            },
+            {
                 path: "forgot-password",
-                element: <ForgetPassword/>
+                element: <ForgotPasswordPage/>
             },
             {
                 path: "reset-password",
-                element: <h1 className="p-4">Cambiar contraseña</h1>
+                element: <ResetPasswordPage/>
+            },
+            {
+                path: "validation",
+                element: <Loading/>
+            },
+            {
+                path: "validationPassword",
+                element: <ValidationResetPassword/>
             },
     ]
 

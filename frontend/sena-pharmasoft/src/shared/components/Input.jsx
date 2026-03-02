@@ -11,6 +11,7 @@ export default function Input({label, type = "text", ...props}){
                     text-info-medium
                     text-black
                     font-main
+                    font-bold
                 "
           >
             {label}
@@ -47,7 +48,11 @@ export default function Input({label, type = "text", ...props}){
                     relative
                     text-text-muted
                     rounded-xl
+<<<<<<< HEAD
                     bg-brand-soft
+=======
+                    bg-brand-soft/60
+>>>>>>> dev
                     border
                     border-brand
                     px-4

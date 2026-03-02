@@ -1,7 +1,8 @@
 import authBg from "../../assets/images/background.webp"
-import LoginForm from "@/features/users/components/LoginForm"
+// import LoginForm from "@/features/users/components/LoginForm"
 import { Outlet} from "react-router-dom"
-import UserForm from "../../features/users/components/UserForm"
+// import UserForm from "../../features/users/components/UserForm"
+import UserForm from "../../features/auth/components/UserForm"
 
 
 export default function AuthLayout (){
