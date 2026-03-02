@@ -1,3 +1,4 @@
+
 import FormMedicamentos from '../features/products/FormMedicamentos';
 import Button from '../shared/components/Button';
 
@@ -12,5 +13,17 @@ export default function App(){
       <Button/>
       </div>
     </div>
-  )
+
+import { RouterProvider } from 'react-router-dom';
+import router from '../app/router/router';
+
+
+
+
+export default function App(){
+  
+  
+  return (  
+    <RouterProvider router={router}/>
+  )})
 }

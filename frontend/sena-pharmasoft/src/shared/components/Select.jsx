@@ -1,10 +1,10 @@
 export default function Select({
-  label,
-  name,
-  options = [],
-}) {
-  return (
-    <div className="w-[320px]">
+    label,
+    name,
+    string,
+    options = []
+    }
+){
 
       {/* Label */}
       {label && (
@@ -20,38 +20,35 @@ export default function Select({
         </label>
       )}
 
-      {/* Contenedor igual al Input
-      <div
-        className="
-          relative
-          h-12
-          flex
-          items-center
-        "
-      > */}
+        <div className='font-main w-[320px]'>
 
-        <select
-          name={name}
-          className="
-            w-full
-            h-12
-            relative
-            text-black
-            rounded-xl
-            bg-[#DEFBDD]
-            border
-            border-[#F1FDF0]
-            px-4
-            text-base
-            focus:ring-2
-            focus:ring-[#062d08]
-            focus:border-[#062d08]
-            focus:outline-none
-          "
-        >
-          {/* Placeholder */}
-          <option value=""> Seleccione una opción </option>
-
+            {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
+            {label && (
+            <label className='text-caption mb-1 text-text-secundary'>
+                {label}
+            </label>
+            )}
+            <select 
+                name={name}
+                className='
+                    w-full
+                    h-10
+                    bg-brand
+                    rounded-xl
+                    border
+                    border-border
+                    px-4
+                    focus:ring-1
+                    focus:ring-brand-hover
+                    focus:border-brand-fort
+                    focus:outline-none
+                    focus:bg-white   
+                    hover:bg-white
+                    hover:border-brand-hover
+                '
+                >
+                <option disabled value="">{string}</option>
+                {options.map((option) => {
           {/* Opciones dinámicas */}
           {options.map((option) => (
             <option key={option.id} value={option.id}>
