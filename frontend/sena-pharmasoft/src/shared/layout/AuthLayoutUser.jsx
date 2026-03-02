@@ -29,7 +29,7 @@ export default function AuthLayout (){
             {/* contenido externo que se inyecta */}
             <main className="flex items-center justify-center">
                 <Outlet/>
-                <UserForm/>
+                {/* <UserForm/> */}
             </main>
         </div>
     )
