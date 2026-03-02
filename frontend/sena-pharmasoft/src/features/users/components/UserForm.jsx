@@ -7,8 +7,18 @@ import userGroups from "./../../../data/selects/usersGroups.json"
 
 export default function UserForm() {
   return (
-      <div>
-        <form className="grid grid-cols-2 gap-6 w-full max-w-4xl ">
+      <div className="flex justify-center items-center">
+        <form className="
+                    px-6 py-12
+                    grid grid-cols-2 gap-6
+                    bg-white
+                    dark:bg-neutral-100
+                    backdrop-blur-sm
+                    shadow-xl
+                    ring-1
+                    rounded-xl
+                  
+        ">
           {/* Formulario para crear el usuario*/}
           <div>
           <Select
@@ -49,7 +59,7 @@ export default function UserForm() {
           options={userGroups}
           />
 
-          <div className="col-span-full flex justify-center gap-6 py-6">
+          <div className="flex justify-center py-6">
             <Button
             variant="primary"
             size="md"

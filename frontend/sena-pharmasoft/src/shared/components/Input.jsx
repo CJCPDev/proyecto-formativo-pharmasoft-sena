@@ -7,8 +7,6 @@ export default function Input({label, type = "text", ...props}){
             className="
                     block
                     text-[8px]
-                    font-mono     
-                    font-light
                     px-2
                     text-info-medium
                     text-black

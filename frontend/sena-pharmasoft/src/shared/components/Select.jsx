@@ -11,10 +11,12 @@ export default function Select({
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
             <label className="
-                            block
-                            text-[8px]
-                            font-mono
-                            font-light
+                    block
+                    text-[8px]
+                    px-2
+                    text-info-medium
+                    text-black
+                    font-main
                             "
             >
                 {label}

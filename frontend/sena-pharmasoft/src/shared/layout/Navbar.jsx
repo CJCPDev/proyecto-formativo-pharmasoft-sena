@@ -77,7 +77,7 @@ const Navbar = ({ variant = "solid" }) => {
 
               {isOpen && (
                 <div
-                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-neutral-800/90 
+                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-green-50/90 
                              backdrop-blur-md shadow-xl ring-1 rounded-xl"
                 >
                   <ul className="py-2 text-sm">
