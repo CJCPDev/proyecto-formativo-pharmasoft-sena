@@ -24,7 +24,7 @@ export default function Select({
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
-            <label className='text-caption mb-1 text-text-secundary'>
+            <label className='text-caption mb-1 text-text-secondary'>
                 {label}
             </label>
             )}

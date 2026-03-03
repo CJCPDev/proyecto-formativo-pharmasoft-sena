@@ -11,7 +11,6 @@ export default function App() {
       </h2>
       <div>
         <FormMedicamentos />
-        <Button />
         
       </div>
 
