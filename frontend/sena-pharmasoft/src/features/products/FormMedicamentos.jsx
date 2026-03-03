@@ -34,7 +34,7 @@ export default function FormMedicamentos() {
 
   return (
     <div
-      className="min-h-screen p-12"
+      className="min-h-screen p-12 mt-20"
       style={{ backgroundColor: "var(--color-background)" }}
     >
       <div

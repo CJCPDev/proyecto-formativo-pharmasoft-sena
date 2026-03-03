@@ -19,7 +19,7 @@ export default function Select({
           {label}
         </label>
       )}
-
+      return(
         <div className='font-main w-[320px]'>
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
@@ -47,15 +47,14 @@ export default function Select({
                     hover:border-brand-hover
                 '
                 >
-                <option disabled value="">{string}</option>
-                {options.map((option) => {
-          {/* Opciones dinámicas */}
+                <option disabled value="">{string}</option> 
+                
           {options.map((option) => (
             <option key={option.id} value={option.id}>
               {option.label}
             </option>
           ))
-          };
+          }
         </select>
 
       </div>
