@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom"
+import SuppliersPage from "../../features/suppliers/pages/SuppliersPage";
 import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import HomePage from "../../features/home/pages/HomePage";
@@ -13,20 +14,21 @@ import CreateUserPage from '../../features/users/pages/CreateUserPage'
 const router = createBrowserRouter ([
     {
     
+        element: <HomePage/>,
+        path: "/",
         
+    },
+    {
+    
         element: <MainLayout/>,
         children: [
-            {
-                path: "/",
-                element: <HomePage/>
-            },
             {
                 path: "Usuarios",
                 elemnt: <CreateUserPage/>
             },
             {
                 path: "Proveedores",
-                element: <h1 className="p-4">Proveedores</h1> //Definir pagina
+                element: <SuppliersPage/> //Definir pagina
             },
             {
                 path: "Medicamentos",
@@ -67,7 +69,7 @@ const router = createBrowserRouter ([
             },
     ]
 
-}
+    }
 ]);
 
 export default router;
