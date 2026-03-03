@@ -8,6 +8,7 @@ import ForgotPasswordPage from "../../features/auth/pages/ForgotPasswordPage";
 import ResetPasswordPage from '../../features/auth/pages/ResetPasswordPage'
 import Loading from "../../shared/components/Loading";
 import ValidationResetPassword from "../../features/auth/pages/ValidationResetPassword";
+import CreateUserPage from '../../features/users/pages/CreateUserPage'
 
 const router = createBrowserRouter ([
     {
@@ -21,7 +22,7 @@ const router = createBrowserRouter ([
             },
             {
                 path: "Usuarios",
-                element: <h1 className="p-4">Usuarios</h1> //Definir pagina
+                elemnt: <CreateUserPage/>
             },
             {
                 path: "Proveedores",
