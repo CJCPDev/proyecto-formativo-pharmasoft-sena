@@ -1,4 +1,5 @@
 import heroBg from "@/assets/images/logo.webp" 
+import Navbar from "../../../shared/layout/Navbar"
 
 export default function HomePage (){
     return(
@@ -12,6 +13,7 @@ export default function HomePage (){
                 }
             }
         >
+            <Navbar variant="transparent"></Navbar>
             <div className="relative z-10 text-center text-text-inverse">
             </div>
         </section>
