@@ -1,5 +1,5 @@
 import authBg from "../../assets/images/background.webp"
-// import LoginForm from "@/features/users/components/LoginForm"
+import LoginForm from "../../features/auth/components/LoginForm"
 // import UserForm from "../../features/users/components/UserForm"
 import { Outlet, useLocation} from "react-router-dom"
 
@@ -43,7 +43,6 @@ export default function AuthLayout (){
             {/* contenido externo que se inyecta */}
             <main className="flex items-center justify-center">
                 <Outlet/>
-                <LoginForm/>
             </main>
         </div>
     )
