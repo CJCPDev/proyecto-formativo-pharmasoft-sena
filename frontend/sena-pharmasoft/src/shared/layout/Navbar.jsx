@@ -19,14 +19,14 @@ const Navbar = ({variant = "solid"}) => {
       { `w-full border-b transition-colors duration-300 ${
           variant === "transparent"
           ? "bg-transparent border-transparent absolute top-0 left-0 z-30"
-          : "bg-brand border-border"
+          : "bg-white border-border"
         }`}>
       <div className="mx-auto max-w-7xl px-4">
         <div className="flex h-16 items-center justify-between">
           
           {/* Logo de marca */}
           <div className="flex items-center">
-            <Link to="/" className="text-xl font-bold text-brand-hover">
+            <Link to="/" className="text-xl flex items-center">
               PHARMASOFT
             </Link>
           </div>

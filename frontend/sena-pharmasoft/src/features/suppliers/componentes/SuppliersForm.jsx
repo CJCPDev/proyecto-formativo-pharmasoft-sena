@@ -19,9 +19,8 @@ export default function SuppliersForm (){
 
 
     return (
-        <div>
-            {/* Formulario para crear proveedores */}
-            <form className="flex flex-col gap-6 w-175 px-4 ">
+        // {/* Formulario para crear proveedores */}
+        <form className="flex flex-col gap-6 w-175 px-4 py-6 ">
                 {/* Contenedor de inputs y selects */}
                 <div className="flex flex-col gap-3">  
                     <div className="flex gap-4">   {/*fila 1 (contenedor de 2 input)*/}
@@ -37,10 +36,15 @@ export default function SuppliersForm (){
                             >
                         </Input>
                     </div>
-                    <div> {/*fila 2 (contenedor de 1 input)*/}
+                    <div className="flex gap-4"> {/*fila 2 (contenedor de 1 input)*/}
                         <Input
                             label = "Razón social"
                             placeholder = "Ingrese la razón social"
+                            >
+                        </Input>
+                        <Input
+                            label = "Dirección"
+                            placeholder = "Ingrese la dirección del proveedor"
                             >
                         </Input>
                     </div>
@@ -65,22 +69,13 @@ export default function SuppliersForm (){
                         >
                         </Select>
                     </div>
-                    <div>   {/*fila 4 (contenedor de 1 input)*/}
-                        <Input
-                            label = "Dirección"
-                            placeholder = "Ingrese la dirección del proveedor"
-                            >
-                        </Input>
-                    </div>
-                    <div>   {/*fila 5 (contenedor de 1 input)*/}
+                    <div className="flex gap-4">   {/*fila 5 (contenedor de 1 input)*/}
                         <Input
                             label = "Correo electrónico"
                             placeholder = "Ingrese el correo del contacto"
                             type = "email"
                             >
                         </Input>
-                    </div>
-                    <div>   {/*fila 6 (contenedor de 1 input)*/}
                         <Input
                             label = "Nombre del contacto"
                             placeholder = "Ingrese el nombre del contacto"
@@ -105,6 +100,5 @@ export default function SuppliersForm (){
                     </Button>
                 </div>
             </form>
-        </div>
     )
 }
