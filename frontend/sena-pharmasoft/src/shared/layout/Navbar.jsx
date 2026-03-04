@@ -36,7 +36,7 @@ const Navbar = ({ variant = "solid" }) => {
           </div>
 
           {/* Links de navegación */}
-          <ul className="hidden md:flex items-center gap-14 text-brand-hover font-bold">
+          <ul className="hidden md:flex space-x-8 items-center gap-14 text-brand-hover font-bold">
             <li>
               <Link to="/usuarios" className="hover:text-primary transition">
                 Usuarios

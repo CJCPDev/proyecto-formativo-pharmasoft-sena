@@ -2,6 +2,8 @@
 import { RouterProvider } from 'react-router-dom';
 import router from '../app/router/router';
 import FormMedicamentos from '../features/products/FormMedicamentos';
+import HomePage from '../features/home/pages/HomePage';
+
 
 export default function App() {
   return (
@@ -10,6 +12,8 @@ export default function App() {
       </h2>
       <div>
         <FormMedicamentos />
+
+        <HomePage />
         
       </div>
 

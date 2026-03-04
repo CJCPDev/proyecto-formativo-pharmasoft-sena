@@ -2,6 +2,7 @@ import mainBg from "@/assets/images/background.webp"
 import Navbar from "./Navbar"
 import { Outlet } from "react-router-dom"
 
+
 export default function MainLayout (){
 
 
