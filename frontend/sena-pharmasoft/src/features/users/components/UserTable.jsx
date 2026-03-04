@@ -1,0 +1,1 @@
+// tabla reutilizable para visualizar usuarios con acciones de editar y cambio de estado

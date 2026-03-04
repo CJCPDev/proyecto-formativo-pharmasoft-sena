@@ -1,0 +1,1 @@
+// Espacio para visualizar la informacion detallada de un usuario
