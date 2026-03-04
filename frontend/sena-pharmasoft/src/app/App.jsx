@@ -9,7 +9,7 @@ export default function App() {
       <h2 className="text-3xl font-bold text-green-800 text-center mb-1">
       </h2>
       <div>
-        {/* <FormMedicamentos /> */}
+        <FormMedicamentos />
         
       </div>
 
