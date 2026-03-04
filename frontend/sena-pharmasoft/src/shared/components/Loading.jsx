@@ -7,7 +7,7 @@ export default function Loading(){
 
         setTimeout(() => {
             navigate('/validationPassword')
-        }, 2000)
+        }, 3000)
 
     return(
         <div className="absolute">

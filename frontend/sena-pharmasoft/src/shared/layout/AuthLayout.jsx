@@ -11,7 +11,8 @@ export default function AuthLayout (){
         '/forgot-password',
         '/reset-password',
         '/validation',
-        '/confirmationPasswword'
+        '/confirmationPassword',
+        '/validationPassword'
         
     ]
 

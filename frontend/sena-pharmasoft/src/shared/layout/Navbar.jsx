@@ -2,6 +2,7 @@ import { Search, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState} from "react";
 import { useNavigate } from "react-router-dom";
+import Logot from "../../assets/images/logo.webp";
 
 const Navbar = ({variant = "solid"}) => {
 
@@ -26,29 +27,29 @@ const Navbar = ({variant = "solid"}) => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="text-xl flex items-center">
-              PHARMASOFT
+              <img className="w-42 h-30" src={Logot} alt="" />
             </Link>
           </div>
 
           {/* Links de navegación */}
           <ul className="hidden md:flex items-center gap-14 text-brand-hover font-bold">
             <li>
-              <Link to="/usuarios" className="hover:text-primary transition">
+              <Link to="/usuarios" className="hover:text-primary transition hover:underline hover:underline-offset-2">
                 Usuarios
               </Link>
             </li>
             <li>
-              <Link to="/proveedores" className="hover:text-primary transition">
+              <Link to="/proveedores" className="hover:text-primary transition hover:underline hover:underline-offset-2">
                 Proveedores
               </Link>
             </li>
             <li>
-              <Link to="/medicamentos" className="hover:text-primary transition">
+              <Link to="/medicamentos" className="hover:text-primary transition hover:underline hover:underline-offset-2">
                 Medicamentos
               </Link>
             </li>
             <li>
-              <Link to="/ventas" className="hover:text-primary transition">
+              <Link to="/ventas" className="hover:text-primary transition hover:underline hover:underline-offset-2">
                 Ventas
               </Link>
             </li>
@@ -92,18 +93,17 @@ const Navbar = ({variant = "solid"}) => {
               {isOpen && (
                 // <div className="absolute right-0 mt-2 w-48 rounded-lg border bg-background shadow-lg">
                   <div className="
-                    absolute right-0 mt-2 w-48
+                    absolute right-0 mt-2 w-40
                     bg-brand-soft/40
                     backdrop-blur-md
                     shadow-xl
-                    
-                    rounded-xl
+                    rounded-2xl
                   ">
-                  <ul className="py-2 text-sm">
+                  <ul className=" text-sm">
                     <li>
                       <Link
                         to="/perfil"
-                        className="block px-4 py-2 hover:bg-brand-hover/20 transition"
+                        className="block px-4 py-2 hover:bg-brand-hover/20 transition rounded-2xl hover:underline hover:underline-offset-2 "
                         onClick={() => setIsOpen(false)}
                       >
                         Perfil
@@ -111,7 +111,7 @@ const Navbar = ({variant = "solid"}) => {
                     </li>
                     <li>
                       <button
-                        className="w-full text-left px-4 py-2 hover:bg-surface transition cursor-pointer"
+                        className="w-full text-left px-4 py-2 hover:bg-brand-hover/20 transition cursor-pointer rounded-2xl hover:underline hover:underline-offset-2"
                         onClick={handleClick}
                       >
                         Cerrar sesión

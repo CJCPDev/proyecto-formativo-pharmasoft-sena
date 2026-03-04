@@ -2,7 +2,8 @@ import { UserRoundKey } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import TokenValidation from "./TokenValidation";
 import Button from "../../../shared/components/Button";
-import Loading from "../../../shared/components/Loading";
+import Modal from "../../../shared/components/Modal";
+
 
 
 
@@ -12,10 +13,11 @@ export default function ResetPasswordForm(){
     const navigate = useNavigate();
 
 
+
     const handleClick = ()=> {
         setTimeout(() => {
-            navigate('/confirmationPassword')
-        }, 100)
+            navigate('/validation')
+        }, 1000)
         } 
 
     return(
@@ -30,13 +32,13 @@ export default function ResetPasswordForm(){
                         </div>
                         <div className="grid justify-items-center gap-6">
                             <TokenValidation/>
-                            <Button
+                            {<Button
                             variant = 'secondary'
                             size = 'md'
-                            onClick={handleClick}
+                            onClick= {handleClick}
                             >
                                 Validar
-                            </Button>
+                            </Button>}
                         </div>
                     </form>
                 </div>
