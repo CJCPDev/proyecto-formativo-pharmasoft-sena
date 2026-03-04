@@ -1,34 +1,32 @@
-import Navbar from "@/shared/Layout/Navbar";
-import { Outlet, useLocation } from "react-router-dom";
+import mainBg from "@/assets/images/background.webp"
+import Navbar from "./Navbar"
+import { Outlet } from "react-router-dom"
 
 
-export default function MainLayout(){
-    /**
-     * useLocation es un hook de react router que te da acceso al objeto locatio, el cual contiene informacion de la URL actual:
-     * pathNmae = La ruta actual (/about, etc)
-     */
-    const location = useLocation();
-
-    const isHome = location.pathname === "/"
+export default function MainLayout (){
 
 
+    return (
 
-    return(
-        /**
-         * Navbar transparente solo en el home
-         * Si la ruta es exactamente / => transparente
-         * Si es cualquier otra ruta es solido
-         */
-        <div className="min-h-screen text-text-primary">
+        <div className="min-h-screen flex flex-col">
 
-
-            {/* Navbar */}
-                <Navbar variant={isHome ? "transparent" : "solid"}/>
-
+            {/* componente Nabvar creado anteriormente */}
+            <Navbar variant="solid"/>
             
-            {/* Contenido externo que se inyecta */}
-            <main className="mx-auto">
-                <Outlet />
+            {/* contenido externo que se inyecta */}
+            <main className="relative flex-1 flex items-center justify-center overflow-hidden">
+                
+                <div className="absolute inset-0 bg-cover bg-center opacity-5"
+                    style={
+                    {
+                        backgroundImage: `url(${mainBg})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center"
+                    }
+                }>
+                </div>
+                    <Outlet/>
+                
             </main>
 
         </div>

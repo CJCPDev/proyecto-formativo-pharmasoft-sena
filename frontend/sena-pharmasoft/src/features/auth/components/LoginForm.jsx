@@ -7,7 +7,7 @@ export default function LoginForm(){
 
 
     return(
-        <div>
+        <div className="">
             <form className="
             px-6 py-12 
             grid grid-cols-1 gap-6

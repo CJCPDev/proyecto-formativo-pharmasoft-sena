@@ -9,16 +9,13 @@ export default function UserForm() {
   return (
       <div className="flex justify-center items-center">
         <form className="
+                    w-full max-w-4xl
                     px-6 py-12
                     grid grid-cols-2 gap-6
-                    bg-white
-                    dark:bg-neutral-100
-                    backdrop-blur-sm
-                    shadow-xl
-                    ring-1
                     rounded-xl
                   
         ">
+          <h1 className="col-span-full text-3xl text-text-primary font-main text-center mb-8"> Crear Usuarios </h1>
           {/* Formulario para crear el usuario*/}
           <div>
           <Select

@@ -14,7 +14,7 @@ export default function ResetPasswordForm(){
 
     const handleClick = ()=> {
         setTimeout(() => {
-            navigate('/validation')
+            navigate('/confirmationPassword')
         }, 100)
         } 
 
