@@ -1,14 +1,13 @@
+import UserForm from "@/features/users/components/UserForm"
 
-
-
-
-export default function ProfilePage (){
-
-
+export default function CreateUserPage (){
     return(
-        <section>
-            <h1 className="text-3xl">Estoy en el perfil</h1>
-            <p>Aquí podre gestionar mi perfil</p>
-        </section>
+        <div
+           className="relative bg-white rounded-xl shadow-2xl p-8
+        ">
+
+            <UserForm/>
+        </div>
+        
     )
 }

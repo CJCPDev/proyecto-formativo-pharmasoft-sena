@@ -1,4 +1,4 @@
-import documentTypes from "../../../data/selects/documentTypes.json";
+import documentTypes from "../../../data/selects/statesTypes.json";
 import userGroups from "../../../data/selects/userGroups.json"
 
 export async function getDocumentTypes(){     

@@ -23,8 +23,8 @@ import CreateSalePage from "../../features/sales/pages/CreateSalePage";
 // Imports de proveedores
 
 import SuppliersPage from "../../features/suppliers/pages/SuppliersPage";
+import FormMedicamentos from "../../features/products/pages/CreateProductPage";
 // ------
-
 
 const router = createBrowserRouter ([
     {
@@ -47,7 +47,7 @@ const router = createBrowserRouter ([
             },
             {
                 path: "medicamentos",
-                element: <h1 className="p-4">Medicamentos</h1> //Definir pagina
+                element: <FormMedicamentos/>
             },
             {
                 path: "ventas",
