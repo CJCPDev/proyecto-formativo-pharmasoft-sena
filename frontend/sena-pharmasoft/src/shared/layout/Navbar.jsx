@@ -1,27 +1,27 @@
 import { Search, User } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 
 const Navbar = ({variant = "solid"}) => {
-    const [isOpen, setIsOpen] = useState(false);
+
+     const [isOpen, setIsOpen] = useState(false);
      const navigate = useNavigate();
 
-    const handleClick = ()=> {
-        setTimeout(() => {
-            navigate('/login')
-        }, 100)
-        }
+
+    const handleClick = () => {
+        navigate("/login");
+    };
 
   return (
     <nav className= 
       { `w-full border-b transition-colors duration-300 ${
           variant === "transparent"
           ? "bg-transparent border-transparent absolute top-0 left-0 z-30"
-          : "bg-white border-border"
+          : "bg-white border-border z-20"
         }`}>
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-7xl px-4 font-main">
         <div className="flex h-16 items-center justify-between">
           
           {/* Logo de marca */}
@@ -60,8 +60,8 @@ const Navbar = ({variant = "solid"}) => {
           {/* Sección derecha: búsqueda + usuario */}
           <div className="flex items-center gap-4">
             
-            {/* Buscador */}
-            <div className="relative hidden sm:block">
+            {/* Buscador pendiente sacar componente a otro nivel para pagina principal */}
+{/*             <div className="relative hidden sm:block">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-500" />
             
               <input
@@ -70,7 +70,7 @@ const Navbar = ({variant = "solid"}) => {
                 className="pl-9 pr-4
                  py-2.5 border rounded-lg text-body focus:outline-none focus:ring-2 focus:ring-primary"
               />
-            </div>
+            </div> */}
 
 
             {/* Icono de usuario */}
@@ -93,18 +93,17 @@ const Navbar = ({variant = "solid"}) => {
                 // <div className="absolute right-0 mt-2 w-48 rounded-lg border bg-background shadow-lg">
                   <div className="
                     absolute right-0 mt-2 w-48
-                    bg-white
-                    dark:bg-neutral-800/90
+                    bg-brand-soft/40
                     backdrop-blur-md
                     shadow-xl
-                    ring-1
+                    
                     rounded-xl
                   ">
                   <ul className="py-2 text-sm">
                     <li>
                       <Link
                         to="/perfil"
-                        className="block px-4 py-2 hover:bg-surface transition"
+                        className="block px-4 py-2 hover:bg-brand-hover/20 transition"
                         onClick={() => setIsOpen(false)}
                       >
                         Perfil
@@ -112,7 +111,7 @@ const Navbar = ({variant = "solid"}) => {
                     </li>
                     <li>
                       <button
-                        className="w-full text-left px-4 py-2 hover:bg-surface transition"
+                        className="w-full text-left px-4 py-2 hover:bg-surface transition cursor-pointer"
                         onClick={handleClick}
                       >
                         Cerrar sesión

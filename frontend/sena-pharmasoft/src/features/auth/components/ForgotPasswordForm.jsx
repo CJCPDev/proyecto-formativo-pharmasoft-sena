@@ -2,10 +2,19 @@ import Input from "@/shared/components/Input";
 import Button from '@/shared/components/Button'
 import { LockKeyhole } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export default function ForgotPasswordForm(){
 
+    const navigate = useNavigate();
+
+
+    const handleClick = ()=> {
+        setTimeout(() => {
+            navigate('/reset-password')
+        }, 100)
+        } 
 
     return(
         <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -22,17 +31,17 @@ export default function ForgotPasswordForm(){
                         placeholder='Correo electronico'
 
                         />
-                        <Link
+{/*                         <Link
                         to = '/reset-password'
                         className="bg-brand-soft"
-                        >Recuperar</Link>
-{/*                         <Button
+                        >Recuperar</Link> */}
+                        <Button
                         variant = 'secondary'
                         size = 'md'
-                        type='submit'
+                        onClick={handleClick}
                         >
                             Enviar token
-                        </Button> */}
+                        </Button>
                     </div>
                 </form>
             </div>

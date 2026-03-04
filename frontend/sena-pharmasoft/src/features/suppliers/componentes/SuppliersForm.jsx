@@ -22,7 +22,7 @@ export default function SuppliersForm (){
         // {/* Formulario para crear proveedores */}
         <form className="flex flex-col gap-6 w-175 px-4 py-6 ">
                 {/* Contenedor de inputs y selects */}
-                <div className="flex flex-col gap-3">  
+                <div className="flex flex-col gap-3 w-full">  
                     <div className="flex gap-4">   {/*fila 1 (contenedor de 2 input)*/}
                         <Input
                             label = "NIT"
@@ -48,7 +48,7 @@ export default function SuppliersForm (){
                             >
                         </Input>
                     </div>
-                    <div className="flex gap-4"> {/*fila 3 (contenedor de 2 input y 1 select)*/}
+                    <div className="flex "> {/*fila 3 (contenedor de 2 input y 1 select)*/}
                         <Input
                             label = "Teléfono de contacto"
                             placeholder = "Ingrese el número de teléfono"
