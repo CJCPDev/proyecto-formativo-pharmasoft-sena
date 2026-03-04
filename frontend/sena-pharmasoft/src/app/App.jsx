@@ -13,7 +13,7 @@ export default function App() {
       <div>
         <FormMedicamentos />
 
-        <HomePage />
+        {/* <HomePage /> */}
         
       </div>
 

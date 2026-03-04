@@ -1,7 +1,7 @@
 export default function Button ({
-    variant = 'primary', // Define el estilo visual
-    size = 'md',  
-    type = 'button',
+    variant = 'primary', // Define el la variante visual del button
+    size = 'md',  // tamaño
+    type = 'button', // tipo de button
     children, //Es el contenido que tiene el botón
     ...props
 }){

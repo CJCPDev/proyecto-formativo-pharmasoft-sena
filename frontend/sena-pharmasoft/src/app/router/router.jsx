@@ -2,14 +2,31 @@ import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import HomePage from "../../features/home/pages/HomePage";
+
+import ProfilePage from "../../features/users/pages/ProfilePage";
+
+// Imports de Login
+
 import LoginPage from "../../features/auth/pages/LoginPage";
 import ForgotPasswordPage from "../../features/auth/components/ForgotPasswordForm"
 import ResetPasswordPage from "../../features/auth/components/ResetPasswordForm"
 import Loading from "../../shared/components/Loading";
-import ValidationResetPassword from "../../features/auth/pages/ValidationResetPassword"
-// import UserForm from "../../features/users/components/UserForm";
-import ProfilePage from "../../features/users/pages/ProfilePage";
-import CreateUserPage from "../../features/users/pages/CreateUserPage";
+
+import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
+// ------
+
+import CreateUserPage from '../../features/users/pages/CreateUserPage'
+
+// Import Ventas
+
+import CreateSalePage from "../../features/sales/pages/CreateSalePage";
+// ------
+
+// Imports de proveedores
+
+import SuppliersPage from "../../features/suppliers/pages/SuppliersPage";
+// ------
+
 
 
 const router = createBrowserRouter ([
@@ -22,10 +39,29 @@ const router = createBrowserRouter ([
                 path: "/",
                 element: <HomePage/>
             },
-            
+
+            {
+                path: "proveedores",
+                element: <SuppliersPage/> 
+            },
+            {
+                path: "medicamentos",
+                element: <h1 className="p-4">Medicamentos</h1> //Definir pagina
+            },
+            {
+                path: "ventas",
+                element: <CreateSalePage/>
+            },
+            {
+                path: "perfil",
+                element: <ProfilePage/> //Definir pagina
+            }
+
         ]
     },
     {
+
+      //Login con rutas completo
         element: <AuthLayout/>,
         children: [
             {
@@ -56,7 +92,9 @@ const router = createBrowserRouter ([
             },
             {
                 path: "validationPassword",
-                element: <ValidationResetPassword/>
+
+                element: <ConfirmationPassword/>
+
             },
     ]
 

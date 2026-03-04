@@ -41,7 +41,7 @@
     --text-info-medium: var(--semantic-fs-xxxs);
     --text-small-label: var(--semantic-fs-xxxxs);   /*genarlmente en label*/
     --text-small-text: var(--semanticas-fs-mg);
-    --text-small-info: var(--semantic-fs-sm)
+    --text-small-info: var(--semantic-fs-sm);
     
     /* tamaños de border radius */
     --border-main-container: var(--semantic-br-xl);

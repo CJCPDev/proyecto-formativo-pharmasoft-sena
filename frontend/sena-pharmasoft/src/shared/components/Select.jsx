@@ -1,25 +1,17 @@
+import { useState } from "react";
+
 export default function Select({
     label,
     name,
-    string,
     options = []
     }
 ){
 
-      {/* Label */}
-      {label && (
-        <label
-          className="
-            block
-            text-[8px]
-            font-mono
-            font-light
-          "
-        >
-          {label}
-        </label>
-      )}
-      return(
+    const [selected, setSelected] = useState("");
+
+    return (
+
+
         <div className='font-main w-[320px]'>
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
@@ -32,6 +24,8 @@ export default function Select({
             )}
             <select 
                 name={name}
+                value={selected}
+                onChange={(e) => setSelected(e.target.value)}
                 className='
                     bg-brand-soft
                     w-full
@@ -50,16 +44,19 @@ export default function Select({
                     hover:border-brand-hover
                 '
                 >
-                <option disabled value="">{string}</option> 
-                
-          {options.map((option) => (
-            <option key={option.id} value={option.id}>
-              {option.label}
-            </option>
-          ))
-          }
-        </select>
 
-      </div>
-  );
-}
+                <option disabled value="">
+                    {'Seleccione una opción'}
+                </option>
+
+                {options.map((option) => (
+                    <option key={option.id} value={option.id}>
+                        {option.label}
+                    </option>
+                    )
+                )
+                };
+            </select>
+        </div>
+    );
+};

@@ -7,8 +7,11 @@ export default function AuthLayout (){
     const blurPages = [
         '/forgot-password',
         '/reset-password',
-        '/validation', 
-        '/confirmationPasswword'
+
+        '/validation',
+        '/confirmationPassword',
+        '/validationPassword'
+
         
     ]
 
