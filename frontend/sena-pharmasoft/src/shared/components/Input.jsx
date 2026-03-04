@@ -1,3 +1,4 @@
+import './../../styles/global.css'
 
 export default function Input({label, type = "text", ...props}){
     return (

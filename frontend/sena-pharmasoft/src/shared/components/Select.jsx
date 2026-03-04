@@ -24,13 +24,16 @@ export default function Select({
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
-            <label className='text-caption mb-1 text-text-secondary'>
+
+            <label className='block text-small-label mb-1 px-4 text-text-secondary'>
+
                 {label}
             </label>
             )}
             <select 
                 name={name}
                 className='
+                    bg-brand-soft
                     w-full
                     h-10
                     bg-brand
