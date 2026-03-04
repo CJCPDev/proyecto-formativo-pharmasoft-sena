@@ -74,11 +74,6 @@ const router = createBrowserRouter ([
 
             },
             {
-                path: "usuarios",
-                element: <CreateUserPage/>
-
-            },
-            {
                 path: "forgot-password",
                 element: <ForgotPasswordPage/>
             },
