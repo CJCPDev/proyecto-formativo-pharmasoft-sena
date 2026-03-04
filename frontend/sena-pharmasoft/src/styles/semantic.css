@@ -19,28 +19,29 @@
     
     /* *********TEXT******** */
     --semantic-text-primary: var(--color-primary-800); /*color principal de lectura (titulos)*/ 
-    --semantic-text-secundary: var(--black); /*Textos menos importantes (informacion)*/
+    --semantic-text-secondary: var(--black); /*Textos menos importantes (informacion)*/
     --semantic-text-mute: var(--color-gray-500); /*Texto desabilitado*/
     --semantic-text-inverse: var(--white); /*texto invertido*/
 
     /* *******TIPOGRAFIA********** */
     --semantic-font-main: var(--font-family-main); /*tipo de letra principal*/
-    --semantic-font-secundary: var(--font-family-secondary); /*tipo de letra secundario*/
+    --semantic-font-secondary: var(--font-family-secondary); /*tipo de letra secundario*/
 
     /* ********VARIANTES DE TIPOGRAFIA******** */
     --semantic-font-light: var(--font-weight-light);
     --semantic-font-semibold: var(--font-weight-semibold);
     --semantic-font-extrabold: var(--font-weight-extrabold);
-    --semantic-fs-xs: var(--fs-xs);
-    --semantic-fs-xxxs: var(--fs-xxxs);
-    --semantic-fs-xxxxs: var(--fs-xxxxs);
-    --semantic-fs-big: var(--fs-big);
-    --semantic-fs-lg: var(--fs-lg);
-    --semantic-fs-xxs: var(--fs-xxs);
-    --semanticas-fs-mg: var(--fs-mg);
+    --semantic-fs-xs: var(--text-fs-xs);
+    --semantic-fs-xxxs: var(--text-fs-xxxs);
+    --semantic-fs-xxxxs: var(--text-fs-xxxxs);
+    --semantic-fs-big: var(--text-fs-big);
+    --semantic-fs-lg: var(--text-fs-lg);
+    --semantic-fs-xxs: var(--text-fs-xxs);
+    --semanticas-fs-mg: var(--text-fs-mg);
+    --semantic-fs-sm: var(--text-fs-sm)
 
     --color-text-primary: var(--black); /* Color principal de lectura, títulos, texto base del documento */
-    --color-text-secundary: var(--color-gray-700); /* Textos menos dominantes */
+    --color-text-secondarygray: var(--color-gray-700); /* Textos menos dominantes */
     --color-text-muted: var(--color-gray-500); /* Texto deshabilitado por ejemplo */
     --color-text-inverse: var(--color-gray-50); /* Texto invertido */
 

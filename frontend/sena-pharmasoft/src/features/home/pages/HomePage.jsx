@@ -15,6 +15,7 @@ export default function HomePage (){
         >
             <Navbar variant="transparent"></Navbar>
             <div className="relative z-10 text-center text-text-inverse">
+                hola
             </div>
         </section>
     )
