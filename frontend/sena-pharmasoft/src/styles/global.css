@@ -19,7 +19,7 @@
     --color-background: var(--semantic-background);
     
     --color-text-primary: var(--semantic-text-primary);
-    --color-text-secundary: var(--semantic-text-secundary);
+    --color-text-secondary: var(--semantic-text-secondarygray);
     --color-text-mute: var(--semantic-text-mute);
     --color-text-inverse: var(--semantic-text-inverse);
 
@@ -41,6 +41,7 @@
     --text-info-medium: var(--semantic-fs-xxxs);
     --text-small-label: var(--semantic-fs-xxxxs);   /*genarlmente en label*/
     --text-small-text: var(--semanticas-fs-mg);
+    --text-small-info: var(--semantic-fs-sm)
     
     /* tamaños de border radius */
     --border-main-container: var(--semantic-br-xl);

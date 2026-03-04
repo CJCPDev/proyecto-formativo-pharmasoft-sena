@@ -9,31 +9,41 @@ import ForgotPasswordPage from "../../features/auth/pages/ForgotPasswordPage";
 import ResetPasswordPage from '../../features/auth/pages/ResetPasswordPage'
 import Loading from "../../shared/components/Loading";
 import ValidationResetPassword from "../../features/auth/pages/ValidationResetPassword";
+
 import CreateProductPage from "../../features/products/pages/CreateProductPage";
 
+import CreateUserPage from '../../features/users/pages/CreateUserPage'
+import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
+
+
 const router = createBrowserRouter ([
+    {
+    
+        path: "/",
+        element: <HomePage/>,
+        
+    },
     {
     
         element: <MainLayout/>,
         children: [
             {
-            element: <HomePage/>,
-            path: "/",
+                path: "usuarios",
+                element: <CreateUserPage/>
+
             },
             {
-                path: "Usuarios",
-                element: <h1 className="p-4">Usuarios</h1> //Definir pagina
-            },
-            {
-                path: "Proveedores",
+                path: "proveedores",
                 element: <SuppliersPage/> //Definir pagina
             },
             {
+
                 path: "Medicamentos",
                 element: <CreateProductPage /> //Definir pagina
+
             },
             {
-                path: "Ventas",
+                path: "ventas",
                 element: <h1 className="p-4">Ventas</h1> //Definir pagina
             },
             {
@@ -64,6 +74,10 @@ const router = createBrowserRouter ([
             {
                 path: "validationPassword",
                 element: <ValidationResetPassword/>
+            },
+            {
+                path: "confirmationPassword",
+                element: <ConfirmationPassword/>
             },
     ]
 
