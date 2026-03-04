@@ -1,16 +1,30 @@
 import { createBrowserRouter } from "react-router-dom"
-import SuppliersPage from "../../features/suppliers/pages/SuppliersPage";
 import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import HomePage from "../../features/home/pages/HomePage";
 import ProfilePage from "../../features/users/pages/ProfilePage";
+
+// Imports de Login
+
 import LoginPage from "../../features/auth/pages/LoginPage";
 import ForgotPasswordPage from "../../features/auth/pages/ForgotPasswordPage";
 import ResetPasswordPage from '../../features/auth/pages/ResetPasswordPage'
 import Loading from "../../shared/components/Loading";
-import ValidationResetPassword from "../../features/auth/pages/ValidationResetPassword";
-import CreateUserPage from '../../features/users/pages/CreateUserPage'
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
+// ------
+
+import CreateUserPage from '../../features/users/pages/CreateUserPage'
+
+// Import Ventas
+
+import CreateSalePage from "../../features/sales/pages/CreateSalePage";
+// ------
+
+// Imports de proveedores
+
+import SuppliersPage from "../../features/suppliers/pages/SuppliersPage";
+// ------
+
 
 const router = createBrowserRouter ([
     {
@@ -29,7 +43,7 @@ const router = createBrowserRouter ([
             },
             {
                 path: "proveedores",
-                element: <SuppliersPage/> //Definir pagina
+                element: <SuppliersPage/> 
             },
             {
                 path: "medicamentos",
@@ -37,7 +51,7 @@ const router = createBrowserRouter ([
             },
             {
                 path: "ventas",
-                element: <h1 className="p-4">Ventas</h1> //Definir pagina
+                element: <CreateSalePage/>
             },
             {
                 path: "perfil",
@@ -46,6 +60,8 @@ const router = createBrowserRouter ([
         ]
     },
     {
+
+      //Login con rutas completo
         element: <AuthLayout/>,
         children: [
             {
@@ -66,10 +82,6 @@ const router = createBrowserRouter ([
             },
             {
                 path: "validationPassword",
-                element: <ValidationResetPassword/>
-            },
-            {
-                path: "confirmationPassword",
                 element: <ConfirmationPassword/>
             },
     ]

@@ -38,7 +38,7 @@
     --semantic-fs-lg: var(--text-fs-lg);
     --semantic-fs-xxs: var(--text-fs-xxs);
     --semanticas-fs-mg: var(--text-fs-mg);
-    --semantic-fs-sm: var(--text-fs-sm)
+    --semantic-fs-sm: var(--text-fs-sm);
 
     --color-text-primary: var(--black); /* Color principal de lectura, títulos, texto base del documento */
     --color-text-secondarygray: var(--color-gray-700); /* Textos menos dominantes */
