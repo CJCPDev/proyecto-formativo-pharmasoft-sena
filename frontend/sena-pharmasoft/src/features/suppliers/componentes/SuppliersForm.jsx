@@ -20,7 +20,7 @@ export default function SuppliersForm (){
 
     return (
         // {/* Formulario para crear proveedores */}
-        <form className="flex flex-col gap-6 w-175 px-4 py-6">
+        <form className="flex flex-col gap-6 w-175 px-4 py-6 font-main ">
             <h1 className="w-full text-center text-text-primary font-bold text-3xl">
                 Crear Proveedor
             </h1>
