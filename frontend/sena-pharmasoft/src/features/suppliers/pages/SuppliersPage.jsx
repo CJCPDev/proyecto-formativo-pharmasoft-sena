@@ -1,4 +1,4 @@
-import SuppliersForm from "./../componentes/SuppliersForm"
+import SuppliersForm from "../components/SuppliersForm"
 export default function SuppliersPage (){
     return(
         <div
