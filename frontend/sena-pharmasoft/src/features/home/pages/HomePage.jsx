@@ -36,6 +36,7 @@ export default function HomePage() {
       <footer className="homepage-footer">
         <p>© 2026 PHARMASOFT - Todos los derechos reservados</p>
       </footer>
+      <Navbar variant=""
     </div>
   );
 }

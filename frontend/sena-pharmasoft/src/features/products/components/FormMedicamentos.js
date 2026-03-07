@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import Input from "../../shared/components/Input";
-import Select from "../../shared/components/Select";
-import Button from "../../shared/components/Button";
-import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "./serviced/selectService";
+import Input from "../../../shared/components/Input";
+import Select from "../../../shared/components/Select";
+import Button from "../../../shared/components/Button";
+import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../serviced/selectService";
 
 
 export default function FormMedicamentos() {
