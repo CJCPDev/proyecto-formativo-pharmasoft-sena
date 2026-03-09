@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Input from "../../../shared/components/Input";
 import Select from "../../../shared/components/Select";
 import Button from "../../../shared/components/Button";
-import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../serviced/selectService";
+import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../services/selectService";
 
 
 export default function FormMedicamentos() {
@@ -96,7 +96,8 @@ export default function FormMedicamentos() {
               <Input 
                 label="Lote" 
                 name="lote"
-                placeholder="Lote" />
+                placeholder="Lote"
+                />
 
               <Input
                 label="Fecha fabricación"
