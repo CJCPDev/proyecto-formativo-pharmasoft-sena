@@ -5,8 +5,8 @@ export default function CreateSalePage(){
 
 
     return(
-        <div>
-            <SaleForm/>
+        <div className="flex">
+            <SaleForm className="flex justify-items-center"/>
         </div>
     )
 }

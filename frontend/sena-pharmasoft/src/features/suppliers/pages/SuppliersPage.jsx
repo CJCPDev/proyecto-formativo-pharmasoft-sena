@@ -1,11 +1,11 @@
-import SuppliersForm from "./../componentes/SuppliersForm"
+import SuppliersForm from "../components/SuppliersForm"
 export default function SuppliersPage (){
     return(
         <div
-           className="relative bg-white rounded-xl shadow-2xl p-8
+           className="relative bg-white rounded-xl shadow-2xl p-4
         ">
 
-            <SuppliersForm></SuppliersForm>
+            <SuppliersForm/>
         </div>
         
     )

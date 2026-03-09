@@ -10,11 +10,12 @@ export default function Select({
     const [selected, setSelected] = useState("");
 
     return (
-        <div className='font-main w-[320px]'>
+
+        <div className='w-full'>
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
-            <label className='block text-small-label mb-1 px-4 text-text-secondary'>
+            <label className='block text-info-medium mb-1 px-2 text-text-secondary font-main font-extrabold'>
                 {label}
             </label>
             )}
@@ -26,10 +27,8 @@ export default function Select({
                 className='
                     bg-brand-soft
                     w-full
-                    h-12
-                    relative
-                    text-text-muted
-                    bg-brand-soft
+                    h-10
+                    bg-brand-soft/60
                     rounded-xl
                     border
                     border-brand
