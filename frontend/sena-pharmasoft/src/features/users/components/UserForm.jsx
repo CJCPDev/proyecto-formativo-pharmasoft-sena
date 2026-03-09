@@ -4,15 +4,20 @@ import Button from "./../../../shared/components/Button"
 import "./../../../features/users/services/selectService"
 import documentTypes from "./../../../data/selects/documentTypes.json"
 import userGroups from "./../../../data/selects/usersGroups.json"
+import AvatarUploader from "../../../shared/components/AvatarUploader"
+import { useState } from "react";
 
 export default function UserForm() {
+
+  const [avatarUrl, setAvatarUrl] = useState(null);
+  
   return (
-      <div className="flex justify-center items-center">
+      <div className="grid-grid-cols-3 justify-center items-center">
         <form className="
-                    w-full max-w-4xl
-                    px-6 py-12
-                    grid grid-cols-2 gap-6
-                    rounded-xl
+              w-full h-full
+              px-6 py-12
+              grid grid-cols-3 gap-6
+              rounded-xl
                   
         ">
           <h1 className="col-span-full text-3xl text-text-primary font-main text-center mb-8"> Crear Usuarios </h1>
@@ -69,6 +74,15 @@ export default function UserForm() {
           label="Celular"
           type="tel"
           placeholder="Celular" />
+          </div>
+
+          <div className="w-[320px] text-white">
+          <AvatarUploader onChange={setAvatarUrl} />
+          {avatarUrl && (
+            <p className="mt-4 text-sm text-gray-400">
+              URL guardada en BD: {avatarUrl}
+            </p> 
+          )}
           </div>
 
           <div className="col-span-full flex justify-center gap-6 py-6">

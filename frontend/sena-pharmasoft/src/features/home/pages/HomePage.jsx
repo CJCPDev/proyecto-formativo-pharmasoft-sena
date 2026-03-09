@@ -1,7 +1,9 @@
 import heroBg from "@/assets/images/logo.webp" 
 import Navbar from "../../../shared/layout/Navbar"
 
+
 export default function HomePage (){
+
     return(
         <section
             className="relative min-h-screen w-full flex items-center justify-center text-black"
