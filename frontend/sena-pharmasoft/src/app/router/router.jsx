@@ -28,15 +28,15 @@ import FormMedicamentos from "../../features/products/pages/CreateProductPage";
 
 const router = createBrowserRouter ([
     {
-    
-        path: "/",
-        element: <HomePage/>,
         
-    },
-    {
-    
         element: <MainLayout/>,
         children: [
+            {
+            
+                path: "/",
+                element: <HomePage/>,
+                
+            },
             {
                 path: "usuarios",
                 element: <CreateUserPage/>
