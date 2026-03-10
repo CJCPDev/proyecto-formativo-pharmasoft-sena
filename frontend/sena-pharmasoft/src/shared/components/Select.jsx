@@ -30,7 +30,7 @@ export default function Select({
                     bg-brand-soft
                     w-full
                     h-10
-                    bg-brand
+                    bg-brand-soft/60
                     rounded-xl
                     border
                     border-border

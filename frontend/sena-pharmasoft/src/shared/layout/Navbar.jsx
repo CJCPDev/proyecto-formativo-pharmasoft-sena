@@ -24,7 +24,6 @@ const Navbar = ({ variant = "solid" }) => {
       className={`w-full border-b transition-colors duration-300 ${
         variant === "transparent"
           ? "bg-transparent border-transparent absolute top-0 left-0 z-30"
-
           : "bg-white border-border"
       }`}
     >

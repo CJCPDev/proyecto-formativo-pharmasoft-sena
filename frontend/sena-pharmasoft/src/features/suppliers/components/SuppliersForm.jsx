@@ -2,11 +2,12 @@
 // importación de los estados useState y useEffect de reac
 // Importacion de la funcion que contiene el json para los selects
 
-import Input from "../../../shared/components/Input"
+/* import Input from "../../../shared/components/Input"
 import Select from "../../../shared/components/Select"
-import Button from "../../../shared/components/Button"
+import Button from "../../../shared/components/Button" */
 import { useEffect, useState } from "react"
 import { getSuppliersState } from "../services/selectService"
+import { Title, Input, Select, Button } from "@/shared/components"
 
 
 export default function SuppliersForm (){
@@ -20,10 +21,15 @@ export default function SuppliersForm (){
 
     return (
         // {/* Formulario para crear proveedores */}
-        <form className="flex flex-col gap-6 w-175 px-4 py-6 font-main ">
-            <h1 className="w-full text-center text-text-primary font-bold text-3xl">
+        <form className="flex flex-col gap-6 w-175 px-4 py-6 font-main">
+            <Title
+                title="Crear proveedor"
+            />
+
+
+{/*             <h1 className="w-full text-center text-text-primary font-bold text-3xl">
                 Crear Proveedor
-            </h1>
+            </h1> */}
 
             <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
                 
