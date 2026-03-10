@@ -1,11 +1,13 @@
-import Button from "@/shared/components/Button"
+import { Button, Title } from "@/shared/components"
 import { Link } from "react-router-dom"
 export default function SuppliersListPage (){
     return(
         <div
             className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4
         ">
-            <h1 className="text-text-primary font-bold text-5xl text-center"> Listar Proveedores</h1>
+            <Title
+                title="Lista de Proveedores"
+            />
             <div className="flex justify-end gap-6">
                 <div className="border rounded-xl h-12 w-auto px-4 flex items-center">
                     <Link to="/crear-proveedores" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">

@@ -1,4 +1,4 @@
-import Button from "@/shared/components/Button";
+import{ Button, Title } from "@/shared/components";
 const CardSupplier = ({supplier}) => {
 
     const {nit, nombre, razonSocial, direccion, correo, telContacto, estado, ciudad, nombreContacto} = supplier; 
@@ -7,9 +7,9 @@ const CardSupplier = ({supplier}) => {
     return(
         <section className="flex flex-col gap-6 w-175 px-4 py-6 font-main">
 
-            <h1 className="text-5xl text-center">
-                Ver Proveedor
-            </h1>
+            <Title
+                title = "Ver Proveedor"
+            />
 
             <dl className="grid grid-cols-2 gap-x-4 gap-y-2 font-main">
 
