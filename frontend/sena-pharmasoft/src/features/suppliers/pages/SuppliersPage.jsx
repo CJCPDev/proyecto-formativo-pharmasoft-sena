@@ -5,7 +5,7 @@ export default function SuppliersPage (){
            className="relative bg-white rounded-xl shadow-2xl
         ">
 
-            <SuppliersForm></SuppliersForm>
+            <SuppliersForm/>
         </div>
         
     )

@@ -30,15 +30,15 @@ import SuppliersDetailPage from "@/features/suppliers/pages/SuppliersDetailPage"
 
 const router = createBrowserRouter ([
     {
-    
-        path: "/",
-        element: <HomePage/>,
         
-    },
-    {
-    
         element: <MainLayout/>,
         children: [
+            {
+            
+                path: "/",
+                element: <HomePage/>,
+                
+            },
             {
                 path: "usuarios",
                 element: <CreateUserPage/>
