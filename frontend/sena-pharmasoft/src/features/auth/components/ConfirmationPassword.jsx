@@ -13,21 +13,17 @@ export default function ConfirmationPassword(){
 
 const handleClick = () => {
             setModal(true)
-        setTimeout(() => {
-                navigate('/login')
-            }, 10000000)
-
 }
 
         return (
-            <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="relative justify-items-center bg-white shadow-2xl w-84 h-60 p-2 rounded-lg grid gap-2 font-main">
+            <div className="absolute inset-0 flex items-center justify-center z-10 text-center w-full">
+                <div className="w-90 relative justify-items-center bg-white shadow-2xl h-60 p-2 rounded-lg grid gap-2 font-main py-4">
                     
                     <h3 className="text-info-general font-extrabold text-brand-hover">
                         Actualizar contraseña
                     </h3>
 
-                    <div className="flex flex-col gap-4 w-full">
+                    <div className="flex flex-col gap-4 w-full px-4">
                         <Input
                             type="password"
                             placeholder="Nueva contraseña"
@@ -43,12 +39,12 @@ const handleClick = () => {
                         Confirmar
                     </Button>
                     { modal && (
-                        <div className="absolute -inset-60 inset-x-142">
+                        <div className="flex mx-auto">
                             <Modal
+                            onClose={() => navigate('/login')}
                             className="font-secondary text-brand-fort"
                             logo={<Check className="stroke-brand-hover"/>}
-                            message = 'Actualizacion de contraseña exitosa.'
-                            ></Modal>
+                            >Actualizacion de contraseña exitosa.</Modal>
                         </div>    
                  
                     )}       
