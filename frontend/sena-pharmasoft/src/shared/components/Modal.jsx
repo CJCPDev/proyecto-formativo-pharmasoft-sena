@@ -15,7 +15,6 @@ export default function Modal({message, logo, ...props}){
                     </div>
             )}
             <p
-            
             {...props}
             >
                 {message}

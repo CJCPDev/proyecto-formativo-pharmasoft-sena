@@ -15,7 +15,7 @@ const handleClick = () => {
             setModal(true)
         setTimeout(() => {
                 navigate('/login')
-            }, 2500)
+            }, 10000000)
 
 }
 
