@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
-import HomePage from "../../features/home/pages/HomePage";
+import { HomePage } from "@/features/home";
+import { DashboardPage } from "@/features/dashboard"
 
 import ProfilePage from "../../features/users/pages/ProfileUserPage";
 
@@ -36,7 +37,7 @@ import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
 const router = createBrowserRouter ([
     
     {
-        path: "/",
+        path: "logout",
         element: <HomePage/>
     },
     {
@@ -44,6 +45,10 @@ const router = createBrowserRouter ([
         
         element: <MainLayout/>,
         children: [
+            {
+                path: "/",
+                element: <DashboardPage/>
+            },
             {
                 path: "crear-proveedores",
                 element: <SuppliersPage/> 
@@ -80,13 +85,13 @@ const router = createBrowserRouter ([
                 path: "usuarios",
                 element: <UserListPage/>
             },
-                        {
+            {
                 path: "crear-usuarios",
                 element: <CreateUserPage/> 
             },
             {
                 path: "ver-usuarios",
-                element: <ProfileUserPage/> 
+                // element: <ProfileUserPage/> 
             },
 
         ]
