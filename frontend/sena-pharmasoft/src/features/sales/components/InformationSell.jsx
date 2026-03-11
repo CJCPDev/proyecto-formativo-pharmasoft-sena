@@ -11,19 +11,16 @@ export default function SaleForm(){
                 <Title
                     title="Productos"
                 ></Title>
-                <div className="grid grid-cols-2 gap-6 p-2 w-full">                   
-                    <div>
-                        <table>
-                            <th className="flex- gap-4">
-                                <td>Producto</td>
-                                <td>Cantidad</td>
-                                <td>Valor Und</td>
-                                <td>Iva</td>
-                                <td>Valor Total</td>
-                            </th>
-                        </table>
+                    <div className="grid grid-cols-5 w-full text-center bg-amber-700">
+                        <span className="border border-l">Producto</span>
+                        <span className="border border-l">Cantidad</span>
+                        <span className="border border-l">Valor Und</span>
+                        <span className="border border-l">Iva</span>
+                        <span className="border border-l">Valor Total</span>
                     </div>
-                </div>
+                    <div>
+                        <span></span>
+                    </div>
                 <div className="pt-5">
                     <Input
                     className="  

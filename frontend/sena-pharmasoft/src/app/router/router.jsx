@@ -36,6 +36,10 @@ import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
 const router = createBrowserRouter ([
     
     {
+        path: "/",
+        element: <HomePage/>
+    },
+    {
         
         
         element: <MainLayout/>,
@@ -43,10 +47,6 @@ const router = createBrowserRouter ([
             {
                 path: "crear-proveedores",
                 element: <SuppliersPage/> 
-            },
-            {
-                path: "/",
-                element: <HomePage/>
             },
             {
                 path: "lista-proveedores",
