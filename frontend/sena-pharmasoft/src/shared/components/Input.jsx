@@ -8,7 +8,8 @@ export default function Input({label, type = "text", ...props}){
           <label
             className="
                     block
-                    text-[8px]
+                    text-[8px]     
+                    text-brand-hover
                     px-2
                     text-info-medium
                     text-text-secondary

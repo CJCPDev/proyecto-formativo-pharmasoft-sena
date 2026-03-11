@@ -1,25 +1,22 @@
-// Lista de usuarios con opcion de editar, desabilitar o habilitar usuarios
-
 import { Button, Title } from "@/shared/components"
 import { Link } from "react-router-dom"
-
-export default function UserListPage (){
+export default function SuppliersListPage (){
     return(
         <div
             className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4
         ">
             <Title
-                title="Lista de Usuarios"
+                title="Lista de Proveedores"
             />
             <div className="flex justify-end gap-6">
                 <div className="border rounded-xl h-12 w-auto px-4 flex items-center">
-                    <Link to="/crear-usuarios" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
-                        Crear Usuario
+                    <Link to="/crear-proveedores" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
+                        Crear Proveedor
                     </Link>
                 </div>
                 <div className="border rounded-xl h-12 w-auto px-4 flex items-center">
-                    <Link to="/ver-usuarios" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
-                        Ver Usuario
+                    <Link to="/ver-proveedor" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
+                        Ver Proveedor
                     </Link>
                 </div>
             </div>

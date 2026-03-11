@@ -11,11 +11,14 @@ export default function Select({
 
     return (
 
-        <div className='w-full'>
+
+        <div className='font-main w-full'>
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
-            <label className='block text-info-medium mb-1 px-2 text-text-secondary font-main font-bold'>
+
+            <label className='block text-small-label mb-1 px-4 text-text-secondary'>
+
                 {label}
             </label>
             )}
@@ -42,6 +45,7 @@ export default function Select({
                     hover:border-brand-hover
                 '
                 >
+
                 <option disabled value="">
                     {'Seleccione una opción'}
                 </option>

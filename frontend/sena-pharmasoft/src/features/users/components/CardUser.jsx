@@ -17,46 +17,46 @@ const Card = ({ user }) => {
       <div className="max-w-6xl w-full bg-surface shadow-lg rounded-xl overflow-hidden">
         <div className="text-text-primary text-center py-4">
           <Title 
-            title="Perfil de usuario"
+            title="Perfil de Usuario"
           />
         </div>
 
         <div className="grid grid-cols-3 gap-8 p-8">
           <div className="space-y-4">
             <div className="w-80">
-              <label className="block text-small-label font-semibold text-text-secondary">Nombre</label>
-              <div className="bg-surface-v2 px-3 py-2 rounded-md">{nombre_completo}</div>
+              <label className="block text-small-label font-semibold">Nombre</label>
+              <div className="bg-surface-v2 px-3 rounded-md h-12 flex items-center">{nombre_completo}</div>
             </div>
             <div className="w-80">
-              <label className="block text-small-label font-semibold text-text-secondary">Tipo de Documento</label>
-              <div className="bg-surface-v2 px-3 py-2 rounded-md">{tipo_identificacion}</div>
+              <label className="block text-small-label font-semibold">Tipo de Documento</label>
+              <div className="bg-surface-v2 px-3 rounded-md h-12 flex items-center">{tipo_identificacion}</div>
             </div>
             <div className="w-80">
-              <label className="block text-small-label font-semibold text-text-secondary">Número de documento</label>
-              <div className="bg-surface-v2 px-3 py-2 rounded-md">{numero_documento}</div>
+              <label className="block text-small-label font-semibold">Número de documento</label>
+              <div className="bg-surface-v2 px-3 rounded-md h-12 flex items-center">{numero_documento}</div>
             </div>
             <div className="w-80">
-              <label className="block text-small-label font-semibold text-text-secondary">Rol</label>
-              <div className="bg-surface-v2 px-3 py-2 rounded-md">{rol}</div>
+              <label className="block text-small-label font-semibold">Rol</label>
+              <div className="bg-surface-v2 px-3 rounded-md h-12 flex items-center">{rol}</div>
             </div>
           </div>
 
           <div className="space-y-4">
             <div className="w-80">
-              <label className="block text-small-label font-semibold text-text-secondary">Correo electrónico</label>
-              <div className="bg-surface-v2 px-3 py-2 rounded-md">{correo}</div>
+              <label className="block text-small-label font-semibold">Correo electrónico</label>
+              <div className="bg-surface-v2 px-3 rounded-md h-12 flex items-center">{correo}</div>
             </div>
             <div className="w-80">
-              <label className="block text-small-label font-semibold text-text-secondary">Teléfono</label>
-              <div className="bg-surface-v2 px-3 py-2 rounded-md">{telefono}</div>
+              <label className="block text-small-label font-semibold">Teléfono</label>
+              <div className="bg-surface-v2 px-3 rounded-md h-12 flex items-center">{telefono}</div>
             </div>
             <div className="w-80">
-              <label className="block text-small-label font-semibold text-text-secondary">Dirección</label>
-              <div className="bg-surface-v2 px-3 py-2 rounded-md">{direccion}</div>
+              <label className="block text-small-label font-semibold">Dirección</label>
+              <div className="bg-surface-v2 px-3 rounded-md h-12 flex items-center">{direccion}</div>
             </div>
             <div className="w-80">
-              <label className="block text-small-label font-semibold text-text-secondary">Estado</label>
-              <div className="bg-surface-v2 px-3 py-2 rounded-md">{estado}</div>
+              <label className="block text-small-label font-semibold">Estado</label>
+              <div className="bg-surface-v2 px-3 rounded-md h-12 flex items-center">{estado}</div>
             </div>
           </div>
 

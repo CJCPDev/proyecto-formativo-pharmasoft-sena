@@ -1,3 +1,4 @@
+
 @import url("./tokens.css");
 @import url("./semantic.css");
 /*@import url("./base.css");*/
@@ -30,7 +31,7 @@
     --color-background: var(--semantic-background);
     
     --color-text-primary: var(--semantic-text-primary);
-    --color-text-secondary: var(--semantic-text-secondarygray);
+    --color-text-secondary: var(--semantic-text-secondary);
     --color-text-mute: var(--semantic-text-mute);
     --color-text-inverse: var(--semantic-text-inverse);
 
@@ -61,4 +62,3 @@
 
 }
 @import "tailwindcss"; /* Esta linea debe quedar al final para que funcione*/
-

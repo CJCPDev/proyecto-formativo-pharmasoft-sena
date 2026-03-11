@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Loading(){
 
-     const navigate = useNavigate();
+    const navigate = useNavigate();
 
         setTimeout(() => {
             navigate('/validationPassword')

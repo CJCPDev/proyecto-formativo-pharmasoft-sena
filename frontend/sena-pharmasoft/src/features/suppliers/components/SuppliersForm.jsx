@@ -2,9 +2,6 @@
 // importación de los estados useState y useEffect de reac
 // Importacion de la funcion que contiene el json para los selects
 
-/* import Input from "../../../shared/components/Input"
-import Select from "../../../shared/components/Select"
-import Button from "../../../shared/components/Button" */
 import { useEffect, useState } from "react"
 import { getSuppliersState } from "../services/selectService"
 import { Title, Input, Select, Button } from "@/shared/components"

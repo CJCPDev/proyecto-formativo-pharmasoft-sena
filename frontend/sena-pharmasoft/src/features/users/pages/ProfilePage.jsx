@@ -1,5 +1,5 @@
 import users from "../../../data/user/users.js"
-import { CardUser } from "@/shared/components"
+import { CardUser } from "@/features/users"
 
 export default function ProfilePage (){
         const user = users.find(prod => prod.id === 1)
@@ -7,7 +7,7 @@ export default function ProfilePage (){
         return(
 
         <div className=" 
-            relative bg-white rounded-xl
+            relative rounded-xl
         ">
             {/* {products.map((product) => ( <Card key={product.id} product={product} />))} */}
 

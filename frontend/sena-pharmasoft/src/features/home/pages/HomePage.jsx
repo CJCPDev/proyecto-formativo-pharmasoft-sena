@@ -1,24 +1,26 @@
-import heroBg from "@/assets/images/logo.webp" 
-import Navbar from "../../../shared/layout/Navbar"
+import React, { useState, useEffect } from "react";
+import { getPharmaForm } from "../services/selectService.js";
+import ProductForm from "../components/ProductForm";
+import Card from "../../../shared/components/Card.jsx";
 
+export default function HomePage() {
+  const [pharmaForm, setPharmaForm] = useState([]);
 
-export default function HomePage (){
+  useEffect(() => {
+    getPharmaForm().then(setPharmaForm);
+  }, []);
 
-    return(
-        <section
-            className="relative min-h-screen w-full flex items-center justify-center text-black"
-            style={
-                {
-                    backgroundImage: `url(${heroBg})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center"
-                }
-            }
-        >
-            <Navbar variant="transparent"></Navbar>
-            <div className="relative z-10 text-center text-text-inverse">
-                hola
-            </div>
-        </section>
-    )
+  const product = pharmaForm.find((prod) => prod.id === 5);
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      <main className=" p-8">
+        <div className="grid grid-cols-3 gap-6">
+          {pharmaForm.map((med) => (
+            <ProductForm key={med.id} med={product} />
+          ))}
+        </div>
+      </main>
+    </div>
+  );
 }
