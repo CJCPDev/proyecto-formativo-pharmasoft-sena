@@ -3,7 +3,7 @@ import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import HomePage from "../../features/home/pages/HomePage";
 
-import ProfilePage from "../../features/users/pages/ProfilePage";
+import ProfilePage from "../../features/users/pages/ProfileUserPage";
 
 // Imports de Login
 
@@ -14,7 +14,7 @@ import Loading from "../../shared/components/Loading";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
 // ------
-
+import { UserListPage } from "../../features/users";
 import CreateUserPage from '../../features/users/pages/CreateUserPage'
 
 // Import Ventas
@@ -78,8 +78,15 @@ const router = createBrowserRouter ([
             },
             {
                 path: "usuarios",
-                element: <CreateUserPage/>
-        
+                element: <UserListPage/>
+            },
+                        {
+                path: "crear-usuarios",
+                element: <CreateUserPage/> 
+            },
+            {
+                path: "ver-usuarios",
+                element: <ProfileUserPage/> 
             },
 
         ]
