@@ -1,3 +1,2 @@
-// Identificar dependencias profundas.
-// Implementar index.js en cada feature.
-// Definir APIs públicas coherentes con el dominio.
+export {default as InformationSale} from './components/InformationSell'
+export {default as SaleForm} from './components/SaleForm'
