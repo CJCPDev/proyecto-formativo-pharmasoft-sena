@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; 
 import Input from "../../../shared/components/Input";
 import Select from "../../../shared/components/Select";
 import Button from "../../../shared/components/Button";
@@ -6,6 +7,7 @@ import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTyp
 
 
 export default function FormMedicamentos() {
+  const navigate = useNavigate();   
 
   const [pharmaForm, setPharmaForm] = useState([]);
   useEffect(()=> {
@@ -33,17 +35,8 @@ export default function FormMedicamentos() {
   }, []);
 
   return (
-    <div
-      className="min-h-screen p-12 mt-20"
-      // style={{ backgroundColor: "var(--color-background)" }}
-    >
-      <div
-        className="max-w-7xl mx-auto rounded-xl p-10"
-        style={{
-          backgroundColor: "var(--color-surface)",
-          border: "1px solid var(--color-border)",
-        }}
-      >
+    <div>
+      <div>
         {/* Formulario */}
         <form className="flex flex-col gap-10">
           {/* Contenedor de columnas */}
@@ -154,7 +147,7 @@ export default function FormMedicamentos() {
               />
             </div>
           </div>
-          <div className="col-span-full flex justify-center gap-6 py-6">
+          <div className="col-span-full flex justify-center gap-4 py-4">
             {/* Botón primario → “Guardar” */}
             <Button
               variant="primary"
@@ -167,10 +160,17 @@ export default function FormMedicamentos() {
             {/* Botón secundario → “Cancelar” */}
             <Button
               variant="secondary"
-              size="md"
+              size="sm"
               onClick={() => console.log("Cancelar")}
             >
               Cancelar
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => navigate("/formulario-ver")}
+            >
+              Ver
             </Button>
           </div>
         </form>

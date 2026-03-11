@@ -3,5 +3,6 @@
     { "id": 2, "label": "Gel" },
     { "id": 3, "label": "Linimento / Bálsamo" },
     { "id": 4, "label": "Ungüento / Pomada" },
-    { "id": 5, "label": "Pasta" }
+    { "id": 5, "label": "Pasta" },
+    { "id": 6, "label": "Tableta" }
 ]

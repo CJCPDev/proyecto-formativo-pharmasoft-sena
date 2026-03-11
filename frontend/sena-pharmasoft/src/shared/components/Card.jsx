@@ -1,6 +1,6 @@
 
 
-const Card = ({product}) => {
+export default function Card({product}) {
 
     const {title, image, price, description } = product; 
 
@@ -46,5 +46,3 @@ const Card = ({product}) => {
 
     )
 }
-
-export default Card;

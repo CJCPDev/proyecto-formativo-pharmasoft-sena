@@ -1,10 +1,10 @@
 import React from "react";
+import FormMedicamentos from "../components/FormMedicamentos";
 
 export default function CreateProductPage() {
     return (
         <div>
-        <h1>Crear Producto</h1>
-        {/* aquí va tu formulario o lo que quieras renderizar */}
+            <FormMedicamentos />
         </div>
     );
 }
