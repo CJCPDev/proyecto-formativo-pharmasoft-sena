@@ -21,6 +21,8 @@ import CreateUserPage from '../../features/users/pages/CreateUserPage'
 // Import Ventas
 
 import CreateSalePage from "../../features/sales/pages/CreateSalePage";
+import ListSalePage from "@/features/sales/pages/ListSalePage";
+import SaleDetailPage from "@/features/sales/pages/SaleDetailPage"
 // ------
 
 // Imports de proveedores
@@ -74,7 +76,15 @@ const router = createBrowserRouter ([
                 element: <ProductDetailPage/>
             },
             {
-                path: "ventas",
+                path: "listar-ventas",
+                element: <ListSalePage/>
+            },
+            {
+                path: "ver-venta",
+                element: <SaleDetailPage/>
+            },
+            {
+                path: "crear-venta",
                 element: <CreateSalePage/>
             },
             {

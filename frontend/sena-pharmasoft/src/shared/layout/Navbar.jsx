@@ -55,7 +55,7 @@ const Navbar = ({ variant = "solid" }) => {
               </Link>
             </li>
             <li>
-              <Link to="/ventas" className="hover:text-primary transition hover:underline hover:underline-offset-2">
+              <Link to="/listar-ventas" className="hover:text-primary transition hover:underline hover:underline-offset-2">
                 Ventas
               </Link>
             </li>
