@@ -12,7 +12,6 @@ export default function Input({label, type = "text", ...props}){
                     text-brand-hover
                     px-2
                     text-info-medium
-                    text-text-secondary
                     font-main
                     font-bold
                 "
@@ -56,9 +55,9 @@ export default function Input({label, type = "text", ...props}){
                     border-brand
                     px-4
                     text-base
-                    focus:ring-2
+                    focus:ring-1
                     focus:ring-brand-hover
-                    focus:border-brand-hover
+                    focus:border-brand-fort
                     focus:outline-none
                     bg-brand
                     border-background
