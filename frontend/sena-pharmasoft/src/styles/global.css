@@ -19,7 +19,7 @@
     --color-background: var(--semantic-background);
     
     --color-text-primary: var(--semantic-text-primary);
-    --color-text-secondary: var(--semantic-text-secondarygray);
+    --color-text-secondary: var(--semantic-text-secondary);
     --color-text-mute: var(--semantic-text-mute);
     --color-text-inverse: var(--semantic-text-inverse);
 

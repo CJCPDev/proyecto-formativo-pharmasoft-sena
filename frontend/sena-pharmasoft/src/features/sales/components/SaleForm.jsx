@@ -58,7 +58,7 @@ export default function SaleForm(){
                                 options={paymentStates} 
                             />
                     </div>                    
-                    <div>hola</div>
+
                 </div>
                 <div className="pt-5">
                     <Input

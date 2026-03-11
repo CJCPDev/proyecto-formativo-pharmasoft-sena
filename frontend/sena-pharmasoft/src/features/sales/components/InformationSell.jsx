@@ -6,7 +6,7 @@ export default function SaleForm(){
 
 
     return(
-        <div className="font-main bg-white grid gap-2 w-full h-full p-6 rounded-lg font-main">
+        <div className="bg-white grid gap-2 w-full h-full p-6 rounded-lg font-main">
             <div>
                 <Title
                     title="Productos"

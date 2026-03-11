@@ -34,19 +34,19 @@ import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
 
 
 const router = createBrowserRouter ([
-
-    {
     
+    {
+        
         
         element: <MainLayout/>,
         children: [
             {
-                path: "/",
-                element: <HomePage/>
-            },
-            {
                 path: "crear-proveedores",
                 element: <SuppliersPage/> 
+            },
+            {
+                path: "/",
+                element: <HomePage/>
             },
             {
                 path: "lista-proveedores",
@@ -75,7 +75,12 @@ const router = createBrowserRouter ([
             {
                 path: "perfil",
                 element: <ProfilePage/> //Definir pagina
-            }
+            },
+            {
+                path: "usuarios",
+                element: <CreateUserPage/>
+        
+            },
 
         ]
     },
@@ -91,11 +96,6 @@ const router = createBrowserRouter ([
             {
                 path: "login",
                 element: <LoginPage/>
-
-            },
-            {
-                path: "usuarios",
-                element: <CreateUserPage/>
 
             },
             {

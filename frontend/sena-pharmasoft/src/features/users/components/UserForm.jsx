@@ -60,8 +60,8 @@ export default function UserForm() {
                               placeholder="Celular"
                               />
                     </div>
-                  <div className="grid text-center items-center justify-items-center w-full h-auto p-16">
-                    <div className="bg-red-200 flex items-end text-center w-full h-64">
+                  <div className="grid text-center items-center justify-items-center w-full h-96 p-9">
+                    <div className="bg-brand-soft/40 flex text-center items-center w-full h-full rounded-lg">
                      <AvatarUploader></AvatarUploader>
                     </div>
                   </div>
