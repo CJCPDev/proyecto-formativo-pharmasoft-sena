@@ -1,8 +1,6 @@
-import Input from "../../../shared/components/Input"
-import Button from "../../../shared/components/Button"
+import  {Button, Input, Modal} from '@/shared/components'
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Modal from "../../../shared/components/Modal";
 import { Check } from "lucide-react";
 
 export default function ConfirmationPassword(){
