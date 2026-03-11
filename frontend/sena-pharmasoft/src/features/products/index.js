@@ -1,5 +1,9 @@
-// Identificar dependencias profundas.
-// Implementar index.js en cada feature.
-// Definir APIs públicas coherentes con el dominio.
+export { default as FormMedicamentos } from "./components/FormMedicamentos";
 
-export {default as Revision} from "./components/ProductForm"
+export { 
+    getPharmaForm, 
+    getAdministrationTypes, 
+    getSuppliers, 
+    getLaboratoriesTypes, 
+    getStatesTypes 
+} from "./services/selectService";

@@ -8,6 +8,11 @@ export default function Input({label, type = "text", ...props}){
           <label
             className="
                     block
+                    text-[8px]
+                    text-gray-500
+                    font-mono     
+                    font-light
+                    font-
                     px-2
                     text-info-medium
                     text-black
@@ -45,7 +50,7 @@ export default function Input({label, type = "text", ...props}){
             type={type}
             className="
                     w-full
-                    h-10
+                    h-12
                     relative
                     text-black
                     rounded-xl

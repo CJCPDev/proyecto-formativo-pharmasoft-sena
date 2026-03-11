@@ -7,6 +7,10 @@ export default function Button ({
 }){
 
     const variants = {
+
+        // primary: 'border border-border  bg-brand text-inverse hover:bg-brand-hover',
+        // secondary: 'border border-border bg-brand text-primary hover:bg-brand-soft',
+
         primary: 'font-main text-brand-soft font-semibold text-base bg-brand-hover hover:bg-brand-soft hover:text-brand-hover',
         secondary: "font-main text-brand-hover font-semibold text-base bg-brand-softv2 hover:bg-brand-hover hover:text-brand-soft",
         boton: "bg-red-800 hover:bg-red-950"
@@ -38,7 +42,7 @@ export default function Button ({
             before:-inset-y-[10px] before:-inset-x-[0px]
             
             `,
-          
+            
     }
 
     return (
