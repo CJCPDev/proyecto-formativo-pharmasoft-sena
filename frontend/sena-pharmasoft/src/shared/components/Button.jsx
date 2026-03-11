@@ -45,7 +45,7 @@ export default function Button ({
         <button
         type = {type}
         className={`
-            w-full
+            w-40
             relative
             inline-flex items-center justify-center
             rounded-xl
