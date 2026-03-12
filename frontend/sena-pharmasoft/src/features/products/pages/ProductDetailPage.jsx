@@ -1,5 +1,5 @@
 import Input from "../../../shared/components/Input"
-import { Button } from "@/shared/components/"
+import { Title, Button } from "@/shared/components"
 import { useNavigate } from "react-router-dom"; 
 
 export default function ProductDetailPage() {
@@ -25,10 +25,9 @@ export default function ProductDetailPage() {
     return (
         <div>
             <div>
-            <h2 className="text-2xl font-bold mb-8 text-center">
-                Detalle del Medicamento
-            </h2>
-
+            <Title
+                title="Detalle del medicamento"
+            />
             <form className="flex flex-col gap-10">
                 <div className="flex gap-12">
                 {/* Columna 1 */}

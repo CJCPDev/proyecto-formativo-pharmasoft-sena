@@ -1,14 +1,16 @@
-import { useState, useEffect } from "react";
+/* import { useState, useEffect } from "react"; */
 import { useNavigate } from "react-router-dom"; 
 import Input from "../../../shared/components/Input";
-import Select from "../../../shared/components/Select";
+import { Select } from "../../../shared/components";
 import Button from "../../../shared/components/Button";
-import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../services/selectService";
+/* import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../services/selectService"; */
+import pharmaForm from "../../../data/selects/pharmaForm.json"
+import administrationTypes from "../../../data/selects/administrationTypes.json";
 
 
 export default function FormMedicamentos() {
   const navigate = useNavigate();   
-
+/* 
   const [pharmaForm, setPharmaForm] = useState([]);
   useEffect(()=> {
     getPharmaForm().then(setPharmaForm)
@@ -32,13 +34,13 @@ export default function FormMedicamentos() {
   const [statesTypes, setStatesTypes] = useState([]);
   useEffect(()=> {
     getStatesTypes().then(setStatesTypes)
-  }, []);
+  }, []); */
 
   return (
     <div>
       <div>
         {/* Formulario */}
-        <form className="flex flex-col gap-10">
+        <form className="flex flex-col gap-10 z-20">
           {/* Contenedor de columnas */}
           <div className="flex gap-12">
             {/* ================= COLUMNA 1 ================= */}
@@ -51,9 +53,8 @@ export default function FormMedicamentos() {
 
               <Select
                 label="Forma farmaceutica"
-                name="formaFarmaceutica"
+                name="pharmaForm"
                 options={pharmaForm}
-                placeholder="Forma farmaceutica"
                 text="Forma farmaceutica"
               />
               <Select
@@ -66,7 +67,7 @@ export default function FormMedicamentos() {
               <Select
                 label="Laboratorio"
                 name="laboratorio"
-                options={laboratoriesTypes}
+/*                 options={} */
                 text="Laboratorio"
               />
 
@@ -79,7 +80,7 @@ export default function FormMedicamentos() {
               <Select
                 label="Proveedores"
                 name="proveedor"
-                options={suppliers}
+/*                 options={} */
                 text="Proveedores"
               />
             </div>
@@ -136,7 +137,7 @@ export default function FormMedicamentos() {
               <Select
                 label="Estados"
                 name="estado"
-                options={statesTypes}
+/*                 options={} */
                 text="Estados"
               />
 

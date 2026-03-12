@@ -3,7 +3,7 @@ import FormMedicamentos from "../components/FormMedicamentos";
 
 export default function CreateProductPage() {
     return (
-        <div>
+        <div className="z-40 bg-white">
             <FormMedicamentos />
         </div>
     );
