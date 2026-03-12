@@ -89,5 +89,3 @@ const Card = ({ user }) => {
 };
 
 export default Card;
-
-

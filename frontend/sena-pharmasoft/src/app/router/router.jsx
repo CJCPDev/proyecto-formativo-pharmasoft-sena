@@ -3,7 +3,7 @@ import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import HomePage from "../../features/home/pages/HomePage";
 
-import ProfilePage from "../../features/users/pages/ProfilePage";
+import ProfilePage from "../../features/users/pages/ProfileUserPage";
 
 // Imports de Login
 
@@ -14,10 +14,9 @@ import Loading from "../../shared/components/Loading";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
 // ------
-
-// Import usuarios
-import CreateUserPage from '../../features/users/pages/CreateUserPage'
-import { UserListPage } from "@/features/users"
+import { UserListPage } from "../../features/users";
+import { CreateUserPage } from "@/features/users";
+// import { ProfileUserPage } from "@/features/users";
 
 
 // Import Ventas
@@ -39,6 +38,10 @@ import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
 const router = createBrowserRouter ([
     
     {
+        path: "/",
+        element: <HomePage/>
+    },
+    {
         
         
         element: <MainLayout/>,
@@ -46,10 +49,6 @@ const router = createBrowserRouter ([
             {
                 path: "crear-proveedores",
                 element: <SuppliersPage/> 
-            },
-            {
-                path: "/",
-                element: <HomePage/>
             },
             {
                 path: "lista-proveedores",
@@ -87,10 +86,10 @@ const router = createBrowserRouter ([
                 path: "crear-usuarios",
                 element: <CreateUserPage/> 
             },
-            {
-                path: "ver-usuarios",
-                element: <ProfilePage/> 
-            },
+            // {
+            //     path: "ver-usuarios",
+            //     element: <ProfileUserPage/> 
+            // },
 
         ]
     },
