@@ -12,9 +12,9 @@ export default function Input({label, type = "text", ...props}){
                     text-brand-hover
                     px-2
                     text-info-medium
-                    text-black
                     font-main
                     font-bold
+                    text-black
                 "
           >
             {label}

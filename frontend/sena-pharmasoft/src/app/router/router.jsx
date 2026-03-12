@@ -23,6 +23,7 @@ import CreateUserPage from '../../features/users/pages/CreateUserPage'
 import CreateSalePage from "../../features/sales/pages/CreateSalePage";
 import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage"
+import ListSellPage from "@/features/sales/pages/ListSellPage"
 // ------
 
 // Imports de proveedores
