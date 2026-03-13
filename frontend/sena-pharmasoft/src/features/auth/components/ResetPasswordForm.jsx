@@ -1,8 +1,7 @@
 import { UserRoundKey } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import TokenValidation from "./TokenValidation";
-import Button from "../../../shared/components/Button";
-import Modal from "../../../shared/components/Modal";
+import  {Button} from '@/shared/components'
 
 
 

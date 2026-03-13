@@ -1,5 +1,4 @@
-import Input from "@/shared/components/Input";
-import Button from '@/shared/components/Button'
+import  {Button, Input} from '@/shared/components'
 import { LockKeyhole } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
-import HomePage from "../../features/home/pages/HomePage";
+import { HomePage } from "@/features/home";
+import { DashboardPage } from "@/features/dashboard"
 
-import ProfilePage from "../../features/users/pages/ProfilePage";
+import ProfilePage from "../../features/users/pages/ProfileUserPage";
 
 // Imports de Login
 
@@ -14,12 +15,14 @@ import Loading from "../../shared/components/Loading";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
 // ------
-
+import { UserListPage } from "../../features/users";
 import CreateUserPage from '../../features/users/pages/CreateUserPage'
 
 // Import Ventas
 
 import CreateSalePage from "../../features/sales/pages/CreateSalePage";
+import ListSalePage from "@/features/sales/pages/ListSalePage";
+import SaleDetailPage from "@/features/sales/pages/SaleDetailPage"
 // ------
 
 // Imports de proveedores
@@ -27,22 +30,28 @@ import CreateSalePage from "../../features/sales/pages/CreateSalePage";
 import CreateProductPage from "../../features/products/pages/CreateProductPage";
 import { SuppliersPage } from "@/features/suppliers";
 import FormMedicamentos from "../../features/products/pages/CreateProductPage";
+import MedicamentListPage from "../../features/products/pages/MedicamentListPage";
 import SuppliersListPage from "@/features/suppliers/pages/SupplierListPage";
 import SuppliersDetailPage from "@/features/suppliers/pages/SuppliersDetailPage";
 // ------
 import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
+import { UserColumns } from "../../features/products/table/UserColumns";
 
 
 const router = createBrowserRouter ([
-
-    {
     
+    {
+        path: "logout",
+        element: <HomePage/>
+    },
+    {
+        
         
         element: <MainLayout/>,
         children: [
             {
                 path: "/",
-                element: <HomePage/>
+                element: <DashboardPage/>
             },
             {
                 path: "crear-proveedores",
@@ -58,24 +67,44 @@ const router = createBrowserRouter ([
             },
             {
                 path: "medicamentos",
+                element: <MedicamentListPage />
+            },
+            {
+                path: "crear-medicamento",
                 element: <CreateProductPage/>
             },
             {
-                path: "medi",
-                element: <CreateProductPage/>
-            },
-            {
-                path: "formulario-ver",
+                path: "ver-medicamento",
                 element: <ProductDetailPage/>
             },
             {
-                path: "ventas",
+                path: "listar-ventas",
+                element: <ListSalePage/>
+            },
+            {
+                path: "ver-venta",
+                element: <SaleDetailPage/>
+            },
+            {
+                path: "crear-venta",
                 element: <CreateSalePage/>
             },
             {
                 path: "perfil",
                 element: <ProfilePage/> //Definir pagina
-            }
+            },
+            {
+                path: "usuarios",
+                element: <UserListPage/>
+            },
+            {
+                path: "crear-usuarios",
+                element: <CreateUserPage/> 
+            },
+            {
+                path: "ver-usuarios",
+                // element: <ProfileUserPage/> 
+            },
 
         ]
     },
@@ -91,11 +120,6 @@ const router = createBrowserRouter ([
             {
                 path: "login",
                 element: <LoginPage/>
-
-            },
-            {
-                path: "usuarios",
-                element: <CreateUserPage/>
 
             },
             {

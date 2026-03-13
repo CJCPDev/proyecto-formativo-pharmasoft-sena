@@ -12,16 +12,17 @@ export default function Select({
     return (
 
 
-        <div className='font-main w-[320px]'>
+        <div className='font-main w-full'>
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
 
-            <label className='block text-small-label mb-1 px-4 text-text-secondary'>
+            <label className='block text-info-medium font-main mb-1 px-4 text-brand-hover font-bold text-[8px]'>
 
                 {label}
             </label>
             )}
+
             <select 
                 name={name}
                 value={selected}
@@ -33,12 +34,12 @@ export default function Select({
                     bg-brand-soft/60
                     rounded-xl
                     border
-                    border-border
+                    border-brand
                     px-4
-                    focus:ring-1
+                    text-base
+                    focus:ring-2
                     focus:ring-brand-hover
-                    focus:border-brand-fort
-                    focus:outline-none
+                    focus:border-brand-hover
                     focus:bg-white   
                     hover:bg-white
                     hover:border-brand-hover

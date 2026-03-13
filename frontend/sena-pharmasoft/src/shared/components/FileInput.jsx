@@ -27,35 +27,32 @@ export default function FileInput({
             }, 1200);
 };
         return (
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 text-center items-center mx-auto py-auto h-full">
 
-{/*             Análisis y Desarrollo de Software
-
-            Licencia Creative Commons Attribution 4.0 CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ */}
-
-            <label className="block text-sm font-medium text-gray-
-            600">{label}</label>
-
-            <input
-                type="file"
-                accept={accept}
-                onChange={handleChange}
-                className="block w-full text-sm text-gray-600
-                file:mr-4 file:rounded-lg file:border-0
-                file:bg-brand-hover file:px-4 file:py-2
-                file:text-white"
-            />
-            {preview && (
-            <img src={preview} className="h-32 w-32 rounded-full object-cover" />
-            )}
-                    <button
-                        onClick={handleUpload}
-                        disabled={!file || loading}
-                        className="rounded-lg bg-indigo-600 px-4 py-2 text-white
-                        disabled:opacity-50 hover:bg-indigo-800"
-                        >
-                            {loading ? "Subiendo..." : "Subir"}
-                    </button>
+                {preview && (
+                    <img src={preview} className="grid grid-cols-1 mx-auto h-48 w-48 object-contain" />
+                )}
+                <div className="grid grid-cols gap-4 h-17">
+                        <label className="text-center text-sm font-main text-small-text font-bold text-brand-hover text-gray-
+                        600">{label}</label>
+                    <input
+                        type="file"
+                        accept={accept}
+                        onChange={handleChange}
+                        className=" text-sm text-gray-600
+                        file:mr-6 file:rounded-lg file:border-0
+                        file:bg-brand-hover file:px-4 file:py-2 file:items-center
+                        file:text-white"
+                    />
+                </div>
+                        <button
+                            onClick={handleUpload}
+                            disabled={!file || loading}
+                            className="grid grid-cols-1 mx-auto mt-6 w-20 rounded-lg bg-indigo-600 px-4 py-2 text-white
+                            disabled:opacity-0  hover:bg-indigo-800"
+                            >
+                                {loading ? "Subiendo..." : "Subir"}
+                        </button>
             </div>
         );
 }

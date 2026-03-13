@@ -1,5 +1,4 @@
-import Card from "../../../shared/components/Card.jsx";
-import Button from "../../../shared/components/Button";
+import {Button, Card} from '@/shared/components'
 
 export default function ProductForm({ med }) {
     return (

@@ -14,7 +14,7 @@ const Navbar = ({ variant = "solid" }) => {
 
   const handleClick = () => {
     setTimeout(() => {
-      navigate("/login");
+      navigate("/logout");
     }, 100);
   };
 
@@ -23,18 +23,17 @@ const Navbar = ({ variant = "solid" }) => {
     <nav
       className={`w-full border-b transition-colors duration-300 ${
         variant === "transparent"
-          ? "bg-transparent border-transparent absolute top-0 left-0 z-30"
-          : "bg-white border-border"
+          ? "bg-transparent border-transparent absolute top-0 left-0 z-20"
+          : "bg-white border-border z-20"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4">
 
         <div className="flex h-16 items-center justify-between">
           {/* Logo de marca */}
-          <div className="flex items-center">
-
-            <Link to="/" className="text-xl flex items-center">
-              <img className="w-42 h-30" src={Logot} alt="" />
+          <div>
+            <Link to="/" className="flex items-center ">
+              <img className="w-44 h-16 object-cover " src={Logot} alt="" />
             </Link>
           </div>
 
@@ -56,7 +55,7 @@ const Navbar = ({ variant = "solid" }) => {
               </Link>
             </li>
             <li>
-              <Link to="/ventas" className="hover:text-primary transition hover:underline hover:underline-offset-2">
+              <Link to="/listar-ventas" className="hover:text-primary transition hover:underline hover:underline-offset-2">
                 Ventas
               </Link>
             </li>

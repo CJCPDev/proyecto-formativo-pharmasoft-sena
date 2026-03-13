@@ -15,7 +15,7 @@ export default function Modal({ children, logo, onClose }) {
 
         <button 
           onClick={onClose}
-          className="absolute top-2 right-4 text-small-text text-black/60"
+          className="absolute top-2 right-4 text-small-text text-black/60 cursor-pointer"
         >
           X
         </button>

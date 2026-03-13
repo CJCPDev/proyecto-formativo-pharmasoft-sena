@@ -138,7 +138,7 @@ export default function ProductDetailPage() {
                 <Button
                 variant="secondary"
                 size="md"
-                onClick={() => navigate("/medi")}
+                onClick={() => navigate("/medicamentos")}
                 >
                     Regresar
                 </Button>
