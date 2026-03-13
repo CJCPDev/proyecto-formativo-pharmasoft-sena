@@ -3,11 +3,12 @@ import { useState } from "react";
 export default function Select({
     label,
     name,
-    options = []
+    options = [],
+    value,
+    error,
+    OnChange,
     }
 ){
-
-    const [selected, setSelected] = useState("");
 
     return (
 
@@ -25,10 +26,10 @@ export default function Select({
                 {label}
             </label>
             )}
-            <select 
+            <select
+                value={value}
+                OnChange={OnChange}
                 name={name}
-                value={selected}
-                onChange={(e) => setSelected(e.target.value)}
                 className='
                     bg-brand-soft
                     w-full
@@ -60,6 +61,7 @@ export default function Select({
                 )
                 };
             </select>
+              {error && <p className="text-red-700 text-sm mt-1">{error}</p>}
         </div>
     );
 };

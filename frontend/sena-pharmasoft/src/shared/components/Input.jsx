@@ -1,21 +1,22 @@
 import './../../styles/global.css'
 
-export default function Input({label, type = "text", ...props}){
+export default function Input({label, type = "text", error, ...props}){
     return (
       <div className="w-full">
         {/*Label */}
         {label && (
           <label
-            className="
+            className={`
                     block
                     text-[8px]     
                     text-brand-hover
-                    px-2
+                    pb-1
                     text-info-medium
                     font-main
                     font-bold
                     text-black
-                "
+              ${error ? 'text-red-600' : 'text-brand-hover'}
+            `}
           >
             {label}
           </label>
@@ -45,7 +46,7 @@ export default function Input({label, type = "text", ...props}){
 
           <input
             type={type}
-            className="
+            className={`
                     w-full
                     h-10
                     relative
@@ -63,10 +64,12 @@ export default function Input({label, type = "text", ...props}){
                     focus:bg-white   
                     hover:bg-white
                     hover:border-brand-hover
-                    "
+                    ${error ? 'border-red-600' : 'border border-border-strong'}  
+                    `}
             {...props}
           />
         </div>
+              {error && <p className="text-red-700 text-sm mt-1">{error}</p>}
       </div>
     );
 }
