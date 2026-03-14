@@ -1,6 +1,5 @@
-import { Button, Title } from "@/shared/components"
+import { Button, Title, DataTable } from "@/shared/components"
 import { Link } from "react-router-dom"
-import { DataTable } from "@/shared/components"
 import { SupplierColumns } from "../table/SupplierColumns"
 import { suppliers } from "@/data/suppliers/suppliers"
 export default function SuppliersListPage (){
@@ -9,7 +8,7 @@ export default function SuppliersListPage (){
             className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4
         ">
             <Title
-                title="Lista de Proveedores"
+                title="Proveedores"
             />
             <div className="flex justify-end gap-6">
                 <div className="border rounded-xl h-12 w-auto px-4 flex items-center">
@@ -24,12 +23,12 @@ export default function SuppliersListPage (){
                 </div>
             </div>
             <div className="flex gap-6">
-                <div className="w-100 h-full border-2 border-black rounded-3xl">
+                {/* <div className="w-100 h-full border-2 border-black rounded-3xl">
                     <table> 
 
                     </table>
-                </div>
-                <div className="w-full h-full border-2 border-black rounded-3xl p-4">
+                </div> */}
+                <div className="w-full h-full  p-4">
                     <DataTable
                         data={suppliers}
                         columns={SupplierColumns}
