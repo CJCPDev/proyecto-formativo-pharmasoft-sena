@@ -13,7 +13,7 @@ const Navbar = ({ variant = "solid" }) => {
 
   const handleClick = () => {
     setTimeout(() => {
-      navigate("/logout");
+      navigate("/");
     }, 100);
   };
 
@@ -31,7 +31,7 @@ const Navbar = ({ variant = "solid" }) => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo de marca */}
           <div>
-            <Link to="/" className="flex items-center ">
+            <Link to="/DashboardMain" className="flex items-center ">
               <img className="w-44 h-16 object-cover " src={Logot} alt="" />
             </Link>
           </div>

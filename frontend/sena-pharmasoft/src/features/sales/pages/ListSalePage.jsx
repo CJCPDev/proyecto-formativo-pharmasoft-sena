@@ -1,9 +1,10 @@
 import { Button, Title } from "@/shared/components"
 import { Link } from "react-router-dom"
+import ListSellPage from "./ListSellPage"
 export default function ListSalePage (){
     return(
         <div
-            className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4
+            className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-2 w-350
         ">
             <Title
                 title="Lista de Ventas"
@@ -20,16 +21,14 @@ export default function ListSalePage (){
                     </Link>
                 </div>
             </div>
-            <div className="flex gap-12">
-                <div className="w-100 h-52 border-2 border-black rounded-3xl">
+            <div className="flex gap-6">
+                <div className="w-100 h-full border-2 border-black rounded-3xl">
                     <table> 
 
                     </table>
                 </div>
-                <div className="w-xl h-80 border-2 border-black rounded-3xl">
-                    <table> 
-
-                    </table>
+                <div className="w-full h-full border-2 border-black rounded-3xl">
+                    <ListSellPage/>
                 </div>
             </div>
             <div>

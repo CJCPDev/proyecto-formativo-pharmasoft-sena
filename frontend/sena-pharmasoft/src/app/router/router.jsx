@@ -12,6 +12,7 @@ import LoginPage from "../../features/auth/pages/LoginPage";
 import ForgotPasswordPage from "../../features/auth/components/ForgotPasswordForm"
 import ResetPasswordPage from "../../features/auth/components/ResetPasswordForm"
 import Loading from "../../shared/components/Loading";
+import AutoricedPage from "../../features/auth/pages/AutoricedPage";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
 // ------
@@ -25,6 +26,7 @@ import { ProfileUserPage } from "@/features/users";
 import CreateSalePage from "../../features/sales/pages/CreateSalePage";
 import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage"
+import ListSellPage from "@/features/sales/pages/ListSellPage"
 // ------
 
 // Imports de proveedores
@@ -39,10 +41,11 @@ import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
 import ListUserPage from "../../features/users/pages/ListUserPage";
 
 
+
 const router = createBrowserRouter ([
     
     {
-        path: "logout",
+        path: "/",
         element: <HomePage/>
     },
     {
@@ -51,8 +54,8 @@ const router = createBrowserRouter ([
         element: <MainLayout/>,
         children: [
             {
-                path: "/",
-                element: <DashboardPage/>
+                path: "DashboardMain",
+                element: <AutoricedPage/> 
             },
             {
                 path: "crear-proveedores",
