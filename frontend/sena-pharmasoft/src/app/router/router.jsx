@@ -12,6 +12,7 @@ import LoginPage from "../../features/auth/pages/LoginPage";
 import ForgotPasswordPage from "../../features/auth/components/ForgotPasswordForm"
 import ResetPasswordPage from "../../features/auth/components/ResetPasswordForm"
 import Loading from "../../shared/components/Loading";
+import AutoricedPage from "../../features/auth/pages/AutoricedPage";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
 // ------
@@ -39,10 +40,11 @@ import CreateProductPage from "../../features/products/pages/CreateProductPage";
 import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
 
 
+
 const router = createBrowserRouter ([
     
     {
-        path: "logout",
+        path: "/",
         element: <HomePage/>
     },
     {
@@ -51,8 +53,8 @@ const router = createBrowserRouter ([
         element: <MainLayout/>,
         children: [
             {
-                path: "/",
-                element: <DashboardPage/>
+                path: "DashboardMain",
+                element: <AutoricedPage/> 
             },
             {
                 path: "crear-proveedor",
