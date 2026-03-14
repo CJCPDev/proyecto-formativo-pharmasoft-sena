@@ -2,6 +2,9 @@
 
 import { Button, Title } from "@/shared/components"
 import { Link } from "react-router-dom"
+// import ListUserPage from "./ListUserPage"
+import { UserColumns } from "../table/UserColumns"
+import { users } from "@/data/users/users"
 
 export default function UserListPage (){
     return(
@@ -29,11 +32,46 @@ export default function UserListPage (){
 
                     </table>
                 </div>
-                <div className="w-xl h-80 border-2 border-black rounded-3xl">
+                {/* <div className="w-xl h-80 border-2 border-black rounded-3xl">
                     <table> 
-
+                        
                     </table>
-                </div>
+                </div> */}
+
+        <div className="w-xl h-80 border-2 border-black rounded-3xl overflow-auto">
+  <table className="table-fixed w-full border-collapse">
+    <thead>
+      <tr>
+        {UserColumns.map((col) => (
+          <th
+            key={col.accessorKey || col.id}
+            className="border px-2 py-1 text-left"
+          >
+            {col.header}
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {users.map((user) => (
+        <tr key={user.id}>
+          {UserColumns.map((col) => (
+            <td key={col.accessorKey || col.id} className="border px-2 py-1">
+              {col.cell
+                ? col.cell({ row: { original: user } }) // Render personalizado (switch, acciones)
+                : user[col.accessorKey]}
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
             </div>
             <div>
                 <Button variant = "secondary">Regresar</Button>

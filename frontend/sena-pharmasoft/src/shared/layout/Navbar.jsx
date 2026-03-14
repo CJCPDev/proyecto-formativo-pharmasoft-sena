@@ -13,7 +13,7 @@ const Navbar = ({ variant = "solid" }) => {
 
   const handleClick = () => {
     setTimeout(() => {
-      navigate("/login");
+      navigate("/logout");
     }, 100);
   };
 
@@ -30,10 +30,9 @@ const Navbar = ({ variant = "solid" }) => {
 
         <div className="flex h-16 items-center justify-between">
           {/* Logo de marca */}
-          <div className="flex items-center bg-red-950 ">
-
+          <div>
             <Link to="/" className="flex items-center ">
-              <img className="w-42 h-30 " src={Logot} alt="" />
+              <img className="w-44 h-16 object-cover " src={Logot} alt="" />
             </Link>
           </div>
 
@@ -55,7 +54,7 @@ const Navbar = ({ variant = "solid" }) => {
               </Link>
             </li>
             <li>
-              <Link to="/ventas" className="hover:text-primary transition hover:underline hover:underline-offset-2">
+              <Link to="/listar-ventas" className="hover:text-primary transition hover:underline hover:underline-offset-2">
                 Ventas
               </Link>
             </li>

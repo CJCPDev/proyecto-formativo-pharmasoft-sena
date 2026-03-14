@@ -11,7 +11,7 @@ export default function CreateSalePage(){
                     <SaleForm className="flex justify-items-center rounded-2xl"/>
                 </div>
                 <div className="w-full border border-brand-hover/20 rounded-lg">
-                    <InformationSale className="flex justify-items-center"/>
+                {/*     <InformationSale className="flex justify-items-center"/> */}
                 </div>
 
             </div>

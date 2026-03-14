@@ -1,7 +1,8 @@
 import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
-import HomePage from "../../features/home/pages/HomePage";
+import { HomePage } from "@/features/home";
+import { DashboardPage } from "@/features/dashboard"
 
 import ProfilePage from "../../features/users/pages/ProfileUserPage";
 
@@ -16,12 +17,14 @@ import ConfirmationPassword from "../../features/auth/components/ConfirmationPas
 // ------
 import { UserListPage } from "../../features/users";
 import { CreateUserPage } from "@/features/users";
-// import { ProfileUserPage } from "@/features/users";
+import { ProfileUserPage } from "@/features/users";
 
 
 // Import Ventas
 
 import CreateSalePage from "../../features/sales/pages/CreateSalePage";
+import ListSalePage from "@/features/sales/pages/ListSalePage";
+import SaleDetailPage from "@/features/sales/pages/SaleDetailPage"
 // ------
 
 // Imports de proveedores
@@ -33,12 +36,13 @@ import SuppliersListPage from "@/features/suppliers/pages/SupplierListPage";
 import SuppliersDetailPage from "@/features/suppliers/pages/SuppliersDetailPage";
 // ------
 import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
+import ListUserPage from "../../features/users/pages/ListUserPage";
 
 
 const router = createBrowserRouter ([
     
     {
-        path: "/",
+        path: "logout",
         element: <HomePage/>
     },
     {
@@ -46,6 +50,10 @@ const router = createBrowserRouter ([
         
         element: <MainLayout/>,
         children: [
+            {
+                path: "/",
+                element: <DashboardPage/>
+            },
             {
                 path: "crear-proveedores",
                 element: <SuppliersPage/> 
@@ -71,7 +79,15 @@ const router = createBrowserRouter ([
                 element: <ProductDetailPage/>
             },
             {
-                path: "ventas",
+                path: "listar-ventas",
+                element: <ListSalePage/>
+            },
+            {
+                path: "ver-venta",
+                element: <SaleDetailPage/>
+            },
+            {
+                path: "crear-venta",
                 element: <CreateSalePage/>
             },
             {
@@ -82,14 +98,14 @@ const router = createBrowserRouter ([
                 path: "usuarios",
                 element: <UserListPage/>
             },
-                        {
+            {
                 path: "crear-usuarios",
                 element: <CreateUserPage/> 
             },
-            // {
-            //     path: "ver-usuarios",
-            //     element: <ProfileUserPage/> 
-            // },
+            {
+                path: "ver-usuarios",
+                element: <ProfileUserPage/> 
+            },
 
         ]
     },
