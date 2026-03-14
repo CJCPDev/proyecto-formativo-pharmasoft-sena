@@ -263,16 +263,18 @@ export default function FormMedicamentos() {
                 onChange={handleChange}
                 error={errors.description}
               />
-
-              <AvatarUploader 
+            <div className="w-full p-4 rounded-xl border border-brand bg-brand-soft/60">
+              <AvatarUploader
                 label="Cargar foto"
-                onUpload={(url) => 
-                    setFormData((prev) => ({ 
-                        ...prev, 
-                        imagen: url, 
-                        })) 
-                        } 
+                onChange={(url) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    imagen: url,
+                  }))
+                }
               />
+            </div>
+
 
             </div>
           </div>
@@ -296,7 +298,7 @@ export default function FormMedicamentos() {
             </Button>
           </div>
         </form>
+        </div>
       </div>
-  </div>
   );
 }
