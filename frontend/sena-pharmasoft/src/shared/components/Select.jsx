@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 
 export default function Select({
     label,
@@ -6,14 +6,14 @@ export default function Select({
     options = [],
     value,
     error,
-    OnChange,
+    onChange,
     }
 ){
 
     return (
 
 
-        <div className='font-main w-full'>
+        <div className='font-main w-full'> 
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
@@ -28,7 +28,7 @@ export default function Select({
             )}
             <select
                 value={value}
-                OnChange={OnChange}
+                onChange={onChange}
                 name={name}
                 className='
                     bg-brand-soft
