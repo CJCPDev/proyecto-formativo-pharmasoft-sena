@@ -1,13 +1,12 @@
-import { useState } from "react";
-
 export default function Select({
     label,
     name,
-    options = []
+    options = [],
+    value,
+    error,
+    onChange,
     }
 ){
-
-    const [selected, setSelected] = useState("");
 
     return (
 
@@ -17,16 +16,18 @@ export default function Select({
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
 
-            <label className='block text-info-medium font-main mb-1 px-4 text-brand-hover font-bold text-[8px]'>
+            <label className='block  mb-1 px-2 text-info-medium
+                    font-main
+                    font-bold
+                    text-brand-hover'>
 
                 {label}
             </label>
             )}
-
-            <select 
+            <select
+                value={value}
+                onChange={onChange}
                 name={name}
-                value={selected}
-                onChange={(e) => setSelected(e.target.value)}
                 className='
                     bg-brand-soft
                     w-full
@@ -58,6 +59,7 @@ export default function Select({
                 )
                 };
             </select>
+                {error && <p className="text-red-700 text-sm mt-1">{error}</p>}
         </div>
     );
 };

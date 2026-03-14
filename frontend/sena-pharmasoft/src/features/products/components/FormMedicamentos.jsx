@@ -4,6 +4,7 @@ import Input from "../../../shared/components/Input";
 import { Select } from "../../../shared/components";
 import Button from "../../../shared/components/Button";
 import { medicamentoSchema } from "../schemas/medicamentoSchema";
+import { AvatarUploader } from "@/shared/components";
 import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../services/selectService"; 
 
 export default function FormMedicamentos() {
@@ -24,7 +25,8 @@ export default function FormMedicamentos() {
           precioVenta: "",
           requiresPrescription: "",
           estado: "",
-          description: ""
+          description: "",
+          imagen: null,
         });
 
     // ==========================HANDLER=====================================
@@ -261,6 +263,17 @@ export default function FormMedicamentos() {
                 onChange={handleChange}
                 error={errors.description}
               />
+
+              <AvatarUploader 
+                label="Cargar foto"
+                onUpload={(url) => 
+                    setFormData((prev) => ({ 
+                        ...prev, 
+                        imagen: url, 
+                        })) 
+                        } 
+              />
+
             </div>
           </div>
           <div className="col-span-full flex justify-center gap-4 py-4">
