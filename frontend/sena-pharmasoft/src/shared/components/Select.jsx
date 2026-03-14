@@ -1,3 +1,5 @@
+
+
 export default function Select({
     label,
     name,
@@ -11,7 +13,7 @@ export default function Select({
     return (
 
 
-        <div className='font-main w-full'>
+        <div className='font-main w-full'> 
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (

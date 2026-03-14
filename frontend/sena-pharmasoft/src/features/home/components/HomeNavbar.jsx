@@ -16,7 +16,7 @@ const Navbar = ({ variant = "solid" }) => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo de marca */}
           <div>
-            <Link to="/logout" className="flex items-center ">
+            <Link to="/" className="flex items-center ">
               <img className="w-44 h-16 object-cover " src={Logot} alt="" />
             </Link>
           </div>
@@ -29,7 +29,7 @@ const Navbar = ({ variant = "solid" }) => {
               <input
                 type="text"
                 placeholder="Buscar..."
-                className="w-48 sm:w-100 pl-4 pr-9 py-2.5 border rounded-lg text-body focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-60 sm:w-100 pl-4 pr-9 py-2.5 border rounded-lg text-body focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div> 
           </div>

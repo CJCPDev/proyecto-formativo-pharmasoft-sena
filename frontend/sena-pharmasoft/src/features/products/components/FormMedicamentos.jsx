@@ -263,7 +263,10 @@ export default function FormMedicamentos() {
                 onChange={handleChange}
                 error={errors.description}
               />
-            <div className="w-full p-4 rounded-xl border border-brand bg-brand-soft/60">
+      
+            <div className="w-full p-4 rounded-xl border border-brand bg-brand-soft/60 flex flex-col items-center">
+          
+              {/* Aquí va tu componente AvatarUploader */}
               <AvatarUploader
                 label="Cargar foto"
                 onChange={(url) =>
@@ -274,7 +277,6 @@ export default function FormMedicamentos() {
                 }
               />
             </div>
-
 
             </div>
           </div>

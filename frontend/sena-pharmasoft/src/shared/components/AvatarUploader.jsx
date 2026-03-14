@@ -1,7 +1,7 @@
 import FileInput from "./FileInput";
 
 // 
-export default function AvatarUploader({ onChange, label }) {
+export default function AvatarUploader({ onChange,label }) {
     
 return (
         <FileInput

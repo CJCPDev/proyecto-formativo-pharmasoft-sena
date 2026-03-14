@@ -12,6 +12,7 @@ import LoginPage from "../../features/auth/pages/LoginPage";
 import ForgotPasswordPage from "../../features/auth/components/ForgotPasswordForm"
 import ResetPasswordPage from "../../features/auth/components/ResetPasswordForm"
 import Loading from "../../shared/components/Loading";
+import AutoricedPage from "../../features/auth/pages/AutoricedPage";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
 // ------
@@ -28,21 +29,24 @@ import ListSellPage from "@/features/sales/pages/ListSellPage"
 
 // Imports de proveedores
 
-import CreateProductPage from "../../features/products/pages/CreateProductPage";
 import { SuppliersPage } from "@/features/suppliers";
-import FormMedicamentos from "../../features/products/pages/CreateProductPage";
-import MedicamentListPage from "../../features/products/pages/MedicamentListPage";
 import SuppliersListPage from "@/features/suppliers/pages/SupplierListPage";
 import SuppliersDetailPage from "@/features/suppliers/pages/SuppliersDetailPage";
 // ------
+
+// Imports de Productos
+import CreateProductPage from "../../features/products/pages/CreateProductPage";
+// import FormMedicamentos from "../../features/products/pages/CreateProductPage";
+import MedicamentListPage from "../../features/products/pages/MedicamentListPage";
 import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
-import { UserColumns } from "../../features/products/table/UserColumns";
+import EditProductPage from "../../features/products/pages/EditProductPage";
+import ProductReportPage from "../../features/products/pages/ProductReportsPage";
 
 
 const router = createBrowserRouter ([
     
     {
-        path: "logout",
+        path: "/",
         element: <HomePage/>
     },
     {
@@ -51,8 +55,8 @@ const router = createBrowserRouter ([
         element: <MainLayout/>,
         children: [
             {
-                path: "/",
-                element: <DashboardPage/>
+                path: "DashboardMain",
+                element: <AutoricedPage/> 
             },
             {
                 path: "crear-proveedores",
@@ -75,8 +79,16 @@ const router = createBrowserRouter ([
                 element: <CreateProductPage/>
             },
             {
-                path: "ver-medicamento",
+                path: "ver-medicamento/:id",
                 element: <ProductDetailPage/>
+            },
+            {
+                path: "editar-medicamento/:id",
+                element: <EditProductPage/>
+            },
+            {
+                path: "generar-reporte",
+                element: <ProductReportPage/>
             },
             {
                 path: "listar-ventas",

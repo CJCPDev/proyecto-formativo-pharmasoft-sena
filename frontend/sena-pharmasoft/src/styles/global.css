@@ -12,6 +12,7 @@
     --color-brand-soft: var(--semantic-brand-soft);
     --color-brand-softv2: var(--semantic-brand-soft-v2);
     --color-brand-fort: var(--semantic-brand-fort);
+    --color-brand-hoverv2: var(--semantic-brand-hoverv2)
     
     --color-backgraund: var(--semantic-primary-50);
     --color-surface: var(--semantic-surface);
