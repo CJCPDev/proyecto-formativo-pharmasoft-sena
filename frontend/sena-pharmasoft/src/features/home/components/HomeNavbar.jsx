@@ -1,6 +1,6 @@
-import { Search, LogIn } from "lucide-react";
+import { Search, LogIn,ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
-import Logot from "@/assets/images/logo.webp";
+import Logot from "@/assets/images/logo-removebg-preview.png";
 
 const Navbar = ({ variant = "solid" }) => {
   return (
@@ -8,7 +8,7 @@ const Navbar = ({ variant = "solid" }) => {
       className={`w-full border-b transition-colors duration-300 ${
         variant === "transparent"
           ? "bg-transparent border-transparent absolute top-0 left-0 z-20"
-          : "bg-white border-border z-20"
+          : "bg-brand-soft/40 border-border z-20"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4">
@@ -29,9 +29,10 @@ const Navbar = ({ variant = "solid" }) => {
               <input
                 type="text"
                 placeholder="Buscar..."
-                className="w-60 sm:w-100 pl-4 pr-9 py-2.5 border rounded-lg text-body focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-80 sm:w-120 pl-4 pr-9 py-2.5 border rounded-lg text-body focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div> 
+            <ShoppingCart/>
           </div>
           {/* Links de navegación */}
           <ul className="hidden md:flex space-x-8 items-center gap-14 text-brand-hover font-bold">

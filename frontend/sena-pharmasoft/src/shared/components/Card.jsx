@@ -42,8 +42,8 @@ export default function Card({product}) {
                     ${price.toLocaleString()}
                 </p>
                 <div className="flex mt-2 gap-6 bg-brand-hover/90 w-full h-10 rounded-full cursor-pointer hover:bg-brand-hover/80">
-                            <ShoppingCart className="stroke-brand-soft ml-6 my-auto hover:stroke-brand-hover"/>
-                        <button className="text-white py-auto font-extrabold text-xl">
+                            <ShoppingCart className="stroke-brand-soft ml-6 my-auto"/>
+                        <button className="text-white py-auto font-extrabold text-xl cursor-pointer">
                             Agregar al carrito
                         </button>
                 </div>
