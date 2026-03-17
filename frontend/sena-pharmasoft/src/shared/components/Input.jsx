@@ -48,19 +48,21 @@ export default function Input({label, type = "text", error, ...props}){
             type={type}
             className={`
                     w-full
-                    h-10
+                    h-12
                     relative
-                    text-black
+                    text-text-muted
                     rounded-xl
                     bg-brand-soft/60
                     border
-                    border-background
+                    border-brand
                     px-4
                     text-base
                     focus:ring-1
                     focus:ring-brand-hover
                     focus:border-brand-fort
                     focus:outline-none
+                    bg-brand
+                    border-background
                     focus:bg-white   
                     hover:bg-white
                     hover:border-brand-hover

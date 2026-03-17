@@ -5,7 +5,6 @@ export default function Button ({
     children, //Es el contenido que tiene el botón
     ...props
 }){
-
     const variants = {
 
         // primary: 'border border-border  bg-brand text-inverse hover:bg-brand-hover',
@@ -44,7 +43,6 @@ export default function Button ({
             `,
             
     }
-
     return (
         <button
         type = {type}
