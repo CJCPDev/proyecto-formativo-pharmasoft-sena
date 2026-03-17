@@ -15,9 +15,15 @@ import Loading from "../../shared/components/Loading";
 import AutoricedPage from "../../features/auth/pages/AutoricedPage";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
-// ------
-import { UserListPage } from "../../features/users";
-import CreateUserPage from '../../features/users/pages/CreateUserPage'
+
+
+//  imports de usuarios
+import { UserListPage } from "@/features/users";
+import { CreateUserPage } from "@/features/users";
+import { ProfileUserPage } from "@/features/users";
+import { EditUserPage } from "@/features/users";
+import { UserReportPage } from "@/features/users";
+
 
 // Import Ventas
 
@@ -32,6 +38,9 @@ import ListSellPage from "@/features/sales/pages/ListSellPage"
 import { SuppliersPage } from "@/features/suppliers";
 import SuppliersListPage from "@/features/suppliers/pages/SupplierListPage";
 import SuppliersDetailPage from "@/features/suppliers/pages/SuppliersDetailPage";
+import SupplierEditPage from "../../features/suppliers/pages/SupplierEditPage";
+import SuppliersReportPage from "../../features/suppliers/pages/SuppliersReportPage";
+
 // ------
 
 // Imports de Productos
@@ -41,6 +50,8 @@ import MedicamentListPage from "../../features/products/pages/MedicamentListPage
 import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
 import EditProductPage from "../../features/products/pages/EditProductPage";
 import ProductReportPage from "../../features/products/pages/ProductReportsPage";
+
+
 
 
 const router = createBrowserRouter ([
@@ -59,16 +70,24 @@ const router = createBrowserRouter ([
                 element: <AutoricedPage/> 
             },
             {
-                path: "crear-proveedores",
+                path: "crear-proveedor",
                 element: <SuppliersPage/> 
             },
             {
-                path: "lista-proveedores",
+                path: "listar-proveedor",
                 element: <SuppliersListPage/> 
             },
             {
-                path: "ver-proveedor",
+                path: "reportar-proveedor",
+                element: <SuppliersReportPage/> 
+            },
+            {
+                path: "ver-proveedor/:id",
                 element: <SuppliersDetailPage/> 
+            },
+            {
+                path: "ver-proveedor/:id/editar",
+                element: <SupplierEditPage/> 
             },
             {
                 path: "medicamentos",
@@ -115,8 +134,16 @@ const router = createBrowserRouter ([
                 element: <CreateUserPage/> 
             },
             {
-                path: "ver-usuarios",
-                // element: <ProfileUserPage/> 
+                path: "generar-reporte",
+                element: <UserReportPage/> 
+            },
+            {
+                path: "editar-usuarios/:id",
+                element: <EditUserPage/> 
+            },
+            {
+                path: "ver-usuarios/:id",
+                element: <ProfileUserPage/> 
             },
 
         ]

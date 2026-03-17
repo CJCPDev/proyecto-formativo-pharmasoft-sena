@@ -3,11 +3,23 @@
 @import url("./semantic.css");
 /*@import url("./base.css");*/
 
-
 @theme {
     
     /* colores de la aplicación */
     --color-brand: var(--semantic-brand);
+    --color-brand-hover: var(--semantic-brand-hover);
+    --color-brand-soft: var(--semantic-brand-soft);
+    --color-background: var(--semantic-background);
+    --color-surface: var(--white);
+    --color-surface-muted: var(--semantic-gray-200);
+    --color-text-primary: var(--semantic-gray-900); 
+    --color-text-secundary: var(--semantic-gray-700); 
+    --color-text-muted: var(--semantic-text-muted); 
+    --color-text-inverse: var(--semantic-gray-50); 
+    --color-border: var(--semantic-primary-800); 
+    --color-border-strong: var(--semantic-primary-950);
+    --color-warning: var(--semantic-secundary-800); /* */
+
     --color-brand-hover:var(--semantic-brand-hover);
     --color-brand-soft: var(--semantic-brand-soft);
     --color-brand-softv2: var(--semantic-brand-soft-v2);

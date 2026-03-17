@@ -1,5 +1,3 @@
-
-
 export default function Select({
     label,
     name,
@@ -18,10 +16,14 @@ export default function Select({
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
 
-            <label className='block  mb-1 px-2 text-info-medium
+            <label className={`
+                    block  mb-1 px-2 text-info-medium
                     font-main
+                    ${error ? 'text-red-600' : 'text-brand-hover'}
                     font-bold
-                    text-brand-hover'>
+                    text-brand-hover
+                    `}
+                    >
 
                 {label}
             </label>
@@ -30,7 +32,7 @@ export default function Select({
                 value={value}
                 onChange={onChange}
                 name={name}
-                className='
+                className={`
                     bg-brand-soft
                     w-full
                     h-10
@@ -41,12 +43,13 @@ export default function Select({
                     px-4
                     text-base
                     focus:ring-2
+                    ${error ? 'border-red-600' : 'border border-border-strong'} 
                     focus:ring-brand-hover
                     focus:border-brand-hover
                     focus:bg-white   
                     hover:bg-white
                     hover:border-brand-hover
-                '
+                `}
                 >
 
                 <option disabled value="">

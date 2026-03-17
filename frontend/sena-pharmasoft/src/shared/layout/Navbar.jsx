@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import Logot from "../../assets/images/logo.webp";
 
 
-
 const Navbar = ({ variant = "solid" }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -45,7 +44,7 @@ const Navbar = ({ variant = "solid" }) => {
               </Link>
             </li>
             <li>
-              <Link to="/lista-proveedores" className="hover:text-primary transition hover:underline hover:underline-offset-2">
+              <Link to="/listar-proveedor" className="hover:text-primary transition hover:underline hover:underline-offset-2">
                 Proveedores
               </Link>
             </li>
@@ -59,6 +58,11 @@ const Navbar = ({ variant = "solid" }) => {
                 Ventas
               </Link>
             </li>
+            {/* <li>
+              <Link to="/carrito" className="hover:text-primary transition">
+                Carrito de compras
+              </Link>
+            </li> */}
           </ul>
 
           {/* Sección derecha: búsqueda + usuario */}
