@@ -1,5 +1,5 @@
 // Iconos usados en los botones de acciones
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Eye } from "lucide-react";
 
 // Hook de React Router para navegar programáticamente entre rutas
 import { useNavigate } from "react-router-dom";
@@ -18,14 +18,14 @@ export default function UserRowActions({ user }) {
   // Acción para editar el usuario
   // Redirige a la página de edición usando el id del usuario
     const handleEdit = () => {
-    navigate(`/users/${user.id}/edit`);
+    navigate(`/editar-usuarios/${user.id}`);
     };
 
   // Acción para eliminar el usuario
   // Actualmente solo imprime en consola el id
   // En una aplicación real aquí se llamaría a la API
-    const handleDelete = () => {
-    console.log("Eliminar usuario", user.id);
+    const handleDetail = () => {
+    navigate(`/ver-usuarios/${user.id}`);
     };
 
     return (
@@ -42,10 +42,10 @@ export default function UserRowActions({ user }) {
 
       {/* Botón eliminar */}
         <button
-        onClick={handleDelete} // Ejecuta la acción de eliminación
+        onClick={handleDetail} // Ejecuta la acción de eliminación
         className="p-1 rounded hover:bg-gray-100"
         >
-        <Trash2 size={16} /> {/* Icono de eliminar */}
+        <Eye size={24} /> {/* Icono de eliminar */}
         </button>
 
     </div>

@@ -3,11 +3,11 @@ import userGroups from "../../../data/selects/userGroups.json"
 /* import pharmaForm from '../../../data/selects/pharmaForm.json' */
 
 export async function getDocumentTypes(){     
-    return documentTypes();
+    return documentTypes;
 
 } 
 
 export async function getUsersGroups(){     
-    return userGroups();
+    return userGroups;
 }
 

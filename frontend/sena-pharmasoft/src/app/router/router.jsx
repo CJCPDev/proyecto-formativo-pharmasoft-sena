@@ -15,10 +15,14 @@ import Loading from "../../shared/components/Loading";
 import AutoricedPage from "../../features/auth/pages/AutoricedPage";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
-// ------
-import { UserListPage } from "../../features/users";
+
+
+//  imports de usuarios
+import { UserListPage } from "@/features/users";
 import { CreateUserPage } from "@/features/users";
 import { ProfileUserPage } from "@/features/users";
+import { EditUserPage } from "@/features/users";
+import { UserReportPage } from "@/features/users";
 
 
 // Import Ventas
@@ -38,7 +42,8 @@ import SuppliersListPage from "@/features/suppliers/pages/SupplierListPage";
 import SuppliersDetailPage from "@/features/suppliers/pages/SuppliersDetailPage";
 // ------
 import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
-import ListUserPage from "../../features/users/pages/ListUserPage";
+
+
 
 
 
@@ -106,7 +111,15 @@ const router = createBrowserRouter ([
                 element: <CreateUserPage/> 
             },
             {
-                path: "ver-usuarios",
+                path: "generar-reporte",
+                element: <UserReportPage/> 
+            },
+            {
+                path: "editar-usuarios/:id",
+                element: <EditUserPage/> 
+            },
+            {
+                path: "ver-usuarios/:id",
                 element: <ProfileUserPage/> 
             },
 
