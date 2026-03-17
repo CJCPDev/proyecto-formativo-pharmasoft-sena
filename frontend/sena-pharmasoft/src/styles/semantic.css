@@ -7,7 +7,9 @@
 
     /*  *************BRAND********* (colores principales de la marca)*/
     --semantic-brand: var(--color-primary-50); /*color principal del proyecto*/
-    --semantic-brand-soft: var(--color-primary-100); 
+    --semantic-brand-soft: var(--color-primary-100);   
+    --color-brand-hover: var(--color-primary-900);/* Generalmente es de un tono mas alto que el brand */
+    --color-brand-soft: var(--color-primary-200);
     --semantic-brand-soft-v2: var(--color-primary-200);
     --semantic-brand-hover:var(--color-primary-800); /*generalmente es de un tomo mas oscuro*/
     --semantic-brand-hover-v2: var(--color-primary-900);/* Generalmente es de un tono mas alto que el brand */
@@ -24,6 +26,17 @@
     --semantic-text-secondary: var(--black); /*Textos menos importantes (informacion)*/
     --semantic-text-mute: var(--color-gray-500); /*Texto desabilitado*/
     --semantic-text-inverse: var(--white); /*texto invertido*/
+
+
+    --semantic-background: var(--color-primary-50); /* Fondo de toda la aplicacion */
+    --semantic-surface: var(--white); /* Fondo de modales, cards, containers */
+    --semantic-surface-muted: var(--color-gray-200); /* Zonas secundarias, con menos importancia */
+
+    /*========== TEXT ==========*/   
+    --semantic-text-primary: var(--color-gray-900); /* Color principal de lectura, títulos, texto base del documento */
+    --semantic-text-secundary: var(--color-gray-700); /* Textos menos dominantes */
+    --semantic-text-muted: var(--color-gray-500); /* Texto deshabilitado por ejemplo */
+    --semantic-text-inverse: var(--color-gray-50); /* Texto invertido */
 
     /* *******TIPOGRAFIA********** */
     --semantic-font-main: var(--font-family-main); /*tipo de letra principal*/
@@ -47,17 +60,33 @@
     --color-text-muted: var(--color-gray-500); /* Texto deshabilitado por ejemplo */
     --color-text-inverse: var(--color-gray-50); /* Texto invertido */
 
+
     /* *********BORDER***** *(colores)*/
     --semantic-border: var(--color-primary-50); /*Borde principal de los componentes*/
     --semantic-border-strong: var(--color-primary-950); /*borde fuerte (de mayor contraste)*/
+
+
+    --semantic-border: var(--color-primary-800); /* Borde principal de todos los componentes */
+    --semantic-border-strong: var(--color-primary-950); /* Bordes mas fuertes */
 
     /* *******BORDER RADIUS********** */
     --semantic-br-md: var(--radius-md);  /* 8px*/
     --semantic-br-lg: var(--radius-lg);  /*12px*/
     --semantic-br-xl: var(--radius-xl);  /*16px*/
 
+
     /* *********STATE******** */
     --semantic-warning: var(--color-secundary-600); /*color para alertas*/
+
+
+    --semantic-warning: var(--color-secundary-800); /* */
+
+    /*=======================================
+
+        YA NO DEPENDEMOS DE NOMBRES DE COLOR, 
+            DEPENDEMOS DE LA INTECIÓN 
+
+    =======================================*/
 
     /* ************************************ */
     /* YA NO DEPENDEMOS DE NOMBRE DE COLOR,
