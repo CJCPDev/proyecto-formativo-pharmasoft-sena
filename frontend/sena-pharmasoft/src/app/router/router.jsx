@@ -42,9 +42,14 @@ import SupplierEditPage from "../../features/suppliers/pages/SupplierEditPage";
 import SuppliersReportPage from "../../features/suppliers/pages/SuppliersReportPage";
 
 // ------
-import CreateProductPage from "../../features/products/pages/CreateProductPage";
-import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
 
+// Imports de Productos
+import CreateProductPage from "../../features/products/pages/CreateProductPage";
+// import FormMedicamentos from "../../features/products/pages/CreateProductPage";
+import MedicamentListPage from "../../features/products/pages/MedicamentListPage";
+import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
+import EditProductPage from "../../features/products/pages/EditProductPage";
+import ProductReportPage from "../../features/products/pages/ProductReportsPage";
 
 
 
@@ -86,15 +91,23 @@ const router = createBrowserRouter ([
             },
             {
                 path: "medicamentos",
+                element: <MedicamentListPage />
+            },
+            {
+                path: "crear-medicamento",
                 element: <CreateProductPage/>
             },
             {
-                path: "medi",
-                element: <CreateProductPage/>
-            },
-            {
-                path: "formulario-ver",
+                path: "ver-medicamento/:id",
                 element: <ProductDetailPage/>
+            },
+            {
+                path: "editar-medicamento/:id",
+                element: <EditProductPage/>
+            },
+            {
+                path: "generar-reporte",
+                element: <ProductReportPage/>
             },
             {
                 path: "listar-ventas",
