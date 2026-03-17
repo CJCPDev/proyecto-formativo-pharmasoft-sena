@@ -1,5 +1,5 @@
 // Iconos usados en los botones de acciones
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Eye } from "lucide-react";
 
 // Hook de React Router para navegar programáticamente entre rutas
 import { useNavigate } from "react-router-dom";
@@ -37,7 +37,7 @@ export default function SellRowActions({ ventas }) {
         onClick={handleEdit} // Ejecuta la navegación a la página de edición
         className="p-1 rounded hover:bg-gray-100 cursor-pointer"
       >
-        <Pencil size={16} /> {/* Icono de editar */}
+        <Pencil size={20} /> {/* Icono de editar */}
       </button>
 
       {/* Botón eliminar */}
@@ -45,7 +45,7 @@ export default function SellRowActions({ ventas }) {
         onClick={handleDelete} // Ejecuta la acción de eliminación
         className="p-1 rounded hover:bg-gray-100 cursor-pointer"
       >
-        <Trash2 size={16} /> {/* Icono de eliminar */}
+        <Eye size={24} /> {/* Icono de eliminar */}
       </button>
 
     </div>
