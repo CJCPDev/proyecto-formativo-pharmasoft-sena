@@ -30,6 +30,8 @@ import { UserReportPage } from "@/features/users";
 import CreateSalePage from "../../features/sales/pages/CreateSalePage";
 import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage"
+import SalesEditPage from "../../features/sales/pages/SalesEditPage";
+import SalesReportPage from "@/features/sales/pages/SalesReportPage"
 import ListSellPage from "@/features/sales/pages/ListSellPage"
 // ------
 
@@ -114,8 +116,16 @@ const router = createBrowserRouter ([
                 element: <ListSalePage/>
             },
             {
-                path: "ver-venta",
-                element: <SaleDetailPage/>
+                path: "reporte-venta",
+                element: <SalesReportPage/>
+            },
+            {
+                path: "ver-venta/:id/editar",
+                element: <CreateSalePage/> 
+            },
+            {
+                path: "ver-venta/:id",
+                element: <SaleDetailPage/> 
             },
             {
                 path: "crear-venta",

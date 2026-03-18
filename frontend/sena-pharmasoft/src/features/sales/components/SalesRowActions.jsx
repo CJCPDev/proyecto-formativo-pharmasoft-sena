@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 // Componente que renderiza las acciones de cada fila de usuario
 // Recibe como prop el objeto user
-export default function SellRowActions({ ventas }) {
+export default function SellRowActions({ user }) {
 
   // const handleEdit = () => {
   //   console.log("Editar usuario", user.id);
@@ -18,14 +18,14 @@ export default function SellRowActions({ ventas }) {
   // Acción para editar el usuario
   // Redirige a la página de edición usando el id del usuario
   const handleEdit = () => {
-    navigate(`/users/${ventas.id}/edit`);
+    navigate(`/ver-venta/${user.id}/editar`);
   };
 
   // Acción para eliminar el usuario
   // Actualmente solo imprime en consola el id
   // En una aplicación real aquí se llamaría a la API
-  const handleDelete = () => {
-    console.log("Eliminar usuario", ventas.id);
+  const handleDetail = () => {
+    navigate(`/ver-venta/${user.id}`);
   };
 
   return (
@@ -42,7 +42,7 @@ export default function SellRowActions({ ventas }) {
 
       {/* Botón eliminar */}
       <button
-        onClick={handleDelete} // Ejecuta la acción de eliminación
+        onClick={handleDetail} // Ejecuta la acción de eliminación
         className="p-1 rounded hover:bg-gray-100 cursor-pointer"
       >
         <Eye size={24} /> {/* Icono de eliminar */}

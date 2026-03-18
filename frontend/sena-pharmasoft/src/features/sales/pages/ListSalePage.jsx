@@ -16,8 +16,8 @@ export default function ListSalePage (){
                     </Link>
                 </div>
                 <div className="border rounded-xl h-12 w-auto px-4 flex items-center">
-                    <Link to="/ver-venta" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
-                        Ver venta
+                    <Link to="/reporte-venta" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
+                        Generar reporte
                     </Link>
                 </div>
             </div>
