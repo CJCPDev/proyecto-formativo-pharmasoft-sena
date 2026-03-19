@@ -1,26 +1,31 @@
 // Importación de componentes creados anteriormente en la capeta shared
 // importación de los estados useState y useEffect de reac
 // Importacion de la funcion que contiene el json para los selects
-
+import { getSupplierById } from "../services/getSupplierById"
 import { useEffect, useState } from "react"
 import { supplierSchema } from "../schemas/supplierSchema"
 import { getSuppliersState } from "../services/selectService"
 import { Title, Input, Select, Button } from "@/shared/components"
+import { useParams } from "react-router-dom"
 
 
 export default function SuppliersForm (){
+    const params = useParams()
+    const isEdit = Boolean(params.id);
+    const supplier = isEdit ? getSupplierById(params.id) : null;
 
     const [formData, setFormData] = useState({
-        nit: "",
-        nombre: "",
-        razonSocial: "",
-        direccion: "",
-        correo: "",
-        telContacto: "",
-        estado: "",
-        ciudad: "",
-        nombreContacto: ""
+        nit: supplier?.nit || "",
+        nombre: supplier?.nombre || "",
+        razonSocial: supplier?.razonSocial || "",
+        direccion: supplier?.direccion || "",
+        correo: supplier?.correo || "",
+        telContacto: supplier?.telContacto || "",
+        estado: supplier?.estado || "",
+        ciudad: supplier?.ciudad || "",
+        nombreContacto: supplier?.nombreContacto || ""
     });
+
 
     // Función que se ejecuta cada vez que cambia el valor de un input del formulario 
     const handleChange = (e) => { 
@@ -84,9 +89,8 @@ export default function SuppliersForm (){
             onSubmit={handleSubmit} 
             className="flex flex-col gap-6 w-175 px-4 py-6 font-main"  
         >
-            <Title
-                title="Crear proveedor"
-            />
+            {isEdit ? <Title title="Editar proveedor"/> : <Title title="Crear proveedor"/> }
+            
 
 
 {/*             <h1 className="w-full text-center text-text-primary font-bold text-3xl">
@@ -182,12 +186,25 @@ export default function SuppliersForm (){
             </div>
 
             <div className="flex gap-6 justify-center items-center">
-                <Button variant="secondary" size="sm">
-                Regresar
-                </Button>
-                <Button variant="primary" size="md" type="submit">
-                Crear
-                </Button>
+                {isEdit ? (
+                    <>
+                    <Button variant="secondary" size="sm">
+                        Cancelar
+                    </Button>
+                    <Button variant="primary" size="md" type="submit">
+                        Actualizar
+                    </Button>
+                    </>
+                ) : (
+                    <>
+                    <Button variant="secondary" size="sm">
+                        Regresar
+                    </Button>
+                    <Button variant="primary" size="md" type="submit">
+                        Crear
+                    </Button>
+                    </>
+                )}
             </div>
 
         </form>
