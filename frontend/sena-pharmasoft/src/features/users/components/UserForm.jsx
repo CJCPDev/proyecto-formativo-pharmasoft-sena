@@ -4,9 +4,11 @@ import userGroups from "../../../data/selects/userGroups.json"
 import {Title, Input, Select, Button, AvatarUploader} from "@/shared/components"
 import { useState } from "react"
 import { userSchema } from "../schemas/userSchema"
+import { useNavigate } from "react-router-dom"
 
 export default function UserForm() {
 
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
     name: "",
     userEmail: "",
@@ -178,14 +180,15 @@ export default function UserForm() {
                       <Button
                           variant="secondary"
                           size="md"
-                          // onClick={() => console.log("Oprimió cancelar")}>
+                          onClick={() => navigate("/usuarios")}
                           >Cancelar
                       </Button>
                       <Button
                           variant='primary'
                           size="md"
                           type= "submit"
-                          onMouseEnter={() => console.log('entro')}>
+                          // onClick={() => navigate("/usuarios")}
+                          >
                             Crear
                       </Button>
                 </div>

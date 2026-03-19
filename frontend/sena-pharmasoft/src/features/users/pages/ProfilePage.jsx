@@ -2,7 +2,7 @@ import users from "../../../data/user/users.js"
 import { CardUser } from "@/features/users"
 
 export default function ProfilePage (){
-        const user = users.find(prod => prod.id === 1)
+        const user = users.find(prod => prod.id === 2)
 
         return(
 
