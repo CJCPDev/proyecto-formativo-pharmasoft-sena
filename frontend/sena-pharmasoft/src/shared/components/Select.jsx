@@ -57,7 +57,7 @@ export default function Select({
                 </option>
 
                 {options.map((option) => (
-                    <option key={option.id} value={option.id}>
+                    <option key={option.value} value={option.value}>
                         {option.label}
                     </option>
                     )
