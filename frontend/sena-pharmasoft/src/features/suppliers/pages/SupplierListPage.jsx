@@ -1,8 +1,10 @@
 import { Button, Title, DataTable } from "@/shared/components"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { SupplierColumns } from "../table/SupplierColumns"
 import { suppliers } from "@/data/suppliers/suppliers"
+
 export default function SuppliersListPage (){
+    const navigate = useNavigate()
     return(
         <div
             className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4
@@ -36,7 +38,12 @@ export default function SuppliersListPage (){
                 </div>
             </div>
             <div>
-                <Button variant = "secondary">Regresar</Button>
+                <Button 
+                    variant = "secondary"
+                    onClick={() => navigate(-1)}
+                >
+                    Regresar
+                </Button>
             </div>
         </div>
     )

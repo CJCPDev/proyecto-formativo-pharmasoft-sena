@@ -6,10 +6,11 @@ import { useEffect, useState } from "react"
 import { supplierSchema } from "../schemas/supplierSchema"
 import { getSuppliersState } from "../services/selectService"
 import { Title, Input, Select, Button } from "@/shared/components"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 
 
 export default function SuppliersForm (){
+    const navigate = useNavigate()
     const params = useParams()
     const isEdit = Boolean(params.id);
     const supplier = isEdit ? getSupplierById(params.id) : null;
@@ -97,7 +98,7 @@ export default function SuppliersForm (){
                 Crear Proveedor
             </h1> */}
 
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                 
                 <Input
                 label="NIT"
@@ -188,7 +189,11 @@ export default function SuppliersForm (){
             <div className="flex gap-6 justify-center items-center">
                 {isEdit ? (
                     <>
-                    <Button variant="secondary" size="sm">
+                    <Button 
+                        onClick={() => navigate(-1)}
+                        variant="secondary" 
+                        size="sm"
+                    >
                         Cancelar
                     </Button>
                     <Button variant="primary" size="md" type="submit">
@@ -197,7 +202,11 @@ export default function SuppliersForm (){
                     </>
                 ) : (
                     <>
-                    <Button variant="secondary" size="sm">
+                    <Button 
+                        variant="secondary" 
+                        size="sm"
+                        onClick={() => navigate(-1)}
+                    >
                         Regresar
                     </Button>
                     <Button variant="primary" size="md" type="submit">

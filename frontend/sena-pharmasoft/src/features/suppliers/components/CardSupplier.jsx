@@ -7,10 +7,10 @@ const CardSupplier = () => {
     const { id } = useParams();
     const navigate = useNavigate();
 
-    // 🔥 Obtener proveedor directamente
+    // Obtener proveedor directamente
     const supplier = id ? getSupplierById(id) : null;
 
-    // 🔥 Manejo de seguridad
+    // Manejo de seguridad
     if (!supplier) {
         return <p>Proveedor no encontrado</p>;
     }
@@ -32,7 +32,7 @@ const CardSupplier = () => {
 
             <Title title="Ver Proveedor" />
 
-            <dl className="grid grid-cols-2 gap-2 font-main">
+            <dl className="grid grid-cols-2 gap-y-4 gap-x-6 font-main">
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">NIT</dt>
