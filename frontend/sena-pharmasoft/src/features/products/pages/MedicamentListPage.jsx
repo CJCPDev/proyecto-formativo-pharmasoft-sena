@@ -1,8 +1,16 @@
 import { Button, Title } from "@/shared/components"
 import { Link } from "react-router-dom"
 import ListProductsPage from "./ListProductsPage"
+import { useNavigate } from "react-router-dom"
+import ReportConfigModal from "../reports/components/ReportConfigmodal"
+import { useState } from "react"
 
 export default function MedicamentListPage (){
+
+    const[isReportModalOpen, setIsReportModalOpen] = useState(false)
+
+    const Navigate = useNavigate ()
+
     return(
         <div
             className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4
@@ -10,6 +18,12 @@ export default function MedicamentListPage (){
             <Title
                 title="Lista de Medicamentos"
             />
+
+            <ReportConfigModal
+            isOpen={isReportModalOpen}
+            onClose={() => setIsReportModalOpen(false)}
+            />
+
             <div className="flex justify-end gap-6">
                 <div className="border rounded-xl h-12 w-auto px-4 flex items-center">
                     <Link to="/crear-medicamento" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
@@ -17,9 +31,14 @@ export default function MedicamentListPage (){
                     </Link>
                 </div>
                 <div className="border rounded-xl h-12 w-auto px-4 flex items-center">
-                    <Link to="/generar-reporte" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
+                    {/* <Link to="/generar-reporte" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
                         Generar Reporte
-                    </Link>
+                    </Link> */}
+                    <Button
+                        variant="primary"
+                        onClick={() => setIsReportModalOpen(true)}
+                    >Reportes
+                    </Button>
                 </div>
             </div>
             <div className="flex gap-6">
@@ -30,10 +49,14 @@ export default function MedicamentListPage (){
                 </div> */}
                 <div className="w-full h-full border-2 border-black rounded-3xl">
                     <ListProductsPage/>
+                    
                 </div>
             </div>
             <div>
-                <Button variant = "secondary">Regresar</Button>
+                <Button 
+                    variant = "secondary"
+                    onClick = {() => Navigate(-1)}
+                    >Regresar</Button>
             </div>
         </div>
     )

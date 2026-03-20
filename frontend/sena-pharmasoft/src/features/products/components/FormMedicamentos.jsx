@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Input from "../../../shared/components/Input";
 import { Select } from "../../../shared/components";
+
 import Button from "../../../shared/components/Button";
 import { medicamentoSchema } from "../schemas/medicamentoSchema";
 import { AvatarUploader } from "@/shared/components";
 import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../services/selectService"; 
 
 export default function FormMedicamentos() {
-  // const navigate = useNavigate();
+  const Navigate = useNavigate();
 
       const [formData, setFormData] = useState({
           nombre: "",
@@ -264,8 +265,8 @@ export default function FormMedicamentos() {
                 error={errors.description}
               />
       
-            <div className="w-full p-4 rounded-xl border border-brand bg-brand-soft/60 flex flex-col items-center">
-          
+            {/* <div className="w-full p-4 rounded-xl border border-brand bg-brand-soft/60 flex flex-col items-center"> */}
+            <div className="h-60 mt-6 border-4 border-brand-soft z-20">
               {/* Aquí va tu componente AvatarUploader */}
               <AvatarUploader
                 label="Cargar foto"
@@ -281,22 +282,22 @@ export default function FormMedicamentos() {
             </div>
           </div>
           <div className="col-span-full flex justify-center gap-4 py-4">
-            {/* Botón primario → “Guardar” */}
-            <Button
-              variant="primary"
-              size="md"
-              type="submit" 
-            >
-              Guardar
-            </Button>
-
             {/* Botón secundario → “Cancelar” */}
             <Button
               variant="secondary"
-              size="sm"
-              onClick={() => console.log("Cancelar")}
+              size="md"
+              onClick={() => Navigate(-1)}
             >
               Cancelar
+            </Button>
+            
+            {/* Botón primario → “Guardar” */}
+            <Button
+              variant="primary"
+              size="sm"
+              type="submit" 
+            >
+              Crear
             </Button>
           </div>
         </form>
