@@ -1,90 +1,128 @@
-import{ Button, Title } from "@/shared/components";
-const CardSupplier = ({supplier}) => {
+import { Button, Title } from "@/shared/components";
+import { useNavigate, useParams } from "react-router-dom";
+import { getSupplierById } from "../services/getSupplierById";
 
-    const {nit, nombre, razonSocial, direccion, correo, telContacto, estado, ciudad, nombreContacto} = supplier; 
+const CardSupplier = () => {
 
+    const { id } = useParams();
+    const navigate = useNavigate();
+
+    // Obtener proveedor directamente
+    const supplier = id ? getSupplierById(id) : null;
+
+    // Manejo de seguridad
+    if (!supplier) {
+        return <p>Proveedor no encontrado</p>;
+    }
+
+    const {
+        nit,
+        nombre,
+        razonSocial,
+        direccion,
+        correo,
+        telContacto,
+        estado,
+        ciudad,
+        nombreContacto
+    } = supplier;
 
     return(
         <section className="flex flex-col gap-6 w-175 px-4 py-6 font-main">
 
-            <Title
-                title = "Ver Proveedor"
-            />
+            <Title title="Ver Proveedor" />
 
+<<<<<<< HEAD
             <dl className="grid grid-cols-2 gap-6 font-main">
+=======
+            <dl className="grid grid-cols-2 gap-y-4 gap-x-6 font-main">
+>>>>>>> 360492c725480fbdbee1d0ac680fd5e4c15c4497
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">NIT</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {nit}
+                        {nit || "-"}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Nombre</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {nombre}
+                        {nombre || "-"}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Razón Social</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {razonSocial}
+                        {razonSocial || "-"}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Dirección</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {direccion}
+                        {direccion || "-"}
                     </dd>
                 </div>
 
                 <div className="col-span-2">
                     <dt className="px-4 text-xs text-text-mute">Correo</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {correo}
+                        {correo || "-"}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Teléfono de Contacto</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {telContacto}
+                        {telContacto || "-"}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Estado</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {estado}
+                        {estado || "-"}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Ciudad</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {ciudad}
+                        {ciudad || "-"}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Nombre de Contacto</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {nombreContacto}
+                        {nombreContacto || "-"}
                     </dd>
                 </div>
 
             </dl>
 
             <div className="flex gap-6 justify-center items-center">
-                <Button variant="secondary" Size="sm">Regresar</Button>
-                <Button variant="primary">Editar</Button>
+                <Button 
+                    variant="secondary" 
+                    size="sm"
+                    onClick={() => navigate(-1)}
+                >
+                    Regresar
+                </Button>
+
+                <Button 
+                    variant="primary"
+                    onClick={() => {
+                        navigate(`/ver-proveedor/${id}/editar`)
+                    }}
+                >
+                    Editar
+                </Button>
             </div>
 
         </section>
-
     )
 }
 

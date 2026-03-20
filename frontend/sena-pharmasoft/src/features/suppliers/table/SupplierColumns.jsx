@@ -10,13 +10,13 @@ export const SupplierColumns = [
 
   // Columna ID
   {
-    accessorKey: "id", // Propiedad del objeto user que se mostrará en la columna
+    accessorKey: "id", // Propiedad del objeto supplier que se mostrará en la columna
     header: "Id",      // Título de la columna
   },
 
   // Columna Razon social
   {
-    accessorKey: "razonSocial", // Campo del objeto user
+    accessorKey: "razonSocial", // Campo del objeto supplier
     header: "Razon Social",    // Encabezado visible
   },
 
@@ -47,22 +47,22 @@ export const SupplierColumns = [
     cell: ({ row }) => {
 
       // Se obtiene el objeto completo del usuario de la fila
-      const user = row.original;
+      const supplier = row.original;
 
       // Función que se ejecuta cuando cambia el switch
       const handleChange = (value) => {
 
         // value representa el nuevo estado del switch (true o false)
-        console.log("Actualizar estado usuario:", user.id, value);
+        console.log("Actualizar estado usuario:", supplier.id, value);
 
         // Aquí normalmente se llamaría una API para actualizar el estado
-        // updateUserStatus(user.user_id, value)
+        // updatesupplierStatus(supplier.supplier_id, value)
       };
 
       return (
         // Componente reutilizable para mostrar el switch
         <StatusSwitch
-          checked={user.estado} // Estado actual del usuario
+          checked={supplier.estado} // Estado actual del usuario
           onChange={handleChange}  // Función que maneja el cambio
         />
       );
@@ -74,6 +74,6 @@ export const SupplierColumns = [
     id: "actions", // No usa accessorKey porque no corresponde a un campo del usuario
 
     // Renderiza el componente de acciones pasando el usuario completo
-    cell: ({ row }) => <SupplierRowAction user={row.original} />,
+    cell: ({ row }) => <SupplierRowAction supplier={row.original} />,
   },
 ];

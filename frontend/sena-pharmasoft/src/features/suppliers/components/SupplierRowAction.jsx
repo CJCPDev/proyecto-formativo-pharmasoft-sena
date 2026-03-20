@@ -5,11 +5,11 @@ import { Pencil, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 // Componente que renderiza las acciones de cada fila de usuario
-// Recibe como prop el objeto user
-export default function SupplierRowActions({ user }) {
+// Recibe como prop el objeto supplier
+export default function SupplierRowActions({ supplier }) {
 
   // const handleEdit = () => {
-  //   console.log("Editar usuario", user.id);
+  //   console.log("Editar usuario", supplier.id);
   // };
 
   // Hook que permite redirigir a otra ruta desde código
@@ -18,14 +18,14 @@ export default function SupplierRowActions({ user }) {
   // Acción para editar el usuario
   // Redirige a la página de edición usando el id del usuario
   const handleEdit = () => {
-    navigate(`/ver-proveedor/${user.id}/editar`);
+    navigate(`/ver-proveedor/${supplier.id}/editar`);
   };
 
   // Acción para eliminar el usuario
   // Actualmente solo imprime en consola el id
   // En una aplicación real aquí se llamaría a la API
   const handleDetail = () => {
-    navigate(`/ver-proveedor/${user.id}`);
+    navigate(`/ver-proveedor/${supplier.id}`);
   };
 
   return (
