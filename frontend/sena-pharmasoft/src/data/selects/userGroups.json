@@ -1,14 +1,14 @@
 [
    { 
-      "id" : "1",
+      "value" : "1",
       "label" : "Administrador"
    },
    {
-      "id" : "2",
+      "value" : "2",
       "label" : "Cliente"
    },
    {
-      "id" : "3",
+      "value" : "3",
       "label" : "Farmaceuta"
    }
 ]

@@ -19,6 +19,8 @@ export default function UserForm() {
     userGroup: "",
     direccion: "",
     avatarUrl: null,
+    fechaInicio: "",
+    fechaFin: "",
   });
 
     //==================HANDLE=========================
@@ -75,6 +77,8 @@ export default function UserForm() {
 
     //Estado de los errores
   const [errors, setErrors] = useState({});
+
+  const esFarmaceuta = formData.userGroup === "3";
 
   // //Estado de los tipos de documento
   // const [getDocumentTypes, setDocumentTypes] = useState([]);
@@ -152,6 +156,28 @@ export default function UserForm() {
                         onChange={handleChange}
                         error={errors.userGroup}
                       />
+
+                      {esFarmaceuta && (
+                        <div className="flex flex-col gap-3">
+                          <Input
+                            type="date"
+                            label="Fecha Inicio"
+                            name="fechaInicio"
+                            value={formData.fechaInicio}
+                            onChange={handleChange}
+                            error={errors.fechaInicio}
+                          />
+                          <Input
+                            type="date"
+                            label="Fecha Fin"
+                            name="fechaFin"
+                            value={formData.fechaFin}
+                            onChange={handleChange}
+                            error={errors.fechaFin}
+                          />
+                        </div>
+                      )}
+
                           <div className="flex justify-center pt-7.5 pb-2">
                               <Button
                                 variant="primary"

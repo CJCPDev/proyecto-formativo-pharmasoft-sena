@@ -1,7 +1,7 @@
 import { Card } from "@/shared/components"
 import { products } from "@/features/home/services/products.js"
 
-export default function HomePage (){
+export default function CardsMedicine (){
     // const product = products.find(prod => prod.id === 1)
     return(
         <section className="

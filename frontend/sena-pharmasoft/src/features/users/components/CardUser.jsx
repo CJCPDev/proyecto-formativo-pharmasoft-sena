@@ -2,20 +2,20 @@ import { Title, Button } from "@/shared/components"
 import { useNavigate } from "react-router-dom";
 
 const Card = ({ user }) => {
-  const navigate = useNavigate();
-  const {
-    nombre_completo,
-    tipo_identificacion,
-    numero_documento,
-    rol,
-    telefono,
-    correo,
-    direccion,
-    estado,
-    image,
-  } = user;
+    const navigate = useNavigate();
+    const {
+        nombre_completo,
+        tipo_identificacion,
+        numero_documento,
+        rol,
+        telefono,
+        correo,
+        direccion,
+        estado,
+        image,
+    } = user;
 
-  return (
+    return (
 
             <section className="flex flex-col gap-6 w-175 px-4 py-6 font-main">
 
@@ -85,12 +85,12 @@ const Card = ({ user }) => {
             </dl>
 
             <div className="flex justify-end items-start">
-              <img
-              src={image}
-              alt={nombre_completo}
-              className="w-60 h-60 object-cover border-4 border-brand-soft"
+                <img
+                src={image}
+                alt={nombre_completo}
+                className="w-60 h-60 object-cover border-4 border-brand-soft"
             />
-          </div>
+            </div>
         </div>
 
             <div className="flex gap-6 justify-center items-center">
@@ -99,13 +99,13 @@ const Card = ({ user }) => {
                 Size="sm"
                 onClick={() => navigate("/usuarios")}
                 >
-                  Regresar
+                    Regresar
                 </Button>
                 <Button
                 variant="primary"
                 onClick={() => navigate("/editar-usuarios/id:")}
                 >
-                  Editar
+                    Editar
                 </Button>
             </div>
 

@@ -1,8 +1,11 @@
 // Solo usuarios autenticados
-import Cards from "../componentes/Cards"
-
+import Cards from "../componentes/CardsMedicine"
 export default function HomePage (){
+
+
     return(
-        <Cards/>
+        <div>
+            <Cards/>
+        </div>
     )
 }
