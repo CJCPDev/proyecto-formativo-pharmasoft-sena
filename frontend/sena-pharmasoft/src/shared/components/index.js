@@ -9,4 +9,13 @@ export {default as Title} from "./Title"
 export {default as AvatarUploader} from "./AvatarUploader"
 export { default as StatusSwitch} from "./StatusSwitch"
 export { default as DataTable} from "./DataTable"
+export { default as Checkbox} from "./Checkbox"
+export {
+    Dropdown,
+    DropdownTrigger,
+    DropdownContent,
+    DropdownItem
+} from "./DropDown";
+
+export { IconButton } from "./IconButton"
 
