@@ -20,11 +20,11 @@ export default function FileInput({
             const handleUpload = async () => {
             setLoading(true);
             // 🔹 Simulación backend
-            setTimeout(() => {
+/*             setTimeout(() => {
             const url = `https://cdn.miapp.com/${Date.now()}-${file.name}`;
             setLoading(false);
             onUpload(url);
-            }, 1200);
+            }, 1200); */
 };
         return (
             <div className="grid grid-cols-1 text-center items-center mx-auto py-auto h-full">

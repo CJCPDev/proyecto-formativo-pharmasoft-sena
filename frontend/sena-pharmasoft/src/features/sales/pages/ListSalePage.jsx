@@ -1,7 +1,13 @@
 import { Button, Title } from "@/shared/components"
 import { Link } from "react-router-dom"
 import ListSellPage from "./ListSellPage"
+import { useState } from "react"
+import ReportConfigModal from "../reports/components/ReportConfigModal"
+
 export default function ListSalePage (){
+
+    const [ IsReportModalOpen, setIsReportModalOpen] = useState(false)   
+
     return(
         <div
             className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-2 w-350
@@ -15,10 +21,17 @@ export default function ListSalePage (){
                         Crear Venta
                     </Link>
                 </div>
-                <div className="border rounded-xl h-12 w-auto px-4 flex items-center">
-                    <Link to="/reporte-venta" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
-                        Generar reporte
-                    </Link>
+                <div>
+                    <Button
+                        variant= "secondary"
+                        onClick = {() => setIsReportModalOpen(true)}
+                    >Generar reporte</Button>
+
+                    <ReportConfigModal
+                            isOpen = {IsReportModalOpen}
+                            onClose = {() => setIsReportModalOpen(false)}
+                        ></ReportConfigModal>
+
                 </div>
             </div>
             <div className="flex gap-6">

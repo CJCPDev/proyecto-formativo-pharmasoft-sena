@@ -1,5 +1,5 @@
-/* import lucho from "@/assets/images/lucho.jpg"
- */
+import lucho from "@/assets/images/lucho.jpg"
+
 export const users = [
     {
         id: 1,
@@ -11,7 +11,7 @@ export const users = [
         correo: "Luis@gmail.com",
         direccion: "Cra 12b #8-59",
         estado: "activo",
-        //image: lucho,
+        image: lucho,
     },
     {
         id: 2,
@@ -50,3 +50,5 @@ export const users = [
         // image: laptop,
     }
 ];
+
+export default users;

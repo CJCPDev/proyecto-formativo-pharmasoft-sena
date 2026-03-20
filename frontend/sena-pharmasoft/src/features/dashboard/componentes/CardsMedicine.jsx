@@ -5,7 +5,7 @@ export default function CardsMedicine (){
     // const product = products.find(prod => prod.id === 1)
     return(
         <section className="
-          relative min-h-screen w-full flex items-center justify-center text-black pt-8"
+          relative  w-full flex items-center justify-center text-black pt-8"
         >
             <div className="relative z-10 text-center text-text-inverse">
                 <div className="
