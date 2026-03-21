@@ -28,7 +28,7 @@ export function generateExcelReport({
     const workbook = XLSX.utils.book_new();
 
 
-    // Agrega la hoja al libro con el nombre "Productos"
+    // Agrega la hoja al libro con el nombre "Usuarios"
     XLSX.utils.book_append_sheet(workbook, worksheet, "Productos");
 
 

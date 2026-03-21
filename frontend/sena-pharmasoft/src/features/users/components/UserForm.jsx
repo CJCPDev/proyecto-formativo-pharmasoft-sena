@@ -4,8 +4,10 @@ import userGroups from "../../../data/selects/userGroups.json"
 import {Title, Input, Select, Button, AvatarUploader} from "@/shared/components"
 import { useState } from "react"
 import { userSchema } from "../schemas/userSchema"
+import { useNavigate } from "react-router-dom";
 
 export default function UserForm() {
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
     name: "",
@@ -178,6 +180,7 @@ export default function UserForm() {
                       <Button
                           variant="secondary"
                           size="md"
+                          onClick = {( ) => navigate(-1)}
                           // onClick={() => console.log("Oprimió cancelar")}>
                           >Cancelar
                       </Button>

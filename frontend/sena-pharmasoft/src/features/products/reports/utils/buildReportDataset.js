@@ -1,19 +1,19 @@
 // Función utilitaria para construir el dataset de un reporte (tabla)
 // Patrón: transformación de datos (input → output listo para exportar)
 export function buildReportDataset({
-  products,           // Array de usuarios origen
-  selectedFields,  // Campos seleccionados para el reporte [{ key, label }]
-  scope,           // Alcance del reporte: "all" | "document"
-  documentNumber   // Número de documento para filtrar (si aplica)
+  products,          // Array de productos origen
+  selectedFields,    // Campos seleccionados para el reporte [{ key, label }]
+  scope,             // Alcance del reporte: "all" | "formaFarmaceutica"
+  formaFarmaceutica  // Valor de filtro (ej: "Tableta", "Jarabe")
 }) {
-
-  // Copia inmutable del array original (evita mutaciones)
+    // Copia inmutable del array original (evita mutaciones sobre el estado global)
     let filteredProducts = [...products];
 
-    // Filtro por alcance: si es por documento, se aplica filtro específico
-    if (scope === "document" && documentNumber) {
+    // Filtro por alcance: si el usuario selecciona "formaFarmaceutica"
+    // se aplica el filtro específico sobre la propiedad formaFarmaceutica
+    if (scope === "formaFarmaceutica" && formaFarmaceutica) {
         filteredProducts = filteredProducts.filter(
-        (user) => user.document_number === documentNumber
+        (product) => product.formaFarmaceutica === formaFarmaceutica
         );
     }
 
@@ -22,13 +22,11 @@ export function buildReportDataset({
     const headers = selectedFields.map((field) => field.label);
 
     // Construcción de filas del reporte
-    // Cada usuario se transforma en un array de valores según los campos seleccionados
+    // Cada producto se transforma en un array de valores según los campos seleccionados
     const rows = filteredProducts.map((product) =>
         selectedFields.map((field) => {
         const value = product[field.key]; // Acceso dinámico a la propiedad
-
-        // Normalización: evita undefined o null en el reporte
-        return value ?? "";
+        return value ?? "";               // Normalización: evita undefined o null
         })
     );
 

@@ -265,8 +265,8 @@ export default function FormMedicamentos() {
                 error={errors.description}
               />
       
-            {/* <div className="w-full p-4 rounded-xl border border-brand bg-brand-soft/60 flex flex-col items-center"> */}
-            <div className="h-60 mt-6 border-4 border-brand-soft z-20">
+            <div className="w-max p-4 rounded-xl border border-brand bg-brand-soft/60 flex flex-col items-center">
+          
               {/* Aquí va tu componente AvatarUploader */}
               <AvatarUploader
                 label="Cargar foto"

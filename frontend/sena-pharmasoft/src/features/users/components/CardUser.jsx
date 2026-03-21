@@ -60,11 +60,11 @@ const Card = ({ user }) => {
             </div>
           </div>
 
-          <div className="flex justify-center items-start">
+          <div className="flex justify-center items-start ">
             <img
               src={image}
               alt={nombre_completo}
-              className="w-60 h-60 object-cover border-4 border-brand-soft"
+              className="w-60 h-60 object-fill border-4 border-brand-soft rounded-full"
             />
           </div>
         </div>

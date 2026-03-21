@@ -1,4 +1,4 @@
-import Input from "../../../shared/components/Input"
+import Input from "../../../../shared/components/Input"
 import { Title, Button } from "@/shared/components"
 import { useNavigate } from "react-router-dom"; 
 

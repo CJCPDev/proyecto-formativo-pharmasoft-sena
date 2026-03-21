@@ -9,7 +9,7 @@ export default function Card({product}) {
         <div
             className="
             w-70
-            h-80
+            h-auto
             dark:bg-white/60
             backdrop-blur-lg
             shadow-lg
@@ -20,7 +20,7 @@ export default function Card({product}) {
             hover:shadow-brand-hover/50
             transition-shadow
             duration-700
-            p-4
+            p-6
             "
         >
             <img 
@@ -43,10 +43,10 @@ export default function Card({product}) {
                 </p>
                 <div className="flex mt-2 gap-6 bg-brand-hover/90 w-full h-10 rounded-full cursor-pointer hover:bg-brand-hover/80">
                             <ShoppingCart className="stroke-brand-soft ml-6 my-auto"/>
-                        <button className="text-white py-auto font-extrabold text-xl cursor-pointer">
+                        <button className="text-white  font-extrabold text-xl cursor-pointer">
                             Agregar al carrito
                         </button>
-                </div>
+                </div>  
             </div>
         </div>
 
