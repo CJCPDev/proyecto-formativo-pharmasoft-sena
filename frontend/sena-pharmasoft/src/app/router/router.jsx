@@ -32,7 +32,7 @@ import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage"
 import SalesEditPage from "../../features/sales/pages/SalesEditPage";
 import SalesReportPage from "@/features/sales/pages/SalesReportPage"
-import ListSellPage from "@/features/sales/pages/ListSellPage"
+
 // ------
 
 // Imports de proveedores
