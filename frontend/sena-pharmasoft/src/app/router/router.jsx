@@ -50,7 +50,7 @@ import SuppliersReportPage from "../../features/suppliers/pages/SuppliersReportP
 import CreateProductPage from "../../features/products/pages/CreateProductPage";
 import ListProductsPage from "../../features/products/pages/ListProductsPage";
 import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
-import EditProductPage from "../../features/products/pages/EditProductPage";
+import ProductsEditPage from "../../features/products/pages/ProductsEditPage";
 import ProductReportPage from "../../features/products/pages/ProductReportsPage";
 
 
@@ -105,7 +105,7 @@ const router = createBrowserRouter ([
             },
             {
                 path: "editar-medicamento/:id",
-                element: <EditProductPage/>
+                element: <ProductsEditPage />
             },
             {
                 path: "generar-reporte",

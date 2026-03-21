@@ -1,18 +1,18 @@
 [
   {
-    "id": "1",
+    "id": 1,
     "label": "Bayer"
   },
   {
-    "id": "2",
+    "id": 2,
     "label": "Genfar"
   },
   {
-    "id": "3",
+    "id": 3,
     "label": "MK Tecnoquímicas"
   },
   {
-    "id": "4",
+    "id": 4,
     "label": "La santé"
   }
 ]
