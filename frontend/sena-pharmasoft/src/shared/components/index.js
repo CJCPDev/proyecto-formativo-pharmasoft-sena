@@ -18,7 +18,3 @@ export {
 } from "./DropDown";
 
 export { IconButton } from "./IconButton"
-<<<<<<< mateo-creacion-formulario-medicamentos
-=======
-
->>>>>>> dev
