@@ -1,7 +1,8 @@
+import SuppliersForm from "../components/SuppliersForm"
 export default function SupplierEditPage (){
     return (
         <h1>
-            Pagina para editar proveedor pendiente
+            <SuppliersForm/>
         </h1>
     )
 }

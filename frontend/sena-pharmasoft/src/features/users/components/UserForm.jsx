@@ -1,19 +1,292 @@
+// import "../../users/services/selectService"
+// import documentTypes from "../../../data/selects/documentTypes.json"
+// import userGroups from "../../../data/selects/userGroups.json"
+// import {Title, Input, Select, Button, AvatarUploader} from "@/shared/components"
+// import { useState } from "react"
+// import { userSchema } from "../schemas/userSchema"
+// import { useNavigate } from "react-router-dom";
+// import { Plus, Minus } from "lucide-react"
+// import { IconButton } from "../../../shared/components"
+
+
+// export default function UserForm() {
+    
+//     const navigate = useNavigate();
+//     const [formData, setFormData] = useState({
+//     name: "",
+//     userEmail: "",
+//     validationEmail: "",
+//     phone: "",
+//     phoneAdicional: "",
+//     documentType: "",
+//     documentNumber: "",
+//     userGroup: "",
+//     direccion: "",
+//     avatarUrl: null,
+//     fechaInicio: "",
+//     fechaFin: "",
+//   });
+
+//     //==================HANDLE=========================
+//   // Función que se ejecuta cada vez que cambia el valor de un input del formulario
+//   const handleChange = (e) => {
+//     // Se obtiene el nombre del campo (name) y su valor actual (value)
+//     // desde el elemento que disparó el evento
+//     const { name, value } = e.target;
+//     // Se actualiza el estado del formulario
+//     // prev representa el estado anterior del formulario
+//     setFormData((prev) => ({
+//       // Se copian todos los valores anteriores del estado
+//       ...prev,
+//       // Se actualiza únicamente el campo que cambió
+//       // [name] permite usar el nombre del input como clave dinámica
+//       [name]: value,
+//     }));
+//   };
+
+//   //==================================================================
+
+//     //============== HANDLE SUBMIT ==============
+//   // Función que se ejecuta cuando se envía el formulario
+//   const handleSubmit = (e) => {
+//     // Evita que el formulario recargue la página
+//     e.preventDefault();
+//     // Se valida el objeto formData usando el esquema definido con Zod
+//     // safeParse devuelve un objeto indicando si la validación fue exitosa o no
+//     const result = userSchema.safeParse(formData);
+//     // Si la validación falla
+//     if (!result.success) {
+//       // Objeto donde se almacenarán los errores por campo
+//       const fieldErrors = {};
+//       // Zod devuelve los errores en un arreglo llamado issues
+//       // Se recorren para asociar cada error a su campo correspondiente
+//       result.error.issues.forEach((issue) => {
+//         // issue.path contiene la ruta del campo que falló
+//         const field = issue.path[0];
+//         // Se guarda el mensaje de error en el objeto fieldErrors
+//         fieldErrors[field] = issue.message;
+//       });
+//       // Se actualiza el estado de errores para mostrarlos en el formulario
+//       setErrors(fieldErrors);
+//       // Se detiene la ejecución porque el formulario tiene errores
+//       return;
+//     }
+//     // Si la validación es exitosa se limpian los errores anteriores
+//     setErrors({});
+//     // result.data contiene los datos ya validados por Zod
+//     console.log("Usuario válido:", result.data);
+//   };
+
+//   //======================================================================
+
+//     //Estado de los errores
+//   const [errors, setErrors] = useState({});
+
+//   const esFarmaceuta = formData.userGroup === "3";
+
+//   const [mostrarTelefonoAdicional, setMostrarTelefonoAdicional] = useState(false)
+
+//   // //Estado de los tipos de documento
+//   // const [getDocumentTypes, setDocumentTypes] = useState([]);
+
+//   // useEffect(() => {
+//   //   getDocumentTypes().then(setDocumentTypes);
+//   // }, []);
+
+//   return (
+
+//       <div className="bg-white grid gap-2 w-350 rounded-xl">
+//             <Title
+//               title="Creación de Usuario"
+//             />
+//             <form 
+//             onSubmit={handleSubmit}
+//             className="w-full px-6 rounded-xl">
+//               <div className="grid grid-cols-3 gap-4">
+//                     <div className="flex flex-col gap-3">
+//                           <Select
+//                               label="Tipo de documento"
+//                               name="documentType"
+//                               value={formData.documentType}
+//                               options={documentTypes}
+//                               onChange={handleChange}
+//                               error={errors.documentType}
+//                             />
+//                           <Input
+//                               label="Número de documento"
+//                               placeholder="Número de documento"
+//                               name="documentNumber"
+//                               value={formData.documentNumber}
+//                               onChange={handleChange}
+//                               error={errors.documentNumber}
+//                             />
+//                           <Input
+//                             label="Nombre completo"
+//                             placeholder="Nombre completo"
+//                             name="name"
+//                             value={formData.name}
+//                             onChange={handleChange}
+//                             error={errors.name}
+//                           />
+//                           <Input
+//                               label="Correo electronico"
+//                               placeholder="Correo electronico"
+//                               name="userEmail"
+//                               value={formData.userEmail}
+//                               onChange={handleChange}
+//                               error={errors.userEmail}
+//                             />
+//                           <Input
+//                               label="Confirmar correo electronico"
+//                               placeholder="Confirmar correo electronico"
+//                               name="validationEmail"
+//                               value={formData.validationEmail}
+//                               onChange={handleChange}
+//                               error={errors.validationEmail}
+//                             />
+//                     </div>
+//                     <div className="flex flex-col gap-2">
+//                           <Input 
+//                             label="Dirección"
+//                             placeholder="Dirección"
+//                             name="direccion"
+//                             value={formData.direccion}
+//                             onChange={handleChange}
+//                             error={errors.direccion}
+//                           />
+//                       <Select 
+//                         label="Grupo del usuario"
+//                         name="userGroup"
+//                         value={formData.userGroup}
+//                         options={userGroups}
+//                         onChange={handleChange}
+//                         error={errors.userGroup}
+//                       />
+
+//                       <div className="flex justify-center pt-7.5 pb-2">
+//                           <Button
+//                             variant="primary"
+//                             size="md">
+//                               Agregar Rol
+//                             </Button>
+//                           </div>
+
+// {/* Fila: label+botón a la izquierda, inputs a la derecha */}
+// <div className="flex items-end gap-3">
+  
+//   {/* Botón alineado al fondo */}
+//   <div className="flex items-center gap-1 pb-2">
+//     <span className="text-sm text-gray-500">Agregar teléfono adicional</span>
+//     <IconButton
+//       ariaLabel="Agregar teléfono"
+//       onClick={() => setMostrarTelefonoAdicional(!mostrarTelefonoAdicional)}
+//     >
+//       {mostrarTelefonoAdicional ? <Minus /> : <Plus />}
+//     </IconButton>
+//   </div>
+
+//   {/* Inputs al lado del botón */}
+//   <div className={`grid gap-3 flex-1 ${mostrarTelefonoAdicional ? "grid-cols-2" : "grid-cols-1"}`}>
+//     <Input
+//       label="Celular"
+//       type="tel"
+//       name="phone"
+//       placeholder="Celular"
+//       value={formData.phone}
+//       onChange={handleChange}
+//       error={errors.phone}
+//     />
+//     {mostrarTelefonoAdicional && (
+//       <Input
+//         label="Celular adicional"
+//         type="tel"
+//         name="phoneAdicional"
+//         placeholder="Celular adicional"
+//         value={formData.phoneAdicional}
+//         onChange={handleChange}
+//         error={errors.phoneAdicional}
+//       />
+//     )}
+//   </div>
+
+// </div>
+// </div>
+
+//                      {/* </div> */}
+
+//                   <div className="grid text-center items-start justify-items-center w-full p-9">
+//                       {esFarmaceuta && (
+//                         <div className="flex flex-row gap-3 -mt-8.75 ">
+//                           <Input
+//                             type="date"
+//                             label="Fecha Inicio"
+//                             name="fechaInicio"
+//                             value={formData.fechaInicio}
+//                             onChange={handleChange}
+//                             error={errors.fechaInicio}
+//                           />
+//                           <Input
+//                             type="date"
+//                             label="Fecha Fin"
+//                             name="fechaFin"
+//                             value={formData.fechaFin}
+//                             onChange={handleChange}
+//                             error={errors.fechaFin}
+//                           />
+//                         </div>
+//                       )}
+//                     <div className="bg-brand-soft/40 flex text-center items-center w-full h-full rounded-lg">
+//                       <AvatarUploader></AvatarUploader>
+//                     </div> 
+//                   </div>
+//               </div>
+
+//                 <div className="col-span-full flex justify-center gap-4 py-4">
+//                       <Button
+//                           variant="secondary"
+//                           size="md"
+//                           onClick = {( ) => navigate(-1)}
+//                           // onClick={() => console.log("Oprimió cancelar")}>
+//                           >Cancelar
+//                       </Button>
+//                       <Button
+//                           variant='primary'
+//                           size="md"
+//                           type= "submit"
+//                           // onClick={() => navigate("/usuarios")}
+//                           >
+//                             Crear
+//                       </Button>
+//                 </div>
+//             </form>
+//       </div>
+//   );
+// }
+
+
+
+
+
 import "../../users/services/selectService"
 import documentTypes from "../../../data/selects/documentTypes.json"
 import userGroups from "../../../data/selects/userGroups.json"
-import {Title, Input, Select, Button, AvatarUploader} from "@/shared/components"
+import { Title, Input, Select, Button, AvatarUploader } from "@/shared/components"
 import { useState } from "react"
 import { userSchema } from "../schemas/userSchema"
 import { useNavigate } from "react-router-dom"
+import { Plus, Minus } from "lucide-react"
+import { IconButton } from "../../../shared/components"
 
 export default function UserForm() {
 
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
     name: "",
     userEmail: "",
     validationEmail: "",
     phone: "",
+    phoneAdicional: "",
     documentType: "",
     documentNumber: "",
     userGroup: "",
@@ -23,202 +296,195 @@ export default function UserForm() {
     fechaFin: "",
   });
 
-    //==================HANDLE=========================
-  // Función que se ejecuta cada vez que cambia el valor de un input del formulario
   const handleChange = (e) => {
-    // Se obtiene el nombre del campo (name) y su valor actual (value)
-    // desde el elemento que disparó el evento
     const { name, value } = e.target;
-    // Se actualiza el estado del formulario
-    // prev representa el estado anterior del formulario
-    setFormData((prev) => ({
-      // Se copian todos los valores anteriores del estado
-      ...prev,
-      // Se actualiza únicamente el campo que cambió
-      // [name] permite usar el nombre del input como clave dinámica
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  //==================================================================
-
-    //============== HANDLE SUBMIT ==============
-  // Función que se ejecuta cuando se envía el formulario
   const handleSubmit = (e) => {
-    // Evita que el formulario recargue la página
     e.preventDefault();
-    // Se valida el objeto formData usando el esquema definido con Zod
-    // safeParse devuelve un objeto indicando si la validación fue exitosa o no
     const result = userSchema.safeParse(formData);
-    // Si la validación falla
     if (!result.success) {
-      // Objeto donde se almacenarán los errores por campo
       const fieldErrors = {};
-      // Zod devuelve los errores en un arreglo llamado issues
-      // Se recorren para asociar cada error a su campo correspondiente
       result.error.issues.forEach((issue) => {
-        // issue.path contiene la ruta del campo que falló
         const field = issue.path[0];
-        // Se guarda el mensaje de error en el objeto fieldErrors
         fieldErrors[field] = issue.message;
       });
-      // Se actualiza el estado de errores para mostrarlos en el formulario
       setErrors(fieldErrors);
-      // Se detiene la ejecución porque el formulario tiene errores
       return;
     }
-    // Si la validación es exitosa se limpian los errores anteriores
     setErrors({});
-    // result.data contiene los datos ya validados por Zod
     console.log("Usuario válido:", result.data);
   };
 
-  //======================================================================
-
-    //Estado de los errores
   const [errors, setErrors] = useState({});
-
+  const [mostrarTelefonoAdicional, setMostrarTelefonoAdicional] = useState(false);
   const esFarmaceuta = formData.userGroup === "3";
 
-  // //Estado de los tipos de documento
-  // const [getDocumentTypes, setDocumentTypes] = useState([]);
-
-  // useEffect(() => {
-  //   getDocumentTypes().then(setDocumentTypes);
-  // }, []);
-
   return (
+    <div className="bg-white grid gap-2 w-350 rounded-xl">
+      <Title title="Creación de Usuario" />
 
-      <div className="bg-white grid gap-2 w-350 rounded-xl">
-            <Title
-              title="Creación de Usuario"
+      <form onSubmit={handleSubmit} className="w-full px-6 rounded-xl">
+        <div className="grid grid-cols-3 gap-4">
+
+          {/* ── Columna 1 ── */}
+          <div className="flex flex-col gap-3">
+            <Select
+              label="Tipo de documento"
+              name="documentType"
+              value={formData.documentType}
+              options={documentTypes}
+              onChange={handleChange}
+              error={errors.documentType}
             />
-            <form 
-            onSubmit={handleSubmit}
-            className="w-full px-6 rounded-xl">
-              <div className="grid grid-cols-3 gap-4">
-                    <div className="flex flex-col gap-3">
-                          <Select
-                              label="Tipo de documento"
-                              name="documentType"
-                              value={formData.documentType}
-                              options={documentTypes}
-                              onChange={handleChange}
-                              error={errors.documentType}
-                            />
-                          <Input
-                              label="Número de documento"
-                              placeholder="Número de documento"
-                              name="documentNumber"
-                              value={formData.documentNumber}
-                              onChange={handleChange}
-                              error={errors.documentNumber}
-                            />
-                          <Input
-                            label="Nombre completo"
-                            placeholder="Nombre completo"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            error={errors.name}
-                          />
-                          <Input
-                              label="Correo electronico"
-                              placeholder="Correo electronico"
-                              name="userEmail"
-                              value={formData.userEmail}
-                              onChange={handleChange}
-                              error={errors.userEmail}
-                            />
-                          <Input
-                              label="Confirmar correo electronico"
-                              placeholder="Confirmar correo electronico"
-                              name="validationEmail"
-                              value={formData.validationEmail}
-                              onChange={handleChange}
-                              error={errors.validationEmail}
-                            />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                          <Input 
-                            label="Dirección"
-                            placeholder="Dirección"
-                            name="direccion"
-                            value={formData.direccion}
-                            onChange={handleChange}
-                            error={errors.direccion}
-                          />
-                      <Select 
-                        label="Grupo del usuario"
-                        name="userGroup"
-                        value={formData.userGroup}
-                        options={userGroups}
-                        onChange={handleChange}
-                        error={errors.userGroup}
-                      />
+            <Input
+              label="Número de documento"
+              placeholder="Número de documento"
+              name="documentNumber"
+              value={formData.documentNumber}
+              onChange={handleChange}
+              error={errors.documentNumber}
+            />
+            <Input
+              label="Nombre completo"
+              placeholder="Nombre completo"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              error={errors.name}
+            />
+            <Input
+              label="Correo electrónico"
+              placeholder="Correo electrónico"
+              name="userEmail"
+              value={formData.userEmail}
+              onChange={handleChange}
+              error={errors.userEmail}
+            />
+            <Input
+              label="Confirmar correo electrónico"
+              placeholder="Confirmar correo electrónico"
+              name="validationEmail"
+              value={formData.validationEmail}
+              onChange={handleChange}
+              error={errors.validationEmail}
+            />
+          </div>
 
-                      {esFarmaceuta && (
-                        <div className="flex flex-col gap-3">
-                          <Input
-                            type="date"
-                            label="Fecha Inicio"
-                            name="fechaInicio"
-                            value={formData.fechaInicio}
-                            onChange={handleChange}
-                            error={errors.fechaInicio}
-                          />
-                          <Input
-                            type="date"
-                            label="Fecha Fin"
-                            name="fechaFin"
-                            value={formData.fechaFin}
-                            onChange={handleChange}
-                            error={errors.fechaFin}
-                          />
-                        </div>
-                      )}
+          {/* ── Columna 2 ── */}
+          <div className="flex flex-col justify-between gap-2">
 
-                          <div className="flex justify-center pt-7.5 pb-2">
-                              <Button
-                                variant="primary"
-                                size="md">
-                                  Agregar Rol
-                              </Button>
-                          </div>
-                            <Input 
-                              label="Celular"
-                              type="tel"
-                              name="phone"
-                              placeholder="Celular"
-                              value={formData.phone}
-                              onChange={handleChange}
-                              error={errors.phone}
-                              />
-                    </div>
-                  <div className="grid text-center items-center justify-items-center w-full h-96 p-9">
-                    <div className="bg-brand-soft/40 flex text-center items-center w-full h-full rounded-lg">
-                      <AvatarUploader></AvatarUploader>
-                    </div>
-                  </div>
+            {/* Bloque superior */}
+            <div className="flex flex-col gap-2">
+              <Input
+                label="Dirección"
+                placeholder="Dirección"
+                name="direccion"
+                value={formData.direccion}
+                onChange={handleChange}
+                error={errors.direccion}
+              />
+              <Select
+                label="Grupo del usuario"
+                name="userGroup"
+                value={formData.userGroup}
+                options={userGroups}
+                onChange={handleChange}
+                error={errors.userGroup}
+              />
+              <div className="flex justify-center py-8">
+                <Button variant="primary" size="md">Agregar Rol</Button>
               </div>
+            </div>
 
-                <div className="col-span-full flex justify-center gap-4 py-4">
-                      <Button
-                          variant="secondary"
-                          size="md"
-                          onClick={() => navigate("/usuarios")}
-                          >Cancelar
-                      </Button>
-                      <Button
-                          variant='primary'
-                          size="md"
-                          type= "submit"
-                          // onClick={() => navigate("/usuarios")}
-                          >
-                            Crear
-                      </Button>
-                </div>
-            </form>
-      </div>
+            {/* Bloque inferior — celulares al fondo */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-1">
+                {/* <span className="text-sm text-gray-500">Agregar teléfono</span> */}
+                <Button
+                  size="md"
+                  ariaLabel="Adiccionar teléfono"
+                  onClick={() => setMostrarTelefonoAdicional(!mostrarTelefonoAdicional)}
+                >
+                  {mostrarTelefonoAdicional ? <Minus /> : <Plus />}
+                  {mostrarTelefonoAdicional ? "Quitar Telefono" : "Agregar Telefono"}
+                </Button>
+              </div>
+              <div className={`grid gap-3 ${mostrarTelefonoAdicional ? "grid-cols-2" : "grid-cols-1"}`}>
+                <Input
+                  label="Celular"
+                  type="tel"
+                  name="phone"
+                  placeholder="Celular"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  error={errors.phone}
+                />
+                {mostrarTelefonoAdicional && (
+                  <Input
+                    label="Celular adicional"
+                    type="tel"
+                    name="phoneAdicional"
+                    placeholder="Celular adicional"
+                    value={formData.phoneAdicional}
+                    onChange={handleChange}
+                    error={errors.phoneAdicional}
+                  />
+                )}
+              </div>
+            </div>
+
+          </div>
+
+          {/* ── Columna 3 — Fechas + Avatar ── */}
+          <div className="flex flex-col gap-3 p-9">
+
+            {/* Fechas — solo si es Farmaceuta, encima del avatar */}
+            {esFarmaceuta && (
+              <div className="grid grid-cols-2 gap-3 -mt-8.75">
+                <Input
+                  type="date"
+                  label="Fecha Inicio"
+                  name="fechaInicio"
+                  value={formData.fechaInicio}
+                  onChange={handleChange}
+                  error={errors.fechaInicio}
+                />
+                <Input
+                  type="date"
+                  label="Fecha Fin"
+                  name="fechaFin"
+                  value={formData.fechaFin}
+                  onChange={handleChange}
+                  error={errors.fechaFin}
+                />
+              </div>
+            )}
+
+            {/* Avatar */}
+            <div className="bg-brand-soft/40 flex text-center items-center w-full h-full rounded-lg">
+              <AvatarUploader
+                onUpload={(url) =>
+                  setFormData((prev) => ({ ...prev, avatarUrl: url }))
+                }
+              />
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Botones */}
+        <div className="flex justify-center gap-4 py-8">
+          <Button variant="secondary" size="md" onClick={() => navigate(-1)}>
+            Cancelar
+          </Button>
+          <Button variant="primary" size="md" type="submit">
+            Crear
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 }

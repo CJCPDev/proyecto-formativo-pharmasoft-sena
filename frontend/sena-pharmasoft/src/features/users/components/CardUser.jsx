@@ -11,7 +11,7 @@ const Card = ({ user }) => {
         telefono,
         correo,
         direccion,
-        estado,
+        // estado,
         image,
     } = user;
 
@@ -75,20 +75,13 @@ const Card = ({ user }) => {
                         {direccion}
                     </dd>
                 </div>
-
-                <div>
-                    <dt className="px-4 text-xs text-text-mute">Estado</dt>
-                    <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {estado}
-                    </dd>
-                </div>
             </dl>
 
-            <div className="flex justify-end items-start">
-                <img
-                src={image}
-                alt={nombre_completo}
-                className="w-60 h-60 object-cover border-4 border-brand-soft"
+          <div className="flex justify-center items-start ">
+            <img
+              src={image}
+              alt={nombre_completo}
+              className="w-60 h-60 object-fill border-4 border-brand-soft rounded-full"
             />
             </div>
         </div>

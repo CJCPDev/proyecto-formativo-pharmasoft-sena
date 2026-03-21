@@ -4,8 +4,11 @@ import { Link } from "react-router-dom"
 import ListUserPage from "./ListUserPage"
 import ReportConfigModal from "../reports/components/ReportConfigModal"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function ListSalePage (){
+
+    const navigate = useNavigate();
 
     const [ IsReportModalOpen, setIsReportModalOpen ] = useState(false)
 
@@ -60,7 +63,10 @@ export default function ListSalePage (){
                 </div>
             </div>
             <div>
-                <Button variant = "secondary">Regresar</Button>
+                <Button
+                variant = "secondary"
+                onClick = {( ) => navigate(-1)}
+                >Regresar</Button>
             </div>
         </div>
     )
