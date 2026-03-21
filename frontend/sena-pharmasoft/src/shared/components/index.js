@@ -10,22 +10,11 @@ export {default as AvatarUploader} from "./AvatarUploader"
 export { default as StatusSwitch} from "./StatusSwitch"
 export { default as DataTable} from "./DataTable"
 export { default as Checkbox} from "./Checkbox"
-<<<<<<< HEAD
 export { 
         Dropdown,
         DropdownTrigger,
         DropdownContent,
         DropdownItem
 } from "./Dropdown"
-=======
-export {
-    Dropdown,
-    DropdownTrigger,
-    DropdownContent,
-    DropdownItem
-} from "./DropDown";
-
-export { IconButton } from "./IconButton"
->>>>>>> 360492c725480fbdbee1d0ac680fd5e4c15c4497
 
 export {IconButton} from "./IconButton"

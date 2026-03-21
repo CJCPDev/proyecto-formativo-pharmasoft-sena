@@ -1,8 +1,9 @@
 import SuppliersForm from "../components/SuppliersForm"
 export default function SupplierEditPage (){
     return (
-        <h1>
+        <div className="relative bg-white rounded-xl shadow-2xl
+        ">
             <SuppliersForm/>
-        </h1>
+        </div>
     )
 }
