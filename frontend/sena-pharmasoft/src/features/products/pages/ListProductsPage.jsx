@@ -16,10 +16,10 @@ export default function ListProductsPage() {
 
     return (
         <div
-            className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4
+            className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-350 h-150
         ">
             <Title
-                title="Lista de Medicamentos"
+                title="Modulo de Medicamentos"
             />
         <div className="flex justify-end gap-6">
                 <div className="border rounded-xl h-12 w-auto px-4 flex items-center">
