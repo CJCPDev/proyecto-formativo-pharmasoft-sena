@@ -32,11 +32,7 @@ const CardSupplier = () => {
 
             <Title title="Ver Proveedor" />
 
-<<<<<<< HEAD
-            <dl className="grid grid-cols-2 gap-6 font-main">
-=======
             <dl className="grid grid-cols-2 gap-y-4 gap-x-6 font-main">
->>>>>>> 360492c725480fbdbee1d0ac680fd5e4c15c4497
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">NIT</dt>
