@@ -10,10 +10,10 @@ export default function SuppliersListPage (){
     const [isReportModalOpen, setIsReportModalOpen] = useState(false)
     return(
         <div
-            className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-350
+            className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-350 
         ">
             <Title
-                title="Proveedores"
+                title="Modulo de Proveedores"
             />
             <div className="flex justify-end gap-6">
                 <div className="border rounded-xl h-12 w-auto px-4 flex items-center">

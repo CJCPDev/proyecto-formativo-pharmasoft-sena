@@ -21,7 +21,7 @@ export default function AuthLayout (){
 
     return (
         <div className="h-screen grid grid-cols-2 font-main">
-            <div className={`grid h-full w-full bg-brand-soft
+            <div className={`grid h-full w-full bg-brand-soft/40
             ${
                 isblur ? 'blur-xs scale-100 pointer-events-none select-none' : ''
             }
@@ -45,7 +45,6 @@ export default function AuthLayout (){
             {/* contenido externo que se inyecta */}
             <main className="flex items-center justify-center">
                 <Outlet/>
-                <UserForm/>
             </main>
         </div>
     )

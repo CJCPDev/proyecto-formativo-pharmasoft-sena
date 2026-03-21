@@ -10,7 +10,7 @@ export default function ListSalePage (){
 
     return(
         <div
-            className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-2 w-350
+            className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-2 w-350 h-150
         ">
             <Title
                 title="Lista de Usuarios"

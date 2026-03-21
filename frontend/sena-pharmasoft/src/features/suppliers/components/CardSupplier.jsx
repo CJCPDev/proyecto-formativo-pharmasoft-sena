@@ -32,7 +32,7 @@ const CardSupplier = () => {
 
             <Title title="Ver Proveedor" />
 
-            <dl className="grid grid-cols-2 gap-y-4 gap-x-6 font-main">
+            <div className="grid grid-cols-2 gap-y-4 gap-x-6 font-main">
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">NIT</dt>
@@ -97,7 +97,7 @@ const CardSupplier = () => {
                     </dd>
                 </div>
 
-            </dl>
+            </div>
 
             <div className="flex gap-6 justify-center items-center">
                 <Button 
