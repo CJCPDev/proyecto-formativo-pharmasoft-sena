@@ -1,7 +1,6 @@
-import Input from "../../../shared/components/Input"
+import Input from "../../../../shared/components/Input"
 import { Title, Button } from "@/shared/components"
 import { useNavigate } from "react-router-dom"; 
-import  image  from "../../../../public/images/desloratadina.jpg"
 
 export default function ProductDetailPage() {
     const navigate = useNavigate();
@@ -133,13 +132,6 @@ export default function ProductDetailPage() {
                     value={medicamento.descripcion}
                     readOnly
                     />
-                    <div className="flex justify-center items-start">
-                        <img
-                        src={image}
-                        alt="Imagen de medicamento"
-                        className="h-60 mt-6 border-4 border-brand-soft z-20"
-                        />
-                    </div>
                 </div>
                 </div>
                 <div className="col-span-full flex justify-center gap-4 py-4">

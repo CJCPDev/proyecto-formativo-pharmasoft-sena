@@ -30,10 +30,10 @@ export default function SalesReportPage (){
             columns={SellColumns}
         />
 
-           <ReportConfigModal
-                isOpen = {IsReportModalOpen}
-                onClose = {() => setIsReportModalOpen(false)}
-            ></ReportConfigModal>
+        <ReportConfigModal
+            isOpen = {IsReportModalOpen}
+            onClose = {() => setIsReportModalOpen(false)}
+        ></ReportConfigModal>
 
         </div>
     )
