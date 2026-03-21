@@ -72,7 +72,7 @@ export const SupplierColumns = [
   // Columna de acciones (editar / eliminar)
   {
     id: "actions", // No usa accessorKey porque no corresponde a un campo del usuario
-
+    header: "Acciones",
     // Renderiza el componente de acciones pasando el usuario completo
     cell: ({ row }) => <SupplierRowAction supplier={row.original} />,
   },

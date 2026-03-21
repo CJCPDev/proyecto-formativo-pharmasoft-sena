@@ -1,9 +1,11 @@
 export const ventas = [
   {
+    id:1,
     numeroFactura: "F001",
     fechaHora: "2026-03-12 08:15",
     cliente: "Juan Pérez",
-    farmaceuta: "Laura Gómez"
+    farmaceuta: "Laura Gómez",
+    estado: "Activo",
   },
   {
     numeroFactura: "F002",
