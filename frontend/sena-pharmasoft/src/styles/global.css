@@ -10,6 +10,7 @@
     --color-brand-hover: var(--semantic-brand-hover);
     --color-brand-soft: var(--semantic-brand-soft);
     --color-background: var(--semantic-background);
+    --color-brand-table: var(--semantic-brand-700);
     --color-surface: var(--white);
     --color-surface-muted: var(--semantic-gray-200);
     --color-text-primary: var(--semantic-gray-900); 

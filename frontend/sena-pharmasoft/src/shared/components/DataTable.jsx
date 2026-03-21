@@ -23,7 +23,7 @@ export default function DataTable({ data, columns }) {
   // pageSize → cantidad de filas por página
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 5,
+    pageSize: 7,
   });
 
   // ================== ESTADO DEL FILTRO GLOBAL ==================
@@ -61,11 +61,11 @@ export default function DataTable({ data, columns }) {
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-1">
       {/* ================== TOOLBAR ================== */}
       {/* Barra superior con buscador y selector de filas */}
 
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-6">
         {/* ================== BUSCADOR ================== */}
         {/* Filtra todas las columnas de la tabla */}
         <input
@@ -73,34 +73,34 @@ export default function DataTable({ data, columns }) {
           placeholder="Buscar..."
           value={globalFilter ?? ""}
           onChange={(e) => setGlobalFilter(e.target.value)}
-          className="border rounded px-3 py-2 w-64"
+          className="border rounded px-3 py-1 w-100"
         />
 
         {/* ================== SELECTOR DE FILAS ================== */}
         {/* Permite cambiar cuántas filas se muestran por página */}
-        <select
+{/*         <select
           value={table.getState().pagination.pageSize}
           onChange={(e) => table.setPageSize(Number(e.target.value))}
           className="border rounded px-2 py-2"
         >
-          {[5, 7, 10, 20, 50].map((size) => (
+          {[5, 10].map((size) => (
             <option key={size} value={size}>
               {size} filas
             </option>
           ))}
-        </select>
+        </select> */}
       </div>
 
       {/* ================== TABLA ================== */}
-      <div className="overflow-x-auto border rounded">
+      <div className="overflow-x-auto border border-gray-200">
         <table className="w-full">
           {/* ================== CABECERA ================== */}
-          <thead className="bg-gray-100">
+          <thead className="bg-brand-hover/90 border border-gray-200">
             {/* TanStack agrupa cabeceras automáticamente */}
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="p-3 text-left border-b">
+                  <th key={header.id} className="p-2 text-left border border-gray-200 text-white">
                     {/* 
                       flexRender permite renderizar:
                       - texto
@@ -122,10 +122,10 @@ export default function DataTable({ data, columns }) {
           <tbody>
             {/* Filas generadas por TanStack */}
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="hover:bg-gray-50">
+              <tr key={row.id} className="hover:bg-brand-soft border border-gray-200">
                 {/* Celdas visibles de cada fila */}
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="p-3 border-b">
+                  <td key={cell.id} className="p-0.5 border border-gray-200 scroll-">
                     {/* Render dinámico del contenido de la celda */}
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
@@ -168,7 +168,7 @@ export default function DataTable({ data, columns }) {
           </Button>
 
           {/* Información de página actual */}
-          <span className="text-sm px-2">
+          <span className="text-base px-2">
             Página {table.getState().pagination.pageIndex + 1} de{" "}
             {table.getPageCount()}
           </span>
