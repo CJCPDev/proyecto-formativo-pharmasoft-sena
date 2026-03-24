@@ -33,6 +33,7 @@ export const sellColumns = [
     accessorKey: "is_active",
     header: "Estado",
 
+
     // Render personalizado de la celda
     // Permite mostrar un componente en lugar de solo texto
     cell: ({ row }) => {

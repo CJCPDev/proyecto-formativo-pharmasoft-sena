@@ -1,26 +1,26 @@
 [
   {
-    "id": "NIT",
+    "value": "NIT",
     "label": "Número de identificacion tributaria"
   },
   {
-    "id": "C.C",
+    "value": "C.C",
     "label": "Cédula de ciudadanía"
   },
   {
-    "id": "T.I",
+    "value": "T.I",
     "label": "Tarjeta de identidad"
   },
   {
-    "id": "PPT",
+    "value": "PPT",
     "label": "Permiso por Proteccion Temporal"
   },
   {
-    "id": "PEP",
+    "value": "PEP",
     "label": "Permiso Especial de Permanencia"
   },
   {
-    "id": "C.E",
+    "value": "C.E",
     "label": "Cedula de extranjeria"
   }
 ]

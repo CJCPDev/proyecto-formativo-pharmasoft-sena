@@ -1,17 +1,15 @@
 import {users} from "@/data/users/users.js"
 import { CardUser } from "@/features/users"
+import { useParams } from "react-router-dom"
 
 export default function ProfileUserPage (){
-        const user = users.find(prod => prod.id)
+    const { id } = useParams();
+    const user = users.find((u) => u.id === Number(id))
 
         return(
 
         <div className="relative bg-white rounded-xl shadow-2xl">
-            {/* {products.map((product) => ( <Card key={product.id} product={product} />))} */}
-
             { user && <CardUser user ={user} />}
-
-            </div>
+        </div>
         )
-
-}
+    }

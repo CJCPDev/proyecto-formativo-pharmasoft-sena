@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Input from "../../../shared/components/Input";
 import { Select } from "../../../shared/components";
+
 import Button from "../../../shared/components/Button";
 import { medicamentoSchema } from "../schemas/medicamentoSchema";
 import { AvatarUploader } from "@/shared/components";
 import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../services/selectService"; 
 
 export default function FormMedicamentos() {
-  // const navigate = useNavigate();
+  const Navigate = useNavigate();
 
       const [formData, setFormData] = useState({
           nombre: "",
@@ -281,22 +282,22 @@ export default function FormMedicamentos() {
             </div>
           </div>
           <div className="col-span-full flex justify-center gap-4 py-4">
-            {/* Botón primario → “Guardar” */}
-            <Button
-              variant="primary"
-              size="md"
-              type="submit" 
-            >
-              Guardar
-            </Button>
-
             {/* Botón secundario → “Cancelar” */}
             <Button
               variant="secondary"
-              size="sm"
-              onClick={() => console.log("Cancelar")}
+              size="md"
+              onClick={() => Navigate(-1)}
             >
               Cancelar
+            </Button>
+            
+            {/* Botón primario → “Guardar” */}
+            <Button
+              variant="primary"
+              size="sm"
+              type="submit" 
+            >
+              Crear
             </Button>
           </div>
         </form>

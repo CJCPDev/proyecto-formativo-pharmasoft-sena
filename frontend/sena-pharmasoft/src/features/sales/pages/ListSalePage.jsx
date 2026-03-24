@@ -1,48 +1,53 @@
 import { Button, Title } from "@/shared/components"
-import { Link } from "react-router-dom"
-import ListSellPage from "./ListSellPage"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import ReportConfigModal from "../reports/components/ReportConfigModal"
+import DataTable from "@/shared/components/DataTable"
+import {SellColumns}  from "@/features/sales"
+import { ventas } from "@/data/sells/sells"
 
 export default function ListSalePage (){
 
     const [ IsReportModalOpen, setIsReportModalOpen] = useState(false)   
+    const navigate = useNavigate();
 
     return(
-        <div
-            className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-2 w-350
-        ">
-            <Title
-                title="Modulo de Ventas"
-            />
-            <div className="flex justify-end gap-6">
-                <div className="border rounded-xl h-12 w-auto px-4 flex items-center">
-                    <Link to="/crear-venta" className="hover:text-text-primary transition hover:underline hover:underline-offset-2">
-                        Crear Venta
-                    </Link>
+        <div className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-350 h-150">
+            <Title title="Modulo de Ventas"/>
+            <div className="flex justify-between gap-6 items-center">
+                <div className="flex px-4">
+                        <Button 
+                            variant = "secondary"
+                            size = 'sm'
+                            onClick = {() => navigate(-1)}
+                        >Regresar</Button>
                 </div>
-                <div>
-                    <Button
-                        variant= "secondary"
-                        onClick = {() => setIsReportModalOpen(true)}
-                    >Generar reporte</Button>
-
-                    <ReportConfigModal
-                            isOpen = {IsReportModalOpen}
-                            onClose = {() => setIsReportModalOpen(false)}
-                        ></ReportConfigModal>
-
-                </div>
+                <div className="flex px-10 gap-6 items-center">
+                        <Button
+                            variant= "primary"
+                            onClick = {() => setIsReportModalOpen(true)}
+                            >Generar reporte
+                        </Button>
+                        <Link
+                            to = '/crear-venta'
+                        >
+                            Crear Venta
+                        </Link>
+                    </div>
+                            <ReportConfigModal
+                                    isOpen = {IsReportModalOpen}
+                                    onClose = {() => setIsReportModalOpen(false)}
+                                ></ReportConfigModal>
             </div>
-            <div className="flex gap-6">
+                    <div className="flex gap-6">
+                        <div className="w-full h-full ">
+                            <DataTable
+                                data={ventas}
+                                columns={SellColumns}
+                            />
 
-                <div className="w-full h-full border-2 border-black rounded-3xl">
-                    <ListSellPage/>
-                </div>
-            </div>
-            <div>
-                <Button variant = "secondary">Regresar</Button>
-            </div>
+                        </div>
+                    </div>
         </div>
     )
 }

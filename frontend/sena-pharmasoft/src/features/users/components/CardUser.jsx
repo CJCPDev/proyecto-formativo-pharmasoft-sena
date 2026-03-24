@@ -4,16 +4,31 @@ import { useNavigate } from "react-router-dom";
 const Card = ({ user }) => {
     const navigate = useNavigate();
     const {
-        nombre_completo,
-        tipo_identificacion,
-        numero_documento,
-        rol,
-        telefono,
-        correo,
+        name,
+        documentType,
+        documentNumber,
+        userGroup,
+        phone,
+        userEmail,
         direccion,
         // estado,
         image,
     } = user;
+
+    const userGroupMap = {
+        "1": "Administrador",
+        "2": "Cliente",
+        "3": "Farmaceuta",
+    };
+
+    const documentTypeMap = {
+        "NIT": "Número de identificación tributaria",
+        "C.C": "Cédula de ciudadanía",
+        "T.I": "Tarjeta de identidad",
+        "PPT": "Permiso por Protección Temporal",
+        "PEP": "Permiso Especial de Permanencia",
+        "C.E": "Cédula de extranjería",
+    };
 
     return (
 
@@ -30,42 +45,42 @@ const Card = ({ user }) => {
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Nombre completo</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {nombre_completo}
+                        {name}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Tipo de documento</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {tipo_identificacion}
+                        {documentTypeMap[documentType] ?? documentType}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Numero de documento</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {numero_documento}
+                        {documentNumber}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Rol</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {rol}
+                        {userGroupMap[userGroup] ?? userGroup}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Correo electronico</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {correo}
+                        {userEmail}
                     </dd>
                 </div>
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Teléfono</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {telefono}
+                        {phone}
                     </dd>
                 </div>
 
@@ -80,7 +95,7 @@ const Card = ({ user }) => {
           <div className="flex justify-center items-start ">
             <img
               src={image}
-              alt={nombre_completo}
+              alt={name}
               className="w-60 h-60 object-fill border-4 border-brand-soft rounded-full"
             />
             </div>

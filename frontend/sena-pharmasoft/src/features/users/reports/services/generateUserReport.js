@@ -1,5 +1,5 @@
 // Fuente de datos de usuarios (mock o fuente centralizada)
-import { users } from "@/data/user/users";
+import { users } from "@/data/users/users";
 // Utilidad para transformar datos en dataset de reporte
 import { buildReportDataset } from "../utils/buildReportDataset";
 // Servicios de exportación

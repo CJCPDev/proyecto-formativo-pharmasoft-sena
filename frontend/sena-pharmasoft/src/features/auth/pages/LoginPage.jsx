@@ -5,7 +5,6 @@ import  {Button, Input, Modal} from '@/shared/components'
 
 export default function LoginPage(){
 
-
     return(
         <div>
             <LoginForm/>

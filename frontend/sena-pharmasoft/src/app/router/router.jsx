@@ -23,6 +23,7 @@ import { CreateUserPage } from "@/features/users";
 import { ProfileUserPage } from "@/features/users";
 import { EditUserPage } from "@/features/users";
 import { UserReportPage } from "@/features/users";
+import PermissionsPage from "../../features/users/pages/PermissionsPage";
 
 
 // Import Ventas
@@ -32,7 +33,7 @@ import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage"
 import SalesEditPage from "../../features/sales/pages/SalesEditPage";
 import SalesReportPage from "@/features/sales/pages/SalesReportPage"
-import ListSellPage from "@/features/sales/pages/ListSellPage"
+
 // ------
 
 // Imports de proveedores
@@ -46,9 +47,9 @@ import SuppliersReportPage from "../../features/suppliers/pages/SuppliersReportP
 // ------
 
 // Imports de Productos
-import CreateProductPage from "../../features/products/pages/CreateProductPage";
 // import FormMedicamentos from "../../features/products/pages/CreateProductPage";
-import MedicamentListPage from "../../features/products/pages/MedicamentListPage";
+import CreateProductPage from "../../features/products/pages/CreateProductPage";
+import ListProductsPage from "../../features/products/pages/ListProductsPage";
 import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
 import EditProductPage from "../../features/products/pages/EditProductPage";
 import ProductReportPage from "../../features/products/pages/ProductReportsPage";
@@ -93,7 +94,7 @@ const router = createBrowserRouter ([
             },
             {
                 path: "medicamentos",
-                element: <MedicamentListPage />
+                element: <ListProductsPage />
             },
             {
                 path: "crear-medicamento",
@@ -154,6 +155,10 @@ const router = createBrowserRouter ([
             {
                 path: "ver-usuarios/:id",
                 element: <ProfileUserPage/> 
+            },
+            {
+                path: "permisos",
+                element: <PermissionsPage/> 
             },
 
         ]

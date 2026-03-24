@@ -3,7 +3,7 @@ import { Search, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState} from "react";
 import { useNavigate } from "react-router-dom";
-import Logot from "../../assets/images/logo.webp";
+import Logot from "../../assets/images/logo-removebg-preview.png";
 
 
 const Navbar = ({ variant = "solid" }) => {
@@ -20,10 +20,10 @@ const Navbar = ({ variant = "solid" }) => {
 
   return (
     <nav
-      className={`w-full border-b transition-colors duration-300 ${
+      className={`w-full  transition-colors duration-300 ${
         variant === "transparent"
           ? "bg-transparent border-transparent absolute top-0 left-0 z-20"
-          : "bg-white border-border z-20"
+          : "bg-brand-soft/15  z-20"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4">
