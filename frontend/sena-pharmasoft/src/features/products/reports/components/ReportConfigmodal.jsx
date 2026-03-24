@@ -28,7 +28,7 @@ export default function ReportConfigModal({ isOpen, onClose }) {
 
 
     // Estado para filtro por forma farmaceutica
-    const [filterValue, setFilterValue] = useState("");
+    const [formaFarmaceutica, setformaFarmaceutica] = useState("");
 
 
     // Estado de campos seleccionados (inicialización lazy)
@@ -64,30 +64,13 @@ export default function ReportConfigModal({ isOpen, onClose }) {
     };
 
 
-    // // Handler principal para generar el reporte
-    // const handleGenerateReport = () => {
-
-
-    //     // Invoca el caso de uso con la configuración actual
-    //     generateProductReport({
-    //     format,
-    //     selectedFields,
-    //     scope,
-    //     filterValue,
-    //     });
-
-
-    //     // Cierra el modal después de generar el reporte
-    //     onClose();
-    // };
     const handleGenerateReport = () => {
-    const filtro = filterValue.trim().toLowerCase();
 
     generateProductReport({
         format,
         selectedFields,
         scope,
-        filterValue: filtro, // aquí ya va limpio
+        formaFarmaceutica, // aquí ya va limpio
     });
 
     onClose();
@@ -171,8 +154,8 @@ export default function ReportConfigModal({ isOpen, onClose }) {
             <div className="mb-4">
                 <Input
                 label="Forma farmacéutica"
-                value={filterValue}
-                onChange={(e) => setFilterValue(e.target.value)}
+                value={formaFarmaceutica}
+                onChange={(e) => setformaFarmaceutica(e.target.value)}
                 placeholder="Ej: Tableta, jarabe"
                 />
             </div>
