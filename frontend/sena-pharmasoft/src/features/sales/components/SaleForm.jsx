@@ -2,17 +2,25 @@ import {Title, Input, Select, Button} from "@/shared/components"
 import userGroups from "../../../data/selects/userGroups.json"
 import sellStates from "../../../data/selects/sellStates.json"
 import paymentStates from "../../../data/selects/paymenStates.json"
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import { getSaleState } from "../services/selectServices"
 import { saleSchema } from "../schemas/saleSchema"
+import { useParams, useNavigate } from "react-router-dom"
+import { getSalesById } from "../services/getSalesById"
 
 
 export default function SaleForm(){
+    const navigate = useNavigate()
+    const params = useParams()
+    const isEdit = Boolean(params.id);
+    const sales = isEdit ? getSalesById(params.id) : null;
 
         const [formData, setFormData] = useState({
-        usuario: "",
-        farmaceuta: "",
-        sellStates: "",
-        paymentStates: "",
+        factura: sales?.factura || "",
+        usuario: sales?.usuario || "",
+        farmaceuta: sales?.farmaceuta || "",
+        sellStates: sales?.sellStates || "",
+        paymentStates: sales?.paymentStates || "",
       });
     //==================HANDLE=========================
   // Función que se ejecuta cada vez que cambia el valor de un input del formulario
@@ -67,7 +75,12 @@ export default function SaleForm(){
   //======================================================================
 
     //Estado de los errores
-  const [errors, setErrors] = useState({});
+      const [errors, setErrors] = useState({});
+
+      const [saleState, setSaleState] = useState ([])
+      useEffect (() => {
+          getSaleState().then(setSaleState)
+      }, []);
 
   // //Estado de los tipos de documento
   // const [getDocumentTypes, setDocumentTypes] = useState([]);
@@ -83,6 +96,7 @@ export default function SaleForm(){
                 <Title
                     title="Creacion de venta"
                 ></Title>
+            {isEdit ? <Title title="Editar venta"/> : <Title title="Crear venta"/> }
             <form 
             onSubmit={handleSubmit}
             className="w-full px-6 rounded-xl">
@@ -100,8 +114,9 @@ export default function SaleForm(){
                             border-background
                             px-4
                             text-base"
-                            placeholder='Número de factura'
+                            label = 'Numero de factura'
                             disabled
+                            value = {formData.factura}
                         />
                         <Select
                             label="Usuario"
@@ -130,8 +145,8 @@ export default function SaleForm(){
                     </div>
                     <div className="flex flex-col gap-3">
                         <Input
+                            label = 'Fecha y hora'
                             type='datetime-local'
-                            placeholder='Número de factura'
                             />
                             <Select
                                 label="Tipo de pago"

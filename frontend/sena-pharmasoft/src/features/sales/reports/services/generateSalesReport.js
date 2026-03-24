@@ -2,11 +2,11 @@
 import { ventas } from "@/data/sells/sells";
 
 // Utilidad para transformar datos en dataset de reporte
-import { buildReportDataset } from "../reports/utils/buildReportDataset";
+import { buildReportDataset } from "../utils/buildReportDataset"; 
 
 // Servicios de exportación
-import { generateExcelReport } from "./generateExcelReport";
-import { generatePdfReport } from "./generatePdfReport";
+import { generateExcelReport } from "../services/generateExcelReport";
+import { generatePdfReport } from "../services/generatePdfReport";
 
 // Caso de uso: orquestador de generación de reportes de usuarios
 // Patrón: Application Service (coordina utilidades y servicios)
