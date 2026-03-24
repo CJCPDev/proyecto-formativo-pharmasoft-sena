@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Select, Button, Input, Title, AvatarUploader } from "../../../shared/components";
-import { medicamentoSchema } from "../schemas/medicamentoSchema";
-import { getProductsById } from "../services/getProductsById";
-import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../services/selectService"; 
+import { Select, Button, Input, Title, AvatarUploader } from "../../../../shared/components";
+import { medicamentoSchema } from "../../schemas/medicamentoSchema";
+import { getProductsById } from "../../services/getProductsById";
+import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../../services/selectService"; 
 
 export default function FormMedicamentos() {
   const navigate = useNavigate();

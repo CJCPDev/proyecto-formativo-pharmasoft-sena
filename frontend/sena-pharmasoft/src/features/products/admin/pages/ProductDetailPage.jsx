@@ -1,7 +1,7 @@
-import Input from "../../../shared/components/Input"
+import Input from "../../../../shared/components/Input"
 import { Title, Button } from "@/shared/components"
 import { useNavigate, useParams } from "react-router-dom";
-import { getProductsById } from "../services/getProductsById"; 
+import { getProductsById } from "../../services/getProductsById"; 
 import  image  from "/images/desloratadina.jpg"
 
 export default function ProductDetailPage() {
@@ -51,7 +51,7 @@ export default function ProductDetailPage() {
                     value= {nombreMedicamento}
                     readOnly
                     >
-                       
+                        
                     </Input>
                     <Input
                     label="Forma farmacéutica"

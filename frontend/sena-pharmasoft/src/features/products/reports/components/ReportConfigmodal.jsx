@@ -64,22 +64,34 @@ export default function ReportConfigModal({ isOpen, onClose }) {
     };
 
 
-    // Handler principal para generar el reporte
+    // // Handler principal para generar el reporte
+    // const handleGenerateReport = () => {
+
+
+    //     // Invoca el caso de uso con la configuración actual
+    //     generateProductReport({
+    //     format,
+    //     selectedFields,
+    //     scope,
+    //     filterValue,
+    //     });
+
+
+    //     // Cierra el modal después de generar el reporte
+    //     onClose();
+    // };
     const handleGenerateReport = () => {
+    const filtro = filterValue.trim().toLowerCase();
 
-
-        // Invoca el caso de uso con la configuración actual
-        generateProductReport({
+    generateProductReport({
         format,
         selectedFields,
         scope,
-        filterValue,
-        });
+        filterValue: filtro, // aquí ya va limpio
+    });
 
-
-        // Cierra el modal después de generar el reporte
-        onClose();
-    };
+    onClose();
+};
 
 
     return (
