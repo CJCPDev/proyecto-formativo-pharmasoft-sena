@@ -15,19 +15,17 @@
             {/* Columna 2: Enlaces */}
             <div>
             <h2 className="text-lg font-semibold">Enlaces útiles</h2>
-            <ul className="space-y-1 text-sm text-gray-600">
-                <li><a href="/productos" className="hover:text-blue-600">Productos</a></li>
-                <li><a href="/proveedores" className="hover:text-blue-600">Proveedores</a></li>
-                <li><a href="/contacto" className="hover:text-blue-600">Contacto</a></li>
-            </ul>
+                <p className="text-sm text-gray-600">Productos</p>
+                <p className="text-sm text-gray-600">Proveedores</p>
+                <p className="text-sm text-gray-600">Contacto</p>
             </div>
 
             {/* Columna 3: Contacto */}
             <div>
             <h2 className="text-lg font-semibold">Contáctanos</h2>
-            <p className="text-sm text-gray-600">📍 Pereira, Risaralda</p>
-            <p className="text-sm text-gray-600">📧 info@pharmasoft.com</p>
-            <p className="text-sm text-gray-600">📞 +57 300 123 4567</p>
+                <p className="text-sm text-gray-600">Pereira, Risaralda</p>
+                <p className="text-sm text-gray-600">info@pharmasoft.com</p>
+                <p className="text-sm text-gray-600">+57 323 510 0106</p>
             </div>
         </div>
 
