@@ -30,7 +30,7 @@ export default function SupplierRowActions({ supplier }) {
 
   return (
     // Contenedor de los botones de acciones
-    <div className="flex gap-2">
+    <div className="flex gap-4 justify-center">
 
       {/* Botón editar */}
       <button
