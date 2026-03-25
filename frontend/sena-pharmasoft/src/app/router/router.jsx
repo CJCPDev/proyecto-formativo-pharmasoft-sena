@@ -23,6 +23,7 @@ import { CreateUserPage } from "@/features/users";
 import { ProfileUserPage } from "@/features/users";
 import { EditUserPage } from "@/features/users";
 import { UserReportPage } from "@/features/users";
+import PermissionsPage from "../../features/users/pages/PermissionsPage";
 
 
 // Import Ventas
@@ -153,6 +154,10 @@ const router = createBrowserRouter ([
             {
                 path: "ver-usuarios/:id",
                 element: <ProfileUserPage/> 
+            },
+            {
+                path: "permisos",
+                element: <PermissionsPage/> 
             },
 
         ]
