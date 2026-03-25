@@ -28,7 +28,7 @@ export default function SellRowActions({ sales }) {
 
   return (
     // Contenedor de los botones de acciones
-    <div className="flex gap-2 items-center justify-center">
+    <div className="flex gap-4 items-center justify-center">
       
       {/* Botón editar */}
       <div className="relative group w-max">
@@ -41,7 +41,7 @@ export default function SellRowActions({ sales }) {
       </button>
                       <span className="
                         absolute
-                        top-5
+                        top-6
                         -right-2
                         opacity-0 
                         group-hover:opacity-100
@@ -49,7 +49,7 @@ export default function SellRowActions({ sales }) {
                         bg-brand-hover
                         text-white
                         text-sm 
-                        p-1
+                        p-0.5
                         rounded
                         z-15
                       ">Editar
@@ -64,7 +64,7 @@ export default function SellRowActions({ sales }) {
                   </button>
                   <span className="
                       absolute
-                      top-5
+                      top-6
                       -right-6
                       opacity-0 
                       group-hover:opacity-100
@@ -72,7 +72,7 @@ export default function SellRowActions({ sales }) {
                       bg-brand-hover
                       text-white
                       text-sm 
-                      p-1
+                      p-0.5
                       rounded
                       z-15
                     ">Visualizar

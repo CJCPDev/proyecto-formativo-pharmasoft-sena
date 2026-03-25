@@ -39,7 +39,7 @@ export function generateSalesReport({
     generateExcelReport({
       headers,
       rows,
-      fileName: `sells-report-${timestamp}.xlsx`
+      fileName: `ReportedeVentas-${timestamp}.xlsx`
     });
   }
 
@@ -47,7 +47,7 @@ export function generateSalesReport({
     generatePdfReport({
       headers,
       rows,
-      fileName: `sells-report-${timestamp}.pdf`
+      fileName: `ReportedeVentas-${timestamp}.pdf`
     });
   }
 }

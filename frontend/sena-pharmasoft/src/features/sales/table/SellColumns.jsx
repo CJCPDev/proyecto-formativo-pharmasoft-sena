@@ -22,8 +22,8 @@ export const sellColumns = [
     header: "Fecha y hora"
   },
   {
-    accessorKey: "cliente",
-    header: "Cliente"
+    accessorKey: "usuario",
+    header: "Usuario"
   },
   {
     accessorKey: "farmaceuta",

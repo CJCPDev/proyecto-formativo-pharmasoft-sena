@@ -1,10 +1,10 @@
-import SaleForm from "../components/InformationSell"
+import SaleProducts from "../components/SaleProducts"
 
 
 export default function SalesEditPage (){
     return (
         <h1>
-            <SaleForm/>
+            <SaleProducts/>
         </h1>
     )
 }
