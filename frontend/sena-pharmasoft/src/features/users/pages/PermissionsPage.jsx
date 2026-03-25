@@ -125,7 +125,7 @@ const handleSaveGroupName = () => {
   };
 
   return (
-    <div className="min-h-screen bg-surface p-8">
+    <div className="z-10 min-h-screen bg-surface p-8">
 
     {/* Modal editar nombre del grupo */}
     {editingGroup && (
@@ -189,7 +189,7 @@ const handleSaveGroupName = () => {
         Volver
       </Button>
 
-      <h1 className="text-3xl font-secondary text-center text-brand-hover mb-8">
+      <h1 className="text-3xl font-main text-general-title text-center text-brand-hover mb-8">
         Gestión de Permisos
       </h1>
 

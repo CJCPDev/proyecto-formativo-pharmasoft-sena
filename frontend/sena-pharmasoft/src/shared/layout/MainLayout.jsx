@@ -16,7 +16,7 @@ export default function MainLayout (){
             {/* contenido externo que se inyecta */}
             <main className="relative flex-1 flex items-center justify-center overflow-hidden">
                 
-                <div className="inset-0 bg-cover bg-center opacity-2"
+                <div className="absolute inset-0 bg-cover bg-center opacity-2"
                     style={
                     {
                         backgroundImage: `url(${mainBg})`,
