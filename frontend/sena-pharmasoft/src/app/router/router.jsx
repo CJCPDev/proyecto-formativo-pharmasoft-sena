@@ -52,6 +52,7 @@ import ListProductsPage from "../../features/products/pages/ListProductsPage";
 import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
 import EditProductPage from "../../features/products/pages/EditProductPage";
 import ProductReportPage from "../../features/products/pages/ProductReportsPage";
+import DetailProductPage from "@/features/products/pages/DetailProductPage";
 
 
 
@@ -61,6 +62,10 @@ const router = createBrowserRouter ([
     {
         path: "/",
         element: <HomePage/>
+    },
+    {
+        path: "ver-card/:id",
+        element: <DetailProductPage/>
     },
     {
         
