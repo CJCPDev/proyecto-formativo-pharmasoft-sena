@@ -19,9 +19,6 @@ export default function DetailCard({product}) {
             border-brand-hover/10
             rounded-2xl
             overflow-hidden
-            hover:shadow-brand-hover/50
-            transition-shadow
-            duration-700
             p-6
             "
         >
