@@ -1,14 +1,13 @@
 import DataTable from "@/shared/components/DataTable"
-import { ProductsColumns } from "../table/ProductsColumns"
+import { ProductsColumns } from "../../table/ProductsColumns"
 import { Button, Title } from "@/shared/components"
 import { Link } from "react-router-dom"
 import { products } from "@/data/products/products"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import ReportConfigModal from "../../reports/components/ReportConfigModal"
 
-import ReportConfigModal from "../reports/components/ReportConfigModal"
-
-export default function ListProductsPage() {
+export default function AdminProductListPage() {
 
     const[isReportModalOpen, setIsReportModalOpen] = useState(false)
     

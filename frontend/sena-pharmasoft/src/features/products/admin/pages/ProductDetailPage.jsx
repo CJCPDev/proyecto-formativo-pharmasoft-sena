@@ -1,27 +1,39 @@
-import Input from "../../../shared/components/Input"
+import Input from "../../../../shared/components/Input"
 import { Title, Button } from "@/shared/components"
-import { useNavigate } from "react-router-dom"; 
-import  image  from "../../../../public/images/desloratadina.jpg"
+import { useNavigate, useParams } from "react-router-dom";
+import { getProductsById } from "../../services/getProductsById"; 
+import  image  from "/images/desloratadina.jpg"
 
 export default function ProductDetailPage() {
+
     const navigate = useNavigate();
-    const medicamento = {
-        nombre: "Paracetamol",
-        formaFarmaceutica: "Tableta",
-        viaAdministracion: "Oral",
-        laboratorio: "Bayer S.A.",
-        concentracion: "500mg",
-        proveedor: "Bayer",
-        lote: "L12345",
-        fechaFabricacion: "2025-01-10",
-        fechaVencimiento: "2027-01-10",
-        stock: 200,
-        precioCosto: "$100.000",
-        precioVenta: "$150.000",
-        requiereFormula: "No",
-        estado: "Activo",
-        descripcion: "Analgésico y antipirético"
-    };
+    const { id } = useParams();
+
+    const products = id ? getProductsById(id) : null;
+
+    if(!products) {
+        return <p>
+            Medicamento no encontrado
+        </p>
+    }
+
+    const {
+        nombreMedicamento,
+        formaFarmaceutica,
+        viaAdministracion,
+        laboratorio,
+        concentracion,
+        proveedor,
+        lote,
+        fechaFabricacion,
+        fechaVencimiento,
+        stock,
+        precioCosto,
+        precioVenta,
+        requiresPrescription,
+        estado,
+        description
+    } = products;
 
     return (
         <div>
@@ -36,39 +48,51 @@ export default function ProductDetailPage() {
                     <Input
                     label="Nombre"
                     name="nombre"
-                    value={medicamento.nombre}
+                    value= {nombreMedicamento}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Forma farmacéutica"
                     name="formaFarmaceutica"
-                    value={medicamento.formaFarmaceutica}
+                    value={formaFarmaceutica}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Vía de administración"
                     name="viaAdministracion"
-                    value={medicamento.viaAdministracion}
+                    value={viaAdministracion}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Laboratorio"
                     name="laboratorio"
-                    value={medicamento.laboratorio}
+                    value={laboratorio}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Concentración"
                     name="concentracion"
-                    value={medicamento.concentracion}
+                    value={concentracion}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Proveedor"
                     name="proveedor"
-                    value={medicamento.proveedor}
+                    value={proveedor}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                 </div>
 
                 {/* Columna 2 */}
@@ -76,41 +100,53 @@ export default function ProductDetailPage() {
                     <Input
                     label="Lote"
                     name="lote"
-                    value={medicamento.lote}
+                    value={lote}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Fecha fabricación"
                     name="fechaFabricacion"
+                    value={fechaFabricacion}
                     type="date"
-                    value={medicamento.fechaFabricacion}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Fecha vencimiento"
                     name="fechaVencimiento"
+                    value={fechaVencimiento}
                     type="date"
-                    value={medicamento.fechaVencimiento}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Stock"
                     name="stock"
-                    value={medicamento.stock}
+                    value={stock}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Precio costo"
                     name="precioCosto"
-                    value={medicamento.precioCosto}
+                    value={precioCosto}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Precio venta"
                     name="precioVenta"
-                    value={medicamento.precioVenta}
+                    value={precioVenta}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                 </div>
 
                 {/* Columna 3 */}
@@ -118,21 +154,27 @@ export default function ProductDetailPage() {
                     <Input
                     label="Requiere fórmula"
                     name="requiresPrescription"
-                    value={medicamento.requiereFormula}
+                    value={requiresPrescription}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Estado"
                     name="estado"
-                    value={medicamento.estado}
+                    value={estado}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <Input
                     label="Descripción"
                     name="description"
-                    value={medicamento.descripcion}
+                    value={description}
                     readOnly
-                    />
+                    >
+                        
+                    </Input>
                     <div className="flex justify-center items-start">
                         <img
                         src={image}
@@ -144,13 +186,20 @@ export default function ProductDetailPage() {
                 </div>
                 <div className="col-span-full flex justify-center gap-4 py-4">
                 <Button
-                variant="primary"
+                variant="secondary"
                 size="sm"
                 onClick={() => navigate("/medicamentos")}
                 >
                     Regresar
                 </Button>
 
+                <Button 
+                variant="primary"
+                onClick={() => { navigate(`/editar-medicamento/${id}`)
+                    }}
+                >
+                    Editar
+                </Button>
                 </div>
             </form>
             </div>

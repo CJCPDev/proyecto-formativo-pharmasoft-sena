@@ -46,13 +46,11 @@ import SuppliersReportPage from "../../features/suppliers/pages/SuppliersReportP
 // ------
 
 // Imports de Productos
-// import FormMedicamentos from "../../features/products/pages/CreateProductPage";
-import CreateProductPage from "../../features/products/pages/CreateProductPage";
-import ListProductsPage from "../../features/products/pages/ListProductsPage";
-import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
-import EditProductPage from "../../features/products/pages/EditProductPage";
-import ProductReportPage from "../../features/products/pages/ProductReportsPage";
-
+import CreateProductPage from "../../features/products/admin/pages/CreateProductPage";
+import AdminProductListPage from "../../features/products/admin/pages/AdminProductListPage";
+import ProductDetailPage from "../../features/products/admin/pages/ProductDetailPage";
+import ProductsEditPage from "../../features/products/admin/pages/ProductsEditPage";
+import AdminProductReportPage from "../../features/products/admin/pages/AdminProductReportPage";
 
 
 
@@ -93,7 +91,7 @@ const router = createBrowserRouter ([
             },
             {
                 path: "medicamentos",
-                element: <ListProductsPage />
+                element: <AdminProductListPage />
             },
             {
                 path: "crear-medicamento",
@@ -105,11 +103,11 @@ const router = createBrowserRouter ([
             },
             {
                 path: "editar-medicamento/:id",
-                element: <EditProductPage/>
+                element: <ProductsEditPage />
             },
             {
                 path: "generar-reporte",
-                element: <ProductReportPage/>
+                element: <AdminProductReportPage/>
             },
             {
                 path: "listar-ventas",
