@@ -9,11 +9,11 @@ import SalesRowActions from "../components/SalesRowActions";
 export const sellColumns = [
 
   // Columna ID
-   {
+  {
     accessorKey: "id",
     header: "Id"
   },
-   {
+  {
     accessorKey: "numeroFactura",
     header: "Número de factura"
   },
