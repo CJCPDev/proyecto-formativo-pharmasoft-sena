@@ -7,7 +7,7 @@ import { salesReportFields } from "../config/salesReportFields";
 
 
 // Caso de uso que orquesta la generación del reporte
-import { generateSalesReport } from "../../services/generateSalesReport";
+import { generateSalesReport } from "../services/generateSalesReport";
 
 
 // Componentes UI reutilizables (design system)

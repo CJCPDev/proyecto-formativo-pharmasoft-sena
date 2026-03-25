@@ -10,6 +10,10 @@ export const sellColumns = [
 
   // Columna ID
    {
+    accessorKey: "id",
+    header: "Id"
+  },
+   {
     accessorKey: "numeroFactura",
     header: "Número de factura"
   },
@@ -64,9 +68,9 @@ export const sellColumns = [
   // Columna de acciones (editar / eliminar)
   {
     id: "actions", // No usa accessorKey porque no corresponde a un campo del usuario
-
+    header: "Acciones",
     // Renderiza el componente de acciones pasando el usuario completo
-    cell: ({ row }) => <SalesRowActions user={row.original} />,
+    cell: ({ row }) => <SalesRowActions sales={row.original} />,
   },
 ];
 

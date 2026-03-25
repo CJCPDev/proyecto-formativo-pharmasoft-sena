@@ -1,8 +1,14 @@
-import SaleForm from "../components/SaleForm"
+
+import CardSale from "../components/CardSale"
+
 export default function SaleDetailPage (){
-    return (
-        <div className="w-175 bg-white rounded-xl shadow-2xl">
-            <SaleForm/>    
-        </div>
+
+    return(
+            <div>
+                <div className="relative bg-white rounded-xl shadow-2xl">
+                    <CardSale/>
+
+                </div>
+            </div>
     )
 }

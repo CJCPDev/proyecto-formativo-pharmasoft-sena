@@ -95,12 +95,12 @@ export default function DataTable({ data, columns }) {
       <div className="overflow-x-auto border border-gray-200 text-center">
         <table className="w-full">
           {/* ================== CABECERA ================== */}
-          <thead className="bg-brand-hover/90 border border-gray-200 ">
+          <thead className="bg-brand-hover/90 border border-gray-200">
             {/* TanStack agrupa cabeceras automáticamente */}
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="p-2 text-center justify-between border border-gray-200 text-white ">
+                  <th key={header.id} className="p-1 text-center justify-between border border-gray-200 text-white ">
                     {/* 
                       flexRender permite renderizar:
                       - texto
@@ -137,7 +137,7 @@ export default function DataTable({ data, columns }) {
       </div>
 
       {/* ================== FOOTER ================== */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between mt-4">
         {/* ================== INFORMACIÓN ================== */}
         {/* Cantidad de registros visibles */}
         <span className="text-sm text-gray-600">

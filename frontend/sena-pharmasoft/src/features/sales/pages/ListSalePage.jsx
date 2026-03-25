@@ -19,18 +19,18 @@ export default function ListSalePage (){
                         <Button 
                             variant = "secondary"
                             size = 'sm'
-                            onClick = {() => navigate(-1)}
+                            onClick = {() => navigate("/DashboardMain")}
                         >Regresar</Button>
                 </div>
                 <div className="flex px-10 gap-6 items-center">
                         <Button
                             variant= "primary"
                             onClick = {() => setIsReportModalOpen(true)}
-                            >Generar reporte
-                        </Button>
+                            >Generar reporte</Button>
                         <Link
-                            to = '/crear-venta'
-                        >
+                        className="w-40 relative inline-flex items-center justify-center rounded-xl transition-colors cursor-pointer
+                        h-10 px-4 before:absolute before:content-[''] before:-inset-y-[4px] before:-inset-x-[0px] font-main text-brand-soft font-semibold text-base bg-brand-hover hover:bg-brand-soft hover:text-brand-hover"
+                            to = '/crear-venta'>
                             Crear Venta
                         </Link>
                     </div>

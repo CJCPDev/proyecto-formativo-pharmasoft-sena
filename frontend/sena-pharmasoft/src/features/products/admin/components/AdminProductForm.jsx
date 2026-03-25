@@ -1,34 +1,33 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Input from "../../../shared/components/Input";
-import { Select } from "../../../shared/components";
-
-import Button from "../../../shared/components/Button";
-import { medicamentoSchema } from "../schemas/medicamentoSchema";
-import { AvatarUploader } from "@/shared/components";
-import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../services/selectService"; 
+import { useParams, useNavigate } from "react-router-dom";
+import { Select, Button, Input, Title, AvatarUploader } from "../../../../shared/components";
+import { medicamentoSchema } from "../../schemas/medicamentoSchema";
+import { getProductsById } from "../../services/getProductsById";
+import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../../services/selectService"; 
 
 export default function FormMedicamentos() {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+  const params = useParams()
+  const isEdit = Boolean(params.id)
+  const product = isEdit ? getProductsById(params.id) : null
 
       const [formData, setFormData] = useState({
-          nombre: "",
-          pharmaForm: "",
-          viaAdministracion: "",
-          laboratorio: "",
-          concentracion: "",
-          proveedor: "",
-          lote: "",
-          fechaFabricacion: "",
-          fechaVencimiento: "",
-          stock: "",
-          precioCosto: "",
-          precioVenta: "",
-          requiresPrescription: "",
-          estado: "",
-          description: "",
-          imagen: null,
-        });
+          nombreMedicamento: product?.nombreMedicamento || "",
+          formaFarmaceutica: product?.formaFarmaceutica || "",
+          viaAdministracion: product?.viaAdministracion || "",            
+          laboratorio: product?.laboratorio || "",
+          concentracion: product?.concentracion || "",
+          proveedor: product?.proveedor || "",
+          lote: product?.lote || "",
+          fechaFabricacion: product?.fechaFabricacion || "",
+          fechaVencimiento: product?.fechaVencimiento || "",
+          stock: product?.stock || "",
+          precioCosto: product?.precioCosto || "",
+          precioVenta: product?.precioVenta || "",
+          requiresPrescription: product?.requiresPrescription || "",
+          estado: product?.estado || "",
+          description: product?.description || ""
+          })
 
     // ==========================HANDLER=====================================
     // Función que se ejecuta cada vez que cambia el valor de un input del formulario 
@@ -93,6 +92,7 @@ export default function FormMedicamentos() {
   const [administrationTypes, setAdministrationTypes] = useState([]);
   useEffect(()=> {
     getAdministrationTypes().then(setAdministrationTypes)
+    
   }, []);
 
   const [suppliers, setSuppliers] = useState([]);
@@ -109,15 +109,13 @@ export default function FormMedicamentos() {
   useEffect(()=> {
     getStatesTypes().then(setStatesTypes)
   }, []); 
-
+console.log("FORM DATA:", formData);
+console.log("OPTIONS:", administrationTypes);
   return (
-    <div>
-      <div>
-        {/* Formulario */}
         <form
         className="flex flex-col gap-10 z-20"
               onSubmit={handleSubmit}>
-                        
+              { isEdit ? <Title title="Editar Medicamento"/> : <Title title="Crear Medicamento"/> }
           {/* Contenedor de columnas */}
           <div className="flex gap-12">
             {/* ================= COLUMNA 1 ================= */}
@@ -126,18 +124,18 @@ export default function FormMedicamentos() {
                 label="Nombre del medicamento"
                 name="nombre"
                 placeholder="Nombre del medicamento"
-                value={formData.nombre}
+                value={formData.nombreMedicamento}
                 onChange={handleChange}
-                error={errors.nombre}
+                error={errors.nombreMedicamento}
               />
-
+                
               <Select
                 label="Forma farmaceutica"
-                name="pharmaForm"
-                value={formData.pharmaForm}
+                name="formaFarmaceutica"
+                value={formData.formaFarmaceutica}
                 options={pharmaForm}
                 onChange={handleChange}
-                error={errors.pharmaForm}
+                error={errors.formaFarmaceutica}
               />
               <Select
                 label="Vía de administración"
@@ -148,7 +146,7 @@ export default function FormMedicamentos() {
                 error={errors.viaAdministracion}
                 
               />
-
+              
               <Select
                 label="Laboratorio"
                 name="laboratorio"
@@ -281,27 +279,35 @@ export default function FormMedicamentos() {
 
             </div>
           </div>
-          <div className="col-span-full flex justify-center gap-4 py-4">
-            {/* Botón secundario → “Cancelar” */}
-            <Button
-              variant="secondary"
-              size="md"
-              onClick={() => Navigate(-1)}
-            >
-              Cancelar
-            </Button>
-            
-            {/* Botón primario → “Guardar” */}
-            <Button
-              variant="primary"
-              size="sm"
-              type="submit" 
-            >
-              Crear
-            </Button>
+          <div className="flex gap-6 justify-center items-center">
+            {isEdit ? (
+                <>
+                <Button 
+                    onClick={() => navigate(-1)}
+                    variant="secondary" 
+                    size="sm"
+                >
+                    Cancelar
+                </Button>
+                <Button variant="primary" size="md" type="submit">
+                    Actualizar
+                </Button>
+                </>
+            ) : (
+                <>
+                <Button 
+                    variant="secondary" 
+                    size="sm"
+                    onClick={() => navigate(-1)}
+                >
+                    Regresar
+                </Button>
+                <Button variant="primary" size="md" type="submit">
+                    Crear
+                </Button>
+                </>
+            )}
           </div>
         </form>
-        </div>
-      </div>
   );
 }
