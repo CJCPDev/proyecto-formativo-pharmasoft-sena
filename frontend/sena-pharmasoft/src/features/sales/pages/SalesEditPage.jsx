@@ -1,7 +1,10 @@
+import SaleForm from "../components/InformationSell"
+
+
 export default function SalesEditPage (){
     return (
         <h1>
-            Pagina para editar venta pendiente
+            <SaleForm/>
         </h1>
     )
 }

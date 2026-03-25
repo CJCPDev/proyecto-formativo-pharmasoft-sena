@@ -8,54 +8,51 @@ const CardSales = () => {
     const navigate = useNavigate();
 
     // Obtener proveedor directamente
-    const sales = id ? getSalesById(id) : null;
+    const ventas = id ? getSalesById(id) : null;
 
     // Manejo de seguridad
-    if (!sales) {
+    if (!ventas) {
         return <p>Venta no encontrada</p>;
     }
 
     const {
-
-        usuario,
+        numeroFactura,
+        cliente,
         farmaceuta,
-        tipo,
-        correo,
+        estado,
 
-    } = sales;
+    } = ventas;
 
     return(
         <section className="flex flex-col gap-6 w-175 px-4 py-6 font-main">
 
-            <Title title="Ver Proveedor" />
+            <Title title="Ver Venta" />
 
             <div className="grid grid-cols-2 gap-y-4 gap-x-6 font-main">
-
                 <div>
-                    <dt className="px-4 text-xs text-text-mute">Usuario</dt>
+                    <dt className="px-4 text-xs text-text-mute">Numero de Factura</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {usuario || "-"}
+                        {numeroFactura || "-"}
+                    </dd>
+                </div>
+                <div>
+                    <dt className="px-4 text-xs text-text-mute">Cliente</dt>
+                    <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
+                        {cliente || "-"}
                     </dd>
                 </div>
 
                 <div>
-                    <dt className="px-4 text-xs text-text-mute">Nombre</dt>
+                    <dt className="px-4 text-xs text-text-mute">Farmaceuta</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
                         {farmaceuta || "-"}
                     </dd>
                 </div>
 
                 <div>
-                    <dt className="px-4 text-xs text-text-mute">Razón Social</dt>
+                    <dt className="px-4 text-xs text-text-mute">Estado de venta</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {tipo || "-"}
-                    </dd>
-                </div>
-
-                <div>
-                    <dt className="px-4 text-xs text-text-mute">Dirección</dt>
-                    <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {correo || "-"}
+                        {estado || "-"}
                     </dd>
                 </div>
 

@@ -89,15 +89,18 @@ const handleDelete = (id) => {
                 <div className="grid grid-cols-4 gap-4 mx-auto">
                     <div className="col-span-2  mx-auto">
                         <Input
+                        disabled
                         label = 'Subtotal'/>
                     </div>
                     <div className="col-span-2 mx-auto">
                         <Input
+                        disabled
                         label = 'Iva'
                         placeholder="Iva"/>
                     </div>
                     <div className="col-span-4  mx-auto">
                         <Input
+                        disabled
                         label = 'Total Venta'
                         placeholder="Total Venta"
                         />

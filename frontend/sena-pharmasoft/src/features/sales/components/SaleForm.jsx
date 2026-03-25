@@ -16,7 +16,7 @@ export default function SaleForm(){
     const sales = isEdit ? getSalesById(params.id) : null;
 
         const [formData, setFormData] = useState({
-        factura: sales?.factura || "",
+        factura: sales?.numeroFactura || "",
         usuario: sales?.usuario || "",
         farmaceuta: sales?.farmaceuta || "",
         sellStates: sales?.sellStates || "",
@@ -69,7 +69,7 @@ export default function SaleForm(){
     // Si la validación es exitosa se limpian los errores anteriores
     setErrors({});
     // result.data contiene los datos ya validados por Zod
-    console.log("Usuario válido:", result.data);
+    console.log("Venta válida:", result.data);
   };
 
   //======================================================================
@@ -93,13 +93,10 @@ export default function SaleForm(){
     return(
         <div className="font-main bg-white grid gap-2 w-full h-full p-6 rounded-lg">
             
-                <Title
-                    title="Creacion de venta"
-                ></Title>
-            {isEdit ? <Title title="Editar venta"/> : <Title title="Crear venta"/> }
             <form 
             onSubmit={handleSubmit}
             className="w-full px-6 rounded-xl">
+                {isEdit ? <Title title="Editar venta"/> : <Title title="Crear venta"/> }
                 <div className="grid grid-cols-2 gap-6  w-full">
                     <div className="flex flex-col gap-3">
                         <Input
@@ -116,7 +113,7 @@ export default function SaleForm(){
                             text-base"
                             label = 'Numero de factura'
                             disabled
-                            value = {formData.factura}
+                            value = {formData.numeroFactura}
                         />
                         <Select
                             label="Usuario"
@@ -176,13 +173,24 @@ export default function SaleForm(){
                     placeholder='Producto'
                     />
                 </div>
-                <div className="grid text-center justify-items-center pt-2 ">
-                    <Button
-                    type='submit'>
-                        Añadir Producto
+ <div className="flex gap-6 justify-center items-center">
+                {isEdit ? (
+                    <>  
+                    <Button variant="primary" size="md" type="submit">
+                        Añadir
                     </Button>
-                </div>
-            
+                    </>
+                ) : (
+                    <>
+                    <div className="grid text-center justify-items-center pt-2 ">
+                        <Button
+                        type='submit'>
+                            Añadir Producto
+                        </Button>
+                    </div>
+                    </>
+                )}
+            </div>            
         </form>
         </div>
     )

@@ -5,7 +5,7 @@ import { Pencil, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 // Componente que renderiza las acciones de cada fila de usuario
-// Recibe como prop el objeto user
+// Recibe como prop el objeto
 export default function SellRowActions({ sales }) {
 
   // const handleEdit = () => {
@@ -18,12 +18,12 @@ export default function SellRowActions({ sales }) {
   // Acción para editar el usuario
   // Redirige a la página de edición usando el id del usuario
   const handleEdit = () => {
-    navigate(`/ver-venta/${sales.numeroFactura}/editar`);
+    navigate(`/ver-venta/${sales.id}/editar`);
   };
 
 
   const handleDetail = () => {
-    navigate(`/ver-venta/${sales.numeroFactura}`);
+    navigate(`/ver-venta/${sales.id}`);
   };
 
   return (
@@ -36,7 +36,7 @@ export default function SellRowActions({ sales }) {
         onClick={handleEdit} // Ejecuta la navegación a la página de edición
         className="py-1 rounded cursor-pointer"
         >
-        {console.log(handleDetail)}
+
         <Pencil size={18} className="stroke-brand-fort"/> {/* Icono de editar */}
       </button>
                       <span className="
