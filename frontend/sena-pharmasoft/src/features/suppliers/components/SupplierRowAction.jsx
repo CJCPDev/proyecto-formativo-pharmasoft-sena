@@ -30,24 +30,56 @@ export default function SupplierRowActions({ supplier }) {
 
   return (
     // Contenedor de los botones de acciones
-    <div className="flex gap-4 justify-center">
+    <div className="flex gap-4 items-center justify-center">
 
-      {/* Botón editar */}
-      <button
-        onClick={handleEdit} // Ejecuta la navegación a la página de edición
-        className="p-1 rounded hover:bg-gray-100"
-      >
-        <Pencil size={16} /> {/* Icono de editar */}
-      </button>
-
-      {/* Botón para ver el detalle */}
-      <button
-        onClick={handleDetail} // Ejecuta la acción de eliminación
-        className="p-1 rounded hover:bg-gray-100"
-      >
-        <Eye size={24} /> {/* Icono para ver */}
-      </button>
-
+          {/* Botón editar */}
+        <div className="relative group w-max">
+          <button
+            onClick={handleEdit} // Ejecuta la navegación a la página de edición
+            className="py-1 rounded cursor-pointer"
+          >
+          <Pencil size={18} className="stroke-brand-fort"/> {/* Icono de editar */}
+                      <span className="
+                        absolute
+                        top-6
+                        -right-2
+                        opacity-0 
+                        group-hover:opacity-100
+                        transition-opacity duration-700
+                        bg-brand-hover
+                        text-white
+                        p-0.5
+                        text-sm 
+                        rounded
+                        z-15
+                      ">Editar
+                  </span>          
+        </button>
+        </div>
+          {/* Botón para ver el detalle */}
+        <div className="relative group w-max">     
+            <button
+              onClick={handleDetail} // Ejecuta la acción de eliminación
+              className="relative py-1 rounded cursor-pointer"
+            >
+              <Eye size={20} className="stroke-brand-fort"/> {/* Icono para ver */}
+            </button>
+                    <span className="
+                        absolute
+                        top-6
+                        -right-6
+                        opacity-0 
+                        group-hover:opacity-100
+                        transition-opacity duration-700
+                        bg-brand-hover
+                        text-white
+                        text-sm 
+                        p-0.5
+                        rounded
+                        z-15
+                      ">Visualizar
+                  </span>
+        </div>
     </div>
   );
 }

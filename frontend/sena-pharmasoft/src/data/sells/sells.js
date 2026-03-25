@@ -1,34 +1,92 @@
 export const ventas = [
-  { id: 1, numeroFactura: "F001", fechaHora: "2026-03-12 08:15", cliente: "Juan Pérez", farmaceuta: "Laura Gómez", estado: "Activo" },
-  { id: 2, numeroFactura: "F002", fechaHora: "2026-03-12 08:40", cliente: "María Rodríguez", farmaceuta: "Carlos Díaz" },
-  { id: 3, numeroFactura: "F003", fechaHora: "2026-03-12 09:05", cliente: "Andrés López", farmaceuta: "Laura Gómez" },
-  { id: 4, numeroFactura: "F004", fechaHora: "2026-03-12 09:30", cliente: "Sofía Martínez", farmaceuta: "Pedro Ramírez" },
-  { id: 5, numeroFactura: "F005", fechaHora: "2026-03-12 10:10", cliente: "Miguel Torres", farmaceuta: "Carlos Díaz" },
-  { id: 6, numeroFactura: "F006", fechaHora: "2026-03-12 10:45", cliente: "Valentina Herrera", farmaceuta: "Laura Gómez" },
-  { id: 7, numeroFactura: "F007", fechaHora: "2026-03-12 11:20", cliente: "Daniel Vargas", farmaceuta: "Pedro Ramírez" },
-  { id: 8, numeroFactura: "F008", fechaHora: "2026-03-12 12:00", cliente: "Camila Sánchez", farmaceuta: "Carlos Díaz" },
-  { id: 9, numeroFactura: "F009", fechaHora: "2026-03-12 12:30", cliente: "Sebastián Castro", farmaceuta: "Laura Gómez" },
-  { id: 10, numeroFactura: "F010", fechaHora: "2026-03-12 13:00", cliente: "Natalia Rojas", farmaceuta: "Pedro Ramírez" },
-
-  { id: 11, numeroFactura: "F011", fechaHora: "2026-03-12 13:20", cliente: "Ricardo Mejía", farmaceuta: "Laura Gómez" },
-  { id: 12, numeroFactura: "F012", fechaHora: "2026-03-12 13:45", cliente: "Paola Duarte", farmaceuta: "Carlos Díaz" },
-  { id: 13, numeroFactura: "F013", fechaHora: "2026-03-12 14:05", cliente: "Javier Castillo", farmaceuta: "Pedro Ramírez" },
-  { id: 14, numeroFactura: "F014", fechaHora: "2026-03-12 14:30", cliente: "Mónica Herrera", farmaceuta: "Laura Gómez" },
-  { id: 15, numeroFactura: "F015", fechaHora: "2026-03-12 15:00", cliente: "Luis Salazar", farmaceuta: "Carlos Díaz" },
-  { id: 16, numeroFactura: "F016", fechaHora: "2026-03-12 15:20", cliente: "Andrea Molina", farmaceuta: "Pedro Ramírez" },
-  { id: 17, numeroFactura: "F017", fechaHora: "2026-03-12 15:45", cliente: "Fernando Ríos", farmaceuta: "Laura Gómez" },
-  { id: 18, numeroFactura: "F018", fechaHora: "2026-03-12 16:10", cliente: "Natalia Vélez", farmaceuta: "Carlos Díaz" },
-  { id: 19, numeroFactura: "F019", fechaHora: "2026-03-12 16:40", cliente: "Héctor Jiménez", farmaceuta: "Pedro Ramírez" },
-  { id: 20, numeroFactura: "F020", fechaHora: "2026-03-12 17:00", cliente: "Daniela Franco", farmaceuta: "Laura Gómez" },
-
-  { id: 21, numeroFactura: "F021", fechaHora: "2026-03-12 17:20", cliente: "Óscar Valencia", farmaceuta: "Carlos Díaz" },
-  { id: 22, numeroFactura: "F022", fechaHora: "2026-03-12 17:40", cliente: "Patricia Acosta", farmaceuta: "Pedro Ramírez" },
-  { id: 23, numeroFactura: "F023", fechaHora: "2026-03-12 18:00", cliente: "Julian Parra", farmaceuta: "Laura Gómez" },
-  { id: 24, numeroFactura: "F024", fechaHora: "2026-03-12 18:20", cliente: "Carolina Soto", farmaceuta: "Carlos Díaz" },
-  { id: 25, numeroFactura: "F025", fechaHora: "2026-03-12 18:40", cliente: "Mauricio Arias", farmaceuta: "Pedro Ramírez" },
-  { id: 26, numeroFactura: "F026", fechaHora: "2026-03-12 19:00", cliente: "Sandra Lozano", farmaceuta: "Laura Gómez" },
-  { id: 27, numeroFactura: "F027", fechaHora: "2026-03-12 19:20", cliente: "Esteban Quintero", farmaceuta: "Carlos Díaz" },
-  { id: 28, numeroFactura: "F028", fechaHora: "2026-03-12 19:40", cliente: "Verónica Peña", farmaceuta: "Pedro Ramírez" },
-  { id: 29, numeroFactura: "F029", fechaHora: "2026-03-12 20:00", cliente: "Alejandro Cortés", farmaceuta: "Laura Gómez" },
-  { id: 30, numeroFactura: "F030", fechaHora: "2026-03-12 20:20", cliente: "Diana Cabrera", farmaceuta: "Carlos Díaz" }
+  {
+    id: 1,
+    numeroFactura: "F001",
+    fechaHora: "2026-03-12 08:15",
+    usuario: "Juan Pérez",
+    farmaceuta: "Laura Gómez",
+    sellStates: "Activo",
+    paymentStates: "Efectivo"
+  },
+  {
+    id: 2,
+    numeroFactura: "F002",
+    fechaHora: "2026-03-12 09:20",
+    usuario: "María Rodríguez",
+    farmaceuta: "Carlos Díaz",
+    sellStates: "Activo",
+    paymentStates: "Tarjeta"
+  },
+  {
+    id: 3,
+    numeroFactura: "F003",
+    fechaHora: "2026-03-12 10:05",
+    usuario: "Pedro Martínez",
+    farmaceuta: "Ana Torres",
+    sellStates: "Pendiente",
+    paymentStates: "Efectivo"
+  },
+  {
+    id: 4,
+    numeroFactura: "F004",
+    fechaHora: "2026-03-12 11:30",
+    usuario: "Luisa Fernández",
+    farmaceuta: "Laura Gómez",
+    sellStates: "Cancelado",
+    paymentStates: "Transferencia"
+  },
+  {
+    id: 5,
+    numeroFactura: "F005",
+    fechaHora: "2026-03-12 12:10",
+    usuario: "Andrés Gómez",
+    farmaceuta: "Carlos Díaz",
+    sellStates: "Activo",
+    paymentStates: "Efectivo"
+  },
+  {
+    id: 6,
+    numeroFactura: "F006",
+    fechaHora: "2026-03-12 13:45",
+    usuario: "Camila Herrera",
+    farmaceuta: "Ana Torres",
+    sellStates: "Pendiente",
+    paymentStates: "Tarjeta"
+  },
+  {
+    id: 7,
+    numeroFactura: "F007",
+    fechaHora: "2026-03-12 14:20",
+    usuario: "Daniel Ruiz",
+    farmaceuta: "Laura Gómez",
+    sellStates: "Activo",
+    paymentStates: "Transferencia"
+  },
+  {
+    id: 8,
+    numeroFactura: "F008",
+    fechaHora: "2026-03-12 15:00",
+    usuario: "Sofía Castro",
+    farmaceuta: "Carlos Díaz",
+    sellStates: "Cancelado",
+    paymentStates: "Efectivo"
+  },
+  {
+    id: 9,
+    numeroFactura: "F009",
+    fechaHora: "2026-03-12 16:35",
+    usuario: "Javier Morales",
+    farmaceuta: "Ana Torres",
+    sellStates: "Activo",
+    paymentStates: "Tarjeta"
+  },
+  {
+    id: 10,
+    numeroFactura: "F010",
+    fechaHora: "2026-03-12 17:50",
+    usuario: "Valentina Rojas",
+    farmaceuta: "Laura Gómez",
+    sellStates: "Pendiente",
+    paymentStates: "Efectivo"
+  }
 ];

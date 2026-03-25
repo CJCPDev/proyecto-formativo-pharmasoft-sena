@@ -1,84 +1,88 @@
-import { Button, Title } from "@/shared/components";
-import { useNavigate, useParams } from "react-router-dom";
+import { Title, Input, Select, Button } from "@/shared/components";
+import sellStates from "../../../data/selects/sellStates.json";
+import paymentStates from "../../../data/selects/paymenStates.json";
+import { useParams, useNavigate } from "react-router-dom";
 import { getSalesById } from "../services/getSalesById";
 
-const CardSales = () => {
+export default function SaleView() {
 
-    const { id } = useParams();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const params = useParams();
 
-    // Obtener proveedor directamente
-    const ventas = id ? getSalesById(id) : null;
+  const sale = getSalesById(params.id);
 
-    // Manejo de seguridad
-    if (!ventas) {
-        return <p>Venta no encontrada</p>;
-    }
+  return (
+    <div className="font-main bg-white grid gap-2 w-full h-full p-6 rounded-lg">
+      
+      <div className="w-full px-6 rounded-xl">
+        
+        <Title title="Ver Venta" />
 
-    const {
-        numeroFactura,
-        cliente,
-        farmaceuta,
-        estado,
+        <div className="grid grid-cols-2 gap-6 w-full">
 
-    } = ventas;
+          <div className="flex flex-col gap-3">
 
-    return(
-        <section className="flex flex-col gap-6 w-175 px-4 py-6 font-main">
+            <Input
+              label="Número de factura"
+              value={sale?.numeroFactura}
+              disabled
+            />
 
-            <Title title="Ver Venta" />
+            <Input
+              label="Usuario"
+              value={sale?.usuario}
+              disabled
+            />
 
-            <div className="grid grid-cols-2 gap-y-4 gap-x-6 font-main">
-                <div>
-                    <dt className="px-4 text-xs text-text-mute">Numero de Factura</dt>
-                    <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {numeroFactura || "-"}
-                    </dd>
-                </div>
-                <div>
-                    <dt className="px-4 text-xs text-text-mute">Cliente</dt>
-                    <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {cliente || "-"}
-                    </dd>
-                </div>
+            <Input
+              label="Farmaceuta"
+              value={sale?.farmaceuta}
+              disabled
+            />
 
-                <div>
-                    <dt className="px-4 text-xs text-text-mute">Farmaceuta</dt>
-                    <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {farmaceuta || "-"}
-                    </dd>
-                </div>
+            <Select
+              label="Estado"
+              options={sellStates}
+              value={sale?.sellStates}
+              disabled
+            />
+          </div>
 
-                <div>
-                    <dt className="px-4 text-xs text-text-mute">Estado de venta</dt>
-                    <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {estado || "-"}
-                    </dd>
-                </div>
+          <div className="flex flex-col gap-3">
 
-            </div>
+            <Input
+              label="Fecha y hora"
+              type="datetime-local"
+              value={sale?.fechaHora}
+              disabled
+            />
 
-            <div className="flex gap-6 justify-center items-center">
-                <Button 
-                    variant="secondary" 
-                    size="sm"
-                    onClick={() => navigate(-1)}
-                >
-                    Regresar
-                </Button>
+            <Select
+              label="Tipo de pago"
+              options={paymentStates}
+              value={sale?.paymentStates}
+              disabled
+            />
 
-                <Button 
-                    variant="primary"
-                    onClick={() => {
-                        navigate(`/ver-venta/${id}/editar`)
-                    }}
-                >
-                    Editar
-                </Button>
-            </div>
+          </div>
 
-        </section>
-    )
+        </div>
+
+        <div className="pt-5">
+          <Input
+            label="Producto"
+            value="Acetaminofén"
+            disabled
+          />
+        </div>
+
+        <div className="flex justify-center pt-6">
+          <Button onClick={() => navigate(`/ver-venta/${params.id}/editar`)}>
+            Editar
+          </Button>
+        </div>
+
+      </div>
+    </div>
+  );
 }
-
-export default CardSales;
