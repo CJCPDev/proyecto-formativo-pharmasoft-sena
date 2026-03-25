@@ -84,7 +84,8 @@ export const UserColumns = [
 
   // Columna de acciones (editar / eliminar)
   {
-    id: "/actions", // No usa accessorKey porque no corresponde a un campo del usuario
+    id: "actions",
+    header: "Acciones", // No usa accessorKey porque no corresponde a un campo del usuario
 
     // Renderiza el componente de acciones pasando el usuario completo
     cell: ({ row }) => <UserRowActions user={row.original} />,

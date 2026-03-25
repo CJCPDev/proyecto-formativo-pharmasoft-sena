@@ -3,8 +3,10 @@ import { Button } from "@/shared/components";
 import { X, Plus, Minus  } from "lucide-react";
 
 
+
 export default function CartModal({ isOpen, onClose }) {
 
+  const [success, setSuccess] = useState(false);
   const [cart, setCart] = useState([
     {
       id: 1,
@@ -49,83 +51,99 @@ export default function CartModal({ isOpen, onClose }) {
     0
   );
 
-  return (
-    <div className="fixed inset-0 bg-black/30 flex justify-end z-50">
-      
+  const handleCheckout = () => {
+  setSuccess(true);      // mostrar mensaje
+  setCart([]);           // vaciar carrito
 
-      <div className="bg-white w-90 h-full p-5 flex flex-col">
+  setTimeout(() => {
+    setSuccess(false);
+    onClose();           // cerrar modal
+  }, 2000); // 2 segundos
+};
 
-        {/* Cabecera del titulo */}
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold text-brand-hover">Productos Seleccionados</h2>
-          <button className="cursor-pointer hover:text-red-600" onClick={onClose}>
-            <X/>
-          </button>
+return (
+  <div className="fixed inset-0 bg-black/30 flex justify-end z-50">
+    
+    <div className="bg-white w-90 h-full p-5 flex flex-col">
+      {success ? (
+        <div className="bg-green-100 text-green-700 p-2 rounded mb-3 text-center">
+          ✅ Compra realizada con éxito
         </div>
+      ) : (
+        <div className="flex flex-col h-full">
 
-        {/* Contenedor de los productos */}
-        <div className="flex flex-col gap-6 overflow-y-auto flex-1">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-bold text-brand-hover">Productos Seleccionados</h2>
+            <button className="cursor-pointer hover:text-red-600" onClick={onClose}>
+              <X/>
+            </button>
+          </div>
 
-          {cart.map(item => (
-            <div
-              key={item.id}
-              className="flex gap-8 border-b border-brand-hover pb-3 "
-            >
+          {/* Contenedor de los productos */}
+          <div className="flex flex-col gap-6 overflow-y-auto flex-1">
 
-              {/* Imagen con su respectivo cover, no mover dado que puede romper la visualizacion */}
-              <img
-                src={item.imagen}
-                alt={item.nombre}
-                className="w-20 h-20 object-cover rounded-md"
-              />
+            {cart.map(item => (
+              <div
+                key={item.id}
+                className="flex gap-8 border-b border-brand-hover pb-3 "
+              >
 
-              {/* Informacion del producto*/}
-              <div className="flex flex-col flex-1">
-                <p className="font-semibold">{item.nombre}</p>
-                <p className="text-sm text-brand-hover font-bold">
-                  ${item.precio}
-                </p>
+                <img
+                  src={item.imagen}
+                  alt={item.nombre}
+                  className="w-20 h-20 object-cover rounded-md"
+                />
 
-                {/* Calculos  */}
-                <div className="flex items-center gap-4 mt-2">
+                <div className="flex flex-col flex-1">
+                  <p className="font-semibold">{item.nombre}</p>
+                  <p className="text-sm text-brand-hover font-bold">
+                    ${item.precio}
+                  </p>
 
-                  <button onClick={() => decrease(item.id)}>
-                    <Minus size={12} className="stroke-brand-hover"/>
-                  </button>
+                  <div className="flex items-center gap-4 mt-2">
 
-                  <span>{item.cantidad}</span>
+                    <button onClick={() => decrease(item.id)}>
+                      <Minus size={12} className="stroke-brand-hover"/>
+                    </button>
 
-                  <button onClick={() => increase(item.id)}>
-                    <Plus size={12} className="stroke-brand-hover"/>   
-                  </button>
+                    <span>{item.cantidad}</span>
 
-                  <button
-                    onClick={() => remove(item.id)}
-                    className="text-red-500 ml-auto cursor-pointer"
-                  >
-                    Eliminar
-                  </button>
+                    <button onClick={() => increase(item.id)}>
+                      <Plus size={12} className="stroke-brand-hover"/>   
+                    </button>
 
+                    <button
+                      onClick={() => remove(item.id)}
+                      className="text-red-500 ml-auto cursor-pointer"
+                    >
+                      Eliminar
+                    </button>
+
+                  </div>
                 </div>
+
               </div>
+            ))}
 
-            </div>
-          ))}
+          </div>
+
+          {/* FOOTER */}
+          <div className="pt-4 border-t">
+            <h3 className="font-bold mb-3">
+              Total: ${total}
+            </h3>
+
+            <Button
+              className="w-full cursor-pointer hover:text-brand-fort z-10"
+              onClick={handleCheckout}
+            >
+              Finalizar compra
+            </Button>
+          </div>
 
         </div>
-
-        {/* FOOTER */}
-        <div className="pt-4 border-t">
-          <h3 className="font-bold mb-3">
-            Total: ${total}
-          </h3>
-
-          <Button className="w-full cursor-pointer hover:text-brand-fort">
-            Finalizar compra
-          </Button>
-        </div>
-
-      </div>
+      )}
     </div>
-  );
+  </div>
+)
 }
