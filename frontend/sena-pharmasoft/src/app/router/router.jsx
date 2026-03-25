@@ -51,6 +51,7 @@ import AdminProductListPage from "../../features/products/admin/pages/AdminProdu
 import ProductDetailPage from "../../features/products/admin/pages/ProductDetailPage";
 import ProductsEditPage from "../../features/products/admin/pages/ProductsEditPage";
 import AdminProductReportPage from "../../features/products/admin/pages/AdminProductReportPage";
+import DetailProductPage from "@/features/products/pages/DetailProductPage";
 
 
 
@@ -59,6 +60,10 @@ const router = createBrowserRouter ([
     {
         path: "/",
         element: <HomePage/>
+    },
+    {
+        path: "ver-card/:id",
+        element: <DetailProductPage/>
     },
     {
         
