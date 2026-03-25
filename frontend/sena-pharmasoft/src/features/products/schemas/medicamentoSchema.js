@@ -2,12 +2,12 @@ import { z } from "zod";
 
 export const medicamentoSchema = z.object({
 
-    nombre: z
+    nombreMedicamento: z
         .string()
         .min(3, "El nombre debe tener mínimo 3 caracteres")
         .max(60, "El nombre es demasiado largo"),
 
-    pharmaForm: z
+    formaFarmaceutica: z
         .string()
         .min(1, "Debe seleccionar una forma farmacéutica"),
 
