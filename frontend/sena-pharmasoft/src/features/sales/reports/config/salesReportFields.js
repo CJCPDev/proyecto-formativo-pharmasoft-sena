@@ -10,24 +10,15 @@ export const salesReportFields = [
         default: true
     },
     {
-        key: "cliente",
-        label: "Cliente",
+        key: "usuario",
+        label: "Usuario",
         default: true
     },
     {
         key: "farmaceuta",
-        label: "Documento",
+        label: "Farmaceuta",
         default: true
     },
-/*     {
-        key: "phone",
-        label: "Teléfono",
-        default: true
-    },
-    {
-        key: "address",
-        label: "Dirección",
-        default: false
-    }, */
+
 ]
 

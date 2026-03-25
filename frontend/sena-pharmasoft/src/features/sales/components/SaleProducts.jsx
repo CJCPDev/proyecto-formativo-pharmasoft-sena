@@ -3,7 +3,7 @@ import { Trash, Pencil } from "lucide-react";
 import { useState } from "react";
 
 
-export default function SaleForm(){
+export default function SaleProducts(){
 
   const [products, setProducts] = useState([
     { id: 1, name: "Acetaminofén", quantity: 2, price: 2000 },

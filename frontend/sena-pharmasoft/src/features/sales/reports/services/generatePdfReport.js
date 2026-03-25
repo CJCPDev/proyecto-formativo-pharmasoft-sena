@@ -11,7 +11,7 @@ import autoTable from "jspdf-autotable";
 export function generatePdfReport({
   headers,                      // Encabezados de la tabla (columnas)
   rows,                         // Datos (array de filas)
-  fileName = "sells-report.pdf"  // Nombre del archivo de salida
+  fileName = "ReportedeVentas.pdf"  // Nombre del archivo de salida
 }) {
 
 

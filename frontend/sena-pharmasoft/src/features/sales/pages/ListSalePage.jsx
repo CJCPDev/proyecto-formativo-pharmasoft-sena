@@ -1,15 +1,13 @@
-import { Button, Title } from "@/shared/components"
+import { Button, Title, DataTable } from "@/shared/components"
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import  SaleReportPage from "./SaleReportPage"
+import { useState } from "react";
 import ReportConfigModal from "../reports/components/ReportConfigModal"
-import DataTable from "@/shared/components/DataTable"
-import {SellColumns}  from "@/features/sales"
-import { ventas } from "@/data/sells/sells"
 
 export default function ListSalePage (){
 
-    const [ IsReportModalOpen, setIsReportModalOpen] = useState(false)   
     const navigate = useNavigate();
+    const [ IsReportModalOpen, setIsReportModalOpen] = useState(false) 
 
     return(
         <div className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-350 h-150">
@@ -21,6 +19,11 @@ export default function ListSalePage (){
                             size = 'sm'
                             onClick = {() => navigate("/DashboardMain")}
                         >Regresar</Button>
+
+                            <ReportConfigModal
+                                    isOpen = {IsReportModalOpen}
+                                    onClose = {() => setIsReportModalOpen(false)}
+                                ></ReportConfigModal>
                 </div>
                 <div className="flex px-10 gap-6 items-center">
                         <Button
@@ -34,19 +37,9 @@ export default function ListSalePage (){
                             Crear Venta
                         </Link>
                     </div>
-                            <ReportConfigModal
-                                    isOpen = {IsReportModalOpen}
-                                    onClose = {() => setIsReportModalOpen(false)}
-                                ></ReportConfigModal>
             </div>
                     <div className="flex gap-6">
-                        <div className="w-full h-full ">
-                            <DataTable
-                                data={ventas}
-                                columns={SellColumns}
-                            />
-
-                        </div>
+                        <SaleReportPage/>
                     </div>
         </div>
     )
