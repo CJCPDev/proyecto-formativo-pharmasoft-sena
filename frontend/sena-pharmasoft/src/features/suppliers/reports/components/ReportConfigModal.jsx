@@ -148,7 +148,7 @@ export default function ReportConfigModal({ isOpen, onClose }) {
             value={scope}
             onChange={(e) => setScope(e.target.value)}
             options={[
-              { label: "Todos los usuarios", value: "all" },
+              { label: "Todos los proveedores", value: "all" },
               { label: "Filtrar por NIT", value: "nit" },
             ]}
           />

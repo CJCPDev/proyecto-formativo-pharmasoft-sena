@@ -1,9 +1,10 @@
 import { ShoppingCart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Card({product}) {
 
     const {title, image, price, description } = product; 
-
+    const navigate = useNavigate();
 
     return(
         <div
@@ -21,7 +22,9 @@ export default function Card({product}) {
             transition-shadow
             duration-700
             p-6
+            cursor-pointer
             "
+            onClick={() => navigate(`/ver-card/${product.id}`)}
         >
             <img 
                 src={image}

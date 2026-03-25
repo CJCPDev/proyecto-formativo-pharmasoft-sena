@@ -1,7 +1,10 @@
+import SaleProducts from "../components/SaleProducts"
+
+
 export default function SalesEditPage (){
     return (
         <h1>
-            Pagina para editar venta pendiente
+            <SaleProducts/>
         </h1>
     )
 }

@@ -13,7 +13,7 @@ export function buildReportDataset({
   // Filtro por alcance: si es por documento, se aplica filtro específico
   if (scope === "document" && documentNumber) {
     filteredSuppliers = filteredSuppliers.filter(
-      (user) => user.document_number === documentNumber
+      (suppliers) => suppliers.document_number === documentNumber
     );
   }
 
@@ -23,9 +23,9 @@ export function buildReportDataset({
 
   // Construcción de filas del reporte
   // Cada usuario se transforma en un array de valores según los campos seleccionados
-  const rows = filteredSuppliers.map((user) =>
+  const rows = filteredSuppliers.map((suppliers) =>
     selectedFields.map((field) => {
-      const value = user[field.key]; // Acceso dinámico a la propiedad
+      const value = suppliers[field.key]; // Acceso dinámico a la propiedad
 
       // Normalización: evita undefined o null en el reporte
       return value ?? "";
