@@ -1,19 +1,19 @@
-// import users from "../../../data/users/users.js"
-// import { CardUser } from "@/features/users"
+import users from "../../../data/users/users.js"
+import { CardUser } from "@/features/users"
 
-// export default function ProfilePage (){
-//         const user = users.find(prod => prod.id === 2)
+export default function ProfilePage (){
+        const user = users.find(prod => prod.id === 1)
 
-//         return(
+        return(
 
-//         <div className=" 
-//             relative rounded-xl
-//         ">
-//             {/* {products.map((product) => ( <Card key={product.id} product={product} />))} */}
+        <div className=" 
+            relative rounded-xl
+        ">
+            {/* {products.map((product) => ( <Card key={product.id} product={product} />))} */}
 
-//             { user && <CardUser user ={user} />}
+            { user && <CardUser user ={user} />}
 
-//             </div>
-//         )
+            </div>
+        )
 
-// }
+}
