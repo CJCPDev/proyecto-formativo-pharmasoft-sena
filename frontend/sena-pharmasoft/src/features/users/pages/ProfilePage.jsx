@@ -12,8 +12,6 @@ export default function ProfilePage (){
             {/* {products.map((product) => ( <Card key={product.id} product={product} />))} */}
 
             { user && <CardUser user ={user} />}
-
             </div>
-        )
-
+            )
 }

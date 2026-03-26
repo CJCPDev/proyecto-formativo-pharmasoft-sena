@@ -30,7 +30,7 @@ export default function ProductsRowActions({ products }) {
 
     return (
         // Contenedor de los botones de acciones
-        <div className="flex gap-2 items-center justify-center">
+        <div className="flex gap-4 items-center justify-center">
 
         {/* Botón editar */}
         <div className="relative group w-max">
@@ -42,8 +42,8 @@ export default function ProductsRowActions({ products }) {
         </button>
                         <span className="
                         absolute
-                        top-5
-                        -right-2
+                        top-6
+                        -right-4
                         opacity-0 
                         group-hover:opacity-100
                         transition-opacity duration-700
@@ -66,7 +66,7 @@ export default function ProductsRowActions({ products }) {
                     </button>
                     <span className="
                         absolute
-                        top-5
+                        top-6
                         -right-6
                         opacity-0 
                         group-hover:opacity-100
