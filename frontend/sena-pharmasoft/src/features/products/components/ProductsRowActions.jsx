@@ -30,7 +30,7 @@ export default function ProductsRowActions({ products }) {
 
     return (
         // Contenedor de los botones de acciones
-        <div className="flex gap-2 items-center justify-center">
+        <div className="flex gap-4 items-center justify-center">
 
         {/* Botón editar */}
         <div className="relative group w-max">

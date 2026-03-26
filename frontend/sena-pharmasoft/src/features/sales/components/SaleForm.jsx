@@ -89,7 +89,7 @@ export default function SaleForm(){
 
 
     return(
-        <div className="font-main bg-white grid gap-2 w-full h-full p-6 rounded-lg">
+        <div className="font-main bg-white grid gap-2 w-full h-132 p-6 rounded-lg">
             
             <form 
             onSubmit={handleSubmit}
@@ -176,7 +176,7 @@ export default function SaleForm(){
                         placeholder='Producto'
                         />
                     </div>
-                <div className="flex gap-4 justify-center">
+                <div className="flex gap-4 py-2 justify-center">
 
                 {isEdit && !isEditing && (
                     <Button type="button" onClick={() => setIsEditing(true)}>

@@ -4,7 +4,7 @@ import AuthLayout from "../../shared/layout/AuthLayout";
 import { HomePage } from "@/features/home";
 import { DashboardPage } from "@/features/dashboard"
 
-import ProfilePage from "../../features/users/pages/ProfileUserPage";
+import ProfilePage from "../../features/users/pages/ProfilePage";
 
 // Imports de Login
 
@@ -174,7 +174,6 @@ const router = createBrowserRouter ([
             {
                 path: "login",
                 element: <LoginPage/>
-
             },
             {
                 path: "forgot-password",
@@ -190,7 +189,6 @@ const router = createBrowserRouter ([
             },
             {
                 path: "validationPassword",
-
                 element: <ConfirmationPassword/>
 
             },
