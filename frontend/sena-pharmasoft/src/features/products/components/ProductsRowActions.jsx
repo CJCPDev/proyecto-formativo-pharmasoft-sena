@@ -42,8 +42,8 @@ export default function ProductsRowActions({ products }) {
         </button>
                         <span className="
                         absolute
-                        top-5
-                        -right-2
+                        top-6
+                        -right-4
                         opacity-0 
                         group-hover:opacity-100
                         transition-opacity duration-700
@@ -66,7 +66,7 @@ export default function ProductsRowActions({ products }) {
                     </button>
                     <span className="
                         absolute
-                        top-5
+                        top-6
                         -right-6
                         opacity-0 
                         group-hover:opacity-100
