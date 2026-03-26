@@ -89,7 +89,8 @@ export const ProductsColumns = [
 
     // Columna de acciones (editar / eliminar)
     {
-        id: "actions", // No usa accessorKey porque no corresponde a un campo del producto
+        id: "actions",
+        header: "Acciones", // No usa accessorKey porque no corresponde a un campo del producto
 
         // Renderiza el componente de acciones pasando el producto completo
         cell: ({ row }) => <ProductsRowActions products={row.original} />,

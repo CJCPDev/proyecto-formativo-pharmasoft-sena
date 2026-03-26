@@ -1,8 +1,11 @@
 import { Search, LogIn,ShoppingCart } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logot from "@/assets/images/logo-removebg-preview.png";
+import CartModal from "../../sales/components/CartModal";
+import { useState } from "react";
 
 const Navbar = ({ variant = "solid" }) => {
+  const [openCart, setOpenCart] = useState(false);
   return (
     <nav
       className={`w-full border-b transition-colors duration-300 ${
@@ -32,7 +35,14 @@ const Navbar = ({ variant = "solid" }) => {
                 className="w-80 sm:w-120 pl-4 pr-9 py-2.5 border rounded-lg text-body focus:outline-none focus:ring-1 focus:ring-primary"
               />
             </div> 
+          <button onClick={() => setOpenCart(true)}>
             <ShoppingCart/>
+          </button>
+
+          <CartModal
+            isOpen={openCart}
+            onClose={() => setOpenCart(false)}
+          />
           </div>
           {/* Links de navegación */}
           <ul className="hidden md:flex space-x-8 items-center gap-14 text-brand-hover font-bold">

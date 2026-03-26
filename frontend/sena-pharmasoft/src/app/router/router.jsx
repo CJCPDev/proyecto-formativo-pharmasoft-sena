@@ -32,7 +32,7 @@ import CreateSalePage from "../../features/sales/pages/CreateSalePage";
 import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage"
 import SalesEditPage from "../../features/sales/pages/SalesEditPage";
-import SalesReportPage from "@/features/sales/pages/SalesReportPage"
+
 
 // ------
 
@@ -47,13 +47,12 @@ import SuppliersReportPage from "../../features/suppliers/pages/SuppliersReportP
 // ------
 
 // Imports de Productos
-// import FormMedicamentos from "../../features/products/pages/CreateProductPage";
-import CreateProductPage from "../../features/products/pages/CreateProductPage";
-import ListProductsPage from "../../features/products/pages/ListProductsPage";
-import ProductDetailPage from "../../features/products/pages/ProductDetailPage";
-import EditProductPage from "../../features/products/pages/EditProductPage";
-import ProductReportPage from "../../features/products/pages/ProductReportsPage";
-
+import CreateProductPage from "../../features/products/admin/pages/CreateProductPage";
+import AdminProductListPage from "../../features/products/admin/pages/AdminProductListPage";
+import ProductDetailPage from "../../features/products/admin/pages/ProductDetailPage";
+import ProductsEditPage from "../../features/products/admin/pages/ProductsEditPage";
+import AdminProductReportPage from "../../features/products/admin/pages/AdminProductReportPage";
+import DetailProductPage from "@/features/products/pages/DetailProductPage";
 
 
 
@@ -62,6 +61,10 @@ const router = createBrowserRouter ([
     {
         path: "/",
         element: <HomePage/>
+    },
+    {
+        path: "ver-card/:id",
+        element: <DetailProductPage/>
     },
     {
         
@@ -94,7 +97,7 @@ const router = createBrowserRouter ([
             },
             {
                 path: "medicamentos",
-                element: <ListProductsPage />
+                element: <AdminProductListPage />
             },
             {
                 path: "crear-medicamento",
@@ -106,19 +109,15 @@ const router = createBrowserRouter ([
             },
             {
                 path: "editar-medicamento/:id",
-                element: <EditProductPage/>
+                element: <ProductsEditPage />
             },
             {
                 path: "generar-reporte",
-                element: <ProductReportPage/>
+                element: <AdminProductReportPage/>
             },
             {
                 path: "listar-ventas",
                 element: <ListSalePage/>
-            },
-            {
-                path: "reporte-venta",
-                element: <SalesReportPage/>
             },
             {
                 path: "ver-venta/:id/editar",
@@ -175,7 +174,6 @@ const router = createBrowserRouter ([
             {
                 path: "login",
                 element: <LoginPage/>
-
             },
             {
                 path: "forgot-password",
@@ -191,7 +189,6 @@ const router = createBrowserRouter ([
             },
             {
                 path: "validationPassword",
-
                 element: <ConfirmationPassword/>
 
             },
