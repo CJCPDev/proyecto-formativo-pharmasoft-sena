@@ -7,7 +7,7 @@ export default function SaleReportPage(){
 
 
     return (
-                                <div className="w-full h-full ">
+                                <div className="w-full h-200 ">
                             <DataTable
                                 data={ventas}
                                 columns={SellColumns}
