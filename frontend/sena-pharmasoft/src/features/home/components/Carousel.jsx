@@ -1,70 +1,86 @@
+import { useEffect, useState } from "react";
 
-export default function Carousel(){
+export default function Carousel() {
+  const [index, setIndex] = useState(0);
 
-    return(
-        <div className="w-full h-60 overflow-hidden mt-4">
+  const slides = [
+    {
+      title: "Promociones",
+      text: "¡Descuentos hasta del 30% en medicamentos esenciales!",
+      img: "/images/descuentos.jpg",
+      bg: "bg-secondar",
+    },
+    {
+      title: "Asesoría Profesional",
+      text: "Tienes una duda?. Preguntanos!!",
+      img: "/images/farmaceuta.png",
+      bg: "bg-primary",
+    },
+    {
+      title: "Domicilios",
+      text: "Recibe tus productos rápido y seguro en casa",
+      img: "/images/domicilio.png",
+      bg: "bg-secondaryv2",
+    },
+    {
+      title: "Productos",
+      text: "Encuentra todo en salud, belleza y cuidado personal",
+      img: "/images/products.png",
+      bg: "bg-primaryv2",
+    },
+  ];
 
-  <div className="flex w-max animate-slide">
+  // Este efecto permite hacer el movimiento del slide
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % slides.length);
+    }, 4000);
 
-    {/* ORIGINAL */}
-    <div className="min-w-full h-60 bg-blue-600 flex flex-col items-center justify-center text-white text-4xl font-bold">
-      1
-      <span className="text-lg">Slide Azul</span>
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="max-w-dvw h-72 -mx-4 overflow-hidden relative shadow-lg">
+      
+      <div
+        className="flex transition-transform duration-700"
+        style={{ transform: `translateX(-${index * 100}%)` }}
+      >
+        {slides.map((slide, i) => (
+          <div
+            key={i}
+            className={`min-w-full h-72 flex items-center justify-center ${slide.bg} text-white`}
+          >
+            <div className="flex items-center gap-10 px-10">
+
+              {/* enderizado del mapeo de la info del card */}
+              <div>
+                <h2 className="text-6xl font-bold">{slide.title}</h2>
+                <p className="text-lg mt-2">{slide.text}</p>
+              </div>
+
+              {/* Renderiza la imagen */}
+              <img
+                src={slide.img}
+                alt={slide.title}
+                className="h-50 w-60 object-fill rounded-xl shadow-md"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="absolute bottom-3 w-full flex justify-center gap-2">
+        {slides.map((_, i) => (
+          <div
+            key={i}
+            onClick={() => setIndex(i)}
+            className={`w-3 h-3 rounded-full cursor-pointer ${
+              index === i ? "bg-white" : "bg-gray-400"
+            }`}
+          />
+        ))}
+      </div>
     </div>
-
-    <div className="min-w-full h-60 bg-green-600 flex flex-col items-center justify-center text-white text-4xl font-bold">
-      2
-      <span className="text-lg">Slide Verde</span>
-    </div>
-
-    <div className="min-w-full h-60 bg-gray-700 flex flex-col items-center justify-center text-white text-4xl font-bold">
-      3
-      <span className="text-lg">Slide Gris</span>
-    </div>
-
-    <div className="min-w-full h-60 bg-red-600 flex flex-col items-center justify-center text-white text-4xl font-bold">
-      4
-      <span className="text-lg">Slide Rojo</span>
-    </div>
-
-    {/* DUPLICADOS */}
-    <div className="min-w-full h-60 bg-amber-700 flex flex-col items-center justify-center text-white text-4xl font-bold">
-      1
-      <span className="text-lg">Slide Azul</span>
-    </div>
-
-    <div className="min-w-full h-60 bg-green-600 flex flex-col items-center justify-center text-white text-4xl font-bold">
-      2
-      <span className="text-lg">Slide Verde</span>
-    </div>
-
-    <div className="min-w-full h-60 bg-gray-700 flex flex-col items-center justify-center text-white text-4xl font-bold">
-      3
-      <span className="text-lg">Slide Gris</span>
-    </div>
-
-    <div className="min-w-full h-60 bg-red-600 flex flex-col items-center justify-center text-white text-4xl font-bold">
-      4
-      <span className="text-lg">Slide Rojo</span>
-    </div>
-
-  </div>
-
-  <style>
-    {`
-      @keyframes slide {
-    0%   { transform: translateX(0); }
-    49.999% { transform: translateX(-50%); }
-    50% { transform: translateX(-51%); }
-    100% { transform: translateX(-130%); }
-    }
-
-      .animate-slide {
-        animation: slide 12s linear infinite;
-      }
-    `}
-  </style>
-
-</div>
-    )
+  );
 }
