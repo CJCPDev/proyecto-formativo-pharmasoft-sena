@@ -18,6 +18,9 @@ import AutoricedPage from "../../features/auth/pages/AutoricedPage";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
 
+import ProtectedRoute from "../../shared/components/ProtectedRoute";
+
+
 //  imports de usuarios
 import { UserListPage } from "@/features/users";
 import { CreateUserPage } from "@/features/users";
@@ -193,7 +196,137 @@ const router = createBrowserRouter([
       path: "create-count",
       element: <CreateCount />,
     },
-    ]}
+    {
+        path: "ver-card/:id",
+        element: <DetailProductPage/>
+    },
+    {
+        element: <MainLayout/>,
+        children: [
+            //Ruta protegida
+            {
+                path: "DashboardMain",
+                element: (
+                    <ProtectedRoute>
+                        <AutoricedPage/>
+                    </ProtectedRoute>
+                ) 
+            },
+            {
+                path: "crear-proveedor",
+                element: <SuppliersPage/> 
+            },
+            {
+                path: "listar-proveedor",
+                element: <SuppliersListPage/> 
+            },
+            {
+                path: "reportar-proveedor",
+                element: <SuppliersReportPage/> 
+            },
+            {
+                path: "ver-proveedor/:id",
+                element: <SuppliersDetailPage/> 
+            },
+            {
+                path: "ver-proveedor/:id/editar",
+                element: <SupplierEditPage/> 
+            },
+            {
+                path: "medicamentos",
+                element: (
+                    <ProtectedRoute rolesPermitidos={[5, 7]}>
+                        <AdminProductListPage />
+                    </ProtectedRoute>
+                )
+            },
+            {
+                path: "crear-medicamento",
+                element: <CreateProductPage/>
+            },
+            {
+                path: "ver-medicamento/:id",
+                element: <ProductDetailPage/>
+            },
+            {
+                path: "editar-medicamento/:id",
+                element: <ProductsEditPage />
+            },
+            {
+                path: "generar-reporte",
+                element: <AdminProductReportPage/>
+            },
+            {
+                path: "listar-ventas",
+                element: <ListSalePage/>
+            },
+            {
+                path: "ver-venta/:id/editar",
+                element: <CreateSalePage/> 
+            },
+            {
+                path: "ver-venta/:id",
+                element: <SaleDetailPage/> 
+            },
+            {
+                path: "crear-venta",
+                element: <CreateSalePage/>
+            },
+            {
+                path: "perfil",
+                element: <ProfilePage/> //Definir pagina
+            },
+
+            //Ruta protegida y con permiso de ingreso segun roll
+            {
+                path: "usuarios",
+                element: (
+                <ProtectedRoute rolesPermitidos={[5,7]}>
+                    <UserListPage/>
+                </ProtectedRoute>
+                )
+            },
+            {
+                path: "crear-usuarios",
+                element: (
+                    <ProtectedRoute rolesPermitidos={[5,7]}>
+                        <CreateUserPage/> 
+                    </ProtectedRoute>
+                )
+            },
+            {
+                path: "generar-reporte",
+                element: <UserReportPage/> 
+            },
+            {
+                path: "editar-usuarios/:id",
+                element: (
+                    <ProtectedRoute rolesPermitidos={[5,7]}>
+                        <EditUserPage/> 
+                    </ProtectedRoute>
+                )
+            },
+            {
+                path: "ver-usuarios/:id",
+                element: (
+                    <ProtectedRoute rolesPermitidos={[5,7]}>
+                        <ProfileUserPage/> 
+                    </ProtectedRoute>
+                )
+
+            },
+            {
+                path: "permisos",
+                element: (
+                    <ProtectedRoute rolesPermitidos={[5]}>
+                        <PermissionsPage/> 
+                    </ProtectedRoute>
+                )
+            },
+
+        ]
+    },
+    {
 
 ]);
 
