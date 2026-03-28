@@ -2,7 +2,7 @@ import {useParams} from "react-router-dom";
 import DetailCard from "../components/DetailCard"
 import { products } from "@/features/home/services/products.js"
 import HomeNavbar from "@/features/home/components/HomeNavbar"
-import { Button } from "@/shared/components"
+import Footer from "../../../shared/layout/Footer"
 
 export default function DetailProductPage (){
     
@@ -19,6 +19,7 @@ export default function DetailProductPage (){
                     {product && <DetailCard product = {product}/>}
                 </div>
             </section>
+            <Footer/>
         </div>
     )
 }
