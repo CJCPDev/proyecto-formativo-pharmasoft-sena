@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from datetime import timedelta 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -89,3 +90,20 @@ CORS_ALLOWED_ORIGINS = [
 # Carpeta donde se guardan las imagenes subidas
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# Configuracion de JWT
+REST_FRAMEWORK = {
+    # Quitamos JWT como autenticación por defecto
+    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+}
+
+SIMPLE_JWT = {
+    # El token dura 8 horas - una jornada laboral
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    # El refresh token dura 1 día
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}

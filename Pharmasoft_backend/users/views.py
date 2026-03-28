@@ -24,17 +24,26 @@ import re
 class UsuarioViewSet(viewsets.ModelViewSet):
     serializer_class = UsuarioSerializer
 
-    # Permite filtrar usuarios por número de documento
+    # Permite filtrar usuarios por número de documento o por rol
     def get_queryset(self):
         queryset = Usuarios.objects.select_related(
             'id_documento',
             'id_rol',
             'id_estado_usuario'
         ).all()
+
+        # Filtra por número de documento si viene en la URL
         documento = self.request.query_params.get('documento')
         if documento:
             queryset = queryset.filter(numero_documento=documento)
-        return queryset
+
+        # Filtra por rol si viene en la URL
+        # El farmaceuta usa esto para ver solo clientes
+        rol = self.request.query_params.get('rol')
+        if rol:
+            queryset = queryset.filter(id_rol=rol)
+
+        return queryset 
 
     # Muestra errores detallados al crear un usuario
     def create(self, request, *args, **kwargs):

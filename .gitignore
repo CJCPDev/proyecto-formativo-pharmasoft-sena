@@ -1,0 +1,24 @@
+# Dependencias de Node
+node_modules/
+
+# Entorno virtual de Python
+venv/
+
+# Caché de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Variables de entorno
+.env
+.env.local
+
+# Build de React
+dist/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
