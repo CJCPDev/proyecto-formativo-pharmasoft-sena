@@ -58,6 +58,7 @@ export default function LoginForm(){
             <form 
             onSubmit={handleSubmit}
             className="
+            relative
             px-6 py-12 
             grid grid-cols-1 gap-6
             bg-white
