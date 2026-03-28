@@ -17,6 +17,8 @@ from .views import (
     permisos_usuario_combinados
 )
 
+from .auth import login, logout
+
 router = DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet, basename='usuario')
 router.register(r'tipo-documento', TipoDocumentoViewSet)
@@ -29,4 +31,7 @@ urlpatterns = router.urls + [
     path('subir-avatar/', subir_avatar, name='subir-avatar'),
     path('usuarios/<int:pk>/cambiar-estado/', cambiar_estado_usuario, name='cambiar-estado-usuario'),
     path('usuarios/<int:pk>/permisos-combinados/', permisos_usuario_combinados, name='permisos-combinados'),
+    # Endpoints de autentificación
+    path('auth/login/', login, name='login'),
+    path('auth/logout/', logout, name='logout'),
 ]
