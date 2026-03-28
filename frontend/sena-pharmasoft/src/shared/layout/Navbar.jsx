@@ -199,7 +199,7 @@ const Navbar = ({ variant = "solid" }) => {
           <ul className="hidden md:flex space-x-8 items-center gap-14 text-brand-hover font-bold">
 
             {/* Administrador y farmaceuta ven usuarios */}
-            {(ES_ADMIN || ES_FARMACEUTA) && (
+            {ES_ADMIN && (
               <li>
                 <Link to="/usuarios" className="hover:text-primary transition hover:underline hover:underline-offset-2">
                   Usuarios

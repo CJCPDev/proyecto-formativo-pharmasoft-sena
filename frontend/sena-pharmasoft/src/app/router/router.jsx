@@ -214,23 +214,43 @@ const router = createBrowserRouter([
             },
             {
                 path: "crear-proveedor",
-                element: <SuppliersPage/> 
+                element: (
+                <ProtectedRoute>
+                    <SuppliersPage/>
+                </ProtectedRoute> 
+                )
             },
             {
                 path: "listar-proveedor",
-                element: <SuppliersListPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <SuppliersListPage/>
+                    </ProtectedRoute>
+                ) 
             },
             {
                 path: "reportar-proveedor",
-                element: <SuppliersReportPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <SuppliersReportPage/> 
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "ver-proveedor/:id",
-                element: <SuppliersDetailPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <SuppliersDetailPage/>
+                    </ProtectedRoute>
+                ) 
             },
             {
                 path: "ver-proveedor/:id/editar",
-                element: <SupplierEditPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <SupplierEditPage/>
+                    </ProtectedRoute>
+                ) 
             },
             {
                 path: "medicamentos",
@@ -242,23 +262,43 @@ const router = createBrowserRouter([
             },
             {
                 path: "crear-medicamento",
-                element: <CreateProductPage/>
+                element: (
+                    <ProtectedRoute>
+                        <CreateProductPage/>
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "ver-medicamento/:id",
-                element: <ProductDetailPage/>
+                element: (
+                    <ProtectedRoute>
+                        <ProductDetailPage/>
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "editar-medicamento/:id",
-                element: <ProductsEditPage />
+                element: (
+                    <ProtectedRoute>
+                        <ProductsEditPage/>
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "generar-reporte",
-                element: <AdminProductReportPage/>
+                element: (
+                    <ProtectedRoute>
+                        <AdminProductReportPage/>
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "listar-ventas",
-                element: <ListSalePage/>
+                element: (
+                    <ProtectedRoute>
+                        <ListSalePage/>
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "ver-venta/:id/editar",
@@ -296,7 +336,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "generar-reporte",
-                element: <UserReportPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <UserReportPage/>
+                    </ProtectedRoute>
+                ) 
             },
             {
                 path: "editar-usuarios/:id",
