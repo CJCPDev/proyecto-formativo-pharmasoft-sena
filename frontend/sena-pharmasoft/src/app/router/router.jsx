@@ -204,7 +204,11 @@ const router = createBrowserRouter ([
             },
             {
                 path: "generar-reporte",
-                element: <UserReportPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <UserReportPage/>
+                    </ProtectedRoute>
+                ) 
             },
             {
                 path: "editar-usuarios/:id",
