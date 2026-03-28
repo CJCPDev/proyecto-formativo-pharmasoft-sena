@@ -12,8 +12,6 @@ export default function AuthLayout (){
         '/validation',
         '/confirmationPassword',
         '/validationPassword'
-
-        
     ]
 
     const location = useLocation();
