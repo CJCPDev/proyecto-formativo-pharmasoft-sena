@@ -1,79 +1,40 @@
-// export async function getPharmaForm() {
-//     const response = await fetch("/src/data/selects/getPharmaForm.json");
+// src/features/product/services/productService.js
 
-//     return response.json();    
-// }
-// export async function getAdministrationTypes() {
-//     const response = await fetch("/src/data/selects/getAdministrationTypes.json");
-//     return response.json();    
-// }
-// export async function getSuppliers() {
-//     const response = await fetch("/src/data/selects/getSuppliers.json");
+const API_URL = "http://localhost:4000/api/productos";
 
-//     return response.json();    
-// }
-// export async function getLaboratoriesTypes() {
-//     const response = await fetch("/src/data/selects/getLaboratoriesTypes.json");
+export async function createProduct(productData) {
+    const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productData),
+    });
 
-//     return response.json();    
-// }
-// export async function getStatesTypes() {
-//     const response = await fetch("/src/data/selects/getStatesTypes.json");
-
-//     return response.json();    
-// } 
-// ─────────────────────────────────────────────
-// selectService.js
-// Servicios para llenar los selects del frontend
-// con datos dinámicos desde el backend
-// ─────────────────────────────────────────────
-
-// Formas farmacéuticas
-export async function getPharmaForm() {
-    const res = await fetch("http://127.0.0.1:8000/api/forma_farmaceutica/");
-    const data = await res.json();
-    return data.map(item => ({
-        value: item.id_forma_farmaceutica,
-        label: item.nombre_forma_farmaceutica
-    }));
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Error al crear producto");
     }
 
-    // Vías de administración
-    export async function getAdministrationTypes() {
-    const res = await fetch("http://127.0.0.1:8000/api/via_administracion/");
-    const data = await res.json();
-    return data.map(item => ({
-        value: item.id_via_administracion,
-        label: item.nombre_via_administracion
-    }));
+    return response.json();
     }
 
-    // Proveedores
-    export async function getSuppliers() {
-    const res = await fetch("http://127.0.0.1:8000/api/proveedores/");
-    const data = await res.json();
-    return data.map(item => ({
-        value: item.id_proveedor,
-        label: item.razon_social
-    }));
+    export async function getProducts() {
+    const response = await fetch(API_URL);
+
+    if (!response.ok) {
+        throw new Error("Error al obtener productos");
     }
 
-    // Laboratorios
-    export async function getLaboratoriesTypes() {
-    const res = await fetch("http://127.0.0.1:8000/api/laboratorios/");
-    const data = await res.json();
-    return data.map(item => ({
-        value: item.id_laboratorio,
-        label: item.nombre_laboratorio
-    }));
+    return response.json();
     }
 
-    // Estados de medicamento
-    export async function getStatesTypes() {
-    const res = await fetch("http://127.0.0.1:8000/api/estado_medicamento/");
-    const data = await res.json();
-    return data.map(item => ({
-        value: item.id_estado,
-        label: item.nombre_estado
-    }));
+    export async function getProductById(id) {
+    const response = await fetch(`${API_URL}/${id}`);
+
+    if (!response.ok) {
+        throw new Error("Error al obtener producto");
     }
+
+    return response.json();
+}
