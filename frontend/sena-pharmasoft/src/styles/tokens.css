@@ -1,0 +1,77 @@
+
+/* Se ingresan las variables tal y como se planearon en la guía de estilos */
+
+:root {
+
+    /* variables del color primario */
+    --color-primary-950: #062D08;
+    --color-primary-900: #155217;
+    --color-primary-800: #186319;
+    --color-primary-700: #177E19;
+    --color-primary-600: #19A01A;
+    --color-primary-500: #25C226;
+    --color-primary-400: #4DDB4E;
+    --color-primary-300: #90EE90;
+    --color-primary-200: #BDF6BC;
+    --color-primary-100: #DEFBDD;
+    --color-primary-50:  #F1FDF0;
+
+    /* variables del color secundario */
+    --color-secundary-950: #023131;
+    --color-secundary-900: #10514E;
+    --color-secundary-800: #0D625E;
+    --color-secundary-700: #0A7B75;
+    --color-secundary-600: #079A91;
+    --color-secundary-500: #0CC0B1;
+    --color-secundary-400: #40E0D0;
+    --color-secundary-300: #58F0DC;
+    --color-secundary-200: #95FAEA;
+    --color-secundary-100: #CAFDF3;
+    --color-secundary-50:  #EFFEFA;
+
+    /* variables de colores base */
+    --white: #ffff;
+    --black: #0000;
+    --color-gray-950: #F6F6F6;
+    --color-gray-900: #E9E9E9;
+    --color-gray-800: #D1D1D1;
+    --color-gray-700: #B8B8B8;
+    --color-gray-500: #878787;
+    --color-gray-400: #6E6E6E;
+    --color-gray-300: #565656;
+    --color-gray-200: #3D3D3D;
+    --color-gray-100: #242424;
+    --color-gray-50:  #181818;
+    
+    /* tipografia */
+    --font-family-main: "Piazzolla"; /* Tipografia de letra principal */
+    --font-family-secondary: "Roboto"; /*Tipografia de letra secundaria */
+
+    /* variantes de tipografia */
+    --font-weight-light: 300;
+    --font-weight-semibold: 600;
+    --font-weight-extrabold: 800;
+
+    /* tamaños de tipografia fs (font-size) */
+    --text-fs-xxxxl: 5rem;   /*80px*/
+    --text-fs-xxxl: 4rem;    /*64px*/
+    --text-fs-big: 3.5rem;   /*56px*/
+    --text-fs-xxl: 3rem;     /*48px*/
+    --text-fs-xl:  2.5rem;   /*40px*/
+    --text-fs-lg: 2rem;      /*32px*/
+    --text-fs-mg: 1.5rem;    /*24px*/
+    --text-fs-sm: 1.25rem;   /*20px*/
+    --text-fs-xs: 1rem;      /*16px*/
+    --text-fs-xxs: 0.875rem; /*14px*/
+    --text-fs-xxxs: 0.75rem; /*12px*/
+    --text-fs-xxxxs: 0.625rem; /* 8px*/
+
+    /* Corner Radius */
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-2xl: 24px;
+        
+}

@@ -1,0 +1,77 @@
+import './../../styles/global.css'
+
+export default function Input({label, type = "text", error, ...props}){
+    return (
+      <div className="w-full">
+        {/*Label */}
+        {label && (
+          <label
+            className={`
+                    block
+                    text-[8px]     
+                    text-brand-hover
+                    pb-1
+                    text-info-medium
+                    font-main
+                    font-bold
+                    text-black
+              ${error ? 'text-red-600' : 'text-brand-hover'}
+            `}
+          >
+            {label}
+          </label>
+        )}
+        {/* EL contenedor del input */}
+
+        <div
+            className="
+            relative
+            h-12
+            flex
+            items-center
+            "
+        >
+          {/* Area interactiva visible (48px)*/}
+
+          <div
+                className="
+                absolute
+                inset-0
+                "
+                onMouseDown = {(e) => {
+                    e.preventDefault();
+                    e.currentTarget.nextSibling.focus();
+                    }}  
+          />
+
+          <input
+            type={type}
+            className={`
+                    w-full
+                    h-12
+                    relative
+                    text-text-muted
+                    rounded-xl
+                    bg-brand-soft/60
+                    border
+                    border-brand
+                    px-4
+                    text-base
+                    focus:ring-1
+                    focus:ring-brand-hover
+                    focus:border-brand-fort
+                    focus:outline-none
+                    bg-brand
+                    border-background
+                    focus:bg-white   
+                    hover:bg-white
+                    hover:border-brand-hover
+                    ${error ? 'border-red-600' : 'border border-border-strong'}  
+                    `}
+            {...props}
+          />
+        </div>
+              {error && <p className="text-red-700 text-sm mt-1">{error}</p>}
+      </div>
+    );
+}

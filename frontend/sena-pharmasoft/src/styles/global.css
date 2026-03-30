@@ -1,0 +1,66 @@
+
+@import url("./tokens.css");
+@import url("./semantic.css");
+/*@import url("./base.css");*/
+
+@theme {
+    
+    /* colores de la aplicación */
+    --color-brand: var(--semantic-brand);
+    --color-brand-hover: var(--semantic-brand-hover);
+    --color-brand-soft: var(--semantic-brand-soft);
+    --color-background: var(--semantic-background);
+    --color-brand-table: var(--semantic-brand-700);
+    --color-surface: var(--white);
+    --color-surface-muted: var(--semantic-gray-200);
+    --color-text-primary: var(--semantic-gray-900); 
+    --color-text-secundary: var(--semantic-gray-700); 
+    --color-text-muted: var(--semantic-text-muted); 
+    --color-text-inverse: var(--semantic-gray-50); 
+    --color-border: var(--semantic-primary-800); 
+    --color-border-strong: var(--semantic-primary-950);
+    --color-warning: var(--semantic-secundary-800); /* */
+
+    --color-brand-hover:var(--semantic-brand-hover);
+    --color-brand-soft: var(--semantic-brand-soft);
+    --color-brand-softv2: var(--semantic-brand-soft-v2);
+    --color-brand-fort: var(--semantic-brand-fort);
+    --color-brand-hoverv2: var(--semantic-brand-hoverv2)
+    
+    --color-backgraund: var(--semantic-primary-50);
+    --color-surface: var(--semantic-surface);
+    --color-surface-v2: var(--semantic-surface-v2);
+    --color-background: var(--semantic-background);
+    
+    --color-text-primary: var(--semantic-text-primary);
+    --color-text-secondary: var(--semantic-text-secondary);
+    --color-text-mute: var(--semantic-text-mute);
+    --color-text-inverse: var(--semantic-text-inverse);
+
+    --color-border: var(--semantic-border);
+    --color-border-strong: var(--semantic-border-strong);
+    
+    --color-warning: var(--semantic-warning);
+
+    /* tamaños y tipografia de la aplicación */
+    --font-main: var(--semantic-font-main);
+    --font-secondary: var(--semantic-font-secondary);
+    --font-semibold: var(--semantic-font-semibold);
+    --font-extrabold: var(--semantic-font-extrabold);
+    /* tamaños */
+    --text-big-title: var(--semantic-fs-big);
+    --text-general-title: var(--semantic-fs-lg);
+    --text-info-general: var(--semantic-fs-xs);
+    --text-info-regular: var(--semantic-fs-xxs);
+    --text-info-medium: var(--semantic-fs-xxxs);
+    --text-small-label: var(--semantic-fs-xxxxs);   /*genarlmente en label*/
+    --text-small-text: var(--semanticas-fs-mg);
+    --text-small-info: var(--semantic-fs-sm);
+    
+    /* tamaños de border radius */
+    --border-main-container: var(--semantic-br-xl);
+    --border-inputs: var(--semantic-br-lg);
+    --border-buttons: var(--semantic-br-md);
+
+}
+@import "tailwindcss"; /* Esta linea debe quedar al final para que funcione*/
