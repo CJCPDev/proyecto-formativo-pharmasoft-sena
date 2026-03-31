@@ -1,40 +1,31 @@
-// src/features/product/services/productService.js
+// Importa los JSON directamente desde src/data/selects
+import pharmaForm from "../../../data/selects/getPharmaForm.json";
+import administrationTypes from "../../../data/selects/getAdministrationTypes.json";
+import laboratoriesTypes from "../../../data/selects/getLaboratoriesTypes.json";
+import suppliers from "../../../data/selects/getSuppliers.json";
+import statesTypes from "../../../data/selects/getStatesTypes.json";
 
-const API_URL = "http://localhost:4000/api/productos";
+// Formas farmacéuticas
+export async function getPharmaForm() {
+    return pharmaForm;
+}
 
-export async function createProduct(productData) {
-    const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productData),
-    });
+// Vías de administración
+export async function getAdministrationTypes() {
+    return administrationTypes;
+}
 
-    if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || "Error al crear producto");
-    }
+// Laboratorios
+export async function getLaboratoriesTypes() {
+    return laboratoriesTypes;
+}
 
-    return response.json();
-    }
+// Proveedores
+export async function getSuppliers() {
+    return suppliers;
+}
 
-    export async function getProducts() {
-    const response = await fetch(API_URL);
-
-    if (!response.ok) {
-        throw new Error("Error al obtener productos");
-    }
-
-    return response.json();
-    }
-
-    export async function getProductById(id) {
-    const response = await fetch(`${API_URL}/${id}`);
-
-    if (!response.ok) {
-        throw new Error("Error al obtener producto");
-    }
-
-    return response.json();
+// Estados
+export async function getStatesTypes() {
+    return statesTypes;
 }
