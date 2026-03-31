@@ -27,6 +27,7 @@ import { guardarPermisosUsuario, getPermisos } from "../services/permisosService
 
 export default function UserForm() {
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -116,6 +117,31 @@ export default function UserForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const result = userSchema.safeParse(formData);
+  //   if (!result.success) {
+  //     const fieldErrors = {};
+  //     result.error.issues.forEach((issue) => {
+  //       const field = issue.path[0];
+  //       fieldErrors[field] = issue.message;
+  //     });
+  //     setErrors(fieldErrors);
+  //     return;
+  //   }
+  //   setErrors({});
+  //   console.log("Usuario válido:", result.data);
+  // };
+
+      const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    console.log("formData antes de validar:", formData)
+
+    const result = userSchema.safeParse(formData);
+
+    console.log("resultado schema:", result)
+
   // Maneja el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -129,8 +155,7 @@ export default function UserForm() {
       console.log("Errores Zod:", result.error.issues);
       const fieldErrors = {};
       result.error.issues.forEach((issue) => {
-        const field = issue.path[0];
-        fieldErrors[field] = issue.message;
+        fieldErrors[issue.path[0]] = issue.message;
       });
       setErrors(fieldErrors);
       return;
@@ -369,6 +394,41 @@ export default function UserForm() {
 
         </div>
 
+        {/* Botones */}
+    <div className="flex gap-6 justify-center items-center pt-8 pb-4">
+                {isEdit ? (
+                    <>
+                    <Button 
+                        onClick={() => navigate(-1)}
+                        variant="secondary" 
+                        size="sm"
+                    >
+                        Cancelar
+                    </Button>
+                    <Button variant="primary" size="md" type="submit">
+                        Actualizar
+                    </Button>
+                    </>
+                ) : (
+                    <>
+                    <Button 
+                        variant="secondary" 
+                        size="sm"
+                        onClick={() => navigate(-1)}
+                    >
+                        Regresar
+                    </Button>
+                    <Button
+                    variant="primary"
+                    size="md"
+                    type="submit"
+                    disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Creando..." : "Crear"}
+                    </Button>
+                    </>
+                )}
+            </div>
         {/* Botones — muestra loading mientras se guarda */}
         <div className="flex gap-6 justify-center items-center pt-8 pb-4">
           {isEdit ? (

@@ -28,6 +28,12 @@ export const userSchema = z.object({
         .string()
         .regex(/^[0-9]{10}$/, "El telefono debe tener 10 digitos"),
 
+    phoneAdicional: z
+        .string()
+        .regex(/^[0-9]{10}$/, "El telefono debe tener 10 digitos")
+        .optional()
+        .or(z.literal("")),
+
     // Acepta tanto string como número para compatibilidad con la API
     documentType: z
         .union([z.string(), z.number()])
@@ -57,6 +63,14 @@ export const userSchema = z.object({
         .nullable()
         .optional(),
 
+    fechaInicio: z.string().optional(),
+    fechaFin:    z.string().optional(),
+
+// ✅ Agrega esto al final del schema
+}).refine((data) => data.userEmail === data.validationEmail, {
+  message: "Los correos no coinciden",
+  path: ["validationEmail"],
+});
     // Campos opcionales que no son obligatorios
     phoneAdicional: z.string().optional().or(z.literal("")),
     fechaInicio: z.string().optional().or(z.literal("")),
