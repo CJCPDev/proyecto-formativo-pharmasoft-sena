@@ -19,6 +19,12 @@ export const userSchema = z.object ({
         .string()
         .regex(/^[0-9]{10}$/, "El telefono debe tener 10 digitos"),
 
+    phoneAdicional: z
+        .string()
+        .regex(/^[0-9]{10}$/, "El telefono debe tener 10 digitos")
+        .optional()
+        .or(z.literal("")),
+
     documentType: z
         .string()
         .min(1, "Debe seleccionar un tipo de documento"),
@@ -48,5 +54,13 @@ export const userSchema = z.object ({
         .string()
         .url("La URL del avatar no es válida")
         .nullable()
-        .optional()
+        .optional(),
+
+    fechaInicio: z.string().optional(),
+    fechaFin:    z.string().optional(),
+
+// ✅ Agrega esto al final del schema
+}).refine((data) => data.userEmail === data.validationEmail, {
+  message: "Los correos no coinciden",
+  path: ["validationEmail"],
 });

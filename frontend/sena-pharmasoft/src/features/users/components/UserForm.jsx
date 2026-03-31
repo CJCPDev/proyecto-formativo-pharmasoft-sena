@@ -6,12 +6,12 @@ import { useState } from "react"
 import { userSchema } from "../schemas/userSchema"
 import { useNavigate, useParams } from "react-router-dom"
 import { Plus, Minus } from "lucide-react"
-// import { getDocumentTypes } from "../../users/services/selectService"
 import { users } from "@/data/users/users"
-// import { IconButton } from "../../../shared/components"
+import { createUser } from "../services/userServices"
 
 export default function UserForm() {
 
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const navigate = useNavigate();
   const { id } = useParams();
   const isEdit = Boolean(id);
@@ -37,20 +37,58 @@ export default function UserForm() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const result = userSchema.safeParse(formData);
+  //   if (!result.success) {
+  //     const fieldErrors = {};
+  //     result.error.issues.forEach((issue) => {
+  //       const field = issue.path[0];
+  //       fieldErrors[field] = issue.message;
+  //     });
+  //     setErrors(fieldErrors);
+  //     return;
+  //   }
+  //   setErrors({});
+  //   console.log("Usuario válido:", result.data);
+  // };
+
+      const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("formData antes de validar:", formData)
+
     const result = userSchema.safeParse(formData);
+
+    console.log("resultado schema:", result)
+
     if (!result.success) {
       const fieldErrors = {};
       result.error.issues.forEach((issue) => {
-        const field = issue.path[0];
-        fieldErrors[field] = issue.message;
+        fieldErrors[issue.path[0]] = issue.message;
       });
       setErrors(fieldErrors);
       return;
     }
+
+
     setErrors({});
-    console.log("Usuario válido:", result.data);
+    setIsSubmitting(true);
+
+
+    try {
+      const response = await createUser(result.data);
+      console.log("✅ Usuario creado:", response);
+
+
+      alert("Usuario creado correctamente");
+      navigate(-1);
+    } catch (error) {
+      console.error("Error:", error.message);
+      alert(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const [errors, setErrors] = useState({});
@@ -244,8 +282,13 @@ export default function UserForm() {
                     >
                         Regresar
                     </Button>
-                    <Button variant="primary" size="md" type="submit">
-                        Crear
+                    <Button
+                    variant="primary"
+                    size="md"
+                    type="submit"
+                    disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Creando..." : "Crear"}
                     </Button>
                     </>
                 )}
