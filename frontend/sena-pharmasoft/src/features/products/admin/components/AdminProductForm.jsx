@@ -362,6 +362,7 @@
 // }
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { createProduct } from "../../services/productService";
 import {
   Select,
   Button,
@@ -382,6 +383,9 @@ export default function FormMedicamentos() {
   const navigate = useNavigate();
   const params = useParams();
   const isEdit = Boolean(params.id);
+  
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
     nombreMedicamento: "",
@@ -402,7 +406,6 @@ export default function FormMedicamentos() {
     imagen: "",
   });
 
-  const [errors, setErrors] = useState({});
 
   // ================= CARGAR DATOS EN EDICIÓN =================
   useEffect(() => {
@@ -495,44 +498,59 @@ export default function FormMedicamentos() {
     }));
   };
 
-  // ================= HANDLE SUBMIT =================
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+//============== HANDLE SUBMIT ==============
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const result = medicamentoSchema.safeParse(formData);
+  const result = medicamentoSchema.safeParse(formData);
 
-    if (!result.success) {
-      const fieldErrors = {};
-      result.error.issues.forEach((issue) => {
-        fieldErrors[issue.path[0]] = issue.message;
-      });
-      setErrors(fieldErrors);
-      return;
-    }
+  if (!result.success) {
+    const fieldErrors = {};
+    result.error.issues.forEach((issue) => {
+      fieldErrors[issue.path[0]] = issue.message;
+    });
+    setErrors(fieldErrors);
+    return;
+  }
 
-    setErrors({});
+  setErrors({});
+  setIsSubmitting(true);
 
-    const url = isEdit
-      ? `http://127.0.0.1:8000/api/medicamentos/${params.id}/`
-      : `http://127.0.0.1:8000/api/medicamentos/`;
+  try {
+    // 🔹 Mapeo camelCase → snake_case
+    const payload = {
+      nombre_medicamento: formData.nombreMedicamento,
+      lote: formData.lote,
+      forma_farmaceutica: formData.formaFarmaceutica,
+      fecha_fabricacion: formData.fechaFabricacion,
+      fecha_vencimiento: formData.fechaVencimiento,
+      via_administracion: formData.viaAdministracion,
+      laboratorio: formData.laboratorio,
+      concentracion: formData.concentracion,
+      proveedor: formData.proveedor,
+      stock: formData.stock,
+      precio_costo: formData.precioCosto,
+      precio_venta: formData.precioVenta,
+      requiere_formula: formData.requiresPrescription,
+      estado: formData.estado,
+      descripcion: formData.description,
+    };
 
-    const method = isEdit ? "PUT" : "POST";
+    // 🔹 Aquí llamas al servicio con los nombres correctos
+    const response = await createProduct(payload);
 
-    try {
-      const res = await fetch(url, {
-        method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(result.data),
-      });
+    console.log("Producto creado:", response);
+    alert("Producto creado correctamente");
+    navigate(-1);
 
-      const data = await res.json();
-      console.log("Guardado:", data);
+  } catch (error) {
+    console.error("Error:", error.message);
+    alert(error.message);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
-      navigate("/medicamentos");
-    } catch (err) {
-      console.error("Error guardando medicamento:", err);
-    }
-  };
 
   // ================= UI =================
   return (
@@ -699,7 +717,7 @@ export default function FormMedicamentos() {
         <Button variant="secondary" onClick={() => navigate(-1)}>
           Regresar
         </Button>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" disabled={isSubmitting}>
           {isEdit ? "Actualizar" : "Crear"}
         </Button>
       </div>

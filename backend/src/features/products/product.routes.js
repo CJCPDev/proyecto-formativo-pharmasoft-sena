@@ -1,4 +1,3 @@
-// src/features/products/product.routes.js
 import { Router } from "express";
 import { productController } from "./product.controller.js";
 

@@ -1,5 +1,9 @@
-import { createProducto } from './product.repository.js';
+// src/features/users/user.service.js
+import { productRepository } from "./product.repository.js";
 
-export async function addProducto(data) {
-  return await createProducto(data);
-}
+
+export const productService = {
+  async createProduct(data) {
+    return await productRepository.create(data);
+  },
+};
