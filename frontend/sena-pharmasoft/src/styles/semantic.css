@@ -20,10 +20,14 @@
     --semantic-background: var(--color-primary-50); /*Fondo estructural de todo el proyecto*/
     --semantic-surface: var(--white); /* Fondo de modales, cards, containers*/
     --semantic-surface-v2: var(--color-primary-200); /* Zonas secundarias, con menos importancia*/
+<<<<<<< HEAD
+    
+=======
     --semantic-color-secondar: var(--color-secundary-600);
     --semantic-color-secondaryv2: var(--color-secundary-400);    
      --semantic-color-primary: var(--color-primary-600); 
      --semantic-color-primaryv2: var(--color-primary-400);
+>>>>>>> piloto_backend
     /* *********TEXT******** */
     --semantic-text-primary: var(--color-primary-800); /*color principal de lectura (titulos)*/ 
     --semantic-text-secondary: var(--black); /*Textos menos importantes (informacion)*/

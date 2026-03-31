@@ -1,3 +1,731 @@
+<<<<<<< HEAD
+// import { useState, useEffect } from "react";
+// import { useParams, useNavigate } from "react-router-dom";
+// import { Select, Button, Input, Title, AvatarUploader } from "../../../../shared/components";
+// import { medicamentoSchema } from "../../schemas/medicamentoSchema";
+// import { createProduct } from "../services/productService";
+// import { useNavigate } from "react-router-dom";
+// import {
+//   getPharmaForm,
+//   getAdministrationTypes,
+//   getSuppliers,
+//   getLaboratoriesTypes,
+//   getStatesTypes,
+// } from "../../services/selectService";
+
+// export default function FormMedicamentos() {
+//   const navigate = useNavigate();
+//   const params = useParams();
+//   const isEdit = Boolean(params.id);
+
+//   const [formData, setFormData] = useState({
+//     nombreMedicamento: "",
+//     formaFarmaceutica: "",
+//     viaAdministracion: "",
+//     laboratorio: "",
+//     concentracion: "",
+//     proveedor: "",
+//     lote: "",
+//     fechaFabricacion: "",
+//     fechaVencimiento: "",
+//     stock: "",
+//     precioCosto: "",
+//     precioVenta: "",
+//     requiresPrescription: "",
+//     estado: "",
+//     description: ""
+//   });
+
+//   // Cargar datos si es edición
+//   useEffect(() => {
+//     if (isEdit) {
+//       fetch(`http://127.0.0.1:8000/api/medicamentos/${params.id}/`)
+//         .then(res => res.json())
+//         .then(data => {
+//           setFormData({
+//             nombreMedicamento: data.nombreMedicamento || "",
+//             formaFarmaceutica: data.formaFarmaceutica_id || "",
+//             viaAdministracion: data.viaAdministracion_id || "",
+//             laboratorio: data.laboratorio_id || "",
+//             concentracion: data.concentracion_id || "",
+//             proveedor: data.proveedor_id || "",
+//             lote: data.lote || "",
+//             fechaFabricacion: data.fechaFabricacion || "",
+//             fechaVencimiento: data.fechaVencimiento || "",
+//             stock: data.stock || "",
+//             precioCosto: data.precioCosto || "",
+//             precioVenta: data.precioVenta || "",
+//             requiresPrescription: data.requiresPrescription || "",
+//             estado: data.estado_id || "",
+//             description: data.description || ""
+//           });
+//         })
+//         .catch(err => console.error("Error cargando medicamento:", err));
+//     }
+//   }, [isEdit, params.id]);
+
+//   // Estados para los selects
+//   const [pharmaForm, setPharmaForm] = useState([]);
+//   const [administrationTypes, setAdministrationTypes] = useState([]);
+//   const [suppliers, setSuppliers] = useState([]);
+//   const [laboratoriesTypes, setLaboratoriesTypes] = useState([]);
+//   const [statesTypes, setStatesTypes] = useState([]);
+
+//   // Cargar opciones dinámicas
+//   useEffect(() => {
+//     getPharmaForm().then(setPharmaForm);
+//     getAdministrationTypes().then(setAdministrationTypes);
+//     getSuppliers().then(setSuppliers);
+//     getLaboratoriesTypes().then(setLaboratoriesTypes);
+//     getStatesTypes().then(setStatesTypes);
+//   }, []);
+
+//   console.log("OPTIONS:", pharmaForm)
+
+//   // Estado de errores
+//   const [errors, setErrors] = useState({});
+
+//   // Handler de cambios
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData(prev => ({
+//       ...prev,
+//       [name]: value,
+//     }));
+//   };
+
+//   // // Handler de submit
+//   // const handleSubmit = (e) => {
+//   //   e.preventDefault();
+
+//   //   const result = medicamentoSchema.safeParse(formData);
+//   //   if (!result.success) {
+//   //     const fieldErrors = {};
+//   //     result.error.issues.forEach(issue => {
+//   //       const field = issue.path[0];
+//   //       fieldErrors[field] = issue.message;
+//   //     });
+//   //     setErrors(fieldErrors);
+//   //     return;
+//   //   }
+//         //============== HANDLE SUBMIT ==============
+//     const handleSubmit = async (e) => {
+//         e.preventDefault();
+
+//         const result = userSchema.safeParse(formData);
+
+//         if (!result.success) {
+//         const fieldErrors = {};
+//         result.error.issues.forEach((issue) => {
+//             fieldErrors[issue.path[0]] = issue.message;
+//         });
+//         setErrors(fieldErrors);
+//         return;
+//         }
+
+//         setErrors({});
+//         setIsSubmitting(true);
+
+//         try {
+//         const response = await createUser(result.data);
+//         console.log("✅ Usuario creado:", response);
+
+//         alert("Usuario creado correctamente");
+//         navigate(-1);
+//         } catch (error) {
+//         console.error("Error:", error.message);
+//         alert(error.message);
+//         } finally {
+//         setIsSubmitting(false);
+//         }
+//     };
+
+//     setErrors({});
+
+//     const url = isEdit
+//       ? `http://127.0.0.1:8000/api/medicamentos/${params.id}/`
+//       : `http://127.0.0.1:8000/api/medicamentos/`;
+
+//     const method = isEdit ? "PUT" : "POST";
+
+//     fetch(url, {
+//       method,
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(formData),
+//     })
+//       .then(res => res.json())
+//       .then(() => {
+//         navigate("/medicamentos");
+//       })
+//       .catch(err => console.error("Error guardando medicamento:", err));
+//   };
+// console.log("FORM DATA:", formData);
+// console.log("OPTIONS:", administrationTypes);
+//   return (
+//         <form
+//         className="flex flex-col gap-10 z-20"
+//               onSubmit={handleSubmit}>
+//               { isEdit ? <Title title="Editar Medicamento"/> : <Title title="Crear Medicamento"/> }
+//           {/* Contenedor de columnas */}
+//           <div className="flex gap-12">
+//             {/* ================= COLUMNA 1 ================= */}
+//             <div className="flex flex-col gap-6 flex-1">
+//               <Input
+//                 label="Nombre del medicamento"
+//                 name="nombreMedicamento"
+//                 placeholder="Nombre del medicamento"
+//                 value={formData.nombreMedicamento}
+//                 onChange={handleChange}
+//                 error={errors.nombreMedicamento}
+//               />
+
+//               <Select
+//                 label="Forma farmaceutica"
+//                 name="formaFarmaceutica"
+//                 value={formData.formaFarmaceutica}
+//                 options={pharmaForm}
+//                 onChange={handleChange}
+//                 error={errors.formaFarmaceutica}
+//               />
+//               <Select
+//                 label="Vía de administración"
+//                 name="viaAdministracion"
+//                 value={formData.viaAdministracion}
+//                 options={administrationTypes}
+//                 onChange={handleChange}
+//                 error={errors.viaAdministracion}
+
+//               />
+
+//               <Select
+//                 label="Laboratorio"
+//                 name="laboratorio"
+//                 value={formData.laboratorio}
+//                 options={laboratoriesTypes}
+//                 onChange={handleChange}
+//                 error={errors.laboratorio}
+//               />
+
+//               <Input
+//                 label="Concentración"
+//                 name="concentracion"
+//                 placeholder="Concentración"
+//                 value={formData.concentracion}
+//                 onChange={handleChange}
+//                 error={errors.concentracion}
+//               />
+
+//               <Select
+//                 label="Proveedores"
+//                 name="proveedor"
+//                 value={formData.proveedor}
+//                 options={suppliers}
+//                 onChange={handleChange}
+//                 error={errors.proveedor}
+//               />
+//             </div>
+
+//             {/* ================= COLUMNA 2 ================= */}
+//             <div className="flex flex-col gap-5 flex-1">
+//               <Input
+//                 label="Lote"
+//                 name="lote"
+//                 placeholder="Lote"
+//                 value={formData.lote}
+//                 onChange={handleChange}
+//                 error={errors.lote}
+//                 />
+
+//               <Input
+//                 label="Fecha fabricación"
+//                 name="fechaFabricacion"
+//                 type="date"
+//                 placeholder="Fecha fabricación"
+//                 value={formData.fechaFabricacion}
+//                 onChange={handleChange}
+//                 error={errors.fechaFabricacion}
+//               />
+
+//               <Input
+//                 label="Fecha vencimiento"
+//                 name="fechaVencimiento"
+//                 type="date"
+//                 placeholder="Fecha Vencimiento"
+//                 value={formData.fechaVencimiento}
+//                 onChange={handleChange}
+//                 error={errors.fechaVencimiento}
+//               />
+
+//               <Input
+//                 label="Stock"
+//                 name="stock"
+//                 placeholder="Stock"
+//                 value={formData.stock}
+//                 onChange={handleChange}
+//                 error={errors.stock}
+//               />
+
+//               <Input
+//                 label="Precio de costo"
+//                 name="precioCosto"
+//                 placeholder="Precio de costo"
+//                 value={formData.precioCosto}
+//                 onChange={handleChange}
+//                 error={errors.precioCosto}
+//               />
+
+//               <Input
+//                 label="Precio de venta"
+//                 name="precioVenta"
+//                 placeholder="Precio de venta"
+//                 value={formData.precioVenta}
+//                 onChange={handleChange}
+//                 error={errors.precioVenta}
+//               />
+//             </div>
+
+//             {/* ================= COLUMNA 3 ================= */}
+//             <div className="flex flex-col gap-6 flex-1">
+//               <Input
+//                 label="Requiere fórmula"
+//                 name="requiresPrescription"
+//                 placeholder="Sí / No"
+//                 value={formData.requiresPrescription}
+//                 onChange={handleChange}
+//                 error={errors.requiresPrescription}
+//               />
+
+//               <Select
+//                 label="Estados"
+//                 name="estado"
+//                 value={formData.estado}
+//                 options={statesTypes}
+//                 onChange={handleChange}
+//                 error={errors.estado}
+//               />
+
+//               <Input
+//                 label="Descripción"
+//                 name="description"
+//                 placeholder="Descripción"
+//                 value={formData.description}
+//                 onChange={handleChange}
+//                 error={errors.description}
+//               />
+
+//             <div className="w-max p-4 rounded-xl border border-brand bg-brand-soft/60 flex flex-col items-center">
+
+//               {/* Aquí va tu componente AvatarUploader */}
+//               <AvatarUploader
+//                 label="Cargar foto"
+//                 onChange={(url) =>
+//                   setFormData((prev) => ({
+//                     ...prev,
+//                     imagen: url,
+//                   }))
+//                 }
+//               />
+//             </div>
+
+//             </div>
+//           </div>
+//           <div className="flex gap-6 justify-center items-center">
+//             {isEdit ? (
+//                 <>
+//                 <Button
+//                     onClick={() => navigate(-1)}
+//                     variant="secondary"
+//                     size="sm"
+//                 >
+//                     Cancelar
+//                 </Button>
+//                 <Button variant="primary" size="md" type="submit">
+//                     Actualizar
+//                 </Button>
+//                 </>
+//             ) : (
+//                 <>
+//                 <Button
+//                     variant="secondary"
+//                     size="sm"
+//                     onClick={() => navigate(-1)}
+//                 >
+//                     Regresar
+//                 </Button>
+//                 <Button variant="primary" size="md" type="submit">
+//                     Crear
+//                 </Button>
+//                 </>
+//             )}
+//           </div>
+//         </form>
+//   );
+// }
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { createProduct } from "../../services/productService";
+import {
+  Select,
+  Button,
+  Input,
+  Title,
+  AvatarUploader,
+} from "../../../../shared/components";
+import { medicamentoSchema } from "../../schemas/medicamentoSchema";
+import {
+  getPharmaForm,
+  getAdministrationTypes,
+  getSuppliers,
+  getLaboratoriesTypes,
+  getStatesTypes,
+} from "../../services/selectService";
+
+export default function FormMedicamentos() {
+  const navigate = useNavigate();
+  const params = useParams();
+  const isEdit = Boolean(params.id);
+  
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [formData, setFormData] = useState({
+    nombreMedicamento: "",
+    formaFarmaceutica: "",
+    viaAdministracion: "",
+    laboratorio: "",
+    concentracion: "",
+    proveedor: "",
+    lote: "",
+    fechaFabricacion: "",
+    fechaVencimiento: "",
+    stock: "",
+    precioCosto: "",
+    precioVenta: "",
+    requiresPrescription: false,
+    estado: "",
+    description: "",
+    imagen: "",
+  });
+
+
+  // ================= CARGAR DATOS EN EDICIÓN =================
+  useEffect(() => {
+    if (isEdit) {
+      fetch(`http://127.0.0.1:8000/api/medicamentos/${params.id}/`)
+        .then((res) => res.json())
+        .then((data) => {
+          setFormData({
+            nombreMedicamento: data.nombreMedicamento || "",
+            formaFarmaceutica: data.formaFarmaceutica_id || "",
+            viaAdministracion: data.viaAdministracion_id || "",
+            laboratorio: data.laboratorio_id || "",
+            concentracion: data.concentracion || "",
+            proveedor: data.proveedor_id || "",
+            lote: data.lote || "",
+            fechaFabricacion: data.fechaFabricacion || "",
+            fechaVencimiento: data.fechaVencimiento || "",
+            stock: data.stock || "",
+            precioCosto: data.precioCosto || "",
+            precioVenta: data.precioVenta || "",
+            requiresPrescription: data.requiresPrescription || false,
+            estado: data.estado_id || "",
+            description: data.description || "",
+            imagen: data.imagen || "",
+          });
+        })
+        .catch((err) => console.error("Error cargando medicamento:", err));
+    }
+  }, [isEdit, params.id]);
+
+  // ================= STATES DE SELECT =================
+  const [pharmaForm, setPharmaForm] = useState([]);
+  const [administrationTypes, setAdministrationTypes] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
+  const [laboratoriesTypes, setLaboratoriesTypes] = useState([]);
+  const [statesTypes, setStatesTypes] = useState([]);
+
+  // ================= MAPEAR OPTIONS CORRECTAMENTE =================
+  useEffect(() => {
+    getPharmaForm().then((data) => {
+      console.log("PHARMA:", data);
+      setPharmaForm(data.map((i) => ({ value: i.id, label: i.label })));
+    });
+
+    getAdministrationTypes().then((data) => {
+      setAdministrationTypes(
+        data.map((i) => ({ value: i.id, label: i.label })),
+      );
+    });
+
+    getSuppliers().then((data) => {
+      setSuppliers(data.map((i) => ({ value: i.id, label: i.label })));
+    });
+
+    getLaboratoriesTypes().then((data) => {
+      setLaboratoriesTypes(data.map((i) => ({ value: i.id, label: i.label })));
+    });
+
+    getStatesTypes().then((data) => {
+      setStatesTypes(data.map((i) => ({ value: i.id, label: i.label })));
+    });
+  }, []);
+  // ================= HANDLE CHANGE =================
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    let newValue = value;
+
+    const numberFields = [
+      "formaFarmaceutica",
+      "viaAdministracion",
+      "laboratorio",
+      "proveedor",
+      "estado",
+      "stock",
+      "precioCosto",
+      "precioVenta",
+      "concentracion",
+    ];
+
+    if (name === "requiresPrescription") {
+      newValue = value === "true";
+    } else if (numberFields.includes(name)) {
+      newValue = value === "" ? "" : Number(value);
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: newValue,
+    }));
+  };
+
+//============== HANDLE SUBMIT ==============
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const result = medicamentoSchema.safeParse(formData);
+
+  if (!result.success) {
+    const fieldErrors = {};
+    result.error.issues.forEach((issue) => {
+      fieldErrors[issue.path[0]] = issue.message;
+    });
+    setErrors(fieldErrors);
+    return;
+  }
+
+  setErrors({});
+  setIsSubmitting(true);
+
+  try {
+    // 🔹 Mapeo camelCase → snake_case
+    const payload = {
+      nombre_medicamento: formData.nombreMedicamento,
+      lote: formData.lote,
+      forma_farmaceutica: formData.formaFarmaceutica,
+      fecha_fabricacion: formData.fechaFabricacion,
+      fecha_vencimiento: formData.fechaVencimiento,
+      via_administracion: formData.viaAdministracion,
+      laboratorio: formData.laboratorio,
+      concentracion: formData.concentracion,
+      proveedor: formData.proveedor,
+      stock: formData.stock,
+      precio_costo: formData.precioCosto,
+      precio_venta: formData.precioVenta,
+      requiere_formula: formData.requiresPrescription,
+      estado: formData.estado,
+      descripcion: formData.description,
+    };
+
+    // 🔹 Aquí llamas al servicio con los nombres correctos
+    const response = await createProduct(payload);
+
+    console.log("Producto creado:", response);
+    alert("Producto creado correctamente");
+    navigate(-1);
+
+  } catch (error) {
+    console.error("Error:", error.message);
+    alert(error.message);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
+  // ================= UI =================
+  return (
+    <form className="flex flex-col gap-10" onSubmit={handleSubmit}>
+      <Title title={isEdit ? "Editar Medicamento" : "Crear Medicamento"} />
+
+      <div className="flex gap-12">
+        {/* COLUMNA 1 */}
+        <div className="flex flex-col gap-6 flex-1">
+          <Input
+            label="Nombre del medicamento"
+            name="nombreMedicamento"
+            placeholder="Nombre del medicamento"
+            value={formData.nombreMedicamento}
+            onChange={handleChange}
+            error={errors.nombreMedicamento}
+          />
+
+          <Select
+            name="formaFarmaceutica"
+            label="Forma farmacéutica"
+            value={formData.formaFarmaceutica}
+            options={pharmaForm}
+            onChange={handleChange}
+            error={errors.formaFarmaceutica}
+          />
+
+          <Select
+            name="viaAdministracion"
+            label="Vía administración"
+            value={formData.viaAdministracion}
+            options={administrationTypes}
+            onChange={handleChange}
+            error={errors.viaAdministracion}
+          />
+
+          <Select
+            name="laboratorio"
+            label="Laboratorio"
+            value={formData.laboratorio}
+            options={laboratoriesTypes}
+            onChange={handleChange}
+            error={errors.laboratorio}
+          />
+          <Input
+            label="Concentración"
+            name="concentracion"
+            placeholder="Concentración"
+            value={formData.concentracion}
+            onChange={handleChange}
+            error={errors.concentracion}
+          />
+
+          <Select
+            name="proveedor"
+            label="Proveedor"
+            value={formData.proveedor}
+            options={suppliers}
+            onChange={handleChange}
+            error={errors.proveedor}
+          />
+        </div>
+
+        {/* COLUMNA 2 */}
+        <div className="flex flex-col gap-5 flex-1">
+          <Input
+            label="Lote"
+            name="lote"
+            placeholder="Lote"
+            value={formData.lote}
+            onChange={handleChange}
+            error={errors.lote}
+          />
+
+          <Input
+            label="Fecha fabricación"
+            name="fechaFabricacion"
+            type="date"
+            placeholder="Fecha fabricación"
+            value={formData.fechaFabricacion}
+            onChange={handleChange}
+            error={errors.fechaFabricacion}
+          />
+
+          <Input
+            label="Fecha vencimiento"
+            name="fechaVencimiento"
+            type="date"
+            placeholder="Fecha Vencimiento"
+            value={formData.fechaVencimiento}
+            onChange={handleChange}
+            error={errors.fechaVencimiento}
+          />
+
+          <Input
+            label="Stock"
+            name="stock"
+            placeholder="Stock"
+            value={formData.stock}
+            onChange={handleChange}
+            error={errors.stock}
+          />
+
+          <Input
+            label="Precio de costo"
+            name="precioCosto"
+            placeholder="Precio de costo"
+            value={formData.precioCosto}
+            onChange={handleChange}
+            error={errors.precioCosto}
+          />
+
+          <Input
+            label="Precio de venta"
+            name="precioVenta"
+            placeholder="Precio de venta"
+            value={formData.precioVenta}
+            onChange={handleChange}
+            error={errors.precioVenta}
+          />
+        </div>
+
+        {/* COLUMNA 3 */}
+        <div className="flex flex-col gap-6 flex-1">
+          <Select
+            name="requiresPrescription"
+            label="Requiere fórmula"
+            value={formData.requiresPrescription ? "true" : "false"}
+            options={[
+              { value: "true", label: "Sí" },
+              { value: "false", label: "No" },
+            ]}
+            onChange={handleChange}
+            error={errors.requiresPrescription}
+          />
+
+          <Select
+            name="estado"
+            label="Estado"
+            value={formData.estado}
+            options={statesTypes}
+            onChange={handleChange}
+            error={errors.estado}
+          />
+          <Input
+            label="Descripción"
+            name="description"
+            placeholder="Descripción"
+            value={formData.description}
+            onChange={handleChange}
+            error={errors.description}
+          />
+
+          <AvatarUploader
+            label="Cargar foto"
+            onChange={(url) =>
+              setFormData((prev) => ({ ...prev, imagen: url }))
+            }
+          />
+        </div>
+      </div>
+
+      <div className="flex gap-6 justify-center">
+        <Button variant="secondary" onClick={() => navigate(-1)}>
+          Regresar
+        </Button>
+        <Button variant="primary" type="submit" disabled={isSubmitting}>
+          {isEdit ? "Actualizar" : "Crear"}
+        </Button>
+      </div>
+    </form>
+  );
+}
+=======
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Select, Button, Input, Title, AvatarUploader } from "../../../../shared/components";
@@ -311,3 +1039,4 @@ console.log("OPTIONS:", administrationTypes);
         </form>
   );
 }
+>>>>>>> piloto_backend
