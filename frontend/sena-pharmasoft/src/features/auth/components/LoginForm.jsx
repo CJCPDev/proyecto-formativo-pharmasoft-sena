@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+import  {Button, Input} from '@/shared/components'
+import { Link } from "react-router-dom";
+
+
+export default function LoginForm(){
+=======
 import { Button, Input } from "@/shared/components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -50,14 +57,19 @@ export default function LoginForm() {
     }
   };
 
+>>>>>>> piloto_backend
 
 
     return(
         <div className="">
+<<<<<<< HEAD
+            <form className="
+=======
             <form 
             onSubmit={handleSubmit}
             className="
             relative
+>>>>>>> piloto_backend
             px-6 py-12 
             grid grid-cols-1 gap-6
             bg-white
@@ -69,6 +81,36 @@ export default function LoginForm() {
             w-90
             h-100
             "
+<<<<<<< HEAD
+            >
+            <h1 className="text-general-title text-brand-hover font-extrabold text-center">Iniciar sesion</h1>
+                <Input
+                    label="Email"
+                    placeholder="Ingresa tu correo"
+                >
+                </Input>
+                <Input
+                    label="Contraseña"
+                    type='password'
+                    placeholder="Ingresa su contraseña"
+                >
+                </Input>
+            <Link to="/forgot-password" className="text-info-regular text-center underline text-secondary text-brand-hover hover:font-extrabold">
+              ¿Olvidaste tu contraseña?
+            </Link>
+                <div className= "flex items-center justify-center gap-12">
+                    <Button
+                        href='/'
+                        variant = "secondary"
+                        size = "md"
+                    >
+                        Iniciar sesion
+                    </Button>
+                </div>
+            </form>
+        </div>
+    )
+=======
       >
         <h1 className="text-general-title text-brand-hover font-extrabold text-center">
           Iniciar sesion
@@ -112,4 +154,5 @@ export default function LoginForm() {
       </form>
     </div>
   );
+>>>>>>> piloto_backend
 }

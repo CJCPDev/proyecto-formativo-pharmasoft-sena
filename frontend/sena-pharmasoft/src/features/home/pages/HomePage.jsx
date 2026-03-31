@@ -6,6 +6,18 @@ import { Carousel } from "@/features/home"
 // import { useNavigate } from "react-router-dom"
 
 export default function HomePage (){
+<<<<<<< HEAD
+    // const product = products.find(prod => prod.id === 1)
+    // const navigate = useNavigate()
+
+    return(
+        <div className=" grid bg-brand-soft/20">
+            <HomeNavbar/>
+            <Carousel/>
+
+            <div className="flex pt-8">
+{/*                 <SidebarCategory/> */}
+=======
 
 
     return(
@@ -20,6 +32,7 @@ export default function HomePage (){
 
             <div className="flex pt-8">
   {/*               <SidebarCategory/> */}
+>>>>>>> piloto_backend
                 <Cards/>
             </div>
             <Footer/>

@@ -1,3 +1,39 @@
+<<<<<<< HEAD
+import "../../users/services/selectService"
+import documentTypes from "../../../data/selects/documentTypes.json"
+import userGroups from "../../../data/selects/userGroups.json"
+import { Title, Input, Select, Button, AvatarUploader } from "@/shared/components"
+import { useState } from "react"
+import { userSchema } from "../schemas/userSchema"
+import { useNavigate, useParams } from "react-router-dom"
+import { Plus, Minus } from "lucide-react"
+// import { getDocumentTypes } from "../../users/services/selectService"
+import { users } from "@/data/users/users"
+// import { IconButton } from "../../../shared/components"
+
+export default function UserForm() {
+
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const isEdit = Boolean(id);
+  const user = isEdit ? users.find((u) => u.id === Number(id)) : null;
+
+  const [formData, setFormData] = useState({
+    name: user?.name || "",
+    userEmail: user?.userEmail || "",
+    validationEmail: user?.validationEmail || "",
+    phone: user?.phone || "",
+    phoneAdicional: user?.phoneAdicional || "",
+    documentType: user?.documentType || "",
+    documentNumber: user?.documentNumber || "",
+    userGroup: user?.userGroup || "",
+    direccion: user?.direccion || "",
+    avatarUrl: user?.avatarUrl || null,
+    fechaInicio: user?.fechaInicio || "",
+    fechaFin: user?.fechaFin || "",
+  });
+
+=======
 // ─────────────────────────────────────────────
 // UserForm.jsx
 // Formulario para crear y editar usuarios.
@@ -112,11 +148,22 @@ export default function UserForm() {
   }, [id, isEdit]);
 
   // Actualiza el estado cuando el usuario escribe en un campo
+>>>>>>> piloto_backend
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+<<<<<<< HEAD
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const result = userSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors = {};
+      result.error.issues.forEach((issue) => {
+        const field = issue.path[0];
+        fieldErrors[field] = issue.message;
+=======
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   const result = userSchema.safeParse(formData);
@@ -156,10 +203,26 @@ export default function UserForm() {
       const fieldErrors = {};
       result.error.issues.forEach((issue) => {
         fieldErrors[issue.path[0]] = issue.message;
+>>>>>>> piloto_backend
       });
       setErrors(fieldErrors);
       return;
     }
+<<<<<<< HEAD
+    setErrors({});
+    console.log("Usuario válido:", result.data);
+  };
+
+  const [errors, setErrors] = useState({});
+  const [mostrarTelefonoAdicional, setMostrarTelefonoAdicional] = useState(false);
+  const esFarmaceuta = formData.userGroup === "3";
+
+  return (
+    <div className="bg-white grid gap-2 w-350 rounded-xl">
+      {/* <Title title="Creación de Usuario" /> */}
+          
+      {isEdit ? <Title title="Editar Usuario"/> : <Title title="Crear Usuarios"/>}
+=======
 
     setErrors({});
     setLoading(true);
@@ -221,19 +284,27 @@ export default function UserForm() {
         onSave={(permisos) => setPermisosExtra(permisos)}
         userId={isEdit ? id : null}
       />
+>>>>>>> piloto_backend
 
       <form onSubmit={handleSubmit} className="w-full px-6 rounded-xl">
         <div className="grid grid-cols-3 gap-4">
 
           {/* ── Columna 1 ── */}
           <div className="flex flex-col gap-3">
+<<<<<<< HEAD
+=======
 
             {/* Tipos de documento cargados desde la API */}
+>>>>>>> piloto_backend
             <Select
               label="Tipo de documento"
               name="documentType"
               value={formData.documentType}
+<<<<<<< HEAD
+              options={documentTypes}
+=======
               options={tiposDocumento}
+>>>>>>> piloto_backend
               onChange={handleChange}
               error={errors.documentType}
             />
@@ -274,6 +345,10 @@ export default function UserForm() {
           {/* ── Columna 2 ── */}
           <div className="flex flex-col justify-between gap-2">
 
+<<<<<<< HEAD
+            {/* Bloque superior */}
+=======
+>>>>>>> piloto_backend
             <div className="flex flex-col gap-2">
               <Input
                 label="Dirección"
@@ -283,12 +358,22 @@ export default function UserForm() {
                 onChange={handleChange}
                 error={errors.direccion}
               />
+<<<<<<< HEAD
+=======
 
               {/* Roles cargados desde la API */}
+>>>>>>> piloto_backend
               <Select
                 label="Grupo del usuario"
                 name="userGroup"
                 value={formData.userGroup}
+<<<<<<< HEAD
+                options={userGroups}
+                onChange={handleChange}
+                error={errors.userGroup}
+              />
+              <div className="flex justify-center py-8">
+=======
                 options={roles}
                 onChange={handleChange}
                 error={errors.userGroup}
@@ -296,10 +381,24 @@ export default function UserForm() {
 
               {/* Botón que abre el modal de permisos extra */}
               <div className="flex justify-center items-center py-8 gap-2">
+>>>>>>> piloto_backend
                 <Button
                   variant="primary"
                   size="md"
                   type="button"
+<<<<<<< HEAD
+                  onClick={() => navigate("/permisos")}
+                  >
+                    Agregar Rol
+                  </Button>
+              </div>
+            </div>
+
+            {/* Bloque inferior — celulares al fondo */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-1">
+                {/* <span className="text-sm text-gray-500">Agregar teléfono</span> */}
+=======
                   onClick={() => setIsPermisosModalOpen(true)}
                 >
                   Agregar Permisos
@@ -317,6 +416,7 @@ export default function UserForm() {
             {/* Teléfonos */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-1">
+>>>>>>> piloto_backend
                 <Button
                   size="md"
                   aria-label="Adiccionar teléfono"
@@ -355,7 +455,11 @@ export default function UserForm() {
           {/* ── Columna 3 — Fechas + Avatar ── */}
           <div className="flex flex-col gap-3 p-9">
 
+<<<<<<< HEAD
+            {/* Fechas — solo si es Farmaceuta, encima del avatar */}
+=======
             {/* Fechas solo si es Farmaceuta */}
+>>>>>>> piloto_backend
             {esFarmaceuta && (
               <div className="grid grid-cols-2 gap-3 -mt-8.75">
                 <Input
@@ -377,6 +481,13 @@ export default function UserForm() {
               </div>
             )}
 
+<<<<<<< HEAD
+            {/* Avatar */}
+            <div className="bg-brand-soft/40 flex text-center items-center w-full h-full rounded-lg">
+              <AvatarUploader
+                onUpload={(url) =>
+                  setFormData((prev) => ({ ...prev, avatarUrl: url }))
+=======
             {/* Avatar — opcional, se sube junto con el formulario */}
             <div className="bg-brand-soft/40 flex text-center items-center w-full h-full rounded-lg">
               <AvatarUploader
@@ -386,6 +497,7 @@ export default function UserForm() {
                   currentImage={
                   // Solo pasamos la URL si es string (imagen guardada), no si es File nuevo
                   typeof formData.avatarUrl === 'string' ? formData.avatarUrl : null
+>>>>>>> piloto_backend
                 }
               />
             </div>
@@ -418,6 +530,10 @@ export default function UserForm() {
                     >
                         Regresar
                     </Button>
+<<<<<<< HEAD
+                    <Button variant="primary" size="md" type="submit">
+                        Crear
+=======
                     <Button
                     variant="primary"
                     size="md"
@@ -425,10 +541,13 @@ export default function UserForm() {
                     disabled={isSubmitting}
                     >
                       {isSubmitting ? "Creando..." : "Crear"}
+>>>>>>> piloto_backend
                     </Button>
                     </>
                 )}
             </div>
+<<<<<<< HEAD
+=======
         {/* Botones — muestra loading mientras se guarda */}
         <div className="flex gap-6 justify-center items-center pt-8 pb-4">
           {isEdit ? (
@@ -451,6 +570,7 @@ export default function UserForm() {
             </>
           )}
         </div>
+>>>>>>> piloto_backend
       </form>
     </div>
   );

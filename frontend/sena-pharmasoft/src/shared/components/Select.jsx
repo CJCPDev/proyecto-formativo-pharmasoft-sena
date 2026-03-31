@@ -62,7 +62,11 @@ export default function Select({
                     </option>
                     )
                 )
+<<<<<<< HEAD
+                };
+=======
                 }
+>>>>>>> piloto_backend
             </select>
                 {error && <p className="text-red-700 text-sm mt-1">{error}</p>}
         </div>
