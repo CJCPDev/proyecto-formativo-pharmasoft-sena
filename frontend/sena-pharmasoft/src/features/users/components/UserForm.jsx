@@ -119,14 +119,10 @@ export default function UserForm() {
   // Maneja el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-      console.log("FormData al enviar:", formData); // 👈
-  console.log("avatarUrl es File?:", formData.avatarUrl instanceof File); // 👈
 
     // Validamos los datos con zod antes de enviar
     const result = userSchema.safeParse(formData);
-    console.log("Resultado validación:", result); // 👈
     if (!result.success) {
-      console.log("Errores Zod:", result.error.issues);
       const fieldErrors = {};
       result.error.issues.forEach((issue) => {
         const field = issue.path[0];
@@ -195,6 +191,7 @@ export default function UserForm() {
         onClose={() => setIsPermisosModalOpen(false)}
         onSave={(permisos) => setPermisosExtra(permisos)}
         userId={isEdit ? id : null}
+        userGroupId={formData.userGroup}
       />
 
       <form onSubmit={handleSubmit} className="w-full px-6 rounded-xl">

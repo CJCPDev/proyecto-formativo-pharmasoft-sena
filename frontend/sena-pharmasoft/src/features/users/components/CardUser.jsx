@@ -107,7 +107,7 @@ const CardUser = ({ user }) => {
         <Button
           variant="secondary"
           size="sm"
-          onClick={() => navigate("/usuarios")}
+          onClick={() => navigate(-1)}
         >
           Regresar
         </Button>

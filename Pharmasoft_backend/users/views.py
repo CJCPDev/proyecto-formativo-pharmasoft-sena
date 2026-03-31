@@ -31,9 +31,14 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             'id_rol',
             'id_estado_usuario'
         ).all()
+        # Filtra por número de documento si viene en la URl
         documento = self.request.query_params.get('documento')
         if documento:
             queryset = queryset.filter(numero_documento=documento)
+
+        rol = self.request.query_params.get('rol')
+        if rol:
+            queryset = queryset.filter(id_rol=rol)
         return queryset
 
     # Muestra errores detallados al crear un usuario
