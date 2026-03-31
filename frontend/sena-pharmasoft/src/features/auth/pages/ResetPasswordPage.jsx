@@ -1,5 +1,6 @@
 import ResetPasswordForm from "../components/ResetPasswordForm";
 
+<<<<<<< HEAD
 
 export default function ResetPasswordPage(){
 
@@ -11,3 +12,12 @@ export default function ResetPasswordPage(){
         </div>
     )
 }
+=======
+export default function ResetPasswordPage() {
+  return (
+    <div>
+      <ResetPasswordForm />
+    </div>
+  );
+}
+>>>>>>> piloto_backend

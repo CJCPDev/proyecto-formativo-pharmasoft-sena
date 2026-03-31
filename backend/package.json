@@ -1,14 +1,20 @@
 {
-  "version": "1.0.0",
-  "type": "module",
-  "main": "src/features/server.js",
-  "scripts": {
-    "dev": "node src/features/server.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^17.3.1",
-    "express": "^5.2.1",
-    "joi": "^18.1.1"
-  }
-}
+    "name": "backend",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "",
+    "main": "src/server.js",
+    "scripts": {
+        "dev": "node src/server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "cors": "^2.8.6",
+        "dotenv": "^17.3.1",
+        "express": "^5.2.1",
+        "joi": "^18.1.1",
+        "pg": "^8.20.0"
+    }
+    }
