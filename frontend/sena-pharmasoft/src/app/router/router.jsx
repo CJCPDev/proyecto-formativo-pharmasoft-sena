@@ -2,7 +2,13 @@ import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import { HomePage } from "@/features/home";
+<<<<<<< HEAD
 import { DashboardPage } from "@/features/dashboard"
+=======
+import { DashboardPage } from "@/features/dashboard";
+import { CreateCount } from "@/features/auth";
+import PageCreateCount from "../../shared/layout/PageCreateCount";
+>>>>>>> 3f86780 (feat: actualizacion componentes)
 
 import ProfilePage from "../../features/users/pages/ProfilePage";
 
@@ -16,6 +22,7 @@ import AutoricedPage from "../../features/auth/pages/AutoricedPage";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
 
+import ProtectedRoute from "../../shared/components/ProtectedRoute";
 
 //  imports de usuarios
 import { UserListPage } from "@/features/users";
@@ -64,60 +71,107 @@ const router = createBrowserRouter ([
     },
     {
         path: "ver-card/:id",
-        element: <DetailProductPage/>
-    },
-    {
-        
-        
-        element: <MainLayout/>,
+        element: <DetailProductPage />,
+      },
+      {
+        element: <MainLayout />,
         children: [
+            //Ruta protegida
             {
                 path: "DashboardMain",
-                element: <AutoricedPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <AutoricedPage/>
+                    </ProtectedRoute>
+                ) 
             },
             {
                 path: "crear-proveedor",
-                element: <SuppliersPage/> 
+                element: (
+                <ProtectedRoute>
+                    <SuppliersPage/>
+                </ProtectedRoute> 
+                )
             },
             {
                 path: "listar-proveedor",
-                element: <SuppliersListPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <SuppliersListPage/>
+                    </ProtectedRoute>
+                ) 
             },
             {
                 path: "reportar-proveedor",
-                element: <SuppliersReportPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <SuppliersReportPage/> 
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "ver-proveedor/:id",
-                element: <SuppliersDetailPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <SuppliersDetailPage/>
+                    </ProtectedRoute>
+                ) 
             },
             {
                 path: "ver-proveedor/:id/editar",
-                element: <SupplierEditPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <SupplierEditPage/>
+                    </ProtectedRoute>
+                ) 
             },
             {
                 path: "medicamentos",
-                element: <AdminProductListPage />
+                element: (
+                    <ProtectedRoute rolesPermitidos={[5, 7]}>
+                        <AdminProductListPage />
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "crear-medicamento",
-                element: <CreateProductPage/>
+                element: (
+                    <ProtectedRoute>
+                        <CreateProductPage/>
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "ver-medicamento/:id",
-                element: <ProductDetailPage/>
+                element: (
+                    <ProtectedRoute>
+                        <ProductDetailPage/>
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "editar-medicamento/:id",
-                element: <ProductsEditPage />
+                element: (
+                    <ProtectedRoute>
+                        <ProductsEditPage/>
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "generar-reporte",
-                element: <AdminProductReportPage/>
+                element: (
+                    <ProtectedRoute>
+                        <AdminProductReportPage/>
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "listar-ventas",
-                element: <ListSalePage/>
+                element: (
+                    <ProtectedRoute>
+                        <ListSalePage/>
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "ver-venta/:id/editar",
@@ -135,29 +189,56 @@ const router = createBrowserRouter ([
                 path: "perfil",
                 element: <ProfilePage/> //Definir pagina
             },
+
+            //Ruta protegida y con permiso de ingreso segun roll
             {
                 path: "usuarios",
-                element: <UserListPage/>
+                element: (
+                <ProtectedRoute rolesPermitidos={[5,7]}>
+                    <UserListPage/>
+                </ProtectedRoute>
+                )
             },
             {
                 path: "crear-usuarios",
-                element: <CreateUserPage/> 
+                element: (
+                    <ProtectedRoute rolesPermitidos={[5,7]}>
+                        <CreateUserPage/> 
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "generar-reporte",
-                element: <UserReportPage/> 
+                element: (
+                    <ProtectedRoute>
+                        <UserReportPage/>
+                    </ProtectedRoute>
+                ) 
             },
             {
                 path: "editar-usuarios/:id",
-                element: <EditUserPage/> 
+                element: (
+                    <ProtectedRoute rolesPermitidos={[5,7]}>
+                        <EditUserPage/> 
+                    </ProtectedRoute>
+                )
             },
             {
                 path: "ver-usuarios/:id",
-                element: <ProfileUserPage/> 
+                element: (
+                    <ProtectedRoute rolesPermitidos={[5,7]}>
+                        <ProfileUserPage/> 
+                    </ProtectedRoute>
+                )
+
             },
             {
                 path: "permisos",
-                element: <PermissionsPage/> 
+                element: (
+                    <ProtectedRoute rolesPermitidos={[5]}>
+                        <PermissionsPage/> 
+                    </ProtectedRoute>
+                )
             },
 
         ]

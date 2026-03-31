@@ -6,16 +6,20 @@ import { Carousel } from "@/features/home"
 // import { useNavigate } from "react-router-dom"
 
 export default function HomePage (){
-    // const product = products.find(prod => prod.id === 1)
-    // const navigate = useNavigate()
+
 
     return(
-        <div className=" grid bg-brand-soft/20">
-            <HomeNavbar/>
-            <Carousel/>
+        <div className="grid bg-brand-soft/10">
+            <div className="mb-2">
+                <HomeNavbar/>
+            </div>
+            <div>
+                <Carousel/>
+            </div>
+            
 
             <div className="flex pt-8">
-{/*                 <SidebarCategory/> */}
+  {/*               <SidebarCategory/> */}
                 <Cards/>
             </div>
             <Footer/>

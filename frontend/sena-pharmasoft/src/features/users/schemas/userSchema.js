@@ -1,6 +1,12 @@
+// ─────────────────────────────────────────────
+// userSchema.js
+// Validaciones del formulario de usuario con Zod
+// En modo edición los campos opcionales no son obligatorios
+// ─────────────────────────────────────────────
+
 import { z } from "zod";
 
-export const userSchema = z.object ({
+export const userSchema = z.object({
 
     name: z
         .string()
@@ -11,9 +17,12 @@ export const userSchema = z.object ({
         .string()
         .email("Debe ingresar un email valido"),
 
+    // En edición no es obligatorio confirmar el correo
     validationEmail: z
         .string()
-        .email("Debe ingresar un email valido"),
+        .email("Debe ingresar un email valido")
+        .optional()
+        .or(z.literal("")),
 
     phone: z
         .string()
@@ -25,34 +34,32 @@ export const userSchema = z.object ({
         .optional()
         .or(z.literal("")),
 
+    // Acepta tanto string como número para compatibilidad con la API
     documentType: z
-        .string()
-        .min(1, "Debe seleccionar un tipo de documento"),
+        .union([z.string(), z.number()])
+        .refine((val) => val !== "" && val !== null && val !== undefined, {
+            message: "Debe seleccionar un tipo de documento"
+        }),
 
     documentNumber: z
-        .string()
-        .min(5, "Numero de documento inválido")
-        .max(20, "Numero de documento demasiado largo"),
+        .union([z.string(), z.number()])
+        .refine((val) => String(val).length >= 5, {
+            message: "Numero de documento inválido"
+        }),
 
+    // Acepta tanto string como número para compatibilidad con la API
     userGroup: z
-        .string()
-        .min(1, "Debe seleccionar un grupo de usuario"),
+        .union([z.string(), z.number()])
+        .refine((val) => val !== "" && val !== null && val !== undefined, {
+            message: "Debe seleccionar un grupo de usuario"
+        }),
 
     direccion: z
         .string()
-        .min(1, "Debe seleccionar un tipo de documento"),
-
-    // password: z
-    //     .string()
-    //     .min(8, "Contraseña debe de tener minimo 8 caracteres")
-    //     .regex(/[A-Z]/, "Debe contener al menos una mayúscula")
-    //     .regex(/[a-z]/, "Debe contener al menos una minúscula")
-    //     .regex(/[0-9]/, "Debe contener al menos un número")
-    //     .regex(/[^A-Za-z0-9]/, "Debe contener al menos un carácter especial"),
+        .min(1, "Debe ingresar una dirección"),
 
     avatarUrl: z
-        .string()
-        .url("La URL del avatar no es válida")
+        .any()
         .nullable()
         .optional(),
 
@@ -64,3 +71,23 @@ export const userSchema = z.object ({
   message: "Los correos no coinciden",
   path: ["validationEmail"],
 });
+    // Campos opcionales que no son obligatorios
+    phoneAdicional: z.string().optional().or(z.literal("")),
+    fechaInicio: z.string().optional().or(z.literal("")),
+    fechaFin: z.string().optional().or(z.literal("")),
+
+
+// ─────────────────────────────────────────────
+// Validación cruzada — verifica que los dos correos sean iguales
+// Solo valida si validationEmail tiene valor
+// ─────────────────────────────────────────────
+}).refine(
+    (data) => {
+        if (!data.validationEmail) return true; // si está vacío no valida
+        return data.userEmail === data.validationEmail;
+    },
+    {
+        message: "Los correos electrónicos no coinciden",
+        path: ["validationEmail"], // muestra el error en el campo de confirmación
+    }
+);
