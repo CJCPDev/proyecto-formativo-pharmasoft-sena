@@ -67,14 +67,14 @@ export const userSchema = z.object({
     fechaFin:    z.string().optional(),
 
 // ✅ Agrega esto al final del schema
-}).refine((data) => data.userEmail === data.validationEmail, {
+/* }).refine((data) => data.userEmail === data.validationEmail, {
   message: "Los correos no coinciden",
   path: ["validationEmail"],
 });
     // Campos opcionales que no son obligatorios
     phoneAdicional: z.string().optional().or(z.literal("")),
     fechaInicio: z.string().optional().or(z.literal("")),
-    fechaFin: z.string().optional().or(z.literal("")),
+    fechaFin: z.string().optional().or(z.literal("")), */
 
 
 // ─────────────────────────────────────────────

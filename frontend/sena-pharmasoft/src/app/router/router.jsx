@@ -2,13 +2,9 @@ import { createBrowserRouter } from "react-router-dom"
 import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import { HomePage } from "@/features/home";
-<<<<<<< HEAD
-import { DashboardPage } from "@/features/dashboard"
-=======
 import { DashboardPage } from "@/features/dashboard";
 import { CreateCount } from "@/features/auth";
 import PageCreateCount from "../../shared/layout/PageCreateCount";
->>>>>>> 3f86780 (feat: actualizacion componentes)
 
 import ProfilePage from "../../features/users/pages/ProfilePage";
 
