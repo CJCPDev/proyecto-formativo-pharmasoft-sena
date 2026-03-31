@@ -22,10 +22,7 @@ import AutoricedPage from "../../features/auth/pages/AutoricedPage";
 
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
 
-<<<<<<< HEAD
-=======
 import ProtectedRoute from "../../shared/components/ProtectedRoute";
->>>>>>> piloto_backend
 
 //  imports de usuarios
 import { UserListPage } from "@/features/users";
@@ -74,62 +71,6 @@ const router = createBrowserRouter ([
     },
     {
         path: "ver-card/:id",
-<<<<<<< HEAD
-        element: <DetailProductPage/>
-    },
-    {
-        
-        
-        element: <MainLayout/>,
-        children: [
-            {
-                path: "DashboardMain",
-                element: <AutoricedPage/> 
-            },
-            {
-                path: "crear-proveedor",
-                element: <SuppliersPage/> 
-            },
-            {
-                path: "listar-proveedor",
-                element: <SuppliersListPage/> 
-            },
-            {
-                path: "reportar-proveedor",
-                element: <SuppliersReportPage/> 
-            },
-            {
-                path: "ver-proveedor/:id",
-                element: <SuppliersDetailPage/> 
-            },
-            {
-                path: "ver-proveedor/:id/editar",
-                element: <SupplierEditPage/> 
-            },
-            {
-                path: "medicamentos",
-                element: <AdminProductListPage />
-            },
-            {
-                path: "crear-medicamento",
-                element: <CreateProductPage/>
-            },
-            {
-                path: "ver-medicamento/:id",
-                element: <ProductDetailPage/>
-            },
-            {
-                path: "editar-medicamento/:id",
-                element: <ProductsEditPage />
-            },
-            {
-                path: "generar-reporte",
-                element: <AdminProductReportPage/>
-            },
-            {
-                path: "listar-ventas",
-                element: <ListSalePage/>
-=======
         element: <DetailProductPage />,
       },
       {
@@ -231,7 +172,6 @@ const router = createBrowserRouter ([
                         <ListSalePage/>
                     </ProtectedRoute>
                 )
->>>>>>> piloto_backend
             },
             {
                 path: "ver-venta/:id/editar",
@@ -249,31 +189,6 @@ const router = createBrowserRouter ([
                 path: "perfil",
                 element: <ProfilePage/> //Definir pagina
             },
-<<<<<<< HEAD
-            {
-                path: "usuarios",
-                element: <UserListPage/>
-            },
-            {
-                path: "crear-usuarios",
-                element: <CreateUserPage/> 
-            },
-            {
-                path: "generar-reporte",
-                element: <UserReportPage/> 
-            },
-            {
-                path: "editar-usuarios/:id",
-                element: <EditUserPage/> 
-            },
-            {
-                path: "ver-usuarios/:id",
-                element: <ProfileUserPage/> 
-            },
-            {
-                path: "permisos",
-                element: <PermissionsPage/> 
-=======
 
             //Ruta protegida y con permiso de ingreso segun roll
             {
@@ -324,7 +239,6 @@ const router = createBrowserRouter ([
                         <PermissionsPage/> 
                     </ProtectedRoute>
                 )
->>>>>>> piloto_backend
             },
 
         ]
