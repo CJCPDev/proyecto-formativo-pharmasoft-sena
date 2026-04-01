@@ -3,7 +3,6 @@ import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import { HomePage } from "@/features/home";
 import { DashboardPage } from "@/features/dashboard";
-import { CreateCount } from "@/features/auth";
 import PageCreateCount from "../../shared/layout/PageCreateCount";
 
 import ProfilePage from "../../features/users/pages/ProfilePage";
@@ -64,10 +63,7 @@ const router = createBrowserRouter([
     path: "ver-card/:id",
     element: <DetailProductPage />,
   },
-  {
-    path: "create-count",
-    element: <CreateCount />,
-  },
+
   {
     element: <MainLayout />,
     children: [

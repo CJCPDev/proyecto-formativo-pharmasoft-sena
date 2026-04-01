@@ -8,6 +8,7 @@
     /* colores de la aplicación */
     --color-brand: var(--semantic-brand);
     --color-brand-hover: var(--semantic-brand-hover);
+   --color-brand-400: var(--semantic-brand-400);
     --color-brand-soft: var(--semantic-brand-soft);
     --color-background: var(--semantic-background);
     --color-brand-table: var(--semantic-brand-700);
@@ -28,7 +29,7 @@
     --color-brand-soft: var(--semantic-brand-soft);
     --color-brand-softv2: var(--semantic-brand-soft-v2);
     --color-brand-fort: var(--semantic-brand-fort);
-    --color-brand-hoverv2: var(--semantic-brand-hoverv2);
+    --color-brand-hoverv2: var(--semantic-brand-hover-v2);
     
     --color-backgraund: var(--semantic-primary-50);
     --color-surface: var(--semantic-surface);
