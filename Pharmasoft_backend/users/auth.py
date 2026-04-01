@@ -12,7 +12,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Usuarios
 from datetime import datetime, timedelta, timezone
 
-
 def get_tokens_for_user(usuario):
     """Genera los tokens JWT para un usuario"""
     refresh = RefreshToken()
@@ -22,9 +21,11 @@ def get_tokens_for_user(usuario):
     refresh['email'] = usuario.correo_electronico
 
     # Tiempo de sesión según el rol
+    # Administrador(5) 12 horas
+    # Farmaceuta(7) 8 horas
     tiempos_por_rol = {
-        5: 8,   # Administrador — 8 horas
-        7: 4,   # Farmaceuta — 4 horas
+        5: 12, 
+        7: 8,
     }
     horas = tiempos_por_rol.get(usuario.id_rol_id, 2)
 
@@ -32,12 +33,11 @@ def get_tokens_for_user(usuario):
     expiracion = datetime.now(timezone.utc) + timedelta(hours=horas)
 
     return {
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-        'expiracion': expiracion.isoformat(),
-        'horas_sesion': horas,
+        'refresh' : str(refresh),
+        'access' : str(refresh.access_token),
+        'expiracion' : expiracion.isoformat(),
+        'horas_sesion' : horas,
     }
-
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -50,7 +50,7 @@ def login(request):
             {'error': 'Email y contraseña son requeridos'},
             status=status.HTTP_400_BAD_REQUEST
         )
-
+    
     try:
         # Buscamos el usuario por correo electrónico
         usuario = Usuarios.objects.select_related(
@@ -59,32 +59,34 @@ def login(request):
 
     except Usuarios.DoesNotExist:
         return Response(
-            {'error': 'Credenciales inválidas'},
+            {'error': 'credenciales inválidas'},
             status=status.HTTP_401_UNAUTHORIZED
         )
-
+    
     # Verificamos que el usuario esté activo
     if usuario.id_estado_usuario_id != 1:
         return Response(
             {'error': 'Usuario inactivo, contacta al administrador'},
             status=status.HTTP_401_UNAUTHORIZED
         )
-
+    
     # Verificamos que el rol tenga acceso al sistema
+    # Solo el administrador (5) y Farmaceuta (7)
     roles_permitidos = [5, 7]
     if usuario.id_rol_id not in roles_permitidos:
         return Response(
             {'error': 'No tienes acceso para acceder al sistema'},
             status=status.HTTP_403_FORBIDDEN
         )
-
-    # Verificamos la contraseña — por ahora es el número de documento
+    
+    # Verificamos la contraseña
+    # Por ahora comparamos directamente - despues implementamos hash
     if usuario.numero_documento != int(password):
         return Response(
             {'error': 'Credenciales inválidas'},
             status=status.HTTP_401_UNAUTHORIZED
         )
-
+    
     # Generamos los tokens JWT
     tokens = get_tokens_for_user(usuario)
 
@@ -92,7 +94,7 @@ def login(request):
         'access': tokens['access'],
         'refresh': tokens['refresh'],
         'expiracion': tokens['expiracion'],
-        'horas_sesion': tokens['horas_sesion'],
+        'horas_sesion': tokens['horas_sesion'], 
         'usuario': {
             'id': usuario.id_tipo_usuario,
             'nombre': f"{usuario.nombres} {usuario.apellidos}",
@@ -102,11 +104,11 @@ def login(request):
         }
     }, status=status.HTTP_200_OK)
 
-
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def logout(request):
     try:
+        # Invalidamos el refresh token
         refresh_token = request.data.get('refresh')
         token = RefreshToken(refresh_token)
         token.blacklist()

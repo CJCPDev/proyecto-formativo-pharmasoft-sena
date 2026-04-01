@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+import { ForgotPasswordForm} from '@/'
+
+export default function ForgotPasswordPage(){
+
+
+    return(
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+            <ForgotPasswordForm/>
+        </div>
+    )
+=======
 import { ForgotPasswordForm } from "@/";
 
 export default function ForgotPasswordPage() {
@@ -6,4 +18,5 @@ export default function ForgotPasswordPage() {
       <ForgotPasswordForm />
     </div>
   );
+>>>>>>> piloto_backend
 }

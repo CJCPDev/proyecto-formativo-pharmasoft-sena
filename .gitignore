@@ -1,23 +1,24 @@
-# ── Python ──
+# Dependencias de Node
+node_modules/
+
+# Entorno virtual de Python
+venv/
+
+# Caché de Python
 __pycache__/
 *.pyc
 *.pyo
-venv/
 
-# ── Node ──
-node_modules/
-
-# ── Build de React ──
-dist/
-
-# ── Variables de entorno ──
+# Variables de entorno
 .env
 .env.local
-.env.production
 
-# ── Archivos de sistema ──
+# Build de React
+dist/
+
+# Archivos de sistema
 .DS_Store
 Thumbs.db
 
-# ── Logs ──
+# Logs
 *.log

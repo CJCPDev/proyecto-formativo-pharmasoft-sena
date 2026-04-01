@@ -14,10 +14,10 @@ export const login = async (email, password) => {
         email,
         password
     });
-
+console.log("Respuesta backend:", response.data);
     //Guardamos el token y los datos del usuario en localStorage
     localStorage.setItem('access_token', response.data.access);
-    localStorage.setItem('refresh_token', response.data.access);
+    localStorage.setItem('refresh_token', response.data.refresh);
     localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
     
     //Guardamos la hora exacta de expiracion según el rol

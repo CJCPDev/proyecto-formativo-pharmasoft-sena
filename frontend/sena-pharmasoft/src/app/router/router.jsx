@@ -3,7 +3,7 @@ import MainLayout from "../../shared//layout/MainLayout";
 import AuthLayout from "../../shared/layout/AuthLayout";
 import { HomePage } from "@/features/home";
 import { DashboardPage } from "@/features/dashboard";
-import { CreateCount } from "@/features/auth"
+import { CreateCount } from "@/features/auth";
 import PageCreateCount from "../../shared/layout/PageCreateCount";
 
 import ProfilePage from "../../features/users/pages/ProfilePage";
@@ -19,7 +19,6 @@ import AutoricedPage from "../../features/auth/pages/AutoricedPage";
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
 
 import ProtectedRoute from "../../shared/components/ProtectedRoute";
-
 
 //  imports de usuarios
 import { UserListPage } from "@/features/users";

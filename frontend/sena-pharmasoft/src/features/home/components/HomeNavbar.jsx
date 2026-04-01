@@ -1,11 +1,18 @@
 import { Search, ShoppingCart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logot from "@/assets/images/logo-removebg-preview.png";
 import CartModal from "../../sales/components/CartModal";
 import { useState } from "react";
+import { Button } from "../../../shared/components";
+
 
 const Navbar = ({ variant = "solid" }) => {
   const [openCart, setOpenCart] = useState(false);
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate ("/create-count")
+  }
 
   return (
     <nav
@@ -34,13 +41,10 @@ const Navbar = ({ variant = "solid" }) => {
           </div>
 
           <div className="flex items-center gap-4">
-
-            <Link
-              to="/create-count"
-              className="hover:text-primary transition"
-            >
-              Crear cuenta
-            </Link>
+            <Button
+            onClick = {handleClick}>
+                Crear cuenta
+            </Button>
 
             <Link
               to="/login"
