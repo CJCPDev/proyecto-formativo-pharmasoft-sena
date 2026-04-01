@@ -107,3 +107,12 @@ SIMPLE_JWT = {
     # El refresh token dura 1 día
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
+
+# Configuracion de email con Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'pharmasoft321@gmail.com'
+EMAIL_HOST_PASSWORD = 'kibu jurr lhcm vfhd'
+DEFAULT_FROM_EMAIL = 'Pharmasoft <pharmasoft321@gmail.com>'
