@@ -12,11 +12,6 @@ export default function AuthLayout (){
         '/validation',
         '/confirmationPassword',
         '/validationPassword'
-<<<<<<< HEAD
-
-        
-=======
->>>>>>> piloto_backend
     ]
 
     const location = useLocation();

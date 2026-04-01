@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-import { z } from "zod";
-
-export const userSchema = z.object ({
-=======
 // ─────────────────────────────────────────────
 // userSchema.js
 // Validaciones del formulario de usuario con Zod
@@ -12,7 +7,6 @@ export const userSchema = z.object ({
 import { z } from "zod";
 
 export const userSchema = z.object({
->>>>>>> piloto_backend
 
     name: z
         .string()
@@ -23,56 +17,17 @@ export const userSchema = z.object({
         .string()
         .email("Debe ingresar un email valido"),
 
-<<<<<<< HEAD
-    validationEmail: z
-        .string()
-        .email("Debe ingresar un email valido"),
-=======
     // En edición no es obligatorio confirmar el correo
     validationEmail: z
         .string()
         .email("Debe ingresar un email valido")
         .optional()
         .or(z.literal("")),
->>>>>>> piloto_backend
 
     phone: z
         .string()
         .regex(/^[0-9]{10}$/, "El telefono debe tener 10 digitos"),
 
-<<<<<<< HEAD
-    documentType: z
-        .string()
-        .min(1, "Debe seleccionar un tipo de documento"),
-
-    documentNumber: z
-        .string()
-        .min(5, "Numero de documento inválido")
-        .max(20, "Numero de documento demasiado largo"),
-
-    userGroup: z
-        .string()
-        .min(1, "Debe seleccionar un grupo de usuario"),
-
-    direccion: z
-        .string()
-        .min(1, "Debe seleccionar un tipo de documento"),
-
-    // password: z
-    //     .string()
-    //     .min(8, "Contraseña debe de tener minimo 8 caracteres")
-    //     .regex(/[A-Z]/, "Debe contener al menos una mayúscula")
-    //     .regex(/[a-z]/, "Debe contener al menos una minúscula")
-    //     .regex(/[0-9]/, "Debe contener al menos un número")
-    //     .regex(/[^A-Za-z0-9]/, "Debe contener al menos un carácter especial"),
-
-    avatarUrl: z
-        .string()
-        .url("La URL del avatar no es válida")
-        .nullable()
-        .optional()
-});
-=======
     phoneAdicional: z
         .string()
         .regex(/^[0-9]{10}$/, "El telefono debe tener 10 digitos")
@@ -136,4 +91,3 @@ export const userSchema = z.object({
         path: ["validationEmail"], // muestra el error en el campo de confirmación
     }
 );
->>>>>>> piloto_backend
