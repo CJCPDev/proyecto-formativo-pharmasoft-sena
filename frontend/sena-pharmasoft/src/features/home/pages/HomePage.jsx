@@ -5,7 +5,7 @@ import Footer from "../../../shared/layout/Footer";
 import { Carousel } from "@/features/home";
 import { useState } from "react";
 import Logo from "@/assets/images/logo-removebg-preview.png";
-import AuthModal from "../components/AuthModal";
+import {AuthModal} from "@/features/home";
 
 export default function HomePage() {
   const [openRegister, setOpenRegister] = useState(false);
@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <div className="grid bg-brand-soft/10">
       <div className="mb-2">
-        <HomeNavbar onOpenRegister={() => setOpenRegister(true)} />
+        <HomeNavbar onOpenRegister={() => setOpenLogin(true)} />
       </div>
       <div>
         <Carousel />

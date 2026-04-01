@@ -44,7 +44,7 @@ const Navbar = ({ variant = "solid", onOpenRegister }) => {
               className="bg-brand-hover text-white px-6 py-2.5 rounded-lg shadow-md 
               hover:bg-[#0f3d11] hover:scale-105 active:scale-95 transition-all duration-200 font-semibold"
             >
-              Crear Cuenta
+              Iniciar sesion
             </Button>
 
             {/* LOGIN */}
@@ -52,7 +52,7 @@ const Navbar = ({ variant = "solid", onOpenRegister }) => {
               to="/login"
               className="text-gray-700 hover:text-brand-hover transition font-medium"
             >
-              Ingresar
+              Empleados
             </Link>
 
             {/* CARRITO */}
