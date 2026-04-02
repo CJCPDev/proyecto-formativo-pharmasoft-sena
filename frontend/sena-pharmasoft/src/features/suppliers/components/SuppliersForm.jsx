@@ -5,6 +5,7 @@ import { getSupplierById } from "../services/getSupplierById"
 import { useEffect, useState } from "react"
 import { supplierSchema } from "../schemas/supplierSchema"
 import { getSuppliersState } from "../services/selectService"
+import { createSupplier } from "../services/supplierService"
 import { Title, Input, Select, Button } from "@/shared/components"
 import { useParams, useNavigate } from "react-router-dom"
 
@@ -46,7 +47,7 @@ export default function SuppliersForm (){
 
     //============== HANDLE SUBMIT ============== 
     // Función que se ejecuta cuando se envía el formulario 
-    const handleSubmit = (e) => { 
+    const handleSubmit = async (e) => { 
         // Evita que el formulario recargue la página 
         e.preventDefault(); 
         // Se valida el objeto formData usando el esquema definido con Zod 
@@ -71,9 +72,26 @@ export default function SuppliersForm (){
         }
         // Si la validación es exitosa se limpian los errores anteriores 
         setErrors({}); 
-        // result.data contiene los datos ya validados por Zod 
-        console.log("Proveedor válido:", result.data); 
+        try {
+            //AQUÍ SE CONSUME EL SERVICIO
+            const dataToSend = {
+                ...formData,
+                estado: formData.estado === "Activo"
+            };
+            const data = await createSupplier(dataToSend);
+
+            console.log("Proveedor creado:", data);
+
+            navigate("/listar-proveedor");
+
+        } catch (error) {
+            console.error(error.message);
+
+            // mostrar error general
+            setErrors({ general: error.message });
+        }
     };
+    
     //Estados de los errores
     const [error, setErrors] = useState({})
 
