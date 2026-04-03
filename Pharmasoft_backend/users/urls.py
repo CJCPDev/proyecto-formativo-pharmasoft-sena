@@ -14,11 +14,12 @@ from .views import (
     UsuarioPermisoViewSet,
     subir_avatar,
     cambiar_estado_usuario,
-    permisos_usuario_combinados
+    permisos_usuario_combinados,
+    cambiar_contrasena
 )
 from .auth import login, logout
 
-from .auth import login,logout
+from .password_reset import solicitar_codigo, verificar_codigo, cambiar_contrasena as cambiar_contrasena_reset
 
 router = DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet, basename='usuario')
@@ -35,4 +36,10 @@ urlpatterns = router.urls + [
     # Endpoints de autentificación
     path('auth/login/', login, name='login'),
     path('auth/logout/', logout, name='logout'),
+    path('usuarios/<int:pk>/cambiar_contrasena/', cambiar_contrasena, name='cambiar-contrasena'),
+
+    # Recupereación de contraseña
+    path('auth/solicitar-codigo/', solicitar_codigo, name='solicitar-codigo'),
+    path('auth/verificar-codigo/', verificar_codigo, name='verificar-codigo'),
+    path('auth/cambiar-contrasena/', cambiar_contrasena_reset, name='cambiar-contrasena-reset'),
 ]

@@ -60,13 +60,24 @@ class UsuarioSerializer(serializers.ModelSerializer):
         return internal
 
     def create(self, validated_data):
-        # Asignamos estado activo por defecto al crear el usuario
+        from users.auth import encriptar_contraseña
+
+        # Asignamos estado activo por defecto
         validated_data['id_estado_usuario_id'] = 1
+
+        # Si es administrador o farmaceuta la contraseña inicial es el número de docuemnto
+        roles_con_contraseña_inicial = [5,7]
+        id_rol = validated_data.get('id_rol_id')
+
+        if id_rol in roles_con_contraseña_inicial:
+            numero_documento = validated_data.get('numero_documento')
+            # Enxriptamos el número de documento como contraseña inicial
+            validated_data['contrasena'] = encriptar_contraseña(str(numero_documento))
 
         # Creamos el usuario
         usuario = Usuarios.objects.create(**validated_data)
 
-        # Copiamos automáticamente los permisos del rol al usuario
+        # Copiamos automáticamente los permisos del rol
         if usuario.id_rol_id:
             # Obtenemos los permisos del rol
             permisos_rol = RolPermisos.objects.filter(id_rol=usuario.id_rol_id)

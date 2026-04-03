@@ -42,6 +42,7 @@ class Usuarios(models.Model):
     numero_telefono = models.BigIntegerField()
     direccion = models.CharField(max_length=150)
     file = models.TextField(blank=True, null=True)
+    contrasena = models.CharField(max_length=255, blank=True, null=True)
     id_documento = models.ForeignKey(TipoDocumento, models.DO_NOTHING, db_column='id_documento', blank=True, null=True)
     id_rol = models.ForeignKey(Roles, models.DO_NOTHING, db_column='id_rol', blank=True, null=True)
     id_estado_usuario = models.ForeignKey(EstadoUsuario, models.DO_NOTHING, db_column='id_estado_usuario', blank=True, null=True)

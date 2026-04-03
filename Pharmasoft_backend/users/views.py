@@ -171,3 +171,54 @@ def permisos_usuario_combinados(request, pk):
     permisos = Permisos.objects.filter(id_permiso__in=ids_combinados)
     serializer = PermisoSerializer(permisos, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Endpoint para cambiar la contraseña del usuario
+@api_view(['POST'])
+def cambiar_contrasena(request, pk):
+    try:
+        usuario = Usuarios.objects.get(pk=pk)
+    except Usuarios.DoesNotExist:
+        return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+    contrasena_actual = request.data.get('contrasena_actual')
+    nueva_contrasena = request.data.get('nueva_contrasena')
+    confirmar_contrasena = request.data.get('confirmar_contrasena')
+
+    # Verificamos que todos los campos estén presentes
+    if not contrasena_actual or not nueva_contrasena or not confirmar_contrasena:
+        return Response(
+            {'error': 'Todos los campos son requeridos'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Verificamos que la nueva contraseña y la confirmación coincidan
+    if nueva_contrasena != confirmar_contrasena:
+        return Response(
+            {'error': 'Las contraseñas no coinciden'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Verificamos la contraseña actual
+    from .auth import verificar_contrasena, encriptar_contrasena
+    if usuario.contrasena:
+        if not verificar_contrasena(contrasena_actual, usuario.contrasena):
+            return Response(
+                {'error': 'La contraseña actual es incorrecta'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+    else:
+        # Si no tiene contraseña usa el número de documento
+        if usuario.numero_documento != int(contrasena_actual):
+            return Response(
+                {'error': 'La contraseña actual es incorrecta'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+    # Encriptamos y guardamos la nueva contraseña
+    usuario.contrasena = encriptar_contrasena(nueva_contrasena)
+    usuario.save()
+
+    return Response(
+        {'message': 'Contraseña actualizada correctamente'},
+        status=status.HTTP_200_OK
+    )
