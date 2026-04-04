@@ -2,113 +2,129 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Select, Button, Input, Title, AvatarUploader } from "../../../../shared/components";
 import { medicamentoSchema } from "../../schemas/medicamentoSchema";
-import { getProductsById } from "../../services/getProductsById";
-import { getPharmaForm, getAdministrationTypes, getSuppliers, getLaboratoriesTypes, getStatesTypes } from "../../services/selectService"; 
+import { 
+  getPharmaForm, 
+  getAdministrationTypes, 
+  getSuppliers, 
+  getLaboratoriesTypes, 
+  getStatesTypes,
+} from "../../services/selectService"; 
 
 export default function FormMedicamentos() {
   const navigate = useNavigate();
-  const params = useParams()
-  const isEdit = Boolean(params.id)
-  const product = isEdit ? getProductsById(params.id) : null
+  const params = useParams();
+  const isEdit = Boolean(params.id);
 
-      const [formData, setFormData] = useState({
-          nombreMedicamento: product?.nombreMedicamento || "",
-          formaFarmaceutica: product?.formaFarmaceutica || "",
-          viaAdministracion: product?.viaAdministracion || "",            
-          laboratorio: product?.laboratorio || "",
-          concentracion: product?.concentracion || "",
-          proveedor: product?.proveedor || "",
-          lote: product?.lote || "",
-          fechaFabricacion: product?.fechaFabricacion || "",
-          fechaVencimiento: product?.fechaVencimiento || "",
-          stock: product?.stock || "",
-          precioCosto: product?.precioCosto || "",
-          precioVenta: product?.precioVenta || "",
-          requiresPrescription: product?.requiresPrescription || "",
-          estado: product?.estado || "",
-          description: product?.description || ""
-          })
+  const [formData, setFormData] = useState({
+    nombreMedicamento: "",
+    formaFarmaceutica: "",
+    viaAdministracion: "",
+    laboratorio: "",
+    concentracion: "",
+    proveedor: "",
+    lote: "",
+    fechaFabricacion: "",
+    fechaVencimiento: "",
+    stock: "",
+    precioCosto: "",
+    precioVenta: "",
+    requiresPrescription: "",
+    estado: "",
+    description: ""
+  });
 
-    // ==========================HANDLER=====================================
-    // Función que se ejecuta cada vez que cambia el valor de un input del formulario 
-    const handleChange = (e) => { 
-    // Se obtiene el nombre del campo (name) y su valor actual (value) 
-    // desde el elemento que disparó el evento 
-    const { name, value } = e.target; 
-    // Se actualiza el estado del formulario 
-    // prev representa el estado anterior del formulario 
-    setFormData((prev) => ({ 
-    // Se copian todos los valores anteriores del estado 
-    ...prev, 
-    // Se actualiza únicamente el campo que cambió 
-    // [name] permite usar el nombre del input como clave dinámica 
-    [name]: value, 
-    }));
-};	
-    //========================================================================
-
-    //============== HANDLE SUBMIT ============== 
-    // Función que se ejecuta cuando se envía el formulario 
-    const handleSubmit = (e) => { 
-    // Evita que el formulario recargue la página 
-    e.preventDefault(); 
-    // Se valida el objeto formData usando el esquema definido con Zod 
-    // safeParse devuelve un objeto indicando si la validación fue exitosa o no 
-    const result = medicamentoSchema.safeParse(formData); 
-    // Si la validación falla 
-    if (!result.success) { 
-    // Objeto donde se almacenarán los errores por campo 
-    const fieldErrors = {}; 
-    // Zod devuelve los errores en un arreglo llamado issues 
-    // Se recorren para asociar cada error a su campo correspondiente 
-    result.error.issues.forEach((issue) => { 
-    // issue.path contiene la ruta del campo que falló 
-    const field = issue.path[0]; 
-    // Se guarda el mensaje de error en el objeto fieldErrors 
-    fieldErrors[field] = issue.message; 
-    }); 
-    // Se actualiza el estado de errores para mostrarlos en el formulario 
-    setErrors(fieldErrors); 
-    // Se detiene la ejecución porque el formulario tiene errores 
-    return; 
+  // Cargar datos si es edición
+  useEffect(() => {
+    if (isEdit) {
+      fetch(`http://127.0.0.1:8000/api/medicamentos/${params.id}/`)
+        .then(res => res.json())
+        .then(data => {
+          setFormData({
+            nombreMedicamento: data.nombreMedicamento || "",
+            formaFarmaceutica: data.formaFarmaceutica ? String(data.formaFarmaceutica) : "",
+            viaAdministracion: data.viaAdministracion ? String(data.viaAdministracion) : "",
+            laboratorio: data.laboratorio ? String(data.laboratorio) : "",
+            concentracion: data.concentracion || "",
+            proveedor: data.proveedor ? String(data.proveedor) : "",
+            lote: data.lote || "",
+            fechaFabricacion: data.fechaFabricacion || "",
+            fechaVencimiento: data.fechaVencimiento || "",
+            stock: data.stock || "",
+            precioCosto: data.precioCosto || "",
+            precioVenta: data.precioVenta || "",
+            requiresPrescription: data.requiresPrescription ? String(data.requiresPrescription) : "",
+            estado: data.estado ? String(data.estado) : "",
+            description: data.description || ""
+          });
+        })
+        .catch(err => console.error("Error cargando medicamento:", err));
     }
-    // Si la validación es exitosa se limpian los errores anteriores 
-    setErrors({}); 
-    // result.data contiene los datos ya validados por Zod 
-    console.log("Usuario válido:", result.data); 
-    };
+  }, [isEdit, params.id]);
 
-    // Estado de los errores
-    const [errors, setErrors] = useState({});
-
-    // Estado de los tipos de documento
-    // const [documentTypes, setDocumentTypes] = useState([]);
-
+  // Estados para los selects
   const [pharmaForm, setPharmaForm] = useState([]);
-  useEffect(()=> {
-    getPharmaForm().then(setPharmaForm)
-  }, []);
-
   const [administrationTypes, setAdministrationTypes] = useState([]);
-  useEffect(()=> {
-    getAdministrationTypes().then(setAdministrationTypes)
-    
-  }, []);
-
   const [suppliers, setSuppliers] = useState([]);
-  useEffect(()=> {
-    getSuppliers().then(setSuppliers)
-  }, []);
-
   const [laboratoriesTypes, setLaboratoriesTypes] = useState([]);
-  useEffect(()=> {
-    getLaboratoriesTypes().then(setLaboratoriesTypes)
+  const [statesTypes, setStatesTypes] = useState([]);
+
+  // Cargar opciones dinámicas
+  useEffect(() => {
+    getPharmaForm().then(setPharmaForm);
+    getAdministrationTypes().then(setAdministrationTypes);
+    getSuppliers().then(setSuppliers);
+    getLaboratoriesTypes().then(setLaboratoriesTypes);
+    getStatesTypes().then(setStatesTypes);
   }, []);
 
-  const [statesTypes, setStatesTypes] = useState([]);
-  useEffect(()=> {
-    getStatesTypes().then(setStatesTypes)
-  }, []); 
+  console.log("OPTIONS:", pharmaForm)
+
+  // Estado de errores
+  const [errors, setErrors] = useState({});
+
+  // Handler de cambios
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  // Handler de submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const result = medicamentoSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors = {};
+      result.error.issues.forEach(issue => {
+        const field = issue.path[0];
+        fieldErrors[field] = issue.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
+
+    setErrors({});
+
+    const url = isEdit
+      ? `http://127.0.0.1:8000/api/medicamentos/${params.id}/`
+      : `http://127.0.0.1:8000/api/medicamentos/`;
+
+    const method = isEdit ? "PUT" : "POST";
+
+    fetch(url, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    })
+      .then(res => res.json())
+      .then(() => {
+        navigate("/medicamentos");
+      })
+      .catch(err => console.error("Error guardando medicamento:", err));
+  };
 console.log("FORM DATA:", formData);
 console.log("OPTIONS:", administrationTypes);
   return (
@@ -122,7 +138,7 @@ console.log("OPTIONS:", administrationTypes);
             <div className="flex flex-col gap-6 flex-1">
               <Input
                 label="Nombre del medicamento"
-                name="nombre"
+                name="nombreMedicamento"
                 placeholder="Nombre del medicamento"
                 value={formData.nombreMedicamento}
                 onChange={handleChange}

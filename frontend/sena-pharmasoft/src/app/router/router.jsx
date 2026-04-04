@@ -108,8 +108,8 @@ const router = createBrowserRouter ([
                 element: <ProductDetailPage/>
             },
             {
-                path: "editar-medicamento/:id",
-                element: <ProductsEditPage />
+            path: "editar-medicamento/:id",
+            element: <ProductsEditPage />
             },
             {
                 path: "generar-reporte",

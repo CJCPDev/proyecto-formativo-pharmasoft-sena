@@ -8,24 +8,17 @@ import { useNavigate } from "react-router-dom";
 // Recibe como prop el objeto user
 export default function ProductsRowActions({ products }) {
 
-  // const handleEdit = () => {
-  //   console.log("Editar usuario", user.id);
-  // };
-
   // Hook que permite redirigir a otra ruta desde código
     const navigate = useNavigate();
 
     // Acción para editar el usuario
     // Redirige a la página de edición usando el id del usuario
     const handleEdit = () => {
-        navigate(`/editar-medicamento/${products.id}`);
+        navigate(`/editar-medicamento/${products.id_medicamento}`);
     };
 
-    // Acción para eliminar el usuario
-    // Actualmente solo imprime en consola el id
-    // En una aplicación real aquí se llamaría a la API
     const handleDetail = () => {
-        navigate(`/ver-medicamento/${products.id}`);
+        navigate(`/ver-medicamento/${products.id_medicamento}`);
     };
 
     return (
