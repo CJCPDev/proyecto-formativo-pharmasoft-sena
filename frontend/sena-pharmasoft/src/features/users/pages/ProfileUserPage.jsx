@@ -1,7 +1,5 @@
 // ─────────────────────────────────────────────
-// ProfileUserPage.jsx
-// Página que muestra el detalle de un usuario
-// Carga los datos desde la API de Django
+// ProfileUserPage.jsx (EXPRESS)
 // ─────────────────────────────────────────────
 
 import { CardUser } from "@/features/users"
@@ -12,12 +10,10 @@ import { getUsuario } from "../services/usuarioService"
 export default function ProfileUserPage() {
   const { id } = useParams();
 
-  // Estado para guardar los datos del usuario
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Carga el usuario desde la API al montar el componente
   useEffect(() => {
     const cargarUsuario = async () => {
       try {

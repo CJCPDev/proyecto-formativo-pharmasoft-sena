@@ -1,16 +1,35 @@
 import DataTable from "@/shared/components/DataTable";
 import { ProductsColumns } from "../../table/ProductsColumns";
 import { Button, Title } from "@/shared/components";
-import { Link } from "react-router-dom";
-import { products } from "@/data/products/products";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getProducts } from "../../services/productService";
 import ReportConfigModal from "../../reports/components/ReportConfigModal";
+
+
+
 
 export default function AdminProductListPage() {
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
-
+  const [products, setProducts] = useState([]);
   const Navigate = useNavigate();
+useEffect(() => {
+  getProducts().then((data) => {
+    const normalized = data.map((p) => ({
+      id: p.id,
+      nombreMedicamento: p.nombremedicamento,
+      formaFarmaceutica: p.forma_farmaceutica,
+      viaAdministracion: p.via_administracion,
+      concentracion: p.concentracion,
+      stock: p.stock,
+      precioVenta: p.precio_venta,
+      fechaVencimiento: p.fecha_vencimiento,
+      is_active: p.is_active,
+    }));
+
+    setProducts(normalized);
+  });
+}, []);
 
   return (
     <div

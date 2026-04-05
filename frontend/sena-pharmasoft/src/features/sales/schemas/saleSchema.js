@@ -9,12 +9,14 @@ export const saleSchema = z.object({
         .string()
         .min(1, "Debe seleccionar un farmaceuta"),
 
-    sellStates: z
-        .string()
-        .min(1, "Debe seleccionar un estado"),
+sellStates: z
+  .string()
+  .min(1, "Debe seleccionar un estado")
+  .transform(Number),
 
-    paymentStates: z
-        .string()
-        .min(1, "Debe seleccionar un tipo de pago"),
+paymentStates: z
+  .string()
+  .min(1, "Debe seleccionar un tipo de pago")
+  .transform(Number),
 
 })

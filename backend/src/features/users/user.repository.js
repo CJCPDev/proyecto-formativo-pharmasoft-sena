@@ -1,8 +1,6 @@
 // src/features/users/user.repository.js
 
-
 import { pool } from "../../config/db.js";
-
 
 export const userRepository = {
   async create(userData) {
@@ -19,7 +17,6 @@ export const userRepository = {
       fechaInicio,
       fechaFin,
     } = userData;
-
 
     const query = `
       INSERT INTO users (
@@ -39,7 +36,6 @@ export const userRepository = {
       RETURNING id;
     `;
 
-
     const values = [
       name,
       userEmail,
@@ -54,10 +50,23 @@ export const userRepository = {
       fechaFin || null,
     ];
 
-
     const result = await pool.query(query, values);
-
 
     return result.rows[0];
   },
+
+  // ✅ NUEVO MÉTODO (ESTE ES EL QUE TE FALTA)
+async getAll() {
+  const result = await pool.query("SELECT * FROM public.users");
+  return result.rows;
+},
+  
+async getById(id) {
+  const result = await pool.query(
+    "SELECT * FROM users WHERE id = $1",
+    [id]
+  );
+  return result.rows[0];
+}
+
 };

@@ -67,7 +67,7 @@ export const ProductsColumns = [
 
             // Se obtiene el objeto completo del producto de la fila
             const products = row.original;
-
+const estado = Boolean(products.is_active);
             // Función que se ejecuta cuando cambia el switch
             const handleChange = (value) => {
                 // value representa el nuevo estado del switch (true o false)
@@ -80,7 +80,7 @@ export const ProductsColumns = [
             return (
                 // Componente reutilizable para mostrar el switch
                 <StatusSwitch
-                    checked={products.is_active} // Estado actual del producto
+                    checked={estado} // Estado actual del producto
                     onChange={handleChange}     // Función que maneja el cambio
                 />
             );

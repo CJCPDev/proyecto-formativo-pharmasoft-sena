@@ -1,24 +1,27 @@
+import axios from "axios";
 
+const API_URL = "http://localhost:4000/api/productos";
 
-const API_URL = "http://localhost:4000/api/products";
+// CREATE
+export const createProduct = async (data) => {
+  const response = await axios.post(API_URL, data);
+  return response.data;
+};
 
+// GET ALL
+export const getProducts = async () => {
+  const response = await axios.get(API_URL);
+  return response.data;
+};
 
-export async function createProduct(productData) {
-  const response = await fetch(API_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(productData),
-  });
+// GET BY ID
+export const getProductById = async (id) => {
+  const response = await axios.get(`${API_URL}/${id}`);
+  return response.data;
+};
 
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || "Error al crear producto");
-  }
-
-
-  return response.json();
-}
-``
+// UPDATE
+export const updateMedicamento = async (id, data) => {
+  const response = await axios.put(`${API_URL}/${id}`, data);
+  return response.data;
+};

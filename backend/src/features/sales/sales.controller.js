@@ -1,15 +1,15 @@
-import {productService} from "./product.service.js";
+import {saleService} from "./sales.service.js";
 
-export const productController = {
+export const saleController = {
   async create(req, res) {
     console.log("BODY RECIBIDO:", req.body);
 
     try {
-      const product = await productService.createProduct(req.body);
+      const sale = await saleService.createSale(req.body);
 
       res.status(201).json({
-        message: "Producto creado correctamente",
-        productId: product.id,
+        message: "venta creada correctamente",
+        saleId: sale.id,
       });
 
     } catch (err) {
@@ -24,9 +24,9 @@ export const productController = {
 
   async getAll(req, res) {
     try {
-      const products = await productService.getAll();
+      const sale = await saleService.getAll();
 
-      res.json(products);
+      res.json(sale);
     } catch (error) {
       console.error("🔥 ERROR BACKEND:", error);
       res.status(500).json({ error: error.message });
@@ -35,8 +35,8 @@ export const productController = {
 
   async getById(req, res) {
     try {
-      const product = await productService.getById(req.params.id);
-      res.json(product);
+      const sale = await saleService.getById(req.params.id);
+      res.json(sale);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }

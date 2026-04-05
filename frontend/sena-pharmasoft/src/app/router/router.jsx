@@ -69,98 +69,98 @@ const router = createBrowserRouter([
     children: [
       {
         path: "DashboardMain",
-        element: (
-          <ProtectedRoute>
-            <AutoricedPage />
-          </ProtectedRoute>
-        ),
+        element: 
+
+            <AutoricedPage />,
+
+        
       },
       {
         path: "crear-proveedor",
         element: (
-          <ProtectedRoute>
+     
             <SuppliersPage />
-          </ProtectedRoute>
+        
         ),
       },
       {
         path: "listar-proveedor",
         element: (
-          <ProtectedRoute>
+    
             <SuppliersListPage />
-          </ProtectedRoute>
+     
         ),
       },
       {
         path: "reportar-proveedor",
         element: (
-          <ProtectedRoute>
+   
             <SuppliersReportPage />
-          </ProtectedRoute>
+      
         ),
       },
       {
         path: "ver-proveedor/:id",
         element: (
-          <ProtectedRoute>
+      
             <SuppliersDetailPage />
-          </ProtectedRoute>
+      
         ),
       },
       {
         path: "ver-proveedor/:id/editar",
         element: (
-          <ProtectedRoute>
+    
             <SupplierEditPage />
-          </ProtectedRoute>
+       
         ),
       },
       {
         path: "medicamentos",
         element: (
-          <ProtectedRoute rolesPermitidos={[5, 7]}>
+       
             <AdminProductListPage />
-          </ProtectedRoute>
+
         ),
       },
       {
         path: "crear-medicamento",
         element: (
-          <ProtectedRoute>
+        
             <CreateProductPage />
-          </ProtectedRoute>
+          
         ),
       },
       {
         path: "ver-medicamento/:id",
         element: (
-          <ProtectedRoute>
+        
             <ProductDetailPage />
-          </ProtectedRoute>
+          
         ),
       },
       {
         path: "editar-medicamento/:id",
         element: (
-          <ProtectedRoute>
+
             <ProductsEditPage />
-          </ProtectedRoute>
+
         ),
       },
       {
         path: "generar-reporte",
         element: (
-          <ProtectedRoute>
+
             <AdminProductReportPage />
-          </ProtectedRoute>
+
         ),
       },
       {
         path: "listar-ventas",
         element: (
-          <ProtectedRoute>
+
             <ListSalePage />
-          </ProtectedRoute>
+
         ),
       },
       {
@@ -183,50 +183,50 @@ const router = createBrowserRouter([
       //Ruta protegida y con permiso de ingreso segun rol
       {
         path: "usuarios",
-        element: (
-          <ProtectedRoute rolesPermitidos={[5, 7]}>
-            <UserListPage />
-          </ProtectedRoute>
-        ),
+        element: 
+      
+            <UserListPage />,
+
+        
       },
       {
         path: "crear-usuarios",
         element: (
-          <ProtectedRoute rolesPermitidos={[5, 7]}>
+
             <CreateUserPage />
-          </ProtectedRoute>
+
         ),
       },
       {
         path: "generar-reporte",
         element: (
-          <ProtectedRoute>
+
             <UserReportPage />
-          </ProtectedRoute>
+
         ),
       },
       {
         path: "editar-usuarios/:id",
         element: (
-          <ProtectedRoute rolesPermitidos={[5, 7]}>
+
             <EditUserPage />
-          </ProtectedRoute>
+
         ),
       },
       {
         path: "ver-usuarios/:id",
         element: (
-          <ProtectedRoute rolesPermitidos={[5, 7]}>
+
             <ProfileUserPage />
-          </ProtectedRoute>
+
         ),
       },
       {
         path: "permisos",
         element: (
-          <ProtectedRoute rolesPermitidos={[5]}>
+
             <PermissionsPage />
-          </ProtectedRoute>
+
         ),
       },
     ],

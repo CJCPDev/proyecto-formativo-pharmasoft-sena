@@ -1,7 +1,5 @@
 // ─────────────────────────────────────────────
 // UserListPage.jsx
-// Página principal del módulo de usuarios.
-// Lista todos los usuarios obtenidos desde la API de Django
 // ─────────────────────────────────────────────
 
 import { Button, Title } from "@/shared/components"
@@ -12,10 +10,7 @@ import { useNavigate } from "react-router-dom"
 import { UserColumns } from "../table/UserColumns"
 import DataTable from "@/shared/components/DataTable"
 
-// Importamos el servicio que se conecta con Django
 import { getUsuarios } from "../services/usuarioService"
-
-//Importamos el servicio de autentificacion para obtener el usuario actual
 import { getUsuarioActual } from "@/features/auth/services/authService"
 
 export default function UserListPage() {
@@ -23,27 +18,35 @@ export default function UserListPage() {
   const [IsReportModalOpen, setIsReportModalOpen] = useState(false)
   const navigate = useNavigate();
 
-  //Obtenemos el usuario autenticado y verificamos su rol
   const usuarioActual = getUsuarioActual();
   const esFarmaceuta = usuarioActual?.id_rol === 7
 
-  // Estado para guardar la lista de usuarios que devuelve la API
   const [usuarios, setUsuarios] = useState([]);
-
-  // Estado para mostrar un mensaje mientras carga
   const [loading, setLoading] = useState(true);
-
-  // Estado para mostrar un mensaje si ocurre un error
   const [error, setError] = useState(null);
 
-  // Al montar el componente, cargamos los usuarios desde Django
   useEffect(() => {
     const cargarUsuarios = async () => {
       try {
-        //Si es farmaceuta solo carga clientes (id rol 6)
         const data = await getUsuarios(esFarmaceuta ? 6 : null);
         console.log("Usuarios recibidos:", data);
-        setUsuarios(data);
+
+        // ✅ SOLO ESTO SE AGREGÓ (adaptación de datos)
+        const usuariosFormateados = Array.isArray(data)
+          ? data.map((u) => ({
+              id: u.id || u.id,
+              name: u.name || u.nombre,
+              userGroup: u.userGroup || u.rol,
+              documentType: u.documentType || u.tipo_documento,
+              documentNumber: u.documentNumber || u.numero_documento,
+              userEmail: u.userEmail || u.email,
+              phone: u.phone || u.telefono,
+              estado: u.estado ?? u.estado_id ?? 1,
+            }))
+          : [];
+
+        setUsuarios(usuariosFormateados);
+
       } catch (err) {
         console.error("Error al cargar usuarios:", err);
         setError("No se pudieron cargar los usuarios");
@@ -88,13 +91,10 @@ export default function UserListPage() {
       <div className="flex gap-6">
         <div className="w-full h-full">
 
-          {/* Mientras carga mostramos un mensaje */}
           {loading && <p className="text-center text-gray-500">Cargando usuarios...</p>}
 
-          {/* Si ocurrió un error lo mostramos */}
           {error && <p className="text-center text-red-500">{error}</p>}
 
-          {/* Cuando ya cargó mostramos la tabla con los datos de Django */}
           {!loading && !error && (
             <DataTable
               data={usuarios}

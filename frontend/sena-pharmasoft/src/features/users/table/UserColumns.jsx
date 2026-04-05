@@ -10,13 +10,12 @@ import StatusSwitch from "@/shared/components/StatusSwitch";
 
 // Componente que contiene los botones de acciones (editar y eliminar) para cada usuario
 import UserRowActions from "../components/UserRowActions";
-import { cambiarEstadoUsuario } from "../services/usuarioService";
-import { getUsuarioActual } from "../../auth/services/authService";
+
 
 export const UserColumns = [
   {
     // ID del usuario desde la BD
-    accessorKey: "id_tipo_usuario",
+    accessorKey: "id",
     header: "Id",
   },
   {
@@ -25,12 +24,12 @@ export const UserColumns = [
   },
   {
     // Nombre del rol viene directo desde la API
-    accessorKey: "userGroupNombre",
+    accessorKey: "userGroup",
     header: "Rol",
   },
   {
     // Nombre del tipo de documento viene directo desde la API
-    accessorKey: "documentTypeNombre",
+    accessorKey: "documentType",
     header: "Tipo de identificacion",
   },
   {
@@ -46,42 +45,33 @@ export const UserColumns = [
     header: "Telefono",
   },
   {
-    accessorKey: "estado",
-    header: "Estado",
-    cell: ({ row }) => {
-      const user = row.original;
-      const usuarioActual = getUsuarioActual();
+  accessorKey: "is_active",
+  header: "Estado",
 
-      //Solo el administrador puede cambiar el estado
-      const esAdmin = usuarioActual?.id_rol === 5;
+  cell: ({ row }) => {
+    const user = row.original;
 
-      const handleChange = async (nuevoValor) => {
-        try{
-          //1 = activo, 2 = Inactivo
-          const idEstado = nuevoValor ? 1 : 2;
-          await cambiarEstadoUsuario(user.id_tipo_usuario, idEstado);
-        } catch (error) {
-          console.log("Error al cambiar estado", error);
-          alert("No se pudo cambiar el estado del usuario");
-        }
-      };
+    const estado = Boolean(user.is_active); // asegura true/false real
 
-      //Farmaceuta solo ve el estado como texto
-      if (!esAdmin) {
-        return (
-          <span className={`px-2 py-1 rounded full text-xs font-medium ${user.estado === 1
-            ? 'bg-green-100 text-green-700'
-            : 'bg-red-100 text-red-700'
-          }`}>
-            {user.estado === 1 ? 'activo' : 'inactivo'}
-          </span>
-        )
-      }
+    const handleChange = (value) => {
+      console.log("Actualizar estado usuario:", user.id, value);
 
-      //Administrador ve el switch interactivo
-      return <StatusSwitch checked={user.estado === 1} onChange={handleChange} />;
-    },
+      // Aquí iría tu API:
+      // updateUserStatus(user.id, value)
+    };
+
+    return (
+      <div className="flex items-center gap-2">
+        
+        {/* Switch */}
+        <StatusSwitch
+          checked={estado}
+          onChange={handleChange}
+        />
+      </div>
+    );
   },
+},
   {
     id: "actions",
     header: "Acciones",

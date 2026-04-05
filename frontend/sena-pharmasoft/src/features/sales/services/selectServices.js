@@ -1,12 +1,12 @@
-import documentTypes from "@/data/selects/documentTypes.json";
-import userGroups from "../../../data/selects/userGroups.json"
 
+import sellStates from "../../../data/selects/sellStates.json"
+import paymenStates from "../../../data/selects/paymenStates.json"
 
-export async function getDocumentTypes(){     
-    return documentTypes();
+export async function getSellStates(){     
+    return sellStates;
 } 
 
-export async function getUsersGroups(){     
-    return userGroups();
+export async function getPaymentStates(){     
+    return paymenStates;
 }
 
