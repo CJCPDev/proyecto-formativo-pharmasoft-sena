@@ -1,69 +1,75 @@
 import { z } from "zod";
 
 export const medicamentoSchema = z.object({
-    // Texto obligatorio
-    nombreMedicamento: z.string().min(1, "El nombre es obligatorio"),
+  // Texto obligatorio
+  nombreMedicamento: z.string().min(1, "El nombre es obligatorio"),
 
-    // Llaves foráneas → deben ser números (IDs)
-    formaFarmaceutica: z.number({
-        required_error: "Debe seleccionar una forma farmacéutica",
-        invalid_type_error: "La forma farmacéutica debe ser un número"
-    }).int(),
+  // Selects (TODOS como string para evitar errores con <Select />)
+  formaFarmaceutica: z.string({
+    required_error: "Debe seleccionar una forma farmacéutica",
+  }),
 
-    viaAdministracion: z.number({
-        required_error: "Debe seleccionar una vía de administración",
-        invalid_type_error: "La vía de administración debe ser un número"
-    }).int(),
+  viaAdministracion: z.string({
+    required_error: "Debe seleccionar una vía de administración",
+  }),
 
-    laboratorio: z.number({
-        required_error: "Debe seleccionar un laboratorio",
-        invalid_type_error: "El laboratorio debe ser un número"
-    }).int(),
+  laboratorio: z.string({
+    required_error: "Debe seleccionar un laboratorio",
+  }),
 
-    concentracion: z.number({
-        required_error: "Debe seleccionar una concentración",
-        invalid_type_error: "La concentración debe ser un número"
-    }).int(),
+  concentracion: z.string({
+    required_error: "La concentración es obligatoria",
+  }),
 
-    proveedor: z.number({
-        required_error: "Debe seleccionar un proveedor",
-        invalid_type_error: "El proveedor debe ser un número"
-    }).int(),
+  proveedor: z.string({
+    required_error: "Debe seleccionar un proveedor",
+  }),
 
-    // Texto obligatorio
-    lote: z.string().min(1, "El lote es obligatorio"),
+  // Texto obligatorio
+  lote: z.string().min(1, "El lote es obligatorio"),
 
-    // Fechas como string (puedes validar formato con regex si quieres)
-    fechaFabricacion: z.string().min(1, "La fecha de fabricación es obligatoria"),
-    fechaVencimiento: z.string().min(1, "La fecha de vencimiento es obligatoria"),
+  // Fechas
+  fechaFabricacion: z.string().min(1, "La fecha de fabricación es obligatoria"),
+  fechaVencimiento: z.string().min(1, "La fecha de vencimiento es obligatoria"),
 
-    // Números
-    stock: z.number({
-        required_error: "El stock es obligatorio",
-        invalid_type_error: "El stock debe ser un número"
-    }).int().min(1, "El stock debe ser mayor a 0"),
-
-    precioCosto: z.number({
-        required_error: "El costo es obligatorio",
-        invalid_type_error: "El costo debe ser un número"
-    }).min(0, "El costo no puede ser negativo"),
-
-    precioVenta: z.number({
-        required_error: "El precio de venta es obligatorio",
-        invalid_type_error: "El precio de venta debe ser un número"
-    }).min(0, "El precio de venta no puede ser negativo"),
-
-    // Booleano
-    requiresPrescription: z.boolean({
-        required_error: "Debe indicar si requiere receta"
+  // Números (IMPORTANTE: vienen como string del input, pero los validamos como number si conviertes antes)
+  stock: z
+    .string({
+      required_error: "El stock es obligatorio",
+    })
+    .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
+      message: "El stock debe ser un número mayor a 0",
     }),
 
-    // Estado como ID
-    estado: z.number({
-        required_error: "Debe seleccionar un estado",
-        invalid_type_error: "El estado debe ser un número"
-    }).int(),
+  precioCosto: z
+    .string({
+      required_error: "El costo es obligatorio",
+    })
+    .refine((val) => !isNaN(Number(val)) && Number(val) >= 0, {
+      message: "El costo no puede ser negativo",
+    }),
 
-    // Texto opcional
-    description: z.string().optional()
+  precioVenta: z
+    .string({
+      required_error: "El precio de venta es obligatorio",
+    })
+    .refine((val) => !isNaN(Number(val)) && Number(val) >= 0, {
+      message: "El precio de venta no puede ser negativo",
+    }),
+
+  // Booleano (RECOMENDADO manejarlo como checkbox en frontend)
+  requiresPrescription: z.string({
+    required_error: "Debe indicar si requiere receta",
+  }),
+
+  // Estado (Select → string)
+  estado: z.string({
+    required_error: "Debe seleccionar un estado",
+  }),
+
+  // Opcional
+  description: z.string().optional(),
+
+  // Imagen (ya que la estás usando en el form)
+  imagen: z.string().optional(),
 });

@@ -1,42 +1,54 @@
 import { InputHome } from "@/features/home";
-
+import { Select, Input } from "@/shared/components";
 
 export default function AuthModal({
   openLogin,
   openRegister,
   setOpenLogin,
   setOpenRegister,
-  Logo,
 }) {
   return (
     <>
       {/* REGISTER */}
       {openRegister && (
         <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
-          <div className="bg-white rounded-2xl w-100 p-6 relative">
-            <button
-              onClick={() => setOpenRegister(false)}
-              className="absolute top-3 right-3 cursor-pointer hover:text-brand-fort text-brand-hover font-bold text-info-general"
-            >
-              ✕
-            </button>
+          <div className="bg-white rounded-2xl w-7xl p-6 relative">
+            <div className="grid grid-cols-1 gap-4">
+              <h1 className="text-brand-hover text-big-title text-center font-bold">
+                Crear cuenta
+              </h1>
+              <span className="text-center text-2xl">Al crear tu cuenta accedes a muchos descuentos y beneficios</span>
 
-            <div className="flex justify-center mb-4">
-              <img src={Logo} className="w-16" />
             </div>
 
-            <h2 className="text-brand-hover text-general-title text-center font-bold mb-4">
-              Crear cuenta
-            </h2>
+            <form className="grid grid-cols-3 gap-6 m-6 p-6">
 
-            <form className="grid gap-3">
-              <input placeholder="Nombre" className="border p-2 rounded" />
-              <input placeholder="Correo" className="border p-2 rounded" />
-              <input placeholder="Contraseña" className="border p-2 rounded" />
+              <div className="grid grid-cols-1 gap-6">
+                <Select
+                  label="Tipo de documento"/>
+                <Input type="text" label="Nombre"/>
+                <Input type="text" label="Apellidos"/>
+                <Input type="email" label="Correo electronico"/>
 
+              </div>
+              <div className="grid grid-cols-1 gap-6">
+                <Input type="text" label="No. de documento"/>
+                <Input type="text" label="Telefono"/>
+                <Input type="text" label="Direccion"/>
+
+              </div>
+              <div className="grid grid-cols-1">
+                <Input type="text" label="Contraseña"/>
+                <Input type="text" label="Confirmar contraseña"/>
+                <Input type="text" label="revision"/>
+
+              </div>
+<div className="flex text-center w-26">
               <button className="bg-green-600 text-white py-2 rounded">
-                Ingresar
+                Guardar
               </button>
+
+</div>
             </form>
 
             <p className="text-center mt-4">

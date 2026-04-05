@@ -11,7 +11,7 @@ export const sellColumns = [
   // Columna ID
   {
     accessorKey: "id",
-    header: "Id"
+    header: "#"
   },
   {
     accessorKey: "numeroFactura",
