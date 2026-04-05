@@ -3,7 +3,7 @@ import { pool } from "../../config/db.js";
 export const productRepository = {
   async create(productData) {
     const {
-      nombre_medicamento,
+      nombreMedicamento,
       lote,
       forma_farmaceutica,
       fecha_fabricacion,
@@ -22,7 +22,7 @@ export const productRepository = {
 
     const query = `
       INSERT INTO productos (
-        nombre_medicamento,
+        nombreMedicamento,
         lote,
         forma_farmaceutica,
         fecha_fabricacion,
@@ -43,7 +43,7 @@ export const productRepository = {
     `;
 
     const values = [
-      nombre_medicamento,
+      nombreMedicamento,
       lote,
       forma_farmaceutica,
       fecha_fabricacion,
@@ -64,8 +64,17 @@ export const productRepository = {
     return result.rows[0];
   },
 
-  async findAll() {
-    const result = await pool.query("SELECT * FROM productos");
+  async getAll() {
+    const result = await pool.query("SELECT * FROM public.productos");
     return result.rows;
-  }
+  },
+
+  
+async getById(id) {
+  const result = await pool.query(
+    "SELECT * FROM productos WHERE id = $1",
+    [id]
+  );
+  return result.rows[0];
+}
 };
