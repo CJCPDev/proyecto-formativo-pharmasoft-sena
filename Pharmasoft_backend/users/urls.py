@@ -15,7 +15,12 @@ from .views import (
     subir_avatar,
     cambiar_estado_usuario,
     permisos_usuario_combinados,
-    cambiar_contrasena
+    cambiar_contrasena,
+    obtener_carrito,
+    agregar_al_carrito,
+    actualizar_cantidad,
+    eliminar_del_carrito,
+    vaciar_carrito
 )
 from .auth import login, logout
 
@@ -42,4 +47,11 @@ urlpatterns = router.urls + [
     path('auth/solicitar-codigo/', solicitar_codigo, name='solicitar-codigo'),
     path('auth/verificar-codigo/', verificar_codigo, name='verificar-codigo'),
     path('auth/cambiar-contrasena/', cambiar_contrasena_reset, name='cambiar-contrasena-reset'),
+
+    # URLs del carrito
+    path('carrito/<int:id_usuario>/', obtener_carrito, name='obtener-carrito'),
+    path('carrito/agregar/', agregar_al_carrito, name='agregar-carrito'),
+    path('carrito/<int:id_carrito>/actualizar/', actualizar_cantidad, name='actualizar-carrito'),
+    path('carrito/<int:id_carrito>/eliminar/', eliminar_del_carrito, name='eliminar-carrito'),
+    path('carrito/<int:id_usuario>/vaciar/', vaciar_carrito, name='vaciar-carrito'),
 ]

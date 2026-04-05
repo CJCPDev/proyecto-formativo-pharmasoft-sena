@@ -79,3 +79,21 @@ class UsuarioPermisos(models.Model):
     class Meta:
         managed = False
         db_table = 'usuario_permisos'
+
+class CarritoCompra(models.Model):
+    id_carrito = models.AutoField(primary_key=True)
+    id_usuario = models.ForeignKey(
+        Usuarios,
+        models.DO_NOTHING,
+        db_column='id_usuario'
+    )
+    id_medicamento = models.IntegerField(blank=True, null=True)
+    cantidad = models.IntegerField()
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2)
+    estado = models.CharField(max_length=50)
+    id_factura = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'carrito_compra'

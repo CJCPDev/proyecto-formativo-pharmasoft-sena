@@ -99,7 +99,7 @@ def login(request):
         )
 
     # Verificamos que el rol tenga acceso al sistema
-    roles_permitidos = [5, 7]
+    roles_permitidos = [5,6, 7]
     if usuario.id_rol_id not in roles_permitidos:
         return Response(
             {'error': 'No tienes acceso para acceder al sistema'},

@@ -6,7 +6,7 @@
 # ─────────────────────────────────────────────
 
 from rest_framework import serializers
-from .models import Usuarios, Roles, TipoDocumento, EstadoUsuario, Permisos, RolPermisos, UsuarioPermisos
+from .models import Usuarios, Roles, TipoDocumento, EstadoUsuario, Permisos, RolPermisos, UsuarioPermisos, CarritoCompra
 
 
 class UsuarioSerializer(serializers.ModelSerializer):
@@ -143,3 +143,34 @@ class UsuarioPermisoSerializer(serializers.ModelSerializer):
     class Meta:
         model = UsuarioPermisos
         fields = ['id', 'id_permiso', 'codigo', 'nombre', 'modulo']
+
+class CarritoCompraSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarritoCompra
+        fields = '__all__'
+
+    def get_nombre_medicamento(self, obj):
+        try:
+            from django.db import connection
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT nombre_medicamento FROM medicamentos WHERE id_medicamento = %s",
+                    [obj.id_medicamento]
+                )
+                row = cursor.fetchone()
+                return row[0] if row else f"Medicamento #{obj.id_medicamento}"
+        except Exception:
+            return f"Medicamento #{obj.id_medicamento}"
+        
+    def get_imagen_medicamento(self, obj):
+        try:
+            from django.db import connection
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT imagen FROM medicamentos WHERE id_medicamento = %s",
+                    [obj.id_medicamento]
+                )
+                row = cursor.fetchone()
+                return row[0] if row else None
+        except Exception:
+            return None
