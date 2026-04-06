@@ -13,3 +13,4 @@ Esta carpeta contiene los scripts SQL para actualizar la base de datos.
 | # | Archivo | Descripción | Fecha |
 | 001 | 001_agregar_campo_contrasena.sql | Agrega campo contrasena a usuarios | 2026-03-31 |
 | 002 | 002_agregar_id_usuario_carrito.sql | Agrega campo id_usuario a carrito_venta | 2026-04-01 |
+
