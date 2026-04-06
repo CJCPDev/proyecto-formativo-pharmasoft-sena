@@ -17,11 +17,7 @@ from .views import (
     permisos_usuario_combinados
 )
 
-<<<<<<< HEAD
-from .auth import login, logout
-=======
 from .auth import login,logout
->>>>>>> 3357cf9 (feat: Actualizacion de componentes, antes de backend)
 
 router = DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet, basename='usuario')
@@ -35,13 +31,7 @@ urlpatterns = router.urls + [
     path('subir-avatar/', subir_avatar, name='subir-avatar'),
     path('usuarios/<int:pk>/cambiar-estado/', cambiar_estado_usuario, name='cambiar-estado-usuario'),
     path('usuarios/<int:pk>/permisos-combinados/', permisos_usuario_combinados, name='permisos-combinados'),
-<<<<<<< HEAD
     # Endpoints de autentificación
     path('auth/login/', login, name='login'),
     path('auth/logout/', logout, name='logout'),
-=======
-    path('auth/login/',login, name='login'),
-    path('auth/logout/',logout, name='logout'),
-
->>>>>>> 3357cf9 (feat: Actualizacion de componentes, antes de backend)
 ]
