@@ -42,7 +42,6 @@ export default function UserListPage() {
       try {
         //Si es farmaceuta solo carga clientes (id rol 6)
         const data = await getUsuarios(esFarmaceuta ? 6 : null);
-        console.log("Usuarios recibidos:", data);
         setUsuarios(data);
       } catch (err) {
         console.error("Error al cargar usuarios:", err);
