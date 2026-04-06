@@ -42,6 +42,7 @@ class Usuarios(models.Model):
     numero_telefono = models.BigIntegerField()
     direccion = models.CharField(max_length=150)
     file = models.TextField(blank=True, null=True)
+    contrasena = models.CharField(max_length=255, blank=True, null=True)
     id_documento = models.ForeignKey(TipoDocumento, models.DO_NOTHING, db_column='id_documento', blank=True, null=True)
     id_rol = models.ForeignKey(Roles, models.DO_NOTHING, db_column='id_rol', blank=True, null=True)
     id_estado_usuario = models.ForeignKey(EstadoUsuario, models.DO_NOTHING, db_column='id_estado_usuario', blank=True, null=True)
@@ -78,3 +79,21 @@ class UsuarioPermisos(models.Model):
     class Meta:
         managed = False
         db_table = 'usuario_permisos'
+
+class CarritoCompra(models.Model):
+    id_carrito = models.AutoField(primary_key=True)
+    id_usuario = models.ForeignKey(
+        Usuarios,
+        models.DO_NOTHING,
+        db_column='id_usuario'
+    )
+    id_medicamento = models.IntegerField(blank=True, null=True)
+    cantidad = models.IntegerField()
+    precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2)
+    estado = models.CharField(max_length=50)
+    id_factura = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'carrito_compra'

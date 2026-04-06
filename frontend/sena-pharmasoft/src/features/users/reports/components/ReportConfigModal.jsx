@@ -1,103 +1,62 @@
-// Hook para manejo de estado local en componentes funcionales
+// ─────────────────────────────────────────────
+// ReportConfigModal.jsx
+// Modal para configurar y generar reportes de usuarios
+// El administrador puede filtrar por rol
+// ─────────────────────────────────────────────
+
 import { useState } from "react";
-
-
-// Configuración de campos disponibles para el reporte
 import { userReportFields } from "../config/userReportFields";
-
-
-// Caso de uso que orquesta la generación del reporte
 import { generateUserReport } from "../services/generateUserReport";
-
-
-// Componentes UI reutilizables (design system)
 import { Button, Input, Select } from "@/shared/components";
 import Checkbox from "@/shared/components/Checkbox";
+import { getUsuarioActual } from "@/features/auth/services/authService";
 
-
-// Componente modal para configuración de reportes
 export default function ReportConfigModal({ isOpen, onClose }) {
 
-
-  // Estado del formato de salida
   const [format, setFormat] = useState("pdf");
-
-
-  // Estado del alcance del reporte
   const [scope, setScope] = useState("all");
-
-
-  // Estado para filtro por documento
   const [documentNumber, setDocumentNumber] = useState("");
-
-
-  // Estado de campos seleccionados (inicialización lazy)
+  const [rolFiltro, setRolFiltro] = useState("todos"); // 👈 nuevo filtro por rol
   const [selectedFields, setSelectedFields] = useState(() =>
-    userReportFields.filter((f) => f.default) // Solo campos marcados por defecto
+    userReportFields.filter((f) => f.default)
   );
 
+  // Obtenemos el usuario actual para verificar si es administrador
+  const usuarioActual = getUsuarioActual();
+  const esAdmin = usuarioActual?.id_rol === 5;
 
-  // Control de render: si el modal no está abierto, no se monta en el DOM
   if (!isOpen) return null;
 
-
-  // Handler para activar/desactivar campos del reporte
   const handleFieldToggle = (field) => {
-
-
-    // Verifica si el campo ya está seleccionado
     const exists = selectedFields.find((f) => f.key === field.key);
-
-
     if (exists) {
-      // Elimina el campo si ya existe
-      setSelectedFields(
-        selectedFields.filter((f) => f.key !== field.key)
-      );
+      setSelectedFields(selectedFields.filter((f) => f.key !== field.key));
     } else {
-      // Agrega el campo si no existe
-      setSelectedFields([
-        ...selectedFields,
-        field
-      ]);
+      setSelectedFields([...selectedFields, field]);
     }
   };
 
-
-  // Handler principal para generar el reporte
   const handleGenerateReport = () => {
-
-
-    // Invoca el caso de uso con la configuración actual
+    console.log("rolFiltro:", rolFiltro),
     generateUserReport({
       format,
       selectedFields,
       scope,
       documentNumber,
+      rolFiltro: esAdmin ? rolFiltro : "6", // farmaceuta siempre filtra por clientes
     });
-
-
-    // Cierra el modal después de generar el reporte
     onClose();
   };
 
-
   return (
-    // Overlay del modal
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-
-
-      {/* Contenedor del modal */}
       <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-lg">
 
-
-        {/* Título */}
         <h2 className="mb-6 text-xl font-semibold">
           Generar reporte de usuarios
         </h2>
 
-
-        {/* Selección de formato */}
+        {/* Formato */}
         <div className="mb-4">
           <Select
             label="Formato del reporte"
@@ -110,39 +69,44 @@ export default function ReportConfigModal({ isOpen, onClose }) {
           />
         </div>
 
+        {/* Filtro por rol — solo para administrador */}
+        {esAdmin && (
+          <div className="mb-4">
+            <Select
+              label="Filtrar por rol"
+              value={rolFiltro}
+              onChange={(e) => setRolFiltro(e.target.value)}
+              options={[
+                { label: "Todos los usuarios", value: "todos" },
+                { label: "Administradores", value: "5" },
+                { label: "Farmaceutas", value: "7" },
+                { label: "Clientes", value: "6" },
+              ]}
+            />
+          </div>
+        )}
 
-        {/* Selección de campos */}
+        {/* Campos del reporte */}
         <div className="mb-4">
           <p className="mb-2 font-medium">Campos del reporte</p>
-
-
-          {/* Grid de checkboxes */}
           <div className="grid grid-cols-2 gap-2">
             {userReportFields.map((field) => {
-
-
-              // Determina si el campo está seleccionado
-              const checked = selectedFields.some(
-                (f) => f.key === field.key
-              );
-
-
+              const checked = selectedFields.some((f) => f.key === field.key);
               return (
                 <Checkbox
-                  key={field.key}         // Key única para renderizado
-                  id={field.key}          // Id accesible
-                  name={field.key}        // Nombre del campo
-                  label={field.label}     // Texto visible
-                  checked={checked}       // Estado controlado
-                  onChange={() => handleFieldToggle(field)} // Toggle
+                  key={field.key}
+                  id={field.key}
+                  name={field.key}
+                  label={field.label}
+                  checked={checked}
+                  onChange={() => handleFieldToggle(field)}
                 />
               );
             })}
           </div>
         </div>
 
-
-        {/* Selección de alcance */}
+        {/* Alcance */}
         <div className="mb-4">
           <Select
             label="Alcance del reporte"
@@ -155,8 +119,7 @@ export default function ReportConfigModal({ isOpen, onClose }) {
           />
         </div>
 
-
-        {/* Campo condicional para filtro por documento */}
+        {/* Filtro por documento */}
         {scope === "document" && (
           <div className="mb-4">
             <Input
@@ -168,23 +131,16 @@ export default function ReportConfigModal({ isOpen, onClose }) {
           </div>
         )}
 
-
-        {/* Acciones del modal */}
+        {/* Botones */}
         <div className="flex justify-end gap-2 mt-6">
-
-
-          {/* Botón cancelar */}
           <Button variant="secondary" onClick={onClose}>
             Cancelar
           </Button>
-
-
-          {/* Botón generar reporte */}
           <Button variant="primary" onClick={handleGenerateReport}>
             Generar reporte
           </Button>
-
         </div>
+
       </div>
     </div>
   );

@@ -1,41 +1,40 @@
-// Función utilitaria para construir el dataset de un reporte (tabla)
-// Patrón: transformación de datos (input → output listo para exportar)
+// ─────────────────────────────────────────────
+// buildReportDataset.js
+// Utilidad para transformar datos de usuarios
+// en un dataset listo para exportar a Excel o PDF
+// ─────────────────────────────────────────────
+
 export function buildReportDataset({
-  users,           // Array de usuarios origen
-  selectedFields,  // Campos seleccionados para el reporte [{ key, label }]
-  scope,           // Alcance del reporte: "all" | "document"
-  documentNumber  // Número de documento para filtrar (si aplica)
+  users,           // Array de usuarios desde la API
+  selectedFields,  // Campos seleccionados [{ key, label }]
+  scope,           // "all" | "document"
+  documentNumber   // Número de documento para filtrar
 }) {
 
-  // Copia inmutable del array original (evita mutaciones)
-    let filteredUsers = [...users];
+  // Copia inmutable del array original
+  let filteredUsers = [...users];
 
-  // Filtro por alcance: si es por documento, se aplica filtro específico
-    if (scope === "document" && documentNumber) {
-        filteredUsers = filteredUsers.filter(
-        (users) => String(users.documentNumber) === String(documentNumber.trim())
+  // Filtra por número de documento si el alcance es "document"
+  if (scope === "document" && documentNumber) {
+    filteredUsers = filteredUsers.filter(
+      (user) => String(user.documentNumber) === String(documentNumber.trim())
     );
-    }
+  }
 
   // Construcción de encabezados del reporte
-  // Se toma el label de cada campo seleccionado
-    const headers = selectedFields.map((field) => field.label);
+  const headers = selectedFields.map((field) => field.label);
 
   // Construcción de filas del reporte
-  // Cada usuario se transforma en un array de valores según los campos seleccionados
-    const rows = filteredUsers.map((users) =>
+  const rows = filteredUsers.map((user) =>
     selectedFields.map((field) => {
-      const value = users[field.key]; // Acceso dinámico a la propiedad
-
-    // Normalización: evita undefined o null en el reporte
-    return value ?? "";
+      const value = user[field.key];
+      // Normalización — evita undefined o null en el reporte
+      return value ?? "";
     })
-    );
+  );
 
-  // Estructura final desacoplada de la UI
-  // Lista para exportar a Excel, PDF o renderizar en tabla
-    return {
+  return {
     headers, // Array de strings (columnas)
     rows     // Array de arrays (filas)
-    };
+  };
 }

@@ -8,14 +8,15 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action, api_view
 from django.conf import settings
-from .models import Usuarios, TipoDocumento, Roles, Permisos, RolPermisos, UsuarioPermisos
+from .models import Usuarios, TipoDocumento, Roles, Permisos, RolPermisos, UsuarioPermisos, CarritoCompra
 from .serializers import (
     UsuarioSerializer,
     TipoDocumentoSerializer,
     RolSerializer,
     PermisoSerializer,
     RolPermisoSerializer,
-    UsuarioPermisoSerializer
+    UsuarioPermisoSerializer,
+    CarritoCompraSerializer
 )
 import os
 import re
@@ -171,3 +172,147 @@ def permisos_usuario_combinados(request, pk):
     permisos = Permisos.objects.filter(id_permiso__in=ids_combinados)
     serializer = PermisoSerializer(permisos, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Endpoint para cambiar la contraseña del usuario
+@api_view(['POST'])
+def cambiar_contrasena(request, pk):
+    try:
+        usuario = Usuarios.objects.get(pk=pk)
+    except Usuarios.DoesNotExist:
+        return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+    contrasena_actual = request.data.get('contrasena_actual')
+    nueva_contrasena = request.data.get('nueva_contrasena')
+    confirmar_contrasena = request.data.get('confirmar_contrasena')
+
+    # Verificamos que todos los campos estén presentes
+    if not contrasena_actual or not nueva_contrasena or not confirmar_contrasena:
+        return Response(
+            {'error': 'Todos los campos son requeridos'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Verificamos que la nueva contraseña y la confirmación coincidan
+    if nueva_contrasena != confirmar_contrasena:
+        return Response(
+            {'error': 'Las contraseñas no coinciden'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Verificamos la contraseña actual
+    from .auth import verificar_contrasena, encriptar_contrasena
+    if usuario.contrasena:
+        if not verificar_contrasena(contrasena_actual, usuario.contrasena):
+            return Response(
+                {'error': 'La contraseña actual es incorrecta'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+    else:
+        # Si no tiene contraseña usa el número de documento
+        if usuario.numero_documento != int(contrasena_actual):
+            return Response(
+                {'error': 'La contraseña actual es incorrecta'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+    # Encriptamos y guardamos la nueva contraseña
+    usuario.contrasena = encriptar_contrasena(nueva_contrasena)
+    usuario.save()
+
+    return Response(
+        {'message': 'Contraseña actualizada correctamente'},
+        status=status.HTTP_200_OK
+    )
+
+# Endpoints del carrito de compras
+
+# Obtiene todos los items del carrito de un usuario
+@api_view(['GET'])
+def obtener_carrito(request, id_usuario):
+    items = CarritoCompra.objects.filter(
+        id_usuario=id_usuario,
+        estado='activo'
+    )
+    serializer = CarritoCompraSerializer(items, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Agrega un producto al carrito
+@api_view(['POST'])
+def agregar_al_carrito(request):
+    id_usuario = request.data.get('id_usuario')
+    id_medicamento = request.data.get('id_medicamento')
+    cantidad = request.data.get('cantidad', 1)
+    precio_unitario = request.data.get('precio_unitario')
+
+    if not id_usuario or not id_medicamento or not precio_unitario:
+        return Response(
+            {'Error': 'id_usuario, id_medicamento y precio_unitario son requeridos'},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Verificamos si el producto ya está en el carrio
+    item_existente = CarritoCompra.objects.filter(
+        id_usuario=id_usuario,
+        id_medicamento=id_medicamento,
+        estado='activo'
+    ).first()
+
+    if item_existente:
+        # Si ya existe solo actualizamos la cantidad
+        item_existente.cantidad += int(cantidad)
+        item_existente.subtotal = item_existente.cantidad * float(precio_unitario)
+        item_existente.save()
+        serializer = CarritoCompraSerializer(item_existente)
+    else:
+        # Si no existe creamos un nuevo item
+        subtotal = int(cantidad) * float(precio_unitario)
+        item = CarritoCompra.objects.create(
+            id_usuario_id=id_usuario,
+            id_medicamento=id_medicamento,
+            cantidad=cantidad,
+            precio_unitario=precio_unitario,
+            subtotal=subtotal,
+            estado='activo'
+        )
+        serializer = CarritoCompraSerializer(item)
+
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+# Actualiza la cantidad de un item del carrito
+@api_view(['PATCH'])
+def actualizar_cantidad(request, id_carrito):
+    try:
+        item = CarritoCompra.objects.get(pk=id_carrito)
+    except CarritoCompra.DoesNotExist:
+        return Response({'error': 'Item no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+    
+    cantidad = request.data.get('cantidad')
+    if not cantidad or int(cantidad) < 1:
+        return Response({'Erro':  'Cantidad inválida'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    item.cantidad = int(cantidad)
+    item.subtotal = item.cantidad * float(item.precio_unitario)
+    item.save()
+
+    serializer = CarritoCompraSerializer(item)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Elimina un item del carrito
+@api_view(['DELETE'])
+def eliminar_del_carrito(request, id_carrito):
+    try:
+        item = CarritoCompra.objects.get(pk=id_carrito)
+    except CarritoCompra.DoesNotExist:
+        return Response({'error': 'item no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+    
+    item.delete()
+    return Response({'message': 'Producto eliminado del carrito'}, status=status.HTTP_200_OK)
+
+# Vacia el carrito de un usuario
+@api_view(['DELETE'])
+def vaciar_carrito(request, id_usuario):
+    CarritoCompra.objects.filter(
+        id_usuario=id_usuario,
+        estado='activo'
+    ).delete()
+    return Response({'message': 'Carrito vaciado correctamente'}, status=status.HTTP_200_OK)

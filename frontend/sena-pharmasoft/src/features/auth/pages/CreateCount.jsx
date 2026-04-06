@@ -1,11 +1,6 @@
-
-
-export default function CreateCount(){
-
+export default function CreateCount() {
   return (
-    
-    <form className="flex flex-col gap-4">
-
+    <form className="grid gap-4 justify-center items-center w-full h-full">
       <input
         type="text"
         placeholder="Nombre completo"
@@ -27,7 +22,6 @@ export default function CreateCount(){
       <button className="bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition">
         Registrarse
       </button>
-
     </form>
   );
 }

@@ -14,14 +14,17 @@ from .views import (
     UsuarioPermisoViewSet,
     subir_avatar,
     cambiar_estado_usuario,
-    permisos_usuario_combinados
+    permisos_usuario_combinados,
+    cambiar_contrasena,
+    obtener_carrito,
+    agregar_al_carrito,
+    actualizar_cantidad,
+    eliminar_del_carrito,
+    vaciar_carrito
 )
-
-<<<<<<< HEAD
 from .auth import login, logout
-=======
-from .auth import login,logout
->>>>>>> 3357cf9 (feat: Actualizacion de componentes, antes de backend)
+
+from .password_reset import solicitar_codigo, verificar_codigo, cambiar_contrasena as cambiar_contrasena_reset
 
 router = DefaultRouter()
 router.register(r'usuarios', UsuarioViewSet, basename='usuario')
@@ -35,13 +38,20 @@ urlpatterns = router.urls + [
     path('subir-avatar/', subir_avatar, name='subir-avatar'),
     path('usuarios/<int:pk>/cambiar-estado/', cambiar_estado_usuario, name='cambiar-estado-usuario'),
     path('usuarios/<int:pk>/permisos-combinados/', permisos_usuario_combinados, name='permisos-combinados'),
-<<<<<<< HEAD
     # Endpoints de autentificación
     path('auth/login/', login, name='login'),
     path('auth/logout/', logout, name='logout'),
-=======
-    path('auth/login/',login, name='login'),
-    path('auth/logout/',logout, name='logout'),
+    path('usuarios/<int:pk>/cambiar_contrasena/', cambiar_contrasena, name='cambiar-contrasena'),
 
->>>>>>> 3357cf9 (feat: Actualizacion de componentes, antes de backend)
+    # Recupereación de contraseña
+    path('auth/solicitar-codigo/', solicitar_codigo, name='solicitar-codigo'),
+    path('auth/verificar-codigo/', verificar_codigo, name='verificar-codigo'),
+    path('auth/cambiar-contrasena/', cambiar_contrasena_reset, name='cambiar-contrasena-reset'),
+
+    # URLs del carrito
+    path('carrito/<int:id_usuario>/', obtener_carrito, name='obtener-carrito'),
+    path('carrito/agregar/', agregar_al_carrito, name='agregar-carrito'),
+    path('carrito/<int:id_carrito>/actualizar/', actualizar_cantidad, name='actualizar-carrito'),
+    path('carrito/<int:id_carrito>/eliminar/', eliminar_del_carrito, name='eliminar-carrito'),
+    path('carrito/<int:id_usuario>/vaciar/', vaciar_carrito, name='vaciar-carrito'),
 ]

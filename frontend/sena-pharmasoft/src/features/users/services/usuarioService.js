@@ -72,3 +72,9 @@ export const cambiarEstadoUsuario = async (id, idEstado) => {
   });
   return response.data;
 };
+
+//CAmbia la contraseña del usuario
+export const cambiarContrasena = async (id, datos) => {
+  const response = await axios.post(`${API_URL}/usuarios/${id}/cambiar_contrasena`, datos)
+  return response.data;
+}
