@@ -20,12 +20,15 @@
     --color-border: var(--semantic-primary-800); 
     --color-border-strong: var(--semantic-primary-950);
     --color-warning: var(--semantic-secundary-800); /* */
-
+    --color-secondar: var(--semantic-color-secondar);
+    --color-primary: var(--semantic-color-primary);   
+    --color-secondaryv2: var(--semantic-color-secondaryv2);
+    --color-primaryv2: var(--semantic-color-primaryv2);             
     --color-brand-hover:var(--semantic-brand-hover);
     --color-brand-soft: var(--semantic-brand-soft);
     --color-brand-softv2: var(--semantic-brand-soft-v2);
     --color-brand-fort: var(--semantic-brand-fort);
-    --color-brand-hoverv2: var(--semantic-brand-hoverv2)
+    --color-brand-hoverv2: var(--semantic-brand-hoverv2);
     
     --color-backgraund: var(--semantic-primary-50);
     --color-surface: var(--semantic-surface);

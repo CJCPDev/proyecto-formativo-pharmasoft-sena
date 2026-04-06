@@ -1,7 +1,7 @@
 import { Card } from "@/shared/components"
 import { products } from "@/features/home/services/products.js"
 
-export default function CardsMedicine (){
+export default function CardsMedicine ({onProductoAgregado}){
     // const product = products.find(prod => prod.id === 1)
     return(
         <section className="
@@ -17,7 +17,11 @@ export default function CardsMedicine (){
                     justify-items-center
                 ">
                     {/* se renderiza la lista qie contiene todas las card */}
-                    {products.map((product) => (<Card key = {product.id} product = {product}/>))}
+                    {products.map((product) => (
+                        <Card key = {product.id}
+                        product = {product}
+                        onProductoAgregado={onProductoAgregado}
+                        />))}
                 </div>
             </div>
         </section>
