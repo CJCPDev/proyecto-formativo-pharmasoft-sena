@@ -55,7 +55,7 @@ def verificar_contrasena(contrasena_ingresada, contrasena_guardada):
         return False
 
 
-def encriptar_contrasena(contrasena):
+def encriptar_contraseña(contrasena):
     """
     Encripta una contraseña usando bcrypt
     El resultado es un hash que no se puede revertir
