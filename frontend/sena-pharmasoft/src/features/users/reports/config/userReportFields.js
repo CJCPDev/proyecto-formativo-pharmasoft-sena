@@ -10,7 +10,7 @@ export const userReportFields = [
         default: true
     },
     {
-        key: "documentType",
+        key: "documentTypeNombre",
         label: "Tipo de documento",
         default: true
     },
@@ -28,5 +28,10 @@ export const userReportFields = [
         key: "direccion",
         label: "Dirección",
         default: true
-    }
+    },
+    {
+        key: "userGroupNombre",
+        label: "Rol",
+        default: false
+    },
 ]

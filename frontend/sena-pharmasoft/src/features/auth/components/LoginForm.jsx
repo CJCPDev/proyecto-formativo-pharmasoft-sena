@@ -109,7 +109,7 @@ export default function LoginForm() {
             {/* Iniciar sesion */}
           </Button>
         </div>
-      </form>
-    </div>
+        </form>
+        </div>
   );
 }

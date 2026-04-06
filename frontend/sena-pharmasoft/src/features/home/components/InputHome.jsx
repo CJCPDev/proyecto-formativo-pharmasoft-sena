@@ -1,4 +1,4 @@
-export default function InputHome({ label, type = "text" }) {
+export default function InputHome({ label, type }) {
   return (
     <div className="relative w-full">
       <input

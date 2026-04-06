@@ -65,11 +65,6 @@ export const estaAutenticado = () => {
     const expiracionLimpia = expiracion.replace('+00:00', 'Z');
     const fechaExpiracion = new Date(expiracionLimpia);
 
-  console.log("Expiracion limpia:", expiracionLimpia); // 👈
-  console.log("fechaExpiracion:", fechaExpiracion); // 👈
-  console.log("ahora:", ahora); // 👈
-  console.log("¿Expiró?:", ahora >= fechaExpiracion); // 👈
-
     if (ahora >= fechaExpiracion){
         //La sesión expiró - limpiamos el localStorage
         localStorage.removeItem('access_token');
