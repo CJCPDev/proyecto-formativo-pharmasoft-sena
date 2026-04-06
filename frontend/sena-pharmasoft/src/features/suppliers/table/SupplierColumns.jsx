@@ -16,7 +16,7 @@ export const SupplierColumns = [
 
   // Columna Razon social
   {
-    accessorKey: "razonSocial", // Campo del objeto supplier
+    accessorKey: "razon_social", // Campo del objeto supplier
     header: "Razon Social",    // Encabezado visible
   },
 
@@ -28,7 +28,7 @@ export const SupplierColumns = [
 
   // Columna telefono del contacto
   {
-    accessorKey: "telContacto",
+    accessorKey: "tel_contacto",
     header: "Telefono Contacto",
   },
   // Columna Ciudad

@@ -50,8 +50,11 @@ export const supplierRepository = {
 
 
     const result = await pool.query(query, values);
-
-
     return result.rows[0];
+
+  },
+  async getAll() {
+    const result = await pool.query("SELECT * FROM public.suppliers");
+    return result.rows;
   },
 };

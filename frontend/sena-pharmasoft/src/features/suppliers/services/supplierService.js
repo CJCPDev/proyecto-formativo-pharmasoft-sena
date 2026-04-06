@@ -19,3 +19,17 @@ export async function createSupplier(supplierData) {
 
   return response.json();
 }
+
+export async function getSuppliers() {
+  const response = await fetch(API_URL, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.error || "Error al crear proveedor");
+  }
+
+  return response.json();
+}

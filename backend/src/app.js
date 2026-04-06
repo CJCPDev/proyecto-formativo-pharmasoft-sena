@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import productRoutes from "./features/products/product.routes.js"; 
 import salesRoutes from "./features/sales/sales.routes.js"; 
-import userRoutes from "./features/users/user.routes.js"; // ✅ agregadoimport supplierRoutes from "./features/suppliers/supplier.routes.js";
+import supplierRoutes from "./features/suppliers/supplier.routes.js"; 
+import userRoutes from "./features/users/user.routes.js";
 
 
 const app = express();

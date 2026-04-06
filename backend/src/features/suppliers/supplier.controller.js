@@ -31,4 +31,16 @@ export const supplierController = {
       });
     }
   },
+
+    async getAll(req, res) {
+    try {
+      const suppliers = await supplierService.getAll();
+
+      res.json(suppliers);
+    } catch (error) {
+      console.error("ERROR BACKEND:", error);
+      res.status(500).json({ error: error.message });
+    }
+  },
 };
+
