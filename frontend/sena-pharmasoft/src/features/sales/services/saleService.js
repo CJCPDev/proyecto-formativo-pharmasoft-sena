@@ -16,6 +16,11 @@ export const updateSaleStatus = async (id, is_active) => {
 };
 
 export const createSale = async (data) => {
-    const response = await axios.post((API_URL), data);
+  try {
+    const response = await axios.post(API_URL, data);
     return response.data;
+  } catch (error) {
+    console.error("Error creando venta:", error);
+    throw error;
+  }
 };

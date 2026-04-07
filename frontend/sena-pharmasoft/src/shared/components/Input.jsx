@@ -8,13 +8,13 @@ export default function Input({
   ...props
 }) {
   return (
-    <div className="w-full flex flex-col gap-1">
+    <div className="w-full flex flex-col">
       
       {/* Label */}
       {label && (
         <label
           className={`
-            px-1 text-sm font-bold font-main
+            px-1 text-sm font-main
             ${error ? "text-red-600" : "text-brand-hover"}
           `}
         >
@@ -50,7 +50,7 @@ export default function Input({
             ${error ? "border-red-600" : "border-border-strong"}
 
             focus:outline-none
-            focus:ring-2
+            focus:ring-1
             focus:ring-brand-hover
             focus:border-brand-hover
             focus:bg-white
@@ -64,12 +64,10 @@ export default function Input({
         />
       </div>
 
-      {/* Error */}
-      {error && (
-        <p className="text-red-700 text-sm mt-1">
-          {error}
-        </p>
-      )}
+      {/* 🔥 ESPACIO FIJO PARA ERROR */}
+      <p className="text-red-700 text-xs mt-1 h-4">
+        {error || ""}
+      </p>
     </div>
   );
 }

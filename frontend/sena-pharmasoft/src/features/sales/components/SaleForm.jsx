@@ -1,107 +1,171 @@
 import { Title, Input, Select, Button } from "@/shared/components";
 import sellStates from "../../../data/selects/sellStates.json";
 import paymentStates from "../../../data/selects/paymenStates.json";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { saleSchema } from "../schemas/saleSchema";
 import { useParams } from "react-router-dom";
 import { getSalesById } from "../services/getSalesById";
+import { createSale } from "../services/saleService";
 
-export default function SaleForm() {
+export default function SaleForm({ onAddProduct }) {
   const params = useParams();
   const isEdit = Boolean(params.id);
-  const sales = isEdit ? getSalesById(params.id) : null;
 
+  // ================== STATES ==================
   const [formData, setFormData] = useState({
-    numeroFactura: sales?.numeroFactura || "",
-    fecha: sales?.fechaHora || "",
-    usuario: sales?.usuario || "",
-    farmaceuta: sales?.farmaceuta || "",
-    sellStates: sales?.sellStates || "",
-    paymentStates: sales?.paymentStates || "",
+    numeroFactura: "",
+    fecha: "",
+    usuario: "",
+    farmaceuta: "",
+    sellStates: "",
+    paymentStates: "",
   });
 
-  //==================HANDLE=========================
-  // Función que se ejecuta cada vez que cambia el valor de un input del formulario
+  const [errors, setErrors] = useState({});
+  const [isEditing, setIsEditing] = useState(!isEdit);
+  const [search, setSearch] = useState("");
+
+  // ================== LOAD DATA ==================
+  useEffect(() => {
+    const fetchData = async () => {
+      if (isEdit) {
+        try {
+          const sales = await getSalesById(params.id);
+
+          setFormData({
+            numeroFactura: sales?.numeroFactura || "",
+            fecha: sales?.fechaHora || "",
+            usuario: sales?.usuario || "",
+            farmaceuta: sales?.farmaceuta || "",
+            sellStates: sales?.sellStates || "",
+            paymentStates: sales?.paymentStates || "",
+          });
+        } catch (error) {
+          console.error("Error cargando venta:", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [isEdit, params.id]);
+
+  // prueba mientras cargan productos
+  const fakeProducts = [
+    {
+      id: 1,
+      name: "Acetaminofén",
+      price: 2000,
+      image:
+        "https://beta1.cruzverde.com.co/on/demandware.static/-/Sites-masterCatalog_Colombia/default/dwa87e0ae1/images/large/125834_1_PROT_SOLAR_GL_CREM_OIL_FPS_50_EUCERIN_FCO_X_50ML_DIC_2025.jpg",
+    },
+    {
+      id: 2,
+      name: "Ibuprofeno",
+      price: 3000,
+      image: "https://via.placeholder.com/50",
+    },
+  ];
+
+  // ================== HANDLE CHANGE ==================
   const handleChange = (e) => {
-    // Se obtiene el nombre del campo (name) y su valor actual (value)
-    // desde el elemento que disparó el evento
     const { name, value } = e.target;
-    // Se actualiza el estado del formulario
-    // prev representa el estado anterior del formulario
+
     setFormData((prev) => ({
-      // Se copian todos los valores anteriores del estado
       ...prev,
-      // Se actualiza únicamente el campo que cambió
-      // [name] permite usar el nombre del input como clave dinámica
       [name]: value,
     }));
   };
 
-  //==================================================================
-
-  //============== HANDLE SUBMIT ==============
-  // Función que se ejecuta cuando se envía el formulario
-  const handleSubmit = (e) => {
-    // Evita que el formulario recargue la página
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Se valida el objeto formData usando el esquema definido con Zod
-    // safeParse devuelve un objeto indicando si la validación fue exitosa o no
+
     const result = saleSchema.safeParse(formData);
-    // Si la validación falla
+
     if (!result.success) {
-      // Objeto donde se almacenarán los errores por campo
       const fieldErrors = {};
-      // Zod devuelve los errores en un arreglo llamado issues
-      // Se recorren para asociar cada error a su campo correspondiente
+
       result.error.issues.forEach((issue) => {
-        // issue.path contiene la ruta del campo que falló
         const field = issue.path[0];
-        // Se guarda el mensaje de error en el objeto fieldErrors
         fieldErrors[field] = issue.message;
       });
-      // Se actualiza el estado de errores para mostrarlos en el formulario
+
       setErrors(fieldErrors);
-      // Se detiene la ejecución porque el formulario tiene errores
       return;
     }
-    // Si la validación es exitosa se limpian los errores anteriores
+
     setErrors({});
-    // result.data contiene los datos ya validados por Zod
-    console.log("Venta válida:", result.data);
+
+    try {
+      const response = await createSale(result.data);
+
+      console.log("Venta guardada en BD:", response);
+
+      setIsEditing(false);
+
+      // opcional: limpiar formulario o redirigir
+    } catch (error) {
+      console.error("Error al guardar venta:", error);
+    }
   };
 
-  //======================================================================
+  // esto, esta pendiente apenas esten los productos se apunta al backend
+  const handleAddProduct = () => {
+    if (!search.trim()) return;
 
-  //Estado de los errores
-  const [errors, setErrors] = useState({});
-  const [isEditing, setIsEditing] = useState(!isEdit);
+    const selected = fakeProducts.find(
+      (p) => p.name.toLowerCase() === search.toLowerCase(),
+    );
 
+    if (!selected) return;
+
+    onAddProduct({
+      id: Date.now(),
+      name: selected.name,
+      quantity: 1,
+      price: selected.price,
+      image: selected.image,
+    });
+
+    setSearch("");
+  };
+
+  // ================== RENDER ==================
   return (
-    <div className="font-main bg-white grid gap-2 w-full h-132 p-6 rounded-lg">
+    <div className="font-main bg-white grid gap-4 w-full h-120 p-2 rounded-lg">
+      {/* ================= Inicia el FORM los estilos son predeterminados a mi gusto por si los piensan usar================= */}
       <form onSubmit={handleSubmit} className="w-full px-6 rounded-xl">
         {isEdit ? (
           <Title title="Editar venta" />
         ) : (
           <Title title="Crear venta" />
         )}
-        <div className="grid grid-cols-2 gap-6  w-full">
-          <div className="flex flex-col gap-3">
-            <Input
-              className="                    
-                            w-full
-                            h-10
-                            relative
-                            text-black/20
-                            rounded-xl
-                            bg-brand-soft/60
-                            border
-                            border-background
-                            px-4
-                            text-base"
-              label="Numero de factura"
-              disabled
-              value={formData.numeroFactura}
-            />
+
+        <div className="grid grid-cols-2 w-full gap-2">
+          <Input
+            className="
+      w-full
+      h-10
+      text-black/20
+      rounded-xl
+      bg-brand-soft/60
+      border
+      border-background
+      text-base"
+            label="Numero de factura"
+            disabled
+            value={formData.numeroFactura}
+          />
+
+          <Input
+            className="w-full h-10"
+            label="Fecha y hora"
+            type="datetime-local"
+            name="fecha"
+            disabled
+            value={formData.fecha}
+          />
+
+          <div className="col-span-2 -mt-5">
             <Input
               label="Usuario"
               name="usuario"
@@ -110,6 +174,9 @@ export default function SaleForm() {
               onChange={handleChange}
               error={errors.usuario}
             />
+          </div>
+
+          <div className="col-span-2 -mt-1">
             <Input
               label="Farmaceuta"
               name="farmaceuta"
@@ -118,53 +185,30 @@ export default function SaleForm() {
               onChange={handleChange}
               error={errors.farmaceuta}
             />
-            <Select
-              label="Estado"
-              name="sellStates"
-              options={sellStates}
-              disabled={!isEditing}
-              value={formData.sellStates}
-              onChange={handleChange}
-              error={errors.sellStates}
-            />
           </div>
-          <div className="flex flex-col gap-3">
-            <Input
-              label="Fecha y hora"
-              type="datetime-local"
-              name="fecha"
-              disabled
-              value={formData.fecha}
-            />
-            <Select
-              label="Tipo de pago"
-              name="paymentStates"
-              options={paymentStates}
-              disabled={!isEditing}
-              value={formData.paymentStates}
-              onChange={handleChange}
-              error={errors.paymentStates}
-            />
-          </div>
-        </div>
-        <div className="pt-5">
-          <Input
-            className="  
-                        w-full
-                        h-10
-                        relative
-                        text-black
-                        rounded-xl
-                        bg-brand-soft/60
-                        border
-                        border-background
-                        px-4
-                        text-base"
+
+          <Select
+            label="Estado"
+            name="sellStates"
+            options={sellStates}
             disabled={!isEditing}
-            placeholder="Producto"
+            value={formData.sellStates}
+            onChange={handleChange}
+            error={errors.sellStates}
+          />
+
+          <Select
+            label="Tipo de pago"
+            name="paymentStates"
+            options={paymentStates}
+            disabled={!isEditing}
+            value={formData.paymentStates}
+            onChange={handleChange}
+            error={errors.paymentStates}
           />
         </div>
-        <div className="flex gap-4 py-2 justify-center">
+
+        <div className="flex py-4 justify-center">
           {isEdit && !isEditing && (
             <Button type="button" onClick={() => setIsEditing(true)}>
               Editar
@@ -174,6 +218,23 @@ export default function SaleForm() {
           {isEditing && <Button type="submit">Guardar</Button>}
         </div>
       </form>
+
+      <div className="mt-10 p-4 border rounded-lg">
+        <h3>Agregar productos</h3>
+
+        <div className="flex gap-2">
+          <Input
+            placeholder="Buscar producto..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            disabled={isEditing} // 🔥 solo cuando ya guardaste
+          />
+
+          <Button type="button" disabled={isEditing} onClick={handleAddProduct}>
+            Agregar
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

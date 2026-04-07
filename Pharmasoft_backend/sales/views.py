@@ -1,7 +1,11 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework import viewsets
 from .models import Ventas
-from .serializers import SaleSerializer
+from .serializers import VentaSerializer, VentaCreateSerializer
 
-class VentasViewSet(ModelViewSet):
+class VentasViewSet(viewsets.ModelViewSet):
     queryset = Ventas.objects.all()
-    serializer_class = SaleSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return VentaCreateSerializer
+        return VentaSerializer

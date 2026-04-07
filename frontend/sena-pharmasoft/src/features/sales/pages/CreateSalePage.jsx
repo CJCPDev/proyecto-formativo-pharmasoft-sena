@@ -1,24 +1,52 @@
 import { InformationSale, SaleForm } from "../index";
 import { Button } from "@/shared/components";
 import { useNavigate } from "react-router-dom";
+import {  useState } from "react";
 
 export default function CreateSalePage() {
   const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  
 
+  const handleAddProduct = (product) => {
+  setProducts((prev) => [...prev, product]);
+};
   return (
-    <div className="flex absolute w-full shadow-2xl m-6 rounded-lg">
-      <div className="flex flex-row w-full justify-between gap-6 p-6 px-8">
-        <div className="w-350 border border-brand-hover/20 rounded-lg">
-          <div className="p-2">
-            <Button variant="secondary" size="sm" onClick={() => navigate(-1)}>
+    <div className="w-full min-h-screen p-6 flex justify-center">
+      
+      <div className="w-full flex gap-6">
+        
+
+        <div className="w-95 flex flex-col gap-2">
+          
+          {/* BOTÓN */}
+          <div>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => navigate(-1)}
+            >
               Atras
             </Button>
           </div>
-          <SaleForm className="flex justify-items-center rounded-2xl" />
+
+          <div className="bg-white border border-brand-hover/20 rounded-lg z-10">
+            <SaleForm onAddProduct={handleAddProduct} />
+            
+          </div>
+
         </div>
-        <div className="w-full border border-brand-hover/20 rounded-lg">
-          <InformationSale className="flex justify-items-center" />
+
+
+        <div className="flex-1 mt-11">
+          <div className="bg-white border border-brand-hover/20 rounded-lg p-4 h-full">
+            <InformationSale 
+  products={products} 
+  setProducts={setProducts} 
+/>
+          </div>
         </div>
+
       </div>
     </div>
   );
