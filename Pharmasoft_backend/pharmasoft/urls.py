@@ -14,6 +14,8 @@ urlpatterns = [
 
     # Módulo de usuarios
     path('api/', include('users.urls')),
+    # Módulo de proveedores
+     path('api/', include('suppliers.urls')),
 
 
 

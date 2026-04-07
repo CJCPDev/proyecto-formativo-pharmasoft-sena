@@ -1,6 +1,5 @@
 // Fuente de datos de usuarios (mock o fuente centralizada)
-import { suppliers } from "@/data/suppliers/suppliers";
-
+import { getAllSuppliers } from "../../services/supplierService"
 // Utilidad para transformar datos en dataset de reporte
 import { buildReportDataset } from "../utils/buildReportDataset";
 
@@ -10,13 +9,15 @@ import { generatePdfReport } from "./generatePdfReport";
 
 // Caso de uso: orquestador de generación de reportes de usuarios
 // Patrón: Application Service (coordina utilidades y servicios)
-export function generateSupplierReport({
+export async function generateSupplierReport({
   format,          // "excel" | "pdf"
   selectedFields,  // Campos seleccionados por el usuario
   scope,           // Alcance del reporte
   nit   // Filtro opcional
 }) {
 
+  const suppliers = await getAllSuppliers();
+  console.log("suppliers:", suppliers);
   // Construcción del dataset (desacoplado de la UI)
   const { headers, rows } = buildReportDataset({
     suppliers,

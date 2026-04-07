@@ -64,11 +64,11 @@ export default function ReportConfigModal({ isOpen, onClose }) {
 
 
   // Handler principal para generar el reporte
-  const handleGenerateReport = () => {
+  const handleGenerateReport = async () => {
 
 
     // Invoca el caso de uso con la configuración actual
-    generateSupplierReport({
+    await generateSupplierReport({
       format,
       selectedFields,
       scope,

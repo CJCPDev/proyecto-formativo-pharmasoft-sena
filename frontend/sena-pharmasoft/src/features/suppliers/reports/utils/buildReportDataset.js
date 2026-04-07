@@ -4,16 +4,16 @@ export function buildReportDataset({
   suppliers,           // Array de usuarios origen
   selectedFields,  // Campos seleccionados para el reporte [{ key, label }]
   scope,           // Alcance del reporte: "all" | "document"
-  documentNumber   // Número de documento para filtrar (si aplica)
+  nit   // NIT para filtrar (si aplica)
 }) {
 
   // Copia inmutable del array original (evita mutaciones)
   let filteredSuppliers = [...suppliers];
 
   // Filtro por alcance: si es por documento, se aplica filtro específico
-  if (scope === "document" && documentNumber) {
+  if (scope === "nit" && nit) {
     filteredSuppliers = filteredSuppliers.filter(
-      (suppliers) => suppliers.document_number === documentNumber
+      (suppliers) => suppliers.nit === nit
     );
   }
 

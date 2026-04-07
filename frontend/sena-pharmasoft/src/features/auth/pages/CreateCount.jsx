@@ -1,27 +1,29 @@
-export default function CreateCount() {
+export default function Home() {
   return (
-    <form className="grid gap-4 justify-center items-center w-full h-full">
-      <input
-        type="text"
-        placeholder="Nombre completo"
-        className="border p-3 rounded-md"
-      />
+    <div>
 
-      <input
-        type="email"
-        placeholder="Correo electrónico"
-        className="border p-3 rounded-md"
-      />
+      {/* Productos */}
+      <section className="p-6">
+        <h1 className="text-2xl font-bold">Productos</h1>
+      </section>
 
-      <input
-        type="password"
-        placeholder="Contraseña"
-        className="border p-3 rounded-md"
-      />
+      {/* Registro */}
+      <section className="bg-green-600 text-white p-10 text-center">
+        <h2 className="text-2xl font-bold mb-4">
+          Únete a nuestra farmacia
+        </h2>
 
-      <button className="bg-green-600 text-white py-3 rounded-md hover:bg-green-700 transition">
-        Registrarse
-      </button>
-    </form>
+        <div className="flex justify-center gap-2">
+          <input
+            placeholder="Correo electrónico"
+            className="p-3 rounded-md text-black"
+          />
+          <button className="bg-white text-green-600 px-4 rounded-md">
+            Registrarse
+          </button>
+        </div>
+      </section>
+
+    </div>
   );
 }
