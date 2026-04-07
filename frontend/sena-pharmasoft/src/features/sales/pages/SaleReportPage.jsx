@@ -1,18 +1,24 @@
+import { useEffect, useState } from "react";
+import { getVentas } from "../services/saleService";
+import { DataTable } from "../../../shared/components";
+import { sellColumns } from "../table/SellColumns";
 
-import {SellColumns}  from "@/features/sales"
-import { ventas } from "@/data/sells/sells"
-import { DataTable } from "../../../shared/components"
+export default function SalesPage() {
+  const [data, setData] = useState([]);
 
-export default function SaleReportPage(){
+  useEffect(() => {
+    const cargar = async () => {
+      const res = await getVentas();
 
+      setData(res);
+    };
 
-    return (
-                                <div className="w-full h-200 ">
-                            <DataTable
-                                data={ventas}
-                                columns={SellColumns}
-                            />
+    cargar();
+  }, []);
 
-                        </div>
-    )
+  return (
+    <div className="w-full h-200 ">
+      <DataTable data={data} columns={sellColumns} />
+    </div>
+  );
 }

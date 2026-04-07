@@ -1,14 +1,29 @@
 import { Button, Title } from "@/shared/components";
 import { useNavigate, useParams } from "react-router-dom";
-import { getSupplierById } from "../services/getSupplierById";
+import { getSupplierById } from "../services/supplierService";;
+import { useState, useEffect } from "react";
 
 const CardSupplier = () => {
 
     const { id } = useParams();
     const navigate = useNavigate();
+    const [supplier, setSupplier] = useState(null);
 
-    // Obtener proveedor directamente
-    const supplier = id ? getSupplierById(id) : null;
+    useEffect(() => {
+        if (!id) return;
+        const fetchSupplier = async () => {
+            try {
+                const data = await getSupplierById(id);
+                setSupplier({
+                    ...data,
+                    estado: data.estado ? "Activo" : "Inactivo"
+                });
+            } catch (error) {
+                console.error("Error cargando proveedor:", error);
+            }
+        };
+        fetchSupplier();
+    }, [id]);
 
     // Manejo de seguridad
     if (!supplier) {
@@ -21,9 +36,10 @@ const CardSupplier = () => {
         razonSocial,
         direccion,
         correo,
-        telContacto,
+        telefonoContacto,
         estado,
-        ciudad,
+        nombreCiudad,
+        nombreDepartamento,
         nombreContacto
     } = supplier;
 
@@ -62,7 +78,7 @@ const CardSupplier = () => {
                     </dd>
                 </div>
 
-                <div className="col-span-2">
+                <div>
                     <dt className="px-4 text-xs text-text-mute">Correo</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
                         {correo || "-"}
@@ -72,10 +88,16 @@ const CardSupplier = () => {
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Teléfono de Contacto</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {telContacto || "-"}
+                        {telefonoContacto || "-"}
                     </dd>
                 </div>
 
+                <div>
+                    <dt className="px-4 text-xs text-text-mute">Departamento</dt>
+                    <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
+                        {nombreDepartamento || "-"}
+                    </dd>
+                </div>
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Estado</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
@@ -86,7 +108,7 @@ const CardSupplier = () => {
                 <div>
                     <dt className="px-4 text-xs text-text-mute">Ciudad</dt>
                     <dd className="h-12 w-full bg-brand-soft p-4 rounded-xl flex items-center">
-                        {ciudad || "-"}
+                        {nombreCiudad || "-"}
                     </dd>
                 </div>
 

@@ -1,6 +1,6 @@
 // Componente reutilizable que muestra un switch para activar o desactivar estados
 import { StatusSwitch } from "@/shared/components";
-
+import { updateSupplier } from "../services/supplierService";
 // Componente que contiene los botones de acciones (editar y eliminar) para cada usuario
 import SupplierRowAction from "../components/SupplierRowAction";
 
@@ -28,13 +28,18 @@ export const SupplierColumns = [
 
   // Columna telefono del contacto
   {
-    accessorKey: "telContacto",
+    accessorKey: "telefonoContacto",
     header: "Telefono Contacto",
   },
   // Columna Ciudad
   {
-    accessorKey: "ciudad",
+    accessorKey: "nombreCiudad",
     header: "Ciudad",
+  },
+   // Columna Ciudad
+  {
+    accessorKey: "nombreDepartamento",
+    header: "Departamento",
   },
 
   // Columna Estado (activo / inactivo)
@@ -50,14 +55,13 @@ export const SupplierColumns = [
       const supplier = row.original;
 
       // Función que se ejecuta cuando cambia el switch
-      const handleChange = (value) => {
-
-        // value representa el nuevo estado del switch (true o false)
-        console.log("Actualizar estado usuario:", supplier.id, value);
-
-        // Aquí normalmente se llamaría una API para actualizar el estado
-        // updatesupplierStatus(supplier.supplier_id, value)
-      };
+       const handleChange = async (value) => {
+      try {
+        await updateSupplier(supplier.id, { ...supplier, estado: value });
+      } catch (error) {
+        console.error("Error actualizando estado:", error);
+      }
+    };
 
       return (
         // Componente reutilizable para mostrar el switch

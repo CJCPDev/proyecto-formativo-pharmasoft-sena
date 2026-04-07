@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 // Componente que renderiza las acciones de cada fila de usuario
 // Recibe como prop el objeto
 export default function SellRowActions({ sales }) {
-
   // const handleEdit = () => {
   //   console.log("Editar usuario", user.id);
   // };
@@ -21,7 +20,6 @@ export default function SellRowActions({ sales }) {
     navigate(`/ver-venta/${sales.id}/editar`);
   };
 
-
   const handleDetail = () => {
     navigate(`/ver-venta/${sales.id}`);
   };
@@ -29,17 +27,17 @@ export default function SellRowActions({ sales }) {
   return (
     // Contenedor de los botones de acciones
     <div className="flex gap-4 items-center justify-center">
-      
       {/* Botón editar */}
       <div className="relative group w-max">
-      <button
-        onClick={handleEdit} // Ejecuta la navegación a la página de edición
-        className="py-1 rounded cursor-pointer"
+        <button
+          onClick={handleEdit} // Ejecuta la navegación a la página de edición
+          className="py-1 rounded cursor-pointer"
         >
-
-        <Pencil size={18} className="stroke-brand-fort"/> {/* Icono de editar */}
-      </button>
-                      <span className="
+          <Pencil size={18} className="stroke-brand-fort" />{" "}
+          {/* Icono de editar */}
+        </button>
+        <span
+          className="
                         absolute
                         top-6
                         -right-2
@@ -52,17 +50,20 @@ export default function SellRowActions({ sales }) {
                         p-0.5
                         rounded
                         z-15
-                      ">Editar
-                  </span>
-</div>
-        <div className="relative group w-max">
-                  <button
-                    onClick={handleDetail} 
-                    className="relative py-1 rounded cursor-pointer"
-                  >
-                    <Eye size={20} className="stroke-brand-fort"/> 
-                  </button>
-                  <span className="
+                      "
+        >
+          Editar
+        </span>
+      </div>
+      <div className="relative group w-max">
+        <button
+          onClick={handleDetail}
+          className="relative py-1 rounded cursor-pointer"
+        >
+          <Eye size={20} className="stroke-brand-fort" />
+        </button>
+        <span
+          className="
                       absolute
                       top-6
                       -right-6
@@ -75,10 +76,11 @@ export default function SellRowActions({ sales }) {
                       p-0.5
                       rounded
                       z-15
-                    ">Visualizar
-                </span>
-        </div>
+                    "
+        >
+          Visualizar
+        </span>
+      </div>
     </div>
   );
 }
-

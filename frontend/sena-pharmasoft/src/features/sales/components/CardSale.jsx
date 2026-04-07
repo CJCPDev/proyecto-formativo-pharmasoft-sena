@@ -5,7 +5,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { getSalesById } from "../services/getSalesById";
 
 export default function SaleView() {
-
   const navigate = useNavigate();
   const params = useParams();
 
@@ -13,32 +12,20 @@ export default function SaleView() {
 
   return (
     <div className="font-main bg-white grid gap-2 w-full h-full p-6 rounded-lg">
-      
       <div className="w-full px-6 rounded-xl">
-        
         <Title title="Ver Venta" />
 
         <div className="grid grid-cols-2 gap-6 w-full">
-
           <div className="flex flex-col gap-3">
-
             <Input
               label="Número de factura"
               value={sale?.numeroFactura}
               disabled
             />
 
-            <Input
-              label="Usuario"
-              value={sale?.usuario}
-              disabled
-            />
+            <Input label="Usuario" value={sale?.usuario} disabled />
 
-            <Input
-              label="Farmaceuta"
-              value={sale?.farmaceuta}
-              disabled
-            />
+            <Input label="Farmaceuta" value={sale?.farmaceuta} disabled />
 
             <Select
               label="Estado"
@@ -49,7 +36,6 @@ export default function SaleView() {
           </div>
 
           <div className="flex flex-col gap-3">
-
             <Input
               label="Fecha y hora"
               type="datetime-local"
@@ -63,17 +49,11 @@ export default function SaleView() {
               value={sale?.paymentStates}
               disabled
             />
-
           </div>
-
         </div>
 
         <div className="pt-5">
-          <Input
-            label="Producto"
-            value="Acetaminofén"
-            disabled
-          />
+          <Input label="Producto" value="Acetaminofén" disabled />
         </div>
 
         <div className="flex justify-center pt-6">
@@ -81,7 +61,6 @@ export default function SaleView() {
             Editar
           </Button>
         </div>
-
       </div>
     </div>
   );

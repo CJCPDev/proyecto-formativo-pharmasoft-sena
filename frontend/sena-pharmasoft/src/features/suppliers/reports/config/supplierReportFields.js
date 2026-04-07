@@ -25,13 +25,18 @@ export const supplierReportFields = [
         default: true
     },
     {
-        key: "telContacto",
+        key: "telefonoContacto",
         label: "Teléfono del Contacto",
         default: true
     },
     {
-        key: "ciudad",
+        key: "nombreCiudad",
         label: "Ciudad",
+        default: true
+    },
+    {
+        key: "nombreDepartamento",
+        label: "Departamento",
         default: true
     },
     {
