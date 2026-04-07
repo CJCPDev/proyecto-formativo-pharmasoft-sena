@@ -1,27 +1,26 @@
-import {Title, Input, Select, Button} from "@/shared/components"
-import sellStates from "../../../data/selects/sellStates.json"
-import paymentStates from "../../../data/selects/paymenStates.json"
-import { useState } from "react"
-import { saleSchema } from "../schemas/saleSchema"
-import { useParams } from "react-router-dom"
-import { getSalesById } from "../services/getSalesById"
+import { Title, Input, Select, Button } from "@/shared/components";
+import sellStates from "../../../data/selects/sellStates.json";
+import paymentStates from "../../../data/selects/paymenStates.json";
+import { useState } from "react";
+import { saleSchema } from "../schemas/saleSchema";
+import { useParams } from "react-router-dom";
+import { getSalesById } from "../services/getSalesById";
 
+export default function SaleForm() {
+  const params = useParams();
+  const isEdit = Boolean(params.id);
+  const sales = isEdit ? getSalesById(params.id) : null;
 
-export default function SaleForm(){
-    const params = useParams()
-    const isEdit = Boolean(params.id);
-    const sales = isEdit ? getSalesById(params.id) : null;
+  const [formData, setFormData] = useState({
+    numeroFactura: sales?.numeroFactura || "",
+    fecha: sales?.fechaHora || "",
+    usuario: sales?.usuario || "",
+    farmaceuta: sales?.farmaceuta || "",
+    sellStates: sales?.sellStates || "",
+    paymentStates: sales?.paymentStates || "",
+  });
 
-        const [formData, setFormData] = useState({
-        numeroFactura: sales?.numeroFactura || "",
-        fecha: sales?.fechaHora || "",
-        usuario: sales?.usuario || "",
-        farmaceuta: sales?.farmaceuta || "",
-        sellStates: sales?.sellStates || "",
-        paymentStates: sales?.paymentStates || "",
-      });
-      
-    //==================HANDLE=========================
+  //==================HANDLE=========================
   // Función que se ejecuta cada vez que cambia el valor de un input del formulario
   const handleChange = (e) => {
     // Se obtiene el nombre del campo (name) y su valor actual (value)
@@ -40,7 +39,7 @@ export default function SaleForm(){
 
   //==================================================================
 
-    //============== HANDLE SUBMIT ==============
+  //============== HANDLE SUBMIT ==============
   // Función que se ejecuta cuando se envía el formulario
   const handleSubmit = (e) => {
     // Evita que el formulario recargue la página
@@ -73,32 +72,22 @@ export default function SaleForm(){
 
   //======================================================================
 
-    //Estado de los errores
-      const [errors, setErrors] = useState({});
+  //Estado de los errores
+  const [errors, setErrors] = useState({});
+  const [isEditing, setIsEditing] = useState(!isEdit);
 
-
-
-      const [isEditing, setIsEditing] = useState(!isEdit);
-
-  // //Estado de los tipos de documento
-  // const [getDocumentTypes, setDocumentTypes] = useState([]);
-
-  // useEffect(() => {
-  //   getDocumentTypes().then(setDocumentTypes);
-  // }, []);
-
-
-    return(
-        <div className="font-main bg-white grid gap-2 w-full h-132 p-6 rounded-lg">
-            
-            <form 
-            onSubmit={handleSubmit}
-            className="w-full px-6 rounded-xl">
-                {isEdit ? <Title title="Editar venta"/> : <Title title="Crear venta"/> }
-                <div className="grid grid-cols-2 gap-6  w-full">
-                    <div className="flex flex-col gap-3">
-                        <Input
-                            className="                    
+  return (
+    <div className="font-main bg-white grid gap-2 w-full h-132 p-6 rounded-lg">
+      <form onSubmit={handleSubmit} className="w-full px-6 rounded-xl">
+        {isEdit ? (
+          <Title title="Editar venta" />
+        ) : (
+          <Title title="Crear venta" />
+        )}
+        <div className="grid grid-cols-2 gap-6  w-full">
+          <div className="flex flex-col gap-3">
+            <Input
+              className="                    
                             w-full
                             h-10
                             relative
@@ -109,59 +98,58 @@ export default function SaleForm(){
                             border-background
                             px-4
                             text-base"
-                            label = 'Numero de factura'
-                            disabled
-                            value = {formData.numeroFactura}
-                        />
-                        <Input
-                        label="Usuario"
-                        name="usuario"
-                        disabled={!isEditing}
-                        value={formData.usuario}
-                        onChange={handleChange}
-                        error={errors.usuario}
-                        />
-                        <Input
-                        label="Farmaceuta"
-                        name="farmaceuta"
-                        disabled={!isEditing}
-                        value={formData.farmaceuta}
-                        onChange={handleChange}
-                        error={errors.farmaceuta}
-                        />
-                        <Select
-                            label="Estado"
-                            name="sellStates"
-                            options={sellStates}
-                            disabled={!isEditing}
-                            value={formData.sellStates}
-                            onChange={handleChange}
-                            error={errors.sellStates}
-                        />
-                    </div>
-                    <div className="flex flex-col gap-3">
-                        <Input
-                            label = 'Fecha y hora'
-                            type='datetime-local'
-                            name="fecha"
-                            disabled
-                            value={formData.fecha}
-                            />
-                            <Select
-                                label="Tipo de pago"
-                                name="paymentStates"
-                                options={paymentStates} 
-                                disabled={!isEditing}
-                                value={formData.paymentStates}
-                                onChange={handleChange}
-                                error={errors.paymentStates}               
-                            />
-                    </div>                    
-
-                </div>
-                    <div className="pt-5">
-                        <Input
-                        className="  
+              label="Numero de factura"
+              disabled
+              value={formData.numeroFactura}
+            />
+            <Input
+              label="Usuario"
+              name="usuario"
+              disabled={!isEditing}
+              value={formData.usuario}
+              onChange={handleChange}
+              error={errors.usuario}
+            />
+            <Input
+              label="Farmaceuta"
+              name="farmaceuta"
+              disabled={!isEditing}
+              value={formData.farmaceuta}
+              onChange={handleChange}
+              error={errors.farmaceuta}
+            />
+            <Select
+              label="Estado"
+              name="sellStates"
+              options={sellStates}
+              disabled={!isEditing}
+              value={formData.sellStates}
+              onChange={handleChange}
+              error={errors.sellStates}
+            />
+          </div>
+          <div className="flex flex-col gap-3">
+            <Input
+              label="Fecha y hora"
+              type="datetime-local"
+              name="fecha"
+              disabled
+              value={formData.fecha}
+            />
+            <Select
+              label="Tipo de pago"
+              name="paymentStates"
+              options={paymentStates}
+              disabled={!isEditing}
+              value={formData.paymentStates}
+              onChange={handleChange}
+              error={errors.paymentStates}
+            />
+          </div>
+        </div>
+        <div className="pt-5">
+          <Input
+            className="  
                         w-full
                         h-10
                         relative
@@ -172,26 +160,20 @@ export default function SaleForm(){
                         border-background
                         px-4
                         text-base"
-                        disabled={!isEditing}
-                        placeholder='Producto'
-                        />
-                    </div>
-                <div className="flex gap-4 py-2 justify-center">
-
-                {isEdit && !isEditing && (
-                    <Button type="button" onClick={() => setIsEditing(true)}>
-                    Editar
-                    </Button>
-                )}
-
-                {isEditing && (
-                    <Button type="submit">
-                    Guardar
-                    </Button>
-                )}
-
-                </div>        
-        </form>
+            disabled={!isEditing}
+            placeholder="Producto"
+          />
         </div>
-    )
+        <div className="flex gap-4 py-2 justify-center">
+          {isEdit && !isEditing && (
+            <Button type="button" onClick={() => setIsEditing(true)}>
+              Editar
+            </Button>
+          )}
+
+          {isEditing && <Button type="submit">Guardar</Button>}
+        </div>
+      </form>
+    </div>
+  );
 }
