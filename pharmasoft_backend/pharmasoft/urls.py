@@ -15,4 +15,8 @@ urlpatterns = [
     # Módulo de usuarios
     path('api/', include('users.urls')),
 
+    #Módulo de productos
+    path('api/', include('products.urls')),
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
