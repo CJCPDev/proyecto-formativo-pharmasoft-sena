@@ -1,6 +1,3 @@
-// Importación de componentes creados anteriormente en la capeta shared
-// importación de los estados useState y useEffect de reac
-// Importacion de la funcion que contiene el json para los selects
 import { useEffect, useState } from "react"
 import { supplierSchema } from "../schemas/supplierSchema"
 import { getSuppliersState, getDepartamentos, getMunicipios} from "../services/selectService"

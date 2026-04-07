@@ -17,4 +17,11 @@ urlpatterns = [
     # Módulo de proveedores
      path('api/', include('suppliers.urls')),
 
+
+
+
+
+    # Módulo de ventas
+    path('api/', include('sales.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
