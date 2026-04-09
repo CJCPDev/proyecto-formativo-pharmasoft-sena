@@ -1,53 +1,47 @@
 from rest_framework import serializers
-from .models import Ventas, DetalleVenta
+from suppliers.models import Suppliers, Departamento, Municipio
 
 
-# Este es para hacer post/ subir la venta
-""" class SaleCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Ventas
-        fields = [
-            'id_factura',
-            'fecha_hora',
-            'usuario',
-            'farmaceuta',
-            'subtotal_venta',
-            'iva_venta',
-            'descuento_venta',
-            'total_venta',
-            'estado_venta'
-        ] """
-
-
-# Este espara obtener de la base de datos
-class VentaSerializer(serializers.ModelSerializer):
-    numeroFactura = serializers.IntegerField(source='id_factura', read_only=True)
-    fechaHora = serializers.DateTimeField(source='fecha_hora', read_only=True)
-    is_active = serializers.BooleanField(source='estado_venta', read_only=True)
+class SupplierSerializer(serializers.ModelSerializer):
+    razonSocial = serializers.CharField(source='razon_social')
+    telefonoContacto = serializers.CharField(source='telefono_contacto')
+    nombreContacto = serializers.CharField(source='nombre_contacto')
+    nombre = serializers.CharField(source='nombre_proveedor')
+    correo = serializers.CharField(source='correo_contacto')
+    ciudad = serializers.PrimaryKeyRelatedField(
+        source='id_municipio',
+        queryset=Municipio.objects.all()
+    )
+    departamento = serializers.PrimaryKeyRelatedField(  # 👈 agregado
+        source='id_departamento',
+        queryset=Departamento.objects.all()
+    )
+    nombreCiudad = serializers.CharField(source='id_municipio.nombre_municipio', read_only=True)
+    nombreDepartamento = serializers.CharField(source='id_departamento.nombre_departamento', read_only=True)
 
     class Meta:
-        model = Ventas
+        model = Suppliers
         fields = [
             'id',
-            'id_factura',
-            'numeroFactura',
-            'fechaHora',
-            'usuario',
-            'farmaceuta',
-            'subtotal_venta',
-            'iva_venta',
-            'descuento_venta',
-            'total_venta',
-            'is_active'
+            'nit',
+            'nombre',
+            'razonSocial',
+            'direccion',
+            'correo',
+            'telefonoContacto',
+            'estado',
+            'ciudad',
+            'departamento',
+            'nombreCiudad',
+            'nombreDepartamento',
+            'nombreContacto'
         ]
 
-class VentaCreateSerializer(serializers.ModelSerializer):
+class DepartamentoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Ventas
-        fields = ["usuario", "farmaceuta", "estado_venta"]
-
-
-class DetalleVentaSerializer(serializers.ModelSerializer):
+        model = Departamento
+        fields = "__all__" 
+class MunicipioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DetalleVenta
-        fields = "__all__"
+        model = Municipio
+        fields = "__all__" 
