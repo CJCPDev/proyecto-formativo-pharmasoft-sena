@@ -126,11 +126,17 @@ import { useState, useEffect } from "react";
 import { getUsuarioActual } from "@/features/auth/services/authService";
 import { obtenerCarrito } from "@/features/home/services/carritoService";
 
-const Navbar = ({ variant = "solid", onOpenRegister }) => {
-  const [openCart, setOpenCart] = useState(false);
+const Navbar = ({ variant = "solid",
+  onOpenRegister, 
+  setOpenLogin,
+  shouldOpenCart,
+  setShouldOpenCart}) => {
+
   const [totalProductos, setTotalProductos] = useState(0);
+  const [isCartOpen, setIsCartOpen] = useState(false)
 
   const usuarioActual = getUsuarioActual();
+
 
   // Carga el contador del carrito al montar el navbar
   useEffect(() => {
@@ -138,6 +144,13 @@ const Navbar = ({ variant = "solid", onOpenRegister }) => {
       cargarContador();
     }
   }, []);
+
+  useEffect(() => {
+  if (shouldOpenCart) {
+    setIsCartOpen(true);     // 👈 abre carrito
+    setShouldOpenCart(false); // 👈 resetea
+  }
+}, [shouldOpenCart]);
 
   // Actualiza el contador del carrito
   const cargarContador = async () => {
@@ -194,7 +207,7 @@ const Navbar = ({ variant = "solid", onOpenRegister }) => {
 
             {/* ICONO CARRITO CON CONTADOR */}
             <button
-              onClick={() => setOpenCart(true)}
+              onClick={() => setIsCartOpen(true)}
               className="relative"
             >
               <ShoppingCart className="size-7 stroke-2 stroke-brand-hover cursor-pointer" />
@@ -207,13 +220,12 @@ const Navbar = ({ variant = "solid", onOpenRegister }) => {
               )}
             </button>
 
-            <CartModal
-              isOpen={openCart}
-              onClose={() => {
-                setOpenCart(false);
-                cargarContador(); 
-              }}
-            />
+<CartModal
+  isOpen={isCartOpen}
+  onClose={() => setIsCartOpen(false)}
+  setOpenLogin={setOpenLogin}
+  setShouldOpenCart={setShouldOpenCart}
+/>
 
           </div>
         </div>
