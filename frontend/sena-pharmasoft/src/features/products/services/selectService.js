@@ -19,11 +19,11 @@ export async function getAdministrationTypes() {
 }
 
 export async function getSuppliers() {
-  const res = await fetch("http://127.0.0.1:8000/api/proveedores/");
+  const res = await fetch("http://127.0.0.1:8000/api/suppliers/");  
   const data = await res.json();
   return data.map(item => ({
-    value: item.id_proveedor,
-    label: item.nombre_proveedor
+    value: item.id,
+    label: item.nombre
   }));
 }
 

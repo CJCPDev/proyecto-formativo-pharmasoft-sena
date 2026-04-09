@@ -45,7 +45,7 @@ class EstadoMedicamento(models.Model):
 
 
 class Proveedores(models.Model):
-    id_proveedor = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True)   
     nombre_proveedor = models.CharField(max_length=255)
 
     class Meta:
@@ -81,7 +81,7 @@ class Medicamentos(models.Model):
     )
     descripcion = models.CharField(max_length=255)
     concentracion = models.CharField(max_length=50, blank=True, default='')
-    imagen = models.ImageField(upload_to='medicamentos/', null=True, blank=True)  # 🔥 nuevo campo
+    imagen = models.ImageField(upload_to='medicamentos/', null=True, blank=True)
 
     id_forma_farmaceutica = models.ForeignKey(
         FormaFarmaceutica,

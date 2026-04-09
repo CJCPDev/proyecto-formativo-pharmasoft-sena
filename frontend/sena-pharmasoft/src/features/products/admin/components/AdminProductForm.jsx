@@ -10,7 +10,7 @@ import {
   getStatesTypes,
 } from "../../services/selectService";
 
-export default function FormMedicamentos() {
+export default function AdminProductForm() {
   const navigate = useNavigate();
   const params = useParams();
   const isEdit = Boolean(params.id);
@@ -31,39 +31,37 @@ export default function FormMedicamentos() {
     requiresPrescription: "",
     estado: "",
     description: "",
-    imagen: null
+    imagen: null,
   });
 
-  // 🔥 CARGAR DATOS (EDITAR)
   useEffect(() => {
     if (isEdit) {
       fetch(`http://127.0.0.1:8000/api/medicamentos/${params.id}/`)
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           setFormData({
-            nombre_medicamento: data.nombre_medicamento || "",
-            id_forma_farmaceutica: data.id_forma_farmaceutica?.id_forma_farmaceutica || "",
-            id_via_administracion: data.id_via_administracion?.id_via_administracion || "",
-            id_laboratorio: data.id_laboratorio?.id_laboratorio || "",
+            nombreMedicamento: data.nombre_medicamento || "",
+            formaFarmaceutica: data.id_forma_farmaceutica || "",
+            viaAdministracion: data.id_via_administracion || "",
+            laboratorio: data.id_laboratorio || "",
             concentracion: data.concentracion || "",
-            id_proveedor: data.id_proveedor?.id_proveedor || "",
+            proveedor: data.id_proveedor || "",
             lote: data.lote || "",
-            fecha_fabricacion: data.fecha_fabricacion || "",
-            fecha_vencimiento: data.fecha_vencimiento || "",
+            fechaFabricacion: data.fecha_fabricacion || "",
+            fechaVencimiento: data.fecha_vencimiento || "",
             stock: data.stock || "",
-            precio_compra: data.precio_compra || "",
-            precio_venta: data.precio_venta || "",
-            requiere_formula: data.requiere_formula || "",
-            id_estado: data.id_estado?.id_estado || "",
-            descripcion: data.descripcion || "",
-            imagen: data.imagen || null
+            precioCosto: data.precio_compra || "",
+            precioVenta: data.precio_venta || "",
+            requiresPrescription: data.requiere_formula === "Si" ? "Sí" : "No",
+            estado: data.id_estado || "",
+            description: data.descripcion || "",
+            imagen: data.imagen || null,
           });
         })
-        .catch(err => console.error("Error cargando medicamento:", err));
+        .catch((err) => console.error("Error cargando medicamento:", err));
     }
   }, [isEdit, params.id]);
 
-  // 🔥 SELECTS
   const [pharmaForm, setPharmaForm] = useState([]);
   const [administrationTypes, setAdministrationTypes] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
@@ -82,20 +80,21 @@ export default function FormMedicamentos() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  //  SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const result = medicamentoSchema.safeParse(formData);
+
+    // 👇 Log temporal para debug
+    console.log("FormData:", formData);
+    console.log("Validación:", result);
+
     if (!result.success) {
       const fieldErrors = {};
-      result.error.issues.forEach(issue => {
+      result.error.issues.forEach((issue) => {
         fieldErrors[issue.path[0]] = issue.message;
       });
       setErrors(fieldErrors);
@@ -106,74 +105,76 @@ export default function FormMedicamentos() {
     const url = isEdit
       ? `http://127.0.0.1:8000/api/medicamentos/${params.id}/`
       : `http://127.0.0.1:8000/api/medicamentos/`;
-
     const method = isEdit ? "PUT" : "POST";
 
-    fetch(url, {
-      method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nombre_medicamento: formData.nombreMedicamento,
-        lote: formData.lote,
-        fecha_fabricacion: formData.fechaFabricacion,
-        fecha_vencimiento: formData.fechaVencimiento,
-        stock: formData.stock,
-        precio_compra: formData.precioCosto,
-        precio_venta: formData.precioVenta,
-        requiere_formula: formData.requiresPrescription === "Sí",
-        descripcion: formData.description,
-        concentracion: formData.concentracion,
-        id_forma_farmaceutica: formData.formaFarmaceutica,
-        id_via_administracion: formData.viaAdministracion,
-        id_laboratorio: formData.laboratorio,
-        id_proveedor: formData.proveedor,
-        id_estado: formData.estado
-      }),
-    })
-      .then(res => res.json())
-      .then(() => navigate("/medicamentos"))
-      .catch(err => console.error("Error guardando medicamento:", err));
+    const formDataToSend = new FormData();
+    formDataToSend.append("nombre_medicamento", formData.nombreMedicamento);
+    formDataToSend.append("lote", formData.lote);
+    formDataToSend.append("fecha_fabricacion", formData.fechaFabricacion);
+    formDataToSend.append("fecha_vencimiento", formData.fechaVencimiento);
+    formDataToSend.append("stock", String(formData.stock));
+    formDataToSend.append("precio_compra", formData.precioCosto);
+    formDataToSend.append("precio_venta", formData.precioVenta);
+    formDataToSend.append("requiere_formula", formData.requiresPrescription === "Sí" ? "Si" : "No");
+    formDataToSend.append("descripcion", formData.description);
+    formDataToSend.append("concentracion", formData.concentracion);
+    formDataToSend.append("id_forma_farmaceutica", formData.formaFarmaceutica);
+    formDataToSend.append("id_via_administracion", formData.viaAdministracion);
+    formDataToSend.append("id_laboratorio", formData.laboratorio);
+    formDataToSend.append("id_proveedor", formData.proveedor);
+    formDataToSend.append("id_estado", formData.estado);
+
+    if (formData.imagen) {
+      formDataToSend.append("imagen", formData.imagen);
+    }
+
+    fetch(url, { method, body: formDataToSend })
+      .then((res) => {
+        if (!res.ok) throw new Error("Error en el servidor");
+        return res.json();
+      })
+      .then(() => {
+        alert(isEdit ? "Medicamento actualizado exitosamente" : "Medicamento creado exitosamente");
+        navigate("/medicamentos");
+      })
+      .catch((err) => {
+        console.error("Error guardando medicamento:", err);
+        alert("Error al guardar el medicamento");
+      });
   };
 
   return (
-    <div className="p-6"> {/* 🔥 ESTE DIV TE FALTABA */}
+    <div className="p-6">
       <form className="flex flex-col gap-10 z-20" onSubmit={handleSubmit}>
         {isEdit ? <Title title="Editar Medicamento" /> : <Title title="Crear Medicamento" />}
 
         <div className="flex gap-12">
-
-          {/* COLUMNA 1 */}
+          {/* Columna 1 */}
           <div className="flex flex-col gap-6 flex-1">
-            <Input label="Nombre del medicamento" name="nombreMedicamento" value={formData.nombreMedicamento} onChange={handleChange} />
-            <Select label="Forma farmacéutica" name="formaFarmaceutica" value={formData.formaFarmaceutica} options={pharmaForm} onChange={handleChange} />
-            <Select label="Vía de administración" name="viaAdministracion" value={formData.viaAdministracion} options={administrationTypes} onChange={handleChange} />
-            <Select label="Laboratorio" name="laboratorio" value={formData.laboratorio} options={laboratoriesTypes} onChange={handleChange} />
-            <Input label="Concentración" name="concentracion" value={formData.concentracion} onChange={handleChange} />
-            <Select label="Proveedor" name="proveedor" value={formData.proveedor} options={suppliers} onChange={handleChange} />
+            <Input label="Nombre del medicamento" name="nombreMedicamento" value={formData.nombreMedicamento} onChange={handleChange} placeholder="Nombre del medicamento" error={errors.nombreMedicamento}/>
+            <Select label="Forma farmacéutica" name="formaFarmaceutica" value={formData.formaFarmaceutica} options={pharmaForm} onChange={handleChange} error={errors.formaFarmaceutica}/>
+            <Select label="Vía de administración" name="viaAdministracion" value={formData.viaAdministracion} options={administrationTypes} onChange={handleChange} error={errors.viaAdministracion}/>
+            <Select label="Laboratorio" name="laboratorio" value={formData.laboratorio} options={laboratoriesTypes} onChange={handleChange} error={errors.laboratorio}/>
+            <Input label="Concentración" name="concentracion" value={formData.concentracion} onChange={handleChange} placeholder="Concentración" error={errors.concentracion}/>
+            <Select label="Proveedor" name="proveedor" value={formData.proveedor} options={suppliers} onChange={handleChange} error={errors.proveedor}/>
           </div>
 
-          {/* COLUMNA 2 */}
-          <div className="flex flex-col gap-5 flex-1">
-            <Input label="Lote" name="lote" value={formData.lote} onChange={handleChange} />
-            <Input label="Fecha fabricación" type="date" name="fechaFabricacion" value={formData.fechaFabricacion} onChange={handleChange} />
-            <Input label="Fecha vencimiento" type="date" name="fechaVencimiento" value={formData.fechaVencimiento} onChange={handleChange} />
-            <Input label="Stock" name="stock" value={formData.stock} onChange={handleChange} />
-            <Input label="Precio costo" name="precioCosto" value={formData.precioCosto} onChange={handleChange} />
-            <Input label="Precio venta" name="precioVenta" value={formData.precioVenta} onChange={handleChange} />
+          {/* Columna 2 */}
+          <div className="flex flex-col gap-5 flex-1 z-10">
+            <Input label="Lote" name="lote" value={formData.lote} onChange={handleChange} placeholder="Lote" error={errors.lote}/>
+            <Input className="z-10" label="Fecha fabricación" type="date" name="fechaFabricacion" value={formData.fechaFabricacion} onChange={handleChange} error={errors.fechaFabricacion}/>
+            <Input className="z-10" label="Fecha vencimiento" type="date" name="fechaVencimiento" value={formData.fechaVencimiento} onChange={handleChange} error={errors.fechaVencimiento}/>
+            <Input label="Stock" name="stock" value={formData.stock} onChange={handleChange} placeholder="Stock" error={errors.stock}/>
+            <Input label="Precio costo" name="precioCosto" value={formData.precioCosto} onChange={handleChange} placeholder="Precio costo" error={errors.precioCosto}/>
+            <Input label="Precio venta" name="precioVenta" value={formData.precioVenta} onChange={handleChange} placeholder="Precio venta" error={errors.precioVenta}/>
           </div>
 
-          {/* COLUMNA 3 */}
+          {/* Columna 3 */}
           <div className="flex flex-col gap-6 flex-1">
-            <Input label="Requiere fórmula" name="requiresPrescription" value={formData.requiresPrescription} onChange={handleChange} />
-            <Select label="Estado" name="estado" value={formData.estado} options={statesTypes} onChange={handleChange} />
-            <Input label="Descripción" name="description" value={formData.description} onChange={handleChange} />
-
-            <AvatarUploader
-              label="Cargar foto"
-              onChange={(file) =>
-                setFormData(prev => ({ ...prev, imagen: file }))
-              }
-            />
+            <Input label="Requiere fórmula" name="requiresPrescription" value={formData.requiresPrescription} onChange={handleChange} placeholder="Requiere fórmula" error={errors.requiresPrescription}/>
+            <Select label="Estado" name="estado" value={formData.estado} options={statesTypes} onChange={handleChange} error={errors.estado}/>
+            <Input label="Descripción" name="description" value={formData.description} onChange={handleChange} placeholder="Descripción" error={errors.description}/>
+            <AvatarUploader label="Cargar foto" onChange={(file) => setFormData((prev) => ({ ...prev, imagen: file }))} />
           </div>
         </div>
 
@@ -185,7 +186,6 @@ export default function FormMedicamentos() {
             {isEdit ? "Actualizar" : "Crear"}
           </Button>
         </div>
-
       </form>
     </div>
   );

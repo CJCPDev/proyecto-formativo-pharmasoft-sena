@@ -4,18 +4,18 @@ from .views import (
     MedicamentosViewSet,
     FormaFarmaceuticaViewSet,
     ViaAdministracionViewSet,
-    LaboratorioViewSet,
-    ProveedorViewSet,
+    LaboratoriosViewSet,
+    ProveedoresViewSet,
     EstadoMedicamentoViewSet,
-    ConcentracionViewSet
+    ConcentracionViewSet,
 )
 
 router = DefaultRouter()
 router.register(r'medicamentos', MedicamentosViewSet)
 router.register(r'formas-farmaceuticas', FormaFarmaceuticaViewSet)
 router.register(r'vias-administracion', ViaAdministracionViewSet)
-router.register(r'laboratorios', LaboratorioViewSet)
-router.register(r'proveedores', ProveedorViewSet)
+router.register(r'laboratorios', LaboratoriosViewSet)
+router.register(r'proveedores', ProveedoresViewSet)
 router.register(r'estados-medicamento', EstadoMedicamentoViewSet)
 router.register(r'concentraciones', ConcentracionViewSet)
 

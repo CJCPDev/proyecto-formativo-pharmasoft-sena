@@ -9,7 +9,7 @@ from .models import (
     Concentracion
 )
 
-# Auxiliares
+# 🔹 Auxiliares
 class FormaFarmaceuticaSerializer(serializers.ModelSerializer):
     class Meta:
         model = FormaFarmaceutica
@@ -40,7 +40,7 @@ class ConcentracionSerializer(serializers.ModelSerializer):
         model = Concentracion
         fields = ["id_concentracion", "nombre_tipo_concentracion"]
 
-# Medicamentos
+# 🔹 Medicamentos
 class MedicamentosSerializer(serializers.ModelSerializer):
     # Campos extra para mostrar nombres de las relaciones
     nombre_forma_farmaceutica = serializers.CharField(source="id_forma_farmaceutica.nombre_forma_farmaceutica", read_only=True)
@@ -49,15 +49,30 @@ class MedicamentosSerializer(serializers.ModelSerializer):
     nombre_estado = serializers.CharField(source="id_estado.nombre_estado", read_only=True)
     nombre_proveedor = serializers.CharField(source="id_proveedor.nombre_proveedor", read_only=True)
 
+    # Campo para la imagen (URL)
+    imagen_url = serializers.SerializerMethodField()
+
+    def get_imagen_url(self, obj):
+        if obj.imagen:
+            return obj.imagen.url
+        return None
+
     class Meta:
         model = Medicamentos
         fields = [
             "id_medicamento",
             "nombre_medicamento",
-            "concentracion",
-            "stock",
+            "lote",
+            "fecha_fabricacion",
             "fecha_vencimiento",
+            "stock",
+            "precio_compra",
             "precio_venta",
+            "requiere_formula",
+            "descripcion",
+            "concentracion",
+            "imagen",          # archivo
+            "imagen_url",      # URL para frontend
             "id_forma_farmaceutica",
             "nombre_forma_farmaceutica",
             "id_via_administracion",

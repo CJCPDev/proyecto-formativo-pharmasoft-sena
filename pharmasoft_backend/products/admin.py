@@ -28,10 +28,25 @@ class MedicamentosAdmin(admin.ModelAdmin):
         "id_laboratorio",
         "id_estado",
         "id_proveedor",
+        "mostrar_imagen",  
     )
     search_fields = ("nombre_medicamento", "lote", "descripcion")
-    list_filter = ("requiere_formula", "id_estado", "id_laboratorio", "id_proveedor")
+    list_filter = (
+        "requiere_formula",
+        "id_estado",
+        "id_laboratorio",
+        "id_proveedor",
+        "fecha_fabricacion",
+        "fecha_vencimiento",
+    )
     ordering = ("nombre_medicamento",)
+    list_editable = ("stock", "precio_venta")  
+
+    def mostrar_imagen(self, obj):
+        if obj.imagen:
+            return obj.imagen.url
+        return "Sin imagen"
+    mostrar_imagen.short_description = "Imagen"
 
 @admin.register(FormaFarmaceutica)
 class FormaFarmaceuticaAdmin(admin.ModelAdmin):
@@ -55,7 +70,7 @@ class EstadoMedicamentoAdmin(admin.ModelAdmin):
 
 @admin.register(Proveedores)
 class ProveedoresAdmin(admin.ModelAdmin):
-    list_display = ("id_proveedor", "nombre_proveedor")
+    list_display = ("id", "nombre_proveedor")  # 👈 usar 'id' en vez de 'id_proveedor'
     search_fields = ("nombre_proveedor",)
 
 @admin.register(Concentracion)

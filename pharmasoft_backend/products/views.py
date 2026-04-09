@@ -30,11 +30,11 @@ class ViaAdministracionViewSet(viewsets.ModelViewSet):
     queryset = ViaAdministracion.objects.all()
     serializer_class = ViaAdministracionSerializer
 
-class LaboratorioViewSet(viewsets.ModelViewSet):
+class LaboratoriosViewSet(viewsets.ModelViewSet):  # 👈 plural para consistencia
     queryset = Laboratorios.objects.all()
     serializer_class = LaboratorioSerializer
 
-class ProveedorViewSet(viewsets.ModelViewSet):
+class ProveedoresViewSet(viewsets.ModelViewSet):  # 👈 plural para consistencia
     queryset = Proveedores.objects.all()
     serializer_class = ProveedorSerializer
 
