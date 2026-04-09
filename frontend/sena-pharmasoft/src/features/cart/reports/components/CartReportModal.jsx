@@ -1,29 +1,23 @@
 // ─────────────────────────────────────────────
-// ReportConfigModal.jsx
-// Modal para configurar y generar reportes de usuarios
-// El administrador puede filtrar por rol
+// CartReportModal.jsx
+// Modal para configurar y generar reportes de carritos
 // ─────────────────────────────────────────────
 
 import { useState } from "react";
-import { userReportFields } from "../config/userReportFields";
-import { generateUserReport } from "../services/generateUserReport";
+import { cartReportFields } from "../config/cartReportFields";
+import { generateCartReport } from "../services/generateCartReport";
 import { Button, Input, Select } from "@/shared/components";
 import Checkbox from "@/shared/components/Checkbox";
-import { getUsuarioActual } from "@/features/auth/services/authService";
 
-export default function ReportConfigModal({ isOpen, onClose }) {
+export default function CartReportModal({ isOpen, onClose }) {
 
   const [format, setFormat] = useState("pdf");
+  const [filtroEstado, setFiltroEstado] = useState("todos");
   const [scope, setScope] = useState("all");
-  const [documentNumber, setDocumentNumber] = useState("");
-  const [rolFiltro, setRolFiltro] = useState("todos"); // nuevo filtro por rol
+  const [documento, setDocumento] = useState("");
   const [selectedFields, setSelectedFields] = useState(() =>
-    userReportFields.filter((f) => f.default)
+    cartReportFields.filter((f) => f.default)
   );
-
-  // Obtenemos el usuario actual para verificar si es administrador
-  const usuarioActual = getUsuarioActual();
-  const esAdmin = usuarioActual?.id_rol === 1;
 
   if (!isOpen) return null;
 
@@ -37,13 +31,12 @@ export default function ReportConfigModal({ isOpen, onClose }) {
   };
 
   const handleGenerateReport = () => {
-    console.log("rolFiltro:", rolFiltro),
-    generateUserReport({
+    generateCartReport({
       format,
       selectedFields,
+      filtroEstado,
       scope,
-      documentNumber,
-      rolFiltro: esAdmin ? rolFiltro : "2", // farmaceuta siempre filtra por clientes
+      documento,
     });
     onClose();
   };
@@ -53,7 +46,7 @@ export default function ReportConfigModal({ isOpen, onClose }) {
       <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-lg">
 
         <h2 className="mb-6 text-xl font-semibold">
-          Generar reporte de usuarios
+          Generar reporte de carritos
         </h2>
 
         {/* Formato */}
@@ -69,28 +62,26 @@ export default function ReportConfigModal({ isOpen, onClose }) {
           />
         </div>
 
-        {/* Filtro por rol — solo para administrador */}
-        {esAdmin && (
-          <div className="mb-4">
-            <Select
-              label="Filtrar por rol"
-              value={rolFiltro}
-              onChange={(e) => setRolFiltro(e.target.value)}
-              options={[
-                { label: "Todos los usuarios", value: "todos" },
-                { label: "Administradores", value: "1" },
-                { label: "Farmaceutas", value: "3" },
-                { label: "Clientes", value: "2" },
-              ]}
-            />
-          </div>
-        )}
+        {/* Filtro por estado */}
+        <div className="mb-4">
+          <Select
+            label="Filtrar por estado"
+            value={filtroEstado}
+            onChange={(e) => setFiltroEstado(e.target.value)}
+            options={[
+              { label: "Todos", value: "todos" },
+              { label: "Activo", value: "activo" },
+              { label: "Confirmado", value: "confirmado" },
+              { label: "Cancelado", value: "cancelado" },
+            ]}
+          />
+        </div>
 
         {/* Campos del reporte */}
         <div className="mb-4">
           <p className="mb-2 font-medium">Campos del reporte</p>
           <div className="grid grid-cols-2 gap-2">
-            {userReportFields.map((field) => {
+            {cartReportFields.map((field) => {
               const checked = selectedFields.some((f) => f.key === field.key);
               return (
                 <Checkbox
@@ -106,27 +97,27 @@ export default function ReportConfigModal({ isOpen, onClose }) {
           </div>
         </div>
 
-        {/* Alcance */}
+        {/* Alcance del reporte */}
         <div className="mb-4">
           <Select
             label="Alcance del reporte"
             value={scope}
             onChange={(e) => setScope(e.target.value)}
             options={[
-              { label: "Todos los usuarios", value: "all" },
+              { label: "Todos los clientes", value: "all" },
               { label: "Filtrar por documento", value: "document" },
             ]}
           />
         </div>
 
-        {/* Filtro por documento */}
+        {/* Input documento — solo si scope es document */}
         {scope === "document" && (
           <div className="mb-4">
             <Input
               label="Número de documento"
-              value={documentNumber}
-              onChange={(e) => setDocumentNumber(e.target.value)}
               placeholder="Ingrese número de documento"
+              value={documento}
+              onChange={(e) => setDocumento(e.target.value)}
             />
           </div>
         )}

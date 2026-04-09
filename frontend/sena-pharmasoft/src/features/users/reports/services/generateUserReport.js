@@ -20,7 +20,7 @@ export async function generateUserReport({
 }) {
   try {
     const usuarioActual = getUsuarioActual();
-    const esFarmaceuta = usuarioActual?.id_rol === 7;
+    const esFarmaceuta = usuarioActual?.id_rol === 3;
 
     // Si es farmaceuta siempre filtra por clientes
     // Si es admin usa el filtro seleccionado en el modal

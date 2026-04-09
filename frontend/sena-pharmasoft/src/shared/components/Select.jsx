@@ -5,13 +5,14 @@ export default function Select({
     value,
     error,
     onChange,
+    disabled,
     }
 ){
 
     return (
 
 
-        <div className='font-main w-full'> 
+        <div className='font-main w-full relative z-50'> 
 
             {/* Label si el label tiene contenido es igual a truthy, si no es falsy y no muestra el label */}
             {label && (
@@ -32,6 +33,7 @@ export default function Select({
                 value={value}
                 onChange={onChange}
                 name={name}
+                disabled={disabled}
                 className={`
                     bg-brand-soft
                     w-full

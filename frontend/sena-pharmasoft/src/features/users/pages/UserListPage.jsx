@@ -25,7 +25,7 @@ export default function UserListPage() {
 
   //Obtenemos el usuario autenticado y verificamos su rol
   const usuarioActual = getUsuarioActual();
-  const esFarmaceuta = usuarioActual?.id_rol === 7
+  const esFarmaceuta = usuarioActual?.id_rol === 3
 
   // Estado para guardar la lista de usuarios que devuelve la API
   const [usuarios, setUsuarios] = useState([]);
@@ -41,7 +41,7 @@ export default function UserListPage() {
     const cargarUsuarios = async () => {
       try {
         //Si es farmaceuta solo carga clientes (id rol 6)
-        const data = await getUsuarios(esFarmaceuta ? 6 : null);
+        const data = await getUsuarios(esFarmaceuta ? 2 : null);
         setUsuarios(data);
       } catch (err) {
         console.error("Error al cargar usuarios:", err);
@@ -74,7 +74,8 @@ export default function UserListPage() {
           >
             Generar reporte
           </Button>
-          <Link to="/crear-usuarios">
+          <Link className="w-40 relative inline-flex items-center justify-center rounded-xl transition-colors cursor-pointer
+                        h-10 px-4 before:absolute before:content-[''] before:-inset-y-[4px] before:-inset-x-[0px] font-main text-brand-soft font-semibold text-base bg-brand-hover hover:bg-brand-soft hover:text-brand-hover" to="/crear-usuarios">
             Crear Usuario
           </Link>
         </div>

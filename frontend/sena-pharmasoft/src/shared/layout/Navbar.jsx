@@ -22,8 +22,8 @@ const Navbar = ({ variant = "solid" }) => {
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
 
   // ID de roles
-  const ES_ADMIN = idRol === 5;
-  const ES_FARMACEUTA = idRol === 7;
+  const ES_ADMIN = idRol === 1;
+  const ES_FARMACEUTA = idRol === 3;
 
   // Cierra sesión y redirige al login
   const handleLogout = async () => {
@@ -98,6 +98,16 @@ const Navbar = ({ variant = "solid" }) => {
                     Ventas
                   </Link>
                 </li>
+                {(ES_ADMIN || ES_FARMACEUTA) && (
+                <li>
+                  <Link
+                    to="/carritos"
+                    className="hover:text-primary transition hover:underline hover:underline-offset-2"
+                  >
+                    Carritos
+                  </Link>
+                </li>
+              )}
               </>
             )}
           </ul>

@@ -15,9 +15,7 @@ import ForgotPasswordPage from "../../features/auth/components/ForgotPasswordFor
 import ResetPasswordPage from "../../features/auth/components/ResetPasswordForm";
 import Loading from "../../shared/components/Loading";
 import AutoricedPage from "../../features/auth/pages/AutoricedPage";
-
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
-
 import ProtectedRoute from "../../shared/components/ProtectedRoute";
 
 //  imports de usuarios
@@ -55,6 +53,12 @@ import ProductsEditPage from "../../features/products/admin/pages/ProductsEditPa
 import AdminProductReportPage from "../../features/products/admin/pages/AdminProductReportPage";
 import DetailProductPage from "@/features/products/pages/DetailProductPage";
 
+//Imports de carritos
+import CartListPage from "../../features/cart/pages/CartListPage";
+import CreateCartPage from "../../features/cart/pages/CreateCartPage";
+import EditCartPage from "../../features/cart/pages/EditCartPage";
+import DetailCartPage from "../../features/cart/pages/DetailCartPage";
+
 const router = createBrowserRouter([
     {
     path: "/",
@@ -91,7 +95,7 @@ const router = createBrowserRouter([
                     {
                         path: "crear-proveedor",
                         element: (
-                            <ProtectedRoute>
+                        <ProtectedRoute>
                             <SuppliersPage/>
                         </ProtectedRoute> 
                         )
@@ -131,7 +135,7 @@ const router = createBrowserRouter([
                     {
                         path: "medicamentos",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[5, 7]}>
+                            <ProtectedRoute rolesPermitidos={[1, 3]}>
                                 <AdminProductListPage />
                             </ProtectedRoute>
                         )
@@ -197,18 +201,15 @@ const router = createBrowserRouter([
                     {
                         path: "usuarios",
                         element: (
-                        <ProtectedRoute rolesPermitidos={[5,7]}>
+                        <ProtectedRoute rolesPermitidos={[1,3]}>
                             <UserListPage/>
                         </ProtectedRoute>
                         )
                     },
                     {
                         path: "crear-usuarios",
-                        element: (
-                            <ProtectedRoute rolesPermitidos={[5,7]}>
+                        element: 
                                 <CreateUserPage/> 
-                            </ProtectedRoute>
-                        )
                     },
                     {
                         path: "generar-reporte",
@@ -221,7 +222,7 @@ const router = createBrowserRouter([
                     {
                         path: "editar-usuarios/:id",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[5,7]}>
+                            <ProtectedRoute rolesPermitidos={[1,3]}>
                                 <EditUserPage/> 
                             </ProtectedRoute>
                         )
@@ -229,7 +230,7 @@ const router = createBrowserRouter([
                     {
                         path: "ver-usuarios/:id",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[5,7]}>
+                            <ProtectedRoute rolesPermitidos={[1,3]}>
                                 <ProfileUserPage/> 
                             </ProtectedRoute>
                         )
@@ -238,43 +239,75 @@ const router = createBrowserRouter([
                     {
                         path: "permisos",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[5]}>
+                            <ProtectedRoute rolesPermitidos={[1]}>
                                 <PermissionsPage/> 
+                            </ProtectedRoute>
+                        )
+                    },
+                    {
+                        path: "carritos",
+                        element: (
+                            <ProtectedRoute rolesPermitidos={[1, 3]}>
+                                <CartListPage />
+                            </ProtectedRoute>
+                        )
+                    },
+                    {
+                        path: "crear-carrito",
+                        element: (
+                            <ProtectedRoute rolesPermitidos={[1, 3]}>
+                                <CreateCartPage />
+                            </ProtectedRoute>
+                        )
+                    },
+                    {
+                        path: "editar-carrito/:id",
+                        element: (
+                            <ProtectedRoute rolesPermitidos={[1]}>
+                                <EditCartPage />
+                            </ProtectedRoute>
+                        )
+                    },
+                    {
+                        path: "ver-carrito/:id",
+                        element: (
+                            <ProtectedRoute rolesPermitidos={[1, 3]}>
+                                <DetailCartPage />
                             </ProtectedRoute>
                         )
                     },
                 ],
             },
-  {
+    {
     //Login con rutas completo
     element: <AuthLayout />,
     children: [
-      {
+        {
         path: "perfil",
         element: <AuthLayout />,
-      },
-      {
+        },
+        {
         path: "login",
         element: <LoginPage />,
-      },
-      {
+        },
+        {
         path: "forgot-password",
         element: <ForgotPasswordPage />,
-      },
-      {
+        },
+        {
         path: "reset-password",
         element: <ResetPasswordPage />,
-      },
-      {
+        },
+        {
         path: "validation",
         element: <Loading />,
-      },
-      {
+        },
+        {
         path: "validationPassword",
         element: <ConfirmationPassword />,
-      },
+        },
     ],
-  },
+    },
 ]);
 
 export default router;

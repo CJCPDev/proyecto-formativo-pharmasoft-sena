@@ -56,7 +56,12 @@ export default function CartModal({ isOpen, onClose }) {
   const increase = async (item) => {
     try {
       await actualizarCantidad(item.id_carrito, item.cantidad + 1);
-      cargarCarrito();
+      //Actualizamos solo el item en el estado local sin recargar todo
+      setCart(prev => prev.map(i => 
+        i.id_carrito === item.id_carrito
+          ? {...i, cantidad: i.cantidad + 1, subtotal: (i.cantidad + 1) * parseFloat(i.precio_unitario) }
+          : i
+      ));
     } catch (error) {
       console.error("Error al actualizar cantidad:", error);
     }
@@ -66,7 +71,12 @@ export default function CartModal({ isOpen, onClose }) {
     if (item.cantidad <= 1) return;
     try {
       await actualizarCantidad(item.id_carrito, item.cantidad - 1);
-      cargarCarrito();
+      //Actualizamos solo el item en el estado local sin recargar todo
+      setCart(prev => prev.map(i => 
+        i.id_carrito === item.id_carrito
+          ? {...i, cantidad: i.cantidad -1, subtotal: (i.cantidad -1) * parseFloat(i.precio_unitario) }
+          : i
+      ));
     } catch (error) {
       console.error("Error al actualizar cantidad:", error);
     }
@@ -75,7 +85,8 @@ export default function CartModal({ isOpen, onClose }) {
   const remove = async (idCarrito) => {
     try {
       await eliminarDelCarrito(idCarrito);
-      cargarCarrito();
+      //Eliminamos solo el item del estado local sin recargar todo
+      setCart(prev => prev.filter(i => i.id_carrito !== idCarrito));
     } catch (error) {
       console.error("Error al eliminar del carrito:", error);
     }

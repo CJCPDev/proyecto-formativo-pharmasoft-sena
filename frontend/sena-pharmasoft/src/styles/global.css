@@ -66,4 +66,12 @@
     --border-buttons: var(--semantic-br-md);
 
 }
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: inner-spin-button !important;
+  opacity: 1 !important;
+  display: block !important;
+}
+
 @import "tailwindcss"; /* Esta linea debe quedar al final para que funcione*/

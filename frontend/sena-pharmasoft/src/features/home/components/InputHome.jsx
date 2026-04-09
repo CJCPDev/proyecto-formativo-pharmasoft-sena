@@ -1,8 +1,11 @@
-export default function InputHome({ label, type }) {
+export default function InputHome({ label, type, value, onChange, name }) {
   return (
     <div className="relative w-full">
       <input
         type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
         placeholder=" "
         className="
           peer

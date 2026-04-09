@@ -37,6 +37,7 @@ export default function Input({label, type = "text", error, ...props}){
                 className="
                 absolute
                 inset-0
+                pointer-events-none
                 "
                 onMouseDown = {(e) => {
                     e.preventDefault();
