@@ -60,16 +60,15 @@ export default function AdminProductDetailPage() {
             {/* ✅ Imagen */}
             {medicamento.imagen_url && (
               <div className="flex flex-col gap-1">
-                <span className="text-sm font-medium text-gray-700">Imagen</span>
+                <span className="text-sm font-medium text-brand-hover px-1">Imagen</span>
                 <img
-                  src={medicamento.imagen_url}
+                  src={`http://localhost:8000${medicamento.imagen_url}`}
                   alt="Imagen del medicamento"
-                  className="w-full rounded-lg object-contain max-h-48 border border-gray-200"
+                  className="w-48 h-48 object-contain rounded-xl border border-gray-200 mx-auto"
                 />
               </div>
             )}
           </div>
-
         </div>
 
         <div className="col-span-full flex justify-center gap-4 py-4">

@@ -32,6 +32,7 @@ export default function AdminProductForm() {
     estado: "",
     description: "",
     imagen: null,
+    imagenUrl: null,
   });
 
   useEffect(() => {
@@ -56,6 +57,7 @@ export default function AdminProductForm() {
             estado: data.id_estado || "",
             description: data.descripcion || "",
             imagen: data.imagen || null,
+            imagenUrl: data.imagen_url || null, 
           });
         })
         .catch((err) => console.error("Error cargando medicamento:", err));
@@ -174,7 +176,11 @@ export default function AdminProductForm() {
             <Input label="Requiere fórmula" name="requiresPrescription" value={formData.requiresPrescription} onChange={handleChange} placeholder="Requiere fórmula" error={errors.requiresPrescription}/>
             <Select label="Estado" name="estado" value={formData.estado} options={statesTypes} onChange={handleChange} error={errors.estado}/>
             <Input label="Descripción" name="description" value={formData.description} onChange={handleChange} placeholder="Descripción" error={errors.description}/>
-            <AvatarUploader label="Cargar foto" onChange={(file) => setFormData((prev) => ({ ...prev, imagen: file }))} />
+            <AvatarUploader
+              label="Cargar foto"
+              currentImage={isEdit ? formData.imagenUrl : null}
+              onUpload={(file) => setFormData((prev) => ({ ...prev, imagen: file }))}
+            />
           </div>
         </div>
 
