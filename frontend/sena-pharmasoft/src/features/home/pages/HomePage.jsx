@@ -1,9 +1,10 @@
 import { CardsMedicine } from "@/features/dashboard"
 import HomeNavbar from "../components/HomeNavbar"
 import Footer from "../../../shared/layout/Footer"
-import { Carousel } from "@/features/home"
+import { Carousel, CarSellHome } from "@/features/home"
 import { useState } from "react"
 import AuthModal from "../components/AuthModal"
+
 
 export default function HomePage() {
 
@@ -43,7 +44,7 @@ export default function HomePage() {
       <div className="flex pt-8">
         <CardsMedicine onProductoAgregado={handleProductoAgregado} />
       </div>
-
+    <CarSellHome></CarSellHome>
       <Footer />
     </div>
   );

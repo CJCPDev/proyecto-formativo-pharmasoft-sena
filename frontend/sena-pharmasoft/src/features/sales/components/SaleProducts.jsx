@@ -35,7 +35,7 @@ export default function SaleProducts({ products = [], setProducts, saleData }) {
   const iva = useMemo(() => subtotal * 0.19, [subtotal]);
 
   const total = useMemo(() => subtotal + iva, [subtotal, iva]);
-
+ 
   // ================== CREATE SALE ==================
   const handleCreateSale = async () => {
     if (products.length === 0) {
@@ -72,7 +72,7 @@ export default function SaleProducts({ products = [], setProducts, saleData }) {
     
     <div className="bg-white w-full h-190 p-8 rounded-lg font-main flex flex-col">
 <div className="flex justify-between items-center mb-3">
-  <Title title="Descripcion de productos" />
+
 
 {/*   
     esta por diseño para mejorar 
@@ -102,7 +102,7 @@ export default function SaleProducts({ products = [], setProducts, saleData }) {
       </div>
 
       {/* LISTA */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto z-10">
         {products.length === 0 ? (
           <p className="text-center mt-4 text-black/40">
             No hay productos cargados

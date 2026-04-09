@@ -4,18 +4,33 @@ from django.db import models
 
 from django.db import models
     
-""" class Ventas(models.Model):
-    id_factura = models.AutoField(primary_key=True)
-    fecha_hora = models.DateTimeField()
+class Ventas(models.Model):
+    id_factura = models.IntegerField(unique=True)
+    fecha_hora = models.DateTimeField(auto_now_add=True)
     usuario = models.CharField(max_length=50)
     farmaceuta = models.CharField(max_length=50)
-    subtotal_venta = models.DecimalField(max_digits=10, decimal_places=2)
-    iva_venta = models.DecimalField(max_digits=10, decimal_places=2)
-    descuento_venta = models.DecimalField(max_digits=10, decimal_places=2)
-    total_venta = models.DecimalField(max_digits=10, decimal_places=2)
-    estado_venta = models.CharField(max_length=3, null=True, blank=True)
+    descuento_venta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    subtotal_venta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    iva_venta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    total_venta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+
+
+    ESTADOS = [
+        ('Activo', 'ACTIVO'),
+        ('Cancelado', 'CANCELADO'),
+        ('Confirmado', 'CONFIRMADO'),
+    ]
+
+    estado_venta = models.CharField(
+        max_length=20,
+        choices=ESTADOS,
+        default='Activo'
+    )
+
     class Meta:
-        db_table = 'ventas' """
+        managed = False
+        db_table = 'ventas'
+
 class Producto(models.Model):
     nombre = models.CharField(max_length=100)
     codigo_barras = models.CharField(max_length=50, unique=True)
@@ -31,23 +46,6 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
-class Ventas(models.Model):
-    fecha_hora = models.DateTimeField(auto_now_add=True)
-
-    usuario = models.CharField(max_length=100)
-    farmaceuta = models.CharField(max_length=100)  # temporal
-
-    ESTADOS = [
-        ('Activo', 'ACTIVO'),
-        ('Cancelado', 'CANCELADO'),
-        ('Confirmado', 'CONFIRMADO'),
-    ]
-
-    estado_venta = models.CharField(
-        max_length=20,
-        choices=ESTADOS,
-        default='Activo'
-    )
 
 class DetalleVenta(models.Model):
     venta = models.ForeignKey(
@@ -62,7 +60,6 @@ class DetalleVenta(models.Model):
     )
 
     cantidad = models.PositiveIntegerField()
-
     precio_unitario = models.DecimalField(
         max_digits=10,
         decimal_places=2
