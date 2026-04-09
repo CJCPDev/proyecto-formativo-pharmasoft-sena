@@ -211,7 +211,7 @@ const Navbar = ({ variant = "solid", onOpenRegister }) => {
               isOpen={openCart}
               onClose={() => {
                 setOpenCart(false);
-                cargarContador(); // 👈 actualizamos el contador al cerrar el modal
+                cargarContador(); 
               }}
             />
 
