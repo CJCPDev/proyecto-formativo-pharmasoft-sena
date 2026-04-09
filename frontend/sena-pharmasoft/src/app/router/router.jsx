@@ -163,9 +163,9 @@ const router = createBrowserRouter([
                     {
                         path: "generar-reporte",
                         element: (
-                            // <ProtectedRoute>
+                            <ProtectedRoute>
                                 <AdminProductReportPage/>
-                            // </ProtectedRoute>
+                            </ProtectedRoute>
                         )
                     },
                     {

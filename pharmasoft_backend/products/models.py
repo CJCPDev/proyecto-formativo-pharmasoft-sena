@@ -1,8 +1,5 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
-
 class FormaFarmaceutica(models.Model):
     id_forma_farmaceutica = models.AutoField(primary_key=True)
     nombre_forma_farmaceutica = models.CharField(max_length=255)
@@ -46,6 +43,7 @@ class EstadoMedicamento(models.Model):
     def __str__(self):
         return self.nombre_estado
 
+
 class Proveedores(models.Model):
     id_proveedor = models.AutoField(primary_key=True)
     nombre_proveedor = models.CharField(max_length=255)
@@ -55,6 +53,7 @@ class Proveedores(models.Model):
 
     def __str__(self):
         return self.nombre_proveedor
+
 
 class Concentracion(models.Model):
     id_concentracion = models.AutoField(primary_key=True)
@@ -66,6 +65,7 @@ class Concentracion(models.Model):
     def __str__(self):
         return self.nombre_tipo_concentracion
 
+
 class Medicamentos(models.Model):
     id_medicamento = models.AutoField(primary_key=True)
     nombre_medicamento = models.CharField(max_length=50)
@@ -75,15 +75,49 @@ class Medicamentos(models.Model):
     stock = models.CharField(max_length=20)
     precio_compra = models.DecimalField(max_digits=10, decimal_places=2)
     precio_venta = models.DecimalField(max_digits=10, decimal_places=2)
-    requiere_formula = models.CharField(max_length=2, choices=[("Si", "Sí"), ("No", "No")])
+    requiere_formula = models.CharField(
+        max_length=2,
+        choices=[("Si", "Sí"), ("No", "No")]
+    )
     descripcion = models.CharField(max_length=255)
     concentracion = models.CharField(max_length=50, blank=True, default='')
+    imagen = models.ImageField(upload_to='medicamentos/', null=True, blank=True)  # 🔥 nuevo campo
 
-    id_forma_farmaceutica = models.ForeignKey(FormaFarmaceutica, on_delete=models.DO_NOTHING, db_column='id_forma_farmaceutica', null=True, blank=True)
-    id_via_administracion = models.ForeignKey(ViaAdministracion, on_delete=models.DO_NOTHING, db_column='id_via_administracion', null=True, blank=True)
-    id_laboratorio = models.ForeignKey(Laboratorios, on_delete=models.DO_NOTHING, db_column='id_laboratorio', null=True, blank=True)
-    id_estado = models.ForeignKey(EstadoMedicamento, on_delete=models.DO_NOTHING, db_column='id_estado', null=True, blank=True)
-    id_proveedor = models.ForeignKey(Proveedores, on_delete=models.DO_NOTHING, db_column='id_proveedor', null=True, blank=True)
+    id_forma_farmaceutica = models.ForeignKey(
+        FormaFarmaceutica,
+        on_delete=models.DO_NOTHING,
+        db_column='id_forma_farmaceutica',
+        null=True,
+        blank=True
+    )
+    id_via_administracion = models.ForeignKey(
+        ViaAdministracion,
+        on_delete=models.DO_NOTHING,
+        db_column='id_via_administracion',
+        null=True,
+        blank=True
+    )
+    id_laboratorio = models.ForeignKey(
+        Laboratorios,
+        on_delete=models.DO_NOTHING,
+        db_column='id_laboratorio',
+        null=True,
+        blank=True
+    )
+    id_estado = models.ForeignKey(
+        EstadoMedicamento,
+        on_delete=models.DO_NOTHING,
+        db_column='id_estado',
+        null=True,
+        blank=True
+    )
+    id_proveedor = models.ForeignKey(
+        Proveedores,
+        on_delete=models.DO_NOTHING,
+        db_column='id_proveedor',
+        null=True,
+        blank=True
+    )
 
     class Meta:
         db_table = 'medicamentos'

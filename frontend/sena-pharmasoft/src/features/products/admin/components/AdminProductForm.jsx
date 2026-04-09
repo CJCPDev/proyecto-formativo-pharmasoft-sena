@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Select, Button, Input, Title, AvatarUploader } from "../../../../shared/components";
 import { medicamentoSchema } from "../../schemas/medicamentoSchema";
-import { 
-  getPharmaForm, 
-  getAdministrationTypes, 
-  getSuppliers, 
-  getLaboratoriesTypes, 
+import {
+  getPharmaForm,
+  getAdministrationTypes,
+  getSuppliers,
+  getLaboratoriesTypes,
   getStatesTypes,
-} from "../../services/selectService"; 
+} from "../../services/selectService";
 
 export default function FormMedicamentos() {
   const navigate = useNavigate();
@@ -30,45 +30,46 @@ export default function FormMedicamentos() {
     precioVenta: "",
     requiresPrescription: "",
     estado: "",
-    description: ""
+    description: "",
+    imagen: null
   });
 
-  // Cargar datos si es edición
+  // 🔥 CARGAR DATOS (EDITAR)
   useEffect(() => {
     if (isEdit) {
       fetch(`http://127.0.0.1:8000/api/medicamentos/${params.id}/`)
         .then(res => res.json())
         .then(data => {
           setFormData({
-            nombreMedicamento: data.nombreMedicamento || "",
-            formaFarmaceutica: data.formaFarmaceutica ? String(data.formaFarmaceutica) : "",
-            viaAdministracion: data.viaAdministracion ? String(data.viaAdministracion) : "",
-            laboratorio: data.laboratorio ? String(data.laboratorio) : "",
+            nombre_medicamento: data.nombre_medicamento || "",
+            id_forma_farmaceutica: data.id_forma_farmaceutica?.id_forma_farmaceutica || "",
+            id_via_administracion: data.id_via_administracion?.id_via_administracion || "",
+            id_laboratorio: data.id_laboratorio?.id_laboratorio || "",
             concentracion: data.concentracion || "",
-            proveedor: data.proveedor ? String(data.proveedor) : "",
+            id_proveedor: data.id_proveedor?.id_proveedor || "",
             lote: data.lote || "",
-            fechaFabricacion: data.fechaFabricacion || "",
-            fechaVencimiento: data.fechaVencimiento || "",
+            fecha_fabricacion: data.fecha_fabricacion || "",
+            fecha_vencimiento: data.fecha_vencimiento || "",
             stock: data.stock || "",
-            precioCosto: data.precioCosto || "",
-            precioVenta: data.precioVenta || "",
-            requiresPrescription: data.requiresPrescription ? String(data.requiresPrescription) : "",
-            estado: data.estado ? String(data.estado) : "",
-            description: data.description || ""
+            precio_compra: data.precio_compra || "",
+            precio_venta: data.precio_venta || "",
+            requiere_formula: data.requiere_formula || "",
+            id_estado: data.id_estado?.id_estado || "",
+            descripcion: data.descripcion || "",
+            imagen: data.imagen || null
           });
         })
         .catch(err => console.error("Error cargando medicamento:", err));
     }
   }, [isEdit, params.id]);
 
-  // Estados para los selects
+  // 🔥 SELECTS
   const [pharmaForm, setPharmaForm] = useState([]);
   const [administrationTypes, setAdministrationTypes] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
   const [laboratoriesTypes, setLaboratoriesTypes] = useState([]);
   const [statesTypes, setStatesTypes] = useState([]);
 
-  // Cargar opciones dinámicas
   useEffect(() => {
     getPharmaForm().then(setPharmaForm);
     getAdministrationTypes().then(setAdministrationTypes);
@@ -77,12 +78,8 @@ export default function FormMedicamentos() {
     getStatesTypes().then(setStatesTypes);
   }, []);
 
-  console.log("OPTIONS:", pharmaForm)
-
-  // Estado de errores
   const [errors, setErrors] = useState({});
 
-  // Handler de cambios
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -91,7 +88,7 @@ export default function FormMedicamentos() {
     }));
   };
 
-  // Handler de submit
+  //  SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -99,15 +96,13 @@ export default function FormMedicamentos() {
     if (!result.success) {
       const fieldErrors = {};
       result.error.issues.forEach(issue => {
-        const field = issue.path[0];
-        fieldErrors[field] = issue.message;
+        fieldErrors[issue.path[0]] = issue.message;
       });
       setErrors(fieldErrors);
       return;
     }
 
     setErrors({});
-
     const url = isEdit
       ? `http://127.0.0.1:8000/api/medicamentos/${params.id}/`
       : `http://127.0.0.1:8000/api/medicamentos/`;
@@ -117,213 +112,81 @@ export default function FormMedicamentos() {
     fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify({
+        nombre_medicamento: formData.nombreMedicamento,
+        lote: formData.lote,
+        fecha_fabricacion: formData.fechaFabricacion,
+        fecha_vencimiento: formData.fechaVencimiento,
+        stock: formData.stock,
+        precio_compra: formData.precioCosto,
+        precio_venta: formData.precioVenta,
+        requiere_formula: formData.requiresPrescription === "Sí",
+        descripcion: formData.description,
+        concentracion: formData.concentracion,
+        id_forma_farmaceutica: formData.formaFarmaceutica,
+        id_via_administracion: formData.viaAdministracion,
+        id_laboratorio: formData.laboratorio,
+        id_proveedor: formData.proveedor,
+        id_estado: formData.estado
+      }),
     })
       .then(res => res.json())
-      .then(() => {
-        navigate("/medicamentos");
-      })
+      .then(() => navigate("/medicamentos"))
       .catch(err => console.error("Error guardando medicamento:", err));
   };
-console.log("FORM DATA:", formData);
-console.log("OPTIONS:", administrationTypes);
+
   return (
-        <form
-        className="flex flex-col gap-10 z-20"
-              onSubmit={handleSubmit}>
-              { isEdit ? <Title title="Editar Medicamento"/> : <Title title="Crear Medicamento"/> }
-          {/* Contenedor de columnas */}
-          <div className="flex gap-12">
-            {/* ================= COLUMNA 1 ================= */}
-            <div className="flex flex-col gap-6 flex-1">
-              <Input
-                label="Nombre del medicamento"
-                name="nombreMedicamento"
-                placeholder="Nombre del medicamento"
-                value={formData.nombreMedicamento}
-                onChange={handleChange}
-                error={errors.nombreMedicamento}
-              />
-                
-              <Select
-                label="Forma farmaceutica"
-                name="formaFarmaceutica"
-                value={formData.formaFarmaceutica}
-                options={pharmaForm}
-                onChange={handleChange}
-                error={errors.formaFarmaceutica}
-              />
-              <Select
-                label="Vía de administración"
-                name="viaAdministracion"
-                value={formData.viaAdministracion}
-                options={administrationTypes}
-                onChange={handleChange}
-                error={errors.viaAdministracion}
-                
-              />
-              
-              <Select
-                label="Laboratorio"
-                name="laboratorio"
-                value={formData.laboratorio}
-                options={laboratoriesTypes}
-                onChange={handleChange}
-                error={errors.laboratorio}
-              />
+    <div className="p-6"> {/* 🔥 ESTE DIV TE FALTABA */}
+      <form className="flex flex-col gap-10 z-20" onSubmit={handleSubmit}>
+        {isEdit ? <Title title="Editar Medicamento" /> : <Title title="Crear Medicamento" />}
 
-              <Input
-                label="Concentración"
-                name="concentracion"
-                placeholder="Concentración"
-                value={formData.concentracion}
-                onChange={handleChange}
-                error={errors.concentracion}
-              />
+        <div className="flex gap-12">
 
-              <Select
-                label="Proveedores"
-                name="proveedor"
-                value={formData.proveedor}
-                options={suppliers} 
-                onChange={handleChange}
-                error={errors.proveedor}
-              />
-            </div>
-
-            {/* ================= COLUMNA 2 ================= */}
-            <div className="flex flex-col gap-5 flex-1">
-              <Input 
-                label="Lote" 
-                name="lote"
-                placeholder="Lote"
-                value={formData.lote}
-                onChange={handleChange}
-                error={errors.lote}
-                />
-
-              <Input
-                label="Fecha fabricación"
-                name="fechaFabricacion"
-                type="date"
-                placeholder="Fecha fabricación"
-                value={formData.fechaFabricacion}
-                onChange={handleChange}
-                error={errors.fechaFabricacion}
-              />
-
-              <Input
-                label="Fecha vencimiento"
-                name="fechaVencimiento"
-                type="date"
-                placeholder="Fecha Vencimiento"
-                value={formData.fechaVencimiento}
-                onChange={handleChange}
-                error={errors.fechaVencimiento}
-              />
-
-              <Input
-                label="Stock"
-                name="stock"
-                placeholder="Stock"
-                value={formData.stock}
-                onChange={handleChange}
-                error={errors.stock}
-              />
-
-              <Input
-                label="Precio de costo"
-                name="precioCosto"
-                placeholder="Precio de costo"
-                value={formData.precioCosto}
-                onChange={handleChange}
-                error={errors.precioCosto}
-              />
-
-              <Input
-                label="Precio de venta"
-                name="precioVenta"
-                placeholder="Precio de venta"
-                value={formData.precioVenta}
-                onChange={handleChange}
-                error={errors.precioVenta}
-              />
-            </div>
-
-            {/* ================= COLUMNA 3 ================= */}
-            <div className="flex flex-col gap-6 flex-1">
-              <Input
-                label="Requiere fórmula"
-                name="requiresPrescription"
-                placeholder="Sí / No"
-                value={formData.requiresPrescription}
-                onChange={handleChange}
-                error={errors.requiresPrescription}
-              />
-
-              <Select
-                label="Estados"
-                name="estado"
-                value={formData.estado}
-                options={statesTypes} 
-                onChange={handleChange}
-                error={errors.estado}
-              />
-
-              <Input
-                label="Descripción"
-                name="description"
-                placeholder="Descripción"
-                value={formData.description}
-                onChange={handleChange}
-                error={errors.description}
-              />
-      
-            <div className="w-max p-4 rounded-xl border border-brand bg-brand-soft/60 flex flex-col items-center">
-          
-              {/* Aquí va tu componente AvatarUploader */}
-              <AvatarUploader
-                label="Cargar foto"
-                onChange={(url) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    imagen: url,
-                  }))
-                }
-              />
-            </div>
-
-            </div>
+          {/* COLUMNA 1 */}
+          <div className="flex flex-col gap-6 flex-1">
+            <Input label="Nombre del medicamento" name="nombreMedicamento" value={formData.nombreMedicamento} onChange={handleChange} />
+            <Select label="Forma farmacéutica" name="formaFarmaceutica" value={formData.formaFarmaceutica} options={pharmaForm} onChange={handleChange} />
+            <Select label="Vía de administración" name="viaAdministracion" value={formData.viaAdministracion} options={administrationTypes} onChange={handleChange} />
+            <Select label="Laboratorio" name="laboratorio" value={formData.laboratorio} options={laboratoriesTypes} onChange={handleChange} />
+            <Input label="Concentración" name="concentracion" value={formData.concentracion} onChange={handleChange} />
+            <Select label="Proveedor" name="proveedor" value={formData.proveedor} options={suppliers} onChange={handleChange} />
           </div>
-          <div className="flex gap-6 justify-center items-center">
-            {isEdit ? (
-                <>
-                <Button 
-                    onClick={() => navigate(-1)}
-                    variant="secondary" 
-                    size="sm"
-                >
-                    Cancelar
-                </Button>
-                <Button variant="primary" size="md" type="submit">
-                    Actualizar
-                </Button>
-                </>
-            ) : (
-                <>
-                <Button 
-                    variant="secondary" 
-                    size="sm"
-                    onClick={() => navigate(-1)}
-                >
-                    Regresar
-                </Button>
-                <Button variant="primary" size="md" type="submit">
-                    Crear
-                </Button>
-                </>
-            )}
+
+          {/* COLUMNA 2 */}
+          <div className="flex flex-col gap-5 flex-1">
+            <Input label="Lote" name="lote" value={formData.lote} onChange={handleChange} />
+            <Input label="Fecha fabricación" type="date" name="fechaFabricacion" value={formData.fechaFabricacion} onChange={handleChange} />
+            <Input label="Fecha vencimiento" type="date" name="fechaVencimiento" value={formData.fechaVencimiento} onChange={handleChange} />
+            <Input label="Stock" name="stock" value={formData.stock} onChange={handleChange} />
+            <Input label="Precio costo" name="precioCosto" value={formData.precioCosto} onChange={handleChange} />
+            <Input label="Precio venta" name="precioVenta" value={formData.precioVenta} onChange={handleChange} />
           </div>
-        </form>
+
+          {/* COLUMNA 3 */}
+          <div className="flex flex-col gap-6 flex-1">
+            <Input label="Requiere fórmula" name="requiresPrescription" value={formData.requiresPrescription} onChange={handleChange} />
+            <Select label="Estado" name="estado" value={formData.estado} options={statesTypes} onChange={handleChange} />
+            <Input label="Descripción" name="description" value={formData.description} onChange={handleChange} />
+
+            <AvatarUploader
+              label="Cargar foto"
+              onChange={(file) =>
+                setFormData(prev => ({ ...prev, imagen: file }))
+              }
+            />
+          </div>
+        </div>
+
+        <div className="flex gap-6 justify-center">
+          <Button onClick={() => navigate(-1)} variant="secondary">
+            Cancelar
+          </Button>
+          <Button type="submit" variant="primary">
+            {isEdit ? "Actualizar" : "Crear"}
+          </Button>
+        </div>
+
+      </form>
+    </div>
   );
 }

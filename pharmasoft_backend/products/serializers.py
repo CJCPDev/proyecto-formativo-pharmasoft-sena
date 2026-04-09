@@ -1,4 +1,3 @@
-# products/serializers.py
 from rest_framework import serializers
 from .models import (
     Medicamentos,
@@ -10,43 +9,63 @@ from .models import (
     Concentracion
 )
 
+# Auxiliares
 class FormaFarmaceuticaSerializer(serializers.ModelSerializer):
     class Meta:
         model = FormaFarmaceutica
-        fields = '__all__'
-    
+        fields = ["id_forma_farmaceutica", "nombre_forma_farmaceutica"]
+
 class ViaAdministracionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ViaAdministracion
-        fields = '__all__'
+        fields = ["id_via_administracion", "nombre_via_administracion"]
 
 class LaboratorioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Laboratorios
-        fields = '__all__'
+        fields = ["id_laboratorio", "nombre_laboratorio"]
 
 class ProveedorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proveedores
-        fields = '__all__'
+        fields = ["id_proveedor", "nombre_proveedor"]
 
 class EstadoMedicamentoSerializer(serializers.ModelSerializer):
     class Meta:
         model = EstadoMedicamento
-        fields = '__all__'
+        fields = ["id_estado", "nombre_estado"]
 
 class ConcentracionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Concentracion
-        fields = '__all__'
+        fields = ["id_concentracion", "nombre_tipo_concentracion"]
 
+# Medicamentos
 class MedicamentosSerializer(serializers.ModelSerializer):
-    id_forma_farmaceutica = FormaFarmaceuticaSerializer(read_only=True)
-    id_via_administracion = ViaAdministracionSerializer(read_only=True)
-    id_laboratorio = LaboratorioSerializer(read_only=True)
-    id_estado = EstadoMedicamentoSerializer(read_only=True)
-    id_proveedor = ProveedorSerializer(read_only=True)
+    # Campos extra para mostrar nombres de las relaciones
+    nombre_forma_farmaceutica = serializers.CharField(source="id_forma_farmaceutica.nombre_forma_farmaceutica", read_only=True)
+    nombre_via_administracion = serializers.CharField(source="id_via_administracion.nombre_via_administracion", read_only=True)
+    nombre_laboratorio = serializers.CharField(source="id_laboratorio.nombre_laboratorio", read_only=True)
+    nombre_estado = serializers.CharField(source="id_estado.nombre_estado", read_only=True)
+    nombre_proveedor = serializers.CharField(source="id_proveedor.nombre_proveedor", read_only=True)
 
     class Meta:
         model = Medicamentos
-        fields = '__all__'
+        fields = [
+            "id_medicamento",
+            "nombre_medicamento",
+            "concentracion",
+            "stock",
+            "fecha_vencimiento",
+            "precio_venta",
+            "id_forma_farmaceutica",
+            "nombre_forma_farmaceutica",
+            "id_via_administracion",
+            "nombre_via_administracion",
+            "id_laboratorio",
+            "nombre_laboratorio",
+            "id_estado",
+            "nombre_estado",
+            "id_proveedor",
+            "nombre_proveedor",
+        ]

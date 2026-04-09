@@ -22,7 +22,7 @@ urlpatterns = [
 
 
     # Módulo de ventas
-    path('api/', include('sales.urls')),
+    # path('api/', include('sales.urls')),
 
     #Módulo de productos
     path('api/', include('products.urls')),
