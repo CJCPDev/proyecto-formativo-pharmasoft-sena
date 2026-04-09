@@ -13,25 +13,30 @@ import {
   obtenerCarrito,
   actualizarCantidad,
   eliminarDelCarrito,
-  vaciarCarrito
+  vaciarCarrito,
 } from "@/features/home/services/carritoService";
 import { useNavigate } from "react-router-dom";
+import {CarSellHome} from "@/features/home";
 
-export default function CartModal({ isOpen, onClose }) {
-
+export default function CartModal({ isOpen, onClose, setOpenLogin,setShouldOpenCart }) {
   const [success, setSuccess] = useState(false);
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const usuarioActual = getUsuarioActual();
+  const [usuarioActual, setUsuarioActual] = useState(null)
 
   // Carga el carrito desde la API cuando se abre el modal
-  useEffect(() => {
-    if (isOpen && usuarioActual) {
-      cargarCarrito();
-    }
-  }, [isOpen]);
+useEffect(() => {
+  if (isOpen && !usuarioActual) {
+    setShouldOpenCart(true); // 👈 guarda intención
+    setOpenLogin(true);      // 👈 abre login
+    onClose();               // 👈 cierra carrito
+  }
+}, [isOpen]);
+
+if (!isOpen) return null;
 
   const cargarCarrito = async () => {
     try {
@@ -46,12 +51,6 @@ export default function CartModal({ isOpen, onClose }) {
   };
 
   if (!isOpen) return null;
-
-  // Si el usuario no está autenticado lo redirige al login
-  if (!usuarioActual) {
-    navigate("/login");
-    return null;
-  }
 
   const increase = async (item) => {
     try {
@@ -92,24 +91,23 @@ export default function CartModal({ isOpen, onClose }) {
     }
   };
 
-  const total = cart.reduce(
-    (acc, item) => acc + parseFloat(item.subtotal),
-    0
-  );
+  const total = cart.reduce((acc, item) => acc + parseFloat(item.subtotal), 0);
 
-  const handleCheckout = async () => {
-    try {
-      await vaciarCarrito(usuarioActual.id);
-      setSuccess(true);
-      setCart([]);
-      setTimeout(() => {
-        setSuccess(false);
-        onClose();
-      }, 2000);
-    } catch (error) {
-      console.error("Error al finalizar compra:", error);
-    }
-  };
+const handleCheckout = async () => {
+  try {
+    navigate("/CarSellHome", {
+      state: {
+        cart: cart,
+        total: total,
+      },
+    });
+
+    onClose(); // cerrar modal
+
+  } catch (error) {
+    console.error("Error al finalizar compra:", error);
+  }
+};
 
   return (
     <div className="fixed inset-0 bg-black/30 flex justify-end z-50">
@@ -120,27 +118,35 @@ export default function CartModal({ isOpen, onClose }) {
           </div>
         ) : (
           <div className="flex flex-col h-full">
-
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold text-brand-hover">Productos Seleccionados</h2>
-              <button className="cursor-pointer hover:text-red-600" onClick={onClose}>
+              <h2 className="text-lg font-bold text-brand-hover">
+                Productos Seleccionados
+              </h2>
+              <button
+                className="cursor-pointer hover:text-red-600"
+                onClick={onClose}
+              >
                 <X />
               </button>
             </div>
 
             {/* Cargando */}
             {loading && (
-              <p className="text-center text-gray-500 py-4">Cargando carrito...</p>
+              <p className="text-center text-gray-500 py-4">
+                Cargando carrito...
+              </p>
             )}
 
             {/* Carrito vacío */}
             {!loading && cart.length === 0 && (
-              <p className="text-center text-gray-500 py-4">No hay productos en el carrito</p>
+              <p className="text-center text-gray-500 py-4">
+                No hay productos en el carrito
+              </p>
             )}
 
             {/* Productos del carrito */}
             <div className="flex flex-col gap-6 overflow-y-auto flex-1">
-              {cart.map(item => (
+              {cart.map((item) => (
                 <div
                   key={item.id_carrito}
                   className="flex gap-8 border-b border-brand-hover pb-3"
@@ -194,7 +200,6 @@ export default function CartModal({ isOpen, onClose }) {
                 Finalizar compra
               </Button>
             </div>
-
           </div>
         )}
       </div>

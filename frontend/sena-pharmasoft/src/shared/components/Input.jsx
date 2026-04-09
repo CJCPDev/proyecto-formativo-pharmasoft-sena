@@ -1,78 +1,146 @@
+// import './../../styles/global.css'
+
+// export default function Input({
+//   label,
+//   type = "text",
+//   error,
+//   className = "",
+//   ...props
+// }) {
+//   return (
+//     <div className="w-full flex flex-col">
+      
+//       {/* Label */}
+//       {label && (
+//         <label
+//           className={`
+//             px-1 text-sm font-main
+//             ${error ? "text-red-600" : "text-brand-hover"}
+//           `}
+//         >
+//           {label}
+//         </label>
+//       )}
+
+//           <div
+//                 className="
+//                 absolute
+//                 inset-0
+//                 pointer-events-none
+//                 "
+//                 onMouseDown = {(e) => {
+//                     e.preventDefault();
+//                     e.currentTarget.nextSibling.focus();
+//                     }}  
+//           />
+//         {/* Input */}
+//         <input
+//           type={type}
+//           className={`
+//             w-full h-10
+//             px-4
+//             text-base
+//             rounded-xl
+//             transition
+
+//             bg-brand-soft/60
+
+//             border
+//             ${error ? "border-red-600" : "border-border-strong"}
+
+//             focus:outline-none
+//             focus:ring-1
+//             focus:ring-brand-hover
+//             focus:border-brand-hover
+//             focus:bg-white
+
+//             hover:bg-white
+//             hover:border-brand-hover
+
+//             ${className}
+//           `}
+//           {...props}
+//         />
+//       </div>
+
+//       {/* 🔥 ESPACIO FIJO PARA ERROR */}
+//       <p className="text-red-700 text-xs mt-1 h-4">
+//         {error || ""}
+//       </p>
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
 import './../../styles/global.css'
 
-export default function Input({label, type = "text", error, ...props}){
-    return (
-      <div className="w-full">
-        {/*Label */}
-        {label && (
-          <label
-            className={`
-                    block
-                    text-[8px]     
-                    text-brand-hover
-                    pb-1
-                    text-info-medium
-                    font-main
-                    font-bold
-                    text-black
-              ${error ? 'text-red-600' : 'text-brand-hover'}
-            `}
-          >
-            {label}
-          </label>
-        )}
-        {/* EL contenedor del input */}
+export default function Input({
+  label,
+  type = "text",
+  error,
+  className = "",
+  ...props
+}) {
+  return (
+    <div className="w-full flex flex-col">
 
-        <div
-            className="
-            relative
-            h-12
-            flex
-            items-center
-            "
+      {/* Label */}
+      {label && (
+        <label
+          className={`
+            px-1 text-sm font-main
+            ${error ? "text-red-600" : "text-brand-hover"}
+          `}
         >
-          {/* Area interactiva visible (48px)*/}
+          {label}
+        </label>
+      )}
 
-          <div
-                className="
-                absolute
-                inset-0
-                pointer-events-none
-                "
-                onMouseDown = {(e) => {
-                    e.preventDefault();
-                    e.currentTarget.nextSibling.focus();
-                    }}  
-          />
+      <div className="relative h-10 flex items-center">
+        {/* div con pointer-events-none para no bloquear clicks */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          onMouseDown={(e) => {
+            e.preventDefault();
+            e.currentTarget.nextSibling.focus();
+          }}
+        />
 
-          <input
-            type={type}
-            className={`
-                    w-full
-                    h-12
-                    relative
-                    text-text-muted
-                    rounded-xl
-                    bg-brand-soft/60
-                    border
-                    border-brand
-                    px-4
-                    text-base
-                    focus:ring-1
-                    focus:ring-brand-hover
-                    focus:border-brand-fort
-                    focus:outline-none
-                    bg-brand
-                    border-background
-                    focus:bg-white   
-                    hover:bg-white
-                    hover:border-brand-hover
-                    ${error ? 'border-red-600' : 'border border-border-strong'}  
-                    `}
-            {...props}
-          />
-        </div>
-              {error && <p className="text-red-700 text-sm mt-1">{error}</p>}
+        {/* Input */}
+        <input
+          type={type}
+          className={`
+            w-full h-10
+            px-4
+            text-base
+            rounded-xl
+            transition
+            relative
+            bg-brand-soft/60
+            border
+            ${error ? "border-red-600" : "border-border-strong"}
+            focus:outline-none
+            focus:ring-1
+            focus:ring-brand-hover
+            focus:border-brand-hover
+            focus:bg-white
+            hover:bg-white
+            hover:border-brand-hover
+            ${className}
+          `}
+          {...props}
+        />
       </div>
-    );
+
+      {/* Espacio fijo para error */}
+      <p className="text-red-700 text-xs mt-1 h-4">
+        {error || ""}
+      </p>
+    </div>
+  );
 }

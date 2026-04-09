@@ -240,19 +240,26 @@ export default function AuthModal({
                 </button>
               </div>
             </form>
-
-            <p className="text-center mt-4">
-              ¿Ya tienes cuenta?{" "}
-              <span
+<div className="flex text-center w-full gap-6 justify-center">
+            <Button
                 onClick={() => {
                   setOpenRegister(false);
                   setOpenLogin(true);
-                }}
-                className="text-green-600 cursor-pointer"
+                }}     
+                variant= "secondary"         
               >
-                Inicia sesión
-              </span>
-            </p>
+                Regresar
+              
+            </Button>
+              <Button 
+                variant= "primary"
+              
+              >
+                Guardar
+              </Button>
+
+</div>
+
           </div>
         </div>
       )}

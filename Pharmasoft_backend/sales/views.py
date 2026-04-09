@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from .models import Ventas
+from .serializers import VentaSerializer, VentaCreateSerializer
 
-# Create your views here.
+class VentasViewSet(viewsets.ModelViewSet):
+    queryset = Ventas.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return VentaCreateSerializer
+        return VentaSerializer

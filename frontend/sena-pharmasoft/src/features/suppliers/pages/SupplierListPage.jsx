@@ -1,13 +1,18 @@
 import { Button, Title, DataTable } from "@/shared/components"
 import { Link, useNavigate } from "react-router-dom"
 import { SupplierColumns } from "../table/SupplierColumns"
-import { suppliers } from "@/data/suppliers/suppliers"
-import { useState } from "react"
+import { getAllSuppliers } from "../services/supplierService"
+import { useState, useEffect } from "react"
 import  ReportConfigModal  from "../reports/components/ReportConfigModal"
 
 export default function SuppliersListPage (){
     const navigate = useNavigate()
     const [isReportModalOpen, setIsReportModalOpen] = useState(false)
+    const [suppliers, setSuppliers] = useState([]);
+
+    useEffect(() => {
+        getAllSuppliers().then(data => setSuppliers(data));
+    }, []);
     return(
         <div
             className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-350 h-150">

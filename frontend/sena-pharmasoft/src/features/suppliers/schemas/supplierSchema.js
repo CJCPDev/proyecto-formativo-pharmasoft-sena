@@ -27,20 +27,23 @@ export const supplierSchema = z.object({
         .string()
         .email("Ingrese un email valido"),
 
-
-    telContacto: z
+    telefonoContacto: z 
         .string()
         .regex(/^[0-9]{10}$/, "El teléfono debe tener 10 digitos"),
-
 
     estado: z
         .string()
         .min(1, "Debe seleccionar un estado"),
-    
+
+    departamento: z
+        .union([z.string(), z.number()])
+        .transform(val => String(val))
+        .refine(val => val.length > 0, "Debe seleccionar un departamento"),
+
     ciudad: z
-        .string()
-        .min(3, "Debe ingresar un ciudad")
-        .max(50, "La ciudad es invalida"),
+        .union([z.string(), z.number()])
+        .transform(val => String(val))
+        .refine(val => val.length > 0, "Debe seleccionar una ciudad"),
    
     nombreContacto: z
         .string()
