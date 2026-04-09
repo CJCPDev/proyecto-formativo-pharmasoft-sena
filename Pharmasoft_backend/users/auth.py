@@ -55,7 +55,7 @@ def verificar_contrasena(contrasena_ingresada, contrasena_guardada):
         return False
 
 
-def encriptar_contraseña(contrasena):
+def encriptar_contrasena(contrasena):
     """
     Encripta una contraseña usando bcrypt
     El resultado es un hash que no se puede revertir
@@ -111,7 +111,7 @@ def login(request):
         # Si tiene contraseña encriptada la verificamos con bcrypt
         if not verificar_contrasena(password, usuario.contrasena):
             return Response(
-                {'error': 'Credenciales inválidas'},
+                {'error': 'Credenciales inválidas hh'},
                 status=status.HTTP_401_UNAUTHORIZED
             )
     else:

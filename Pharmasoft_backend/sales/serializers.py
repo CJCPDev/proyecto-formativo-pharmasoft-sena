@@ -2,22 +2,6 @@ from rest_framework import serializers
 from .models import Ventas, DetalleVenta
 
 
-# Este es para hacer post/ subir la venta
-""" class SaleCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Ventas
-        fields = [
-            'id_factura',
-            'fecha_hora',
-            'usuario',
-            'farmaceuta',
-            'subtotal_venta',
-            'iva_venta',
-            'descuento_venta',
-            'total_venta',
-            'estado_venta'
-        ] """
-
 
 # Este espara obtener de la base de datos
 class VentaSerializer(serializers.ModelSerializer):
@@ -40,6 +24,7 @@ class VentaSerializer(serializers.ModelSerializer):
             'total_venta',
             'is_active'
         ]
+
 
 class VentaCreateSerializer(serializers.ModelSerializer):
     class Meta:

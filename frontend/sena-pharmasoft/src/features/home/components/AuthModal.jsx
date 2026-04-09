@@ -1,5 +1,5 @@
 import { InputHome } from "@/features/home";
-import { Select, Input } from "@/shared/components";
+import { Select, Input, Button } from "@/shared/components";
 
 export default function AuthModal({
   openLogin,
@@ -43,26 +43,27 @@ export default function AuthModal({
                 <Input type="text" label="revision"/>
 
               </div>
-<div className="flex text-center w-26">
-              <button className="bg-green-600 text-white py-2 rounded">
-                Guardar
-              </button>
-
-</div>
             </form>
-
-            <p className="text-center mt-4">
-              ¿Ya tienes cuenta?{" "}
-              <span
+<div className="flex text-center w-full gap-6 justify-center">
+            <Button
                 onClick={() => {
                   setOpenRegister(false);
                   setOpenLogin(true);
-                }}
-                className="text-green-600 cursor-pointer"
+                }}     
+                variant= "secondary"         
               >
-                Inicia sesión
-              </span>
-            </p>
+                Regresar
+              
+            </Button>
+              <Button 
+                variant= "primary"
+              
+              >
+                Guardar
+              </Button>
+
+</div>
+
           </div>
         </div>
       )}

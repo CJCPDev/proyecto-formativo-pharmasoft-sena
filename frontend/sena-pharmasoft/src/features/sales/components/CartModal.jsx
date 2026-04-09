@@ -16,6 +16,7 @@ import {
   vaciarCarrito,
 } from "@/features/home/services/carritoService";
 import { useNavigate } from "react-router-dom";
+import {CarSellHome} from "@/features/home";
 
 export default function CartModal({ isOpen, onClose }) {
   const [success, setSuccess] = useState(false);
@@ -48,7 +49,7 @@ export default function CartModal({ isOpen, onClose }) {
 
   // Si el usuario no está autenticado lo redirige al login
   if (!usuarioActual) {
-    navigate("/login");
+    navigate("/CarSellHome");
     return null;
   }
 
@@ -83,8 +84,10 @@ export default function CartModal({ isOpen, onClose }) {
   const total = cart.reduce((acc, item) => acc + parseFloat(item.subtotal), 0);
 
   const handleCheckout = async () => {
+    
     try {
       await vaciarCarrito(usuarioActual.id);
+      navigate("/CarSellHome");
       setSuccess(true);
       setCart([]);
       setTimeout(() => {
