@@ -3,7 +3,7 @@ from .models import Ventas, DetalleVenta
 
 
 
-# Este espara obtener de la base de datos
+# Este es para obtener de la base de datos
 class VentaSerializer(serializers.ModelSerializer):
     numeroFactura = serializers.IntegerField(source='id_factura', read_only=True)
     fechaHora = serializers.DateTimeField(source='fecha_hora', read_only=True)
