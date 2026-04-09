@@ -1,78 +1,57 @@
 from django.db import models
 
 # Create your models here.
+class Departamento(models.Model):
+    id_departamento = models.AutoField(primary_key=True)
+    nombre_departamento = models.CharField(max_length=50)
 
-from django.db import models
-    
-class Ventas(models.Model):
-    id_factura = models.IntegerField(unique=True)
-    fecha_hora = models.DateTimeField(auto_now_add=True)
-    usuario = models.CharField(max_length=50)
-    farmaceuta = models.CharField(max_length=50)
-    descuento_venta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    subtotal_venta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    iva_venta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    total_venta = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    class Meta:
+        managed = False
+        db_table = 'departamento'
+
+    def __str__(self):
+        return self.nombre_departamento
 
 
-    ESTADOS = [
-        ('Activo', 'ACTIVO'),
-        ('Cancelado', 'CANCELADO'),
-        ('Confirmado', 'CONFIRMADO'),
-    ]
 
-    estado_venta = models.CharField(
-        max_length=20,
-        choices=ESTADOS,
-        default='Activo'
+class Municipio(models.Model):
+    id_municipio = models.AutoField(primary_key=True)
+    nombre_municipio = models.CharField(max_length=50)
+
+    id_departamento = models.ForeignKey(
+        Departamento,
+        on_delete=models.RESTRICT,
+        db_column='id_departamento'
     )
 
     class Meta:
         managed = False
-        db_table = 'ventas'
+        db_table = 'municipio'
 
-class Producto(models.Model):
-    nombre = models.CharField(max_length=100)
-    codigo_barras = models.CharField(max_length=50, unique=True)
 
-    precio_compra = models.DecimalField(max_digits=10, decimal_places=2)
-    precio_venta = models.DecimalField(max_digits=10, decimal_places=2)
-
-    stock = models.PositiveIntegerField(default=0)
-
-    descripcion = models.TextField(blank=True, null=True)
-    estado = models.BooleanField(default=True)
+class Suppliers(models.Model):
+    nit = models.CharField(max_length=20, unique=True)
+    nombre_proveedor = models.CharField(max_length=50)
+    razon_social = models.CharField(max_length=255, unique=True)
+    direccion = models.CharField(max_length=150)
+    correo_contacto = models.EmailField(max_length=100)
+    telefono_contacto = models.CharField(max_length=10)
+    estado = models.BooleanField(default=True)  # True = Activo, False = Inactivo
+    nombre_contacto = models.CharField(max_length=50)
+    id_departamento = models.ForeignKey(
+        Departamento,
+        on_delete=models.RESTRICT,  # evita borrar departamentos en uso
+        db_column='id_departamento'
+    )
+    id_municipio = models.ForeignKey(
+        Municipio,
+        on_delete=models.RESTRICT,
+        db_column='id_municipio'
+    )
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre_proveedor} - {self.nit}"
 
-
-class DetalleVenta(models.Model):
-    venta = models.ForeignKey(
-        Ventas,
-        related_name="detalles",
-        on_delete=models.CASCADE
-    )
-
-    producto = models.ForeignKey(
-        Producto,
-        on_delete=models.CASCADE
-    )
-
-    cantidad = models.PositiveIntegerField()
-    precio_unitario = models.DecimalField(
-        max_digits=10,
-        decimal_places=2
-    )
-
-    subtotal = models.DecimalField(
-        max_digits=10,
-        decimal_places=2,
-        blank=True,
-        null=True
-    )
-
-
-
-
-
+    class Meta:
+        managed = False
+        db_table = 'proveedores'
