@@ -21,13 +21,13 @@ export default function ListSalePage() {
 
       const data = await getSales();
 
-      console.log("VENTAS CRUDAS 👉", data);
+
 
       const ventasFormateadas = Array.isArray(data)
         ? data.map((u) => ({
             id: u.id,
             numeroFactura: u.numerofactura,
-fechaHora: new Date().toISOString(),
+            fechaHora: new Date().toISOString(),
             usuario: u.usuario,
             farmaceuta: u.farmaceuta,
             is_active: true,

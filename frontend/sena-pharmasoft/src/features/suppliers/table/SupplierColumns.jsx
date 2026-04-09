@@ -39,7 +39,7 @@ export const SupplierColumns = [
 
   // Columna Estado (activo / inactivo)
   {
-    accessorKey: "Estado",
+    accessorKey: "estado",
     header: "Estado",
 
     // Render personalizado de la celda

@@ -7,7 +7,7 @@ import { supplierSchema } from "../schemas/supplierSchema"
 import { getSuppliersState } from "../services/selectService"
 import { Title, Input, Select, Button } from "@/shared/components"
 import { useParams, useNavigate } from "react-router-dom"
-
+import axios from "axios"
 
 export default function SuppliersForm (){
     const navigate = useNavigate()
@@ -46,34 +46,38 @@ export default function SuppliersForm (){
 
     //============== HANDLE SUBMIT ============== 
     // Función que se ejecuta cuando se envía el formulario 
-    const handleSubmit = (e) => { 
-        // Evita que el formulario recargue la página 
-        e.preventDefault(); 
-        // Se valida el objeto formData usando el esquema definido con Zod 
-        // safeParse devuelve un objeto indicando si la validación fue exitosa o no 
-        const result = supplierSchema.safeParse(formData); 
-        // Si la validación falla 
-        if (!result.success) { 
-            // Objeto donde se almacenarán los errores por campo 
-            const fieldErrors = {}; 
-            // Zod devuelve los errores en un arreglo llamado issues 
-            // Se recorren para asociar cada error a su campo correspondiente 
-            result.error.issues.forEach((issue) => { 
-                // issue.path contiene la ruta del campo que falló 
-                const field = issue.path[0]; 
-                // Se guarda el mensaje de error en el objeto fieldErrors 
-                fieldErrors[field] = issue.message; 
-            }); 
-            // Se actualiza el estado de errores para mostrarlos en el formulario 
-            setErrors(fieldErrors); 
-            // Se detiene la ejecución porque el formulario tiene errores 
-            return; 
-        }
-        // Si la validación es exitosa se limpian los errores anteriores 
-        setErrors({}); 
-        // result.data contiene los datos ya validados por Zod 
-        console.log("Proveedor válido:", result.data); 
-    };
+   const handleSubmit = async (e) => { 
+    e.preventDefault(); 
+
+    const result = supplierSchema.safeParse(formData); 
+
+    if (!result.success) { 
+        const fieldErrors = {}; 
+
+        result.error.issues.forEach((issue) => { 
+            const field = issue.path[0]; 
+            fieldErrors[field] = issue.message; 
+        }); 
+
+        setErrors(fieldErrors); 
+        return; 
+    }
+
+    setErrors({}); 
+
+    try {
+        console.log("Proveedor válido:", result.data);
+
+        // 🔥 GUARDAR EN EXPRESS
+        await axios.post("http://localhost:4000/api/suppliers", result.data)
+
+        // 🔥 REDIRECCIONAR
+        navigate("/listar-proveedor") // 👈 asegúrate que esta ruta exista
+
+    } catch (error) {
+        console.error("Error guardando proveedor:", error)
+    }
+};
     //Estados de los errores
     const [error, setErrors] = useState({})
 
