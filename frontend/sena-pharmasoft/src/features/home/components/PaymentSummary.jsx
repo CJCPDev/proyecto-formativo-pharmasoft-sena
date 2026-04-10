@@ -4,9 +4,11 @@ export default function PaymentSummary({ products, total }) {
       <h2 className="font-bold mb-2">Resumen</h2>
 
       {products.map((p) => (
-        <div key={p.id} className="flex justify-between text-sm">
-          <span>{p.nombre}</span>
-          <span>${p.precio}</span>
+        <div key={p.id_carrito} className="flex justify-between text-sm">
+          <span>{p.nombre_medicamento}</span>
+          <span>
+            ${parseFloat(p.subtotal).toLocaleString()}
+          </span>
         </div>
       ))}
 
@@ -14,7 +16,7 @@ export default function PaymentSummary({ products, total }) {
 
       <div className="flex justify-between font-bold">
         <span>Total</span>
-        <span>${total}</span>
+        <span>${total.toLocaleString()}</span>
       </div>
     </div>
   );

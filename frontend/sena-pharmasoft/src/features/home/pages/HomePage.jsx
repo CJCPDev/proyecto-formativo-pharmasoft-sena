@@ -10,7 +10,7 @@ export default function HomePage() {
 
   // Estado para forzar actualización del contador
   const [contadorKey, setContadorKey] = useState(0);
-
+const [shouldOpenCart, setShouldOpenCart] = useState(false);
   // Estados para el modal de autenticación
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
@@ -28,12 +28,16 @@ export default function HomePage() {
         openRegister={openRegister}
         setOpenLogin={setOpenLogin}
         setOpenRegister={setOpenRegister}
+        
       />
 
       <div className="mb-2">
         <HomeNavbar
           key={contadorKey}
-          onOpenRegister={() => setOpenLogin(true)} // 👈 abre el login
+          onOpenRegister={() => setOpenLogin(true)}
+          setOpenLogin={setOpenLogin}
+           setShouldOpenCart={setShouldOpenCart}  // 👈 NUEVO
+          shouldOpenCart={shouldOpenCart}  
         />
       </div>
 
@@ -44,7 +48,6 @@ export default function HomePage() {
       <div className="flex pt-8">
         <CardsMedicine onProductoAgregado={handleProductoAgregado} />
       </div>
-    <CarSellHome></CarSellHome>
       <Footer />
     </div>
   );
