@@ -10,16 +10,13 @@ export default function DetailProductPage (){
     const product = products.find(prod => prod.id == params.id);
     
     return(
-        <div className="min-h-screen flex flex-col">
+        <div>
             <HomeNavbar/>
-            <section
-                className="relative m-auto w-full flex items-center justify-center text-black"
-            >
-                <div>
-                    {product && <DetailCard product = {product}/>}
-                </div>
-            </section>
+            <div className="min-h-screen m-auto w-full flex items-center justify-center text-black">
+                {product && <DetailCard product = {product}/>}
+            </div>
             <Footer/>
         </div>
+            
     )
 }
