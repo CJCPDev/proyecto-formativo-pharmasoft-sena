@@ -15,13 +15,17 @@ urlpatterns = [
     # Módulo de usuarios
     path('api/', include('users.urls')),
     # Módulo de proveedores
-     path('api/', include('suppliers.urls')),
+    path('api/', include('suppliers.urls')),
 
 
 
 
 
     # Módulo de ventas
-    path('api/', include('sales.urls')),
+    # path('api/', include('sales.urls')),
+
+    #Módulo de productos
+    path('api/', include('products.urls')),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -49,7 +49,7 @@ import SuppliersReportPage from "../../features/suppliers/pages/SuppliersReportP
 // Imports de Productos
 import CreateProductPage from "../../features/products/admin/pages/CreateProductPage";
 import AdminProductListPage from "../../features/products/admin/pages/AdminProductListPage";
-import ProductDetailPage from "../../features/products/admin/pages/ProductDetailPage";
+import AdminProductDetailPage from "../../features/products/admin/pages/AdminProductDetailPage";
 import ProductsEditPage from "../../features/products/admin/pages/ProductsEditPage";
 import AdminProductReportPage from "../../features/products/admin/pages/AdminProductReportPage";
 import DetailProductPage from "@/features/products/pages/DetailProductPage";
@@ -141,7 +141,7 @@ const router = createBrowserRouter([
                         path: "ver-medicamento/:id",
                         element: (
                             <ProtectedRoute>
-                                <ProductDetailPage/>
+                                <AdminProductDetailPage/>
                             </ProtectedRoute>
                         )
                     },
