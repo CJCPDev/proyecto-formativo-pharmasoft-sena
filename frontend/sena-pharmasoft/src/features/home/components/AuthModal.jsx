@@ -7,7 +7,7 @@
 import { useState, useEffect } from "react";
 import { InputHome } from "@/features/home";
 import { Select } from "@/shared/components";
-import axios from "axios";
+import axios from "@/shared/services/axiosConfig";
 
 const API_URL = "http://localhost:8000/api";
 
@@ -62,7 +62,7 @@ export default function AuthModal({
   };
 
   // Login del cliente
-  const handleLogin = async (e) => {
+const handleLogin = async (e) => {
     e.preventDefault();
     setErrorLogin(null);
     setLoadingLogin(true);
@@ -73,11 +73,27 @@ export default function AuthModal({
         password
       });
 
+      // Verificamos que sea un cliente (rol 2)
+      if (response.data.usuario.id_rol !== 2) {
+        setErrorLogin("Este acceso es solo para clientes. Por favor usa el login de administradores.");
+        return;
+      }
+
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
       localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
       localStorage.setItem('expiracion', response.data.expiracion);
       localStorage.setItem('horas_sesion', response.data.horas_sesion);
+
+      try {
+        const permisosResponse = await axios.get(
+          `${API_URL}/usuarios/${response.data.usuario.id}/permisos-combinados/`
+        );
+        const permisos = permisosResponse.data.map(p => p.codigo);
+        localStorage.setItem('permisos', JSON.stringify(permisos));
+      } catch (error) {
+        localStorage.setItem('permisos', JSON.stringify([]));
+      }
 
       setOpenLogin(false);
       window.location.reload();
@@ -101,7 +117,7 @@ export default function AuthModal({
     }
 
     if (formRegistro.contrasena.length < 6) {
-      setErrorRegistro("La contraseña debe tener mínimo 6 caracteres");
+      setErrorRegistro("La contraseña debe tener mínimo 8 caracteres");
       return;
     }
 
@@ -240,7 +256,7 @@ export default function AuthModal({
                 </button>
               </div>
             </form>
-<div className="flex text-center w-full gap-6 justify-center">
+              <div className="flex text-center w-full gap-6 justify-center">
             <Button
                 onClick={() => {
                   setOpenRegister(false);
@@ -253,13 +269,10 @@ export default function AuthModal({
             </Button>
               <Button 
                 variant= "primary"
-              
               >
                 Guardar
               </Button>
-
-</div>
-
+          </div>
           </div>
         </div>
       )}

@@ -24,7 +24,7 @@ export async function generateUserReport({
 
     // Si es farmaceuta siempre filtra por clientes
     // Si es admin usa el filtro seleccionado en el modal
-    const idRol = esFarmaceuta ? 6 : (rolFiltro === "todos" ? null : Number(rolFiltro));
+    const idRol = esFarmaceuta ? 2 : (rolFiltro === "todos" ? null : Number(rolFiltro));
     console.log("idRol enviado a getUsuarios:", idRol);
     // Obtenemos los usuarios desde la API de Django
     const users = await getUsuarios(idRol);

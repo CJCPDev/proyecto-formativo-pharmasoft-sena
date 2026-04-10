@@ -50,9 +50,7 @@ export default function LoginForm() {
     }
   };
 
-
-
-    return(
+  return(
         <div className="">
             <form 
             onSubmit={handleSubmit}
@@ -67,7 +65,7 @@ export default function LoginForm() {
             rounded-xl
             font-main
             w-90
-            h-100
+            h-auto
             "
       >
         <h1 className="text-general-title text-brand-hover font-extrabold text-center">

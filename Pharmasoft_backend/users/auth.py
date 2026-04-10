@@ -111,7 +111,7 @@ def login(request):
         # Si tiene contraseña encriptada la verificamos con bcrypt
         if not verificar_contrasena(password, usuario.contrasena):
             return Response(
-                {'error': 'Credenciales inválidas hh'},
+                {'error': 'Credenciales inválidas'},
                 status=status.HTTP_401_UNAUTHORIZED
             )
     else:

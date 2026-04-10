@@ -66,17 +66,6 @@ export const userSchema = z.object({
     fechaInicio: z.string().optional(),
     fechaFin:    z.string().optional(),
 
-// ✅ Agrega esto al final del schema
-/* }).refine((data) => data.userEmail === data.validationEmail, {
-  message: "Los correos no coinciden",
-  path: ["validationEmail"],
-});
-    // Campos opcionales que no son obligatorios
-    phoneAdicional: z.string().optional().or(z.literal("")),
-    fechaInicio: z.string().optional().or(z.literal("")),
-    fechaFin: z.string().optional().or(z.literal("")), */
-
-
 // ─────────────────────────────────────────────
 // Validación cruzada — verifica que los dos correos sean iguales
 // Solo valida si validationEmail tiene valor

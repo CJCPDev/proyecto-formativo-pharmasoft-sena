@@ -8,7 +8,6 @@ import { CarSellHome } from "@/features/home";
 import ProfilePage from "../../features/users/pages/ProfilePage";
 
 // Imports de Login
-
 import LoginPage from "../../features/auth/pages/LoginPage";
 import ForgotPasswordPage from "../../features/auth/components/ForgotPasswordForm";
 import ResetPasswordPage from "../../features/auth/components/ResetPasswordForm";
@@ -24,9 +23,9 @@ import { ProfileUserPage } from "@/features/users";
 import { EditUserPage } from "@/features/users";
 import { UserReportPage } from "@/features/users";
 import PermissionsPage from "../../features/users/pages/PermissionsPage";
+import ClientProfilePage from "../../features/home/pages/ClientProfilePage"
 
 // Import Ventas
-
 import CreateSalePage from "../../features/sales/pages/CreateSalePage";
 import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage";
@@ -35,7 +34,6 @@ import SalesEditPage from "../../features/sales/pages/SalesEditPage";
 // ------
 
 // Imports de proveedores
-
 import { SuppliersPage } from "@/features/suppliers";
 import SuppliersListPage from "@/features/suppliers/pages/SupplierListPage";
 import SuppliersDetailPage from "@/features/suppliers/pages/SuppliersDetailPage";
@@ -77,6 +75,14 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
                 //Ruta protegida
+                {
+                    path: "mi-perfil",
+                    element: (
+                        <ProtectedRoute rolesPermitidos={[2]}>
+                            <ClientProfilePage />
+                        </ProtectedRoute>
+                    )
+                },
                 {
                     path: "DashboardMain",
                     element: (
@@ -194,15 +200,24 @@ const router = createBrowserRouter([
                     {
                         path: "usuarios",
                         element: (
-                        <ProtectedRoute rolesPermitidos={[1,3]}>
+                        <ProtectedRoute 
+                            rolesPermitidos={[1,3]}
+                            permisosRequeridos={['listar_usuarios']}
+                            >
                             <UserListPage/>
                         </ProtectedRoute>
                         )
                     },
                     {
                         path: "crear-usuarios",
-                        element: 
-                                <CreateUserPage/> 
+                        element: (
+                        <ProtectedRoute 
+                            rolesPermitidos={[1,3]}
+                            permisosRequeridos={['crear_usuario']}
+                            >
+                            <CreateUserPage/>
+                        </ProtectedRoute>
+                        )
                     },
                     {
                         path: "generar-reporte",
@@ -215,7 +230,10 @@ const router = createBrowserRouter([
                     {
                         path: "editar-usuarios/:id",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[1,3]}>
+                            <ProtectedRoute 
+                                rolesPermitidos={[1,3]}
+                                permisosRequeridos={['actualizar_usuario']}
+                                >
                                 <EditUserPage/> 
                             </ProtectedRoute>
                         )
@@ -223,7 +241,10 @@ const router = createBrowserRouter([
                     {
                         path: "ver-usuarios/:id",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[1,3]}>
+                            <ProtectedRoute 
+                                rolesPermitidos={[1,3]}
+                                permisosRequeridos={['visualizar_usuario']}
+                                >
                                 <ProfileUserPage/> 
                             </ProtectedRoute>
                         )
