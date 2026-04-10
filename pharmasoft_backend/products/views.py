@@ -1,4 +1,6 @@
 from rest_framework import viewsets
+from .models import SubformaFarmaceutica
+from .serializers import SubformaFarmaceuticaSerializer
 from .models import (
     Medicamentos,
     FormaFarmaceutica,
@@ -6,7 +8,7 @@ from .models import (
     Laboratorios,
     EstadoMedicamento,
     Proveedores,
-    Concentracion
+    Concentracion,
 )
 from .serializers import (
     MedicamentosSerializer,
@@ -30,11 +32,11 @@ class ViaAdministracionViewSet(viewsets.ModelViewSet):
     queryset = ViaAdministracion.objects.all()
     serializer_class = ViaAdministracionSerializer
 
-class LaboratoriosViewSet(viewsets.ModelViewSet):  # 👈 plural para consistencia
+class LaboratoriosViewSet(viewsets.ModelViewSet):  #  plural para consistencia
     queryset = Laboratorios.objects.all()
     serializer_class = LaboratorioSerializer
 
-class ProveedoresViewSet(viewsets.ModelViewSet):  # 👈 plural para consistencia
+class ProveedoresViewSet(viewsets.ModelViewSet):  #  plural para consistencia
     queryset = Proveedores.objects.all()
     serializer_class = ProveedorSerializer
 
@@ -45,3 +47,13 @@ class EstadoMedicamentoViewSet(viewsets.ModelViewSet):
 class ConcentracionViewSet(viewsets.ModelViewSet):
     queryset = Concentracion.objects.all()
     serializer_class = ConcentracionSerializer
+
+class SubformaFarmaceuticaViewSet(viewsets.ModelViewSet):
+    serializer_class = SubformaFarmaceuticaSerializer
+
+    def get_queryset(self):
+        queryset = SubformaFarmaceutica.objects.all()
+        id_forma = self.request.query_params.get('id_forma')
+        if id_forma:
+            queryset = queryset.filter(id_forma_farmaceutica=id_forma)
+        return queryset

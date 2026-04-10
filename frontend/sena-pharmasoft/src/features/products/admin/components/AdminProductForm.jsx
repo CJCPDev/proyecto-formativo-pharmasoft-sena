@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Select, Button, Input, Title, AvatarUploader } from "../../../../shared/components";
@@ -8,6 +9,7 @@ import {
   getSuppliers,
   getLaboratoriesTypes,
   getStatesTypes,
+  getSubformasFarmaceuticas,
 } from "../../services/selectService";
 
 export default function AdminProductForm() {
@@ -15,9 +17,11 @@ export default function AdminProductForm() {
   const params = useParams();
   const isEdit = Boolean(params.id);
 
+  const [subformas, setSubformas] = useState([]);
   const [formData, setFormData] = useState({
     nombreMedicamento: "",
     formaFarmaceutica: "",
+    subformaFarmaceutica: "",
     viaAdministracion: "",
     laboratorio: "",
     concentracion: "",
@@ -43,6 +47,7 @@ export default function AdminProductForm() {
           setFormData({
             nombreMedicamento: data.nombre_medicamento || "",
             formaFarmaceutica: data.id_forma_farmaceutica || "",
+            subformaFarmaceutica: data.id_subforma_farmaceutica || "",
             viaAdministracion: data.id_via_administracion || "",
             laboratorio: data.id_laboratorio || "",
             concentracion: data.concentracion || "",
@@ -57,7 +62,7 @@ export default function AdminProductForm() {
             estado: data.id_estado || "",
             description: data.descripcion || "",
             imagen: data.imagen || null,
-            imagenUrl: data.imagen_url || null, 
+            imagenUrl: data.imagen_url || null,
           });
         })
         .catch((err) => console.error("Error cargando medicamento:", err));
@@ -78,11 +83,27 @@ export default function AdminProductForm() {
     getStatesTypes().then(setStatesTypes);
   }, []);
 
+  // useEffect que escucha cuando cambia formaFarmaceutica
+  useEffect(() => {
+    if (formData.formaFarmaceutica) {
+      getSubformasFarmaceuticas(formData.formaFarmaceutica).then((data) => {
+        setSubformas(data);
+      });
+    } else {
+      setSubformas([]);
+    }
+  }, [formData.formaFarmaceutica]);
+
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Si cambia la forma farmacéutica, resetea la subforma
+    if (name === "formaFarmaceutica") {
+      setFormData((prev) => ({ ...prev, [name]: value, subformaFarmaceutica: "" }));
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -90,7 +111,6 @@ export default function AdminProductForm() {
 
     const result = medicamentoSchema.safeParse(formData);
 
-    // 👇 Log temporal para debug
     console.log("FormData:", formData);
     console.log("Validación:", result);
 
@@ -121,6 +141,7 @@ export default function AdminProductForm() {
     formDataToSend.append("descripcion", formData.description);
     formDataToSend.append("concentracion", formData.concentracion);
     formDataToSend.append("id_forma_farmaceutica", formData.formaFarmaceutica);
+    formDataToSend.append("id_subforma_farmaceutica", formData.subformaFarmaceutica); // ← nuevo
     formDataToSend.append("id_via_administracion", formData.viaAdministracion);
     formDataToSend.append("id_laboratorio", formData.laboratorio);
     formDataToSend.append("id_proveedor", formData.proveedor);
@@ -155,6 +176,7 @@ export default function AdminProductForm() {
           <div className="flex flex-col gap-6 flex-1">
             <Input label="Nombre del medicamento" name="nombreMedicamento" value={formData.nombreMedicamento} onChange={handleChange} placeholder="Nombre del medicamento" error={errors.nombreMedicamento}/>
             <Select label="Forma farmacéutica" name="formaFarmaceutica" value={formData.formaFarmaceutica} options={pharmaForm} onChange={handleChange} error={errors.formaFarmaceutica}/>
+            <Select label="Presentación" name="subformaFarmaceutica" value={formData.subformaFarmaceutica} options={subformas} onChange={handleChange} error={errors.subformaFarmaceutica} disabled={!formData.formaFarmaceutica}/>
             <Select label="Vía de administración" name="viaAdministracion" value={formData.viaAdministracion} options={administrationTypes} onChange={handleChange} error={errors.viaAdministracion}/>
             <Select label="Laboratorio" name="laboratorio" value={formData.laboratorio} options={laboratoriesTypes} onChange={handleChange} error={errors.laboratorio}/>
             <Input label="Concentración" name="concentracion" value={formData.concentracion} onChange={handleChange} placeholder="Concentración" error={errors.concentracion}/>

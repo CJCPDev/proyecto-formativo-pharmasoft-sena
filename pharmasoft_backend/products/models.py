@@ -65,6 +65,23 @@ class Concentracion(models.Model):
     def __str__(self):
         return self.nombre_tipo_concentracion
 
+class SubformaFarmaceutica(models.Model):
+    id_subforma_farmaceutica = models.AutoField(primary_key=True)
+    nombre_subforma_farmaceutica = models.CharField(max_length=100)
+    id_forma_farmaceutica = models.ForeignKey(
+        FormaFarmaceutica,
+        on_delete=models.DO_NOTHING,
+        db_column='id_forma_farmaceutica',
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        db_table = 'subforma_farmaceutica'
+
+    def __str__(self):
+        return self.nombre_subforma_farmaceutica
+
 
 class Medicamentos(models.Model):
     id_medicamento = models.AutoField(primary_key=True)
@@ -89,6 +106,13 @@ class Medicamentos(models.Model):
         db_column='id_forma_farmaceutica',
         null=True,
         blank=True
+    )
+    id_subforma_farmaceutica = models.ForeignKey(
+    SubformaFarmaceutica,
+    on_delete=models.DO_NOTHING,
+    db_column='id_subforma_farmaceutica',
+    null=True,
+    blank=True
     )
     id_via_administracion = models.ForeignKey(
         ViaAdministracion,

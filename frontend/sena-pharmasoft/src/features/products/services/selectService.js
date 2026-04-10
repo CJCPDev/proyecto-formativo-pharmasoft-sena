@@ -44,3 +44,12 @@ export async function getStatesTypes() {
     label: item.nombre_estado
   }));
 }
+
+export const getSubformasFarmaceuticas = async (idForma) => {
+  const res = await fetch(`http://127.0.0.1:8000/api/subformas-farmaceuticas/?id_forma=${idForma}`);
+  const data = await res.json();
+  return data.map((s) => ({
+    value: s.id_subforma_farmaceutica,
+    label: s.nombre_subforma_farmaceutica,
+  }));
+};

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from .models import SubformaFarmaceutica
 from .models import (
     Medicamentos,
     FormaFarmaceutica,
@@ -9,7 +10,11 @@ from .models import (
     Concentracion
 )
 
-# 🔹 Auxiliares
+class SubformaFarmaceuticaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubformaFarmaceutica
+        fields = ['id_subforma_farmaceutica', 'nombre_subforma_farmaceutica', 'id_forma_farmaceutica']
+        
 class FormaFarmaceuticaSerializer(serializers.ModelSerializer):
     class Meta:
         model = FormaFarmaceutica

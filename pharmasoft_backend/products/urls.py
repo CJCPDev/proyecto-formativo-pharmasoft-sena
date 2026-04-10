@@ -1,5 +1,6 @@
 # products/urls.py
 from rest_framework.routers import DefaultRouter
+from .views import SubformaFarmaceuticaViewSet
 from .views import (
     MedicamentosViewSet,
     FormaFarmaceuticaViewSet,
@@ -18,5 +19,6 @@ router.register(r'laboratorios', LaboratoriosViewSet)
 router.register(r'proveedores', ProveedoresViewSet)
 router.register(r'estados-medicamento', EstadoMedicamentoViewSet)
 router.register(r'concentraciones', ConcentracionViewSet)
+router.register(r'subformas-farmaceuticas', SubformaFarmaceuticaViewSet, basename='subformas-farmaceuticas')
 
 urlpatterns = router.urls
