@@ -11,6 +11,9 @@ import { getCarrito, updateCarrito } from "../services/cartService";
 import { agregarAlCarrito, actualizarCantidad, eliminarDelCarrito } from "@/features/home/services/carritoService";
 import { getUsuarioActual } from "@/features/auth/services/authService";
 import { Trash, Pencil } from "lucide-react";
+import axios from "axios";
+
+const API_URL = "http://localhost:8000/api";
 
 export default function EditCartPage() {
   const { id } = useParams();
@@ -26,6 +29,11 @@ export default function EditCartPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  const [todosMedicamentos, setTodosMedicamentos] = useState([]);
+  const [medicamentosEncontrados, setMedicamentosEncontrados] = useState([]);
+  const [busquedaMedicamento, setBusquedaMedicamento] = useState("");
+  const [medicamentoSeleccionado, setMedicamentoSeleccionado] = useState(null);
+
   const [formData, setFormData] = useState({
     id_factura: "",
     estado: "activo",
@@ -40,6 +48,42 @@ export default function EditCartPage() {
   useEffect(() => {
     cargarCarrito();
   }, [id]);
+
+  // Carga todos los medicamentos al montar
+  useEffect(() => {
+    const cargarMedicamentos = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/medicamentos/`);
+        setTodosMedicamentos(response.data);
+      } catch (error) {
+        console.error("Error al cargar medicamentos:", error);
+      }
+    };
+    cargarMedicamentos();
+  }, []);
+
+  // Filtra medicamentos mientras el usuario escribe
+  useEffect(() => {
+    if (!busquedaMedicamento.trim()) {
+      setMedicamentosEncontrados([]);
+      return;
+    }
+    const filtrados = todosMedicamentos.filter((m) =>
+      m.nombre_medicamento.toLowerCase().includes(busquedaMedicamento.toLowerCase())
+    );
+    setMedicamentosEncontrados(filtrados);
+  }, [busquedaMedicamento, todosMedicamentos]);
+
+  const handleSeleccionarMedicamento = (medicamento) => {
+    setMedicamentoSeleccionado(medicamento);
+    setBusquedaMedicamento("");
+    setMedicamentosEncontrados([]);
+    setNuevoMedicamento((prev) => ({
+      ...prev,
+      id_medicamento: medicamento.id_medicamento,
+      precio_unitario: medicamento.precio_venta,
+    }));
+  };
 
   const cargarCarrito = async () => {
     try {
@@ -84,24 +128,25 @@ export default function EditCartPage() {
     }
   };
 
-  const handleAgregarMedicamento = async () => {
-    const { id_medicamento, cantidad, precio_unitario } = nuevoMedicamento;
-    if (!id_medicamento || !cantidad || !precio_unitario) return;
+    const handleAgregarMedicamento = async () => {
+        const { id_medicamento, cantidad, precio_unitario } = nuevoMedicamento;
+        if (!id_medicamento || !cantidad || !precio_unitario) return;
 
-    try {
-      await agregarAlCarrito(
-        carrito.id_usuario,
-        id_medicamento,
-        cantidad,
-        precio_unitario,
-        carrito.estado
-      );
-      await cargarCarrito();
-      setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
-    } catch (error) {
-      console.error("Error al agregar medicamento:", error);
-    }
-  };
+        try {
+          await agregarAlCarrito(
+            carrito.id_usuario,
+            id_medicamento,
+            cantidad,
+            precio_unitario,
+            carrito.estado
+          );
+          await cargarCarrito();
+          setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
+          setMedicamentoSeleccionado(null); //limpiar
+        } catch (error) {
+          console.error("Error al agregar medicamento:", error);
+        }
+      };
 
   const handleEliminar = async (idCarrito) => {
     try {
@@ -200,13 +245,52 @@ export default function EditCartPage() {
               {/* Agregar nuevo medicamento */}
               <div className="border rounded-lg p-3 grid gap-3">
                 <h3 className="font-semibold text-brand-hover">Agregar medicamento</h3>
-                <Input
-                  label="ID Medicamento"
-                  name="id_medicamento"
-                  placeholder="ID del medicamento"
-                  value={nuevoMedicamento.id_medicamento}
-                  onChange={handleNuevoMedicamentoChange}
-                />
+
+                {/* Medicamento seleccionado */}
+                {medicamentoSeleccionado ? (
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-3 flex justify-between items-center">
+                    <div>
+                      <p className="font-semibold text-green-700">{medicamentoSeleccionado.nombre_medicamento}</p>
+                      <p className="text-sm text-gray-500">Precio: ${parseFloat(medicamentoSeleccionado.precio_venta).toLocaleString()}</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setMedicamentoSeleccionado(null);
+                        setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
+                      }}
+                      className="text-red-500 text-sm hover:text-red-700"
+                    >
+                      Cambiar
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <Input
+                      label="Buscar medicamento"
+                      placeholder="Escriba el nombre del medicamento..."
+                      value={busquedaMedicamento}
+                      onChange={(e) => setBusquedaMedicamento(e.target.value)}
+                    />
+                    {medicamentosEncontrados.length > 0 && (
+                      <div className="border rounded-lg overflow-hidden max-h-40 overflow-y-auto">
+                        {medicamentosEncontrados.map((med) => (
+                          <button
+                            key={med.id_medicamento}
+                            onClick={() => handleSeleccionarMedicamento(med)}
+                            className="w-full text-left px-4 py-2 hover:bg-brand-soft/30 border-b flex justify-between"
+                          >
+                            <span className="font-medium">{med.nombre_medicamento}</span>
+                            <span className="text-sm text-gray-500">${parseFloat(med.precio_venta).toLocaleString()}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {busquedaMedicamento && medicamentosEncontrados.length === 0 && (
+                      <p className="text-sm text-gray-500 text-center">No se encontraron medicamentos</p>
+                    )}
+                  </>
+                )}
+
                 <Input
                   label="Cantidad"
                   type="number"
@@ -218,25 +302,15 @@ export default function EditCartPage() {
                 />
                 <Input
                   label="Precio unitario"
-                  type="number"
+                  // type="number"
                   name="precio_unitario"
                   placeholder="Precio unitario"
                   min="0"
                   value={nuevoMedicamento.precio_unitario}
-                  onChange={handleNuevoMedicamentoChange}
+                  readOnly
                 />
                 <Button variant="primary" type="button" onClick={handleAgregarMedicamento}>
                   Agregar
-                </Button>
-              </div>
-
-              {/* Botones guardar */}
-              <div className="flex gap-4 justify-center pt-2">
-                <Button variant="secondary" onClick={() => navigate("/carritos")}>
-                  Cancelar
-                </Button>
-                <Button variant="primary" onClick={handleGuardar} disabled={saving}>
-                  {saving ? "Guardando..." : "Guardar cambios"}
                 </Button>
               </div>
             </div>
@@ -294,7 +368,7 @@ export default function EditCartPage() {
                       <span className="border flex justify-center items-center">
                         ${item.subtotal.toLocaleString()}
                       </span>
-                      <div className="border flex justify-center items-center gap-3'">
+                      <div className="border flex justify-center items-center gap-3">
                         {/* <button
                           className="z-10"
                           onClick={() => {

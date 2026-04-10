@@ -261,8 +261,8 @@ const handleLogin = async (e) => {
                 onClick={() => {
                   setOpenRegister(false);
                   setOpenLogin(true);
-                }}     
-                variant= "secondary"         
+                }}
+                variant="secondary"
               >
                 Regresar
               

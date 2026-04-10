@@ -186,11 +186,11 @@ export default function DetailCartPage() {
                         >
                           <Pencil className="w-5 h-5 stroke-brand-fort" />
                         </button>
-                        <button 
+                        {/* <button 
                           className="z-10"
                           onClick={() => handleConfirmarEliminar(item.id_carrito)}>
                           <Trash className="w-5 h-5 stroke-red-600" />
-                        </button>
+                        </button> */}
                       </div>
                     </div>
                   ))
@@ -244,7 +244,7 @@ export default function DetailCartPage() {
             />
             <Input
               label="Precio unitario"
-              type="number"
+              // type="number"
               min="0"
               value={selectedProduct.precio_unitario}
               onChange={(e) => {

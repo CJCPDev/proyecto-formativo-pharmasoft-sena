@@ -420,7 +420,7 @@ CREATE TABLE `proveedores` (
   `correo_contacto` varchar(100) NOT NULL,
   `direccion` varchar(150) NOT NULL,
   `estado` tinyint(1) NOT NULL,
-  `id_departamento` int(2) DEFAULT NULL,
+  `id_departamento` int(11) DEFAULT NULL,
   `nit` varchar(20) NOT NULL,
   `id_municipio` int(11) NOT NULL,
   PRIMARY KEY (`id`),

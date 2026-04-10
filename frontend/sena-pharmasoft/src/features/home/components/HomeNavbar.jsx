@@ -5,14 +5,13 @@
 // ─────────────────────────────────────────────
 
 import { Search, ShoppingCart, User } from "lucide-react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "@/assets/images/logo-removebg-preview.png";
 import CartModal from "../../sales/components/CartModal";
 import { useState, useEffect } from "react";
 import { getUsuarioActual } from "@/features/auth/services/authService";
 import { obtenerCarrito } from "@/features/home/services/carritoService";
 import { CambiarContrasenaModal } from "@/features/users";
-import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ 
   variant = "solid",
@@ -28,9 +27,8 @@ const Navbar = ({
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
   
   const usuarioActual = getUsuarioActual();
-  
   const navigate = useNavigate();
-  // Carga el contador del carrito al montar el navbar
+
   useEffect(() => {
     if (usuarioActual) {
       cargarContador();
@@ -96,7 +94,6 @@ const Navbar = ({
 
                 {usuarioActual ? (
                   <>
-                    {/* Nombre clickeable que abre el menú */}
                     <button
                       onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                       className="text-brand-hover text-xl px-1 py-2.5 font-semibold cursor-pointer"
@@ -104,7 +101,6 @@ const Navbar = ({
                       {usuarioActual.nombre}
                     </button>
 
-                    {/* Menú desplegable */}
                     {isUserMenuOpen && (
                       <div className="absolute top-12 right-0 w-48 bg-white shadow-xl rounded-2xl z-50 border border-gray-100">
                         <ul className="text-sm">
@@ -112,7 +108,7 @@ const Navbar = ({
                             <button
                               onClick={() => {
                                 setIsUserMenuOpen(false);
-                                navigate("/mi-perfil");                              
+                                navigate("/mi-perfil");
                               }}
                               className="w-full text-left px-4 py-3 hover:bg-brand-soft/30 rounded-t-2xl transition"
                             >

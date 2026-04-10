@@ -18,25 +18,25 @@ import {
 import { useNavigate } from "react-router-dom";
 import {CarSellHome} from "@/features/home";
 
-export default function CartModal({ isOpen, onClose, setOpenLogin,setShouldOpenCart }) {
+export default function CartModal({ isOpen, onClose }) {
   const [success, setSuccess] = useState(false);
   const [cart, setCart] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
-  const [usuarioActual, setUsuarioActual] = useState(null)
+  const [usuarioActual, setUsuarioActual] = useState(undefined)
 
   // Carga el carrito desde la API cuando se abre el modal
-useEffect(() => {
-  if (isOpen && !usuarioActual) {
-    setShouldOpenCart(true); // 👈 guarda intención
-    setOpenLogin(true);      // 👈 abre login
-    onClose();               // 👈 cierra carrito
-  }
-}, [isOpen]);
 
-if (!isOpen) return null;
+useEffect(() => {
+  const user = getUsuarioActual();
+  setUsuarioActual(user ?? null);
+}, []);
+
+useEffect(() => {
+  if (isOpen && usuarioActual) {
+    cargarCarrito();
+  }
+}, [isOpen, usuarioActual]);
 
   const cargarCarrito = async () => {
     try {

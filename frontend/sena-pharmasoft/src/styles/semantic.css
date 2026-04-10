@@ -15,7 +15,9 @@
     --semantic-brand-hover-v2: var(--color-primary-900);/* Generalmente es de un tono mas alto que el brand */
     --semantic-brand-fort: var(--color-primary-950);
     --semantic-brand-400: var(--color-primary-400);
-    --semantic-brand-700: var(--color-primary-700)
+    --semantic-brand-700: var(--color-primary-700);
+
+
     /* ************BACKGROUND******** */
     --semantic-background: var(--color-primary-50); /*Fondo estructural de todo el proyecto*/
     --semantic-surface: var(--white); /* Fondo de modales, cards, containers*/

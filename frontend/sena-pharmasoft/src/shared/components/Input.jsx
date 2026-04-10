@@ -1,4 +1,4 @@
-import './../../styles/global.css'
+import "./../../styles/global.css";
 
 export default function Input({
   label,
@@ -9,7 +9,6 @@ export default function Input({
 }) {
   return (
     <div className="w-full flex flex-col">
-
       {/* Label */}
       {label && (
         <label
@@ -22,8 +21,9 @@ export default function Input({
         </label>
       )}
 
-      <div className="relative h-10 flex items-center">
-        {/* div con pointer-events-none para no bloquear clicks */}
+      {/* Contenedor */}
+      <div className="relative h-12 flex items-center">
+        {/* Área clickeable */}
         <div
           className="absolute inset-0 pointer-events-none"
           onMouseDown={(e) => {
@@ -41,7 +41,6 @@ export default function Input({
             text-base
             rounded-xl
             transition
-            relative
             bg-brand-soft/60
             border
             ${error ? "border-red-600" : "border-border-strong"}
@@ -58,7 +57,7 @@ export default function Input({
         />
       </div>
 
-      {/* Espacio fijo para error */}
+      {/*  ESPACIO FIJO PARA ERROR */}
       <p className="text-red-700 text-xs mt-1 h-4">
         {error || ""}
       </p>
