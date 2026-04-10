@@ -71,7 +71,7 @@ export default function AdminProductForm() {
             stock: data.stock || "",
             precioCosto: data.precio_compra || "",
             precioVenta: data.precio_venta || "",
-            requiresPrescription: data.requiere_formula === "Si" ? "Sí" : "No",
+            requiresPrescription: data.requiere_formula === "Si" ? "Si" : "No",
             estado: data.id_estado || "",
             description: data.descripcion || "",
             imagen: data.imagen || null,
@@ -127,8 +127,25 @@ export default function AdminProductForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const result = medicamentoSchema.safeParse(formData);
+    const parsedData = {
+  ...formData,
+  formaFarmaceutica: formData.formaFarmaceutica === "" ? 0 : Number(formData.formaFarmaceutica),
+  subformaFarmaceutica: formData.subformaFarmaceutica === "" ? 0 : Number(formData.subformaFarmaceutica),
+  viaAdministracion: formData.viaAdministracion === "" ? 0 : Number(formData.viaAdministracion),
+  laboratorio: formData.laboratorio === "" ? 0 : Number(formData.laboratorio),
+  proveedor: formData.proveedor === "" ? 0 : Number(formData.proveedor),
+  estado: formData.estado === "" ? 0 : Number(formData.estado),
+  stock: formData.stock === "" ? 0 : Number(formData.stock),
+  precioCosto: formData.precioCosto === "" ? 0 : Number(formData.precioCosto),
+  precioVenta: formData.precioVenta === "" ? 0 : Number(formData.precioVenta),
+  requiresPrescription: formData.requiresPrescription,
+};
 
+<<<<<<< HEAD
+=======
+  const result = medicamentoSchema.safeParse(parsedData);
+
+>>>>>>> dev
     if (!result.success) {
       const fieldErrors = {};
       result.error.issues.forEach((issue) => {
@@ -153,7 +170,7 @@ export default function AdminProductForm() {
     formDataToSend.append("stock", String(formData.stock));
     formDataToSend.append("precio_compra", formData.precioCosto);
     formDataToSend.append("precio_venta", formData.precioVenta);
-    formDataToSend.append("requiere_formula", formData.requiresPrescription === "Sí" ? "Si" : "No");
+    formDataToSend.append("requiere_formula", formData.requiresPrescription);
     formDataToSend.append("descripcion", formData.description);
     formDataToSend.append("concentracion", formData.concentracion);
     formDataToSend.append("id_forma_farmaceutica", formData.formaFarmaceutica);
@@ -193,9 +210,9 @@ export default function AdminProductForm() {
       <form className="flex flex-col gap-10 z-20" onSubmit={handleSubmit}>
         {isEdit ? <Title title="Editar Medicamento" /> : <Title title="Crear Medicamento" />}
 
-        <div className="flex gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {/* Columna 1 */}
-          <div className="flex flex-col gap-6 flex-1">
+          <div className="flex flex-col gap-6 ">
             <Input label="Nombre del medicamento" name="nombreMedicamento" value={formData.nombreMedicamento} onChange={handleChange} placeholder="Nombre del medicamento" error={errors.nombreMedicamento}/>
             <Select label="Forma farmacéutica" name="formaFarmaceutica" value={formData.formaFarmaceutica} options={pharmaForm} onChange={handleChange} error={errors.formaFarmaceutica}/>
             <Select label="Presentación" name="subformaFarmaceutica" value={formData.subformaFarmaceutica} options={subformas} onChange={handleChange} error={errors.subformaFarmaceutica} disabled={!formData.formaFarmaceutica}/>
@@ -206,7 +223,7 @@ export default function AdminProductForm() {
           </div>
 
           {/* Columna 2 */}
-          <div className="flex flex-col gap-5 flex-1 z-10">
+          <div className="flex flex-col gap-5 z-10">
             <Input label="Lote" name="lote" value={formData.lote} onChange={handleChange} placeholder="Lote" error={errors.lote}/>
             <Input className="z-10" label="Fecha fabricación" type="date" name="fechaFabricacion" value={formData.fechaFabricacion} onChange={handleChange} error={errors.fechaFabricacion}/>
             <Input className="z-10" label="Fecha vencimiento" type="date" name="fechaVencimiento" value={formData.fechaVencimiento} onChange={handleChange} error={errors.fechaVencimiento}/>
@@ -216,7 +233,7 @@ export default function AdminProductForm() {
           </div>
 
           {/* Columna 3 */}
-          <div className="flex flex-col gap-6 flex-1">
+          <div className="flex flex-col gap-6 ">
             <Input label="Requiere fórmula" name="requiresPrescription" value={formData.requiresPrescription} onChange={handleChange} placeholder="Requiere fórmula" error={errors.requiresPrescription}/>
             <Select label="Estado" name="estado" value={formData.estado} options={statesTypes} onChange={handleChange} error={errors.estado}/>
             <Input label="Descripción" name="description" value={formData.description} onChange={handleChange} placeholder="Descripción" error={errors.description}/>

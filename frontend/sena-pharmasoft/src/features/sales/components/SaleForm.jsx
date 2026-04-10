@@ -178,7 +178,7 @@ export default function SaleForm({ onAddProduct }) {
 
           <div className="col-span-2 -mt-1">
             <Input
-              label="Farmaceuta"
+              label="Vendedor"
               name="farmaceuta"
               disabled={!isEditing}
               value={formData.farmaceuta}
