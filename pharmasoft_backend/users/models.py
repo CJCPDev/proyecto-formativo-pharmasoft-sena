@@ -85,7 +85,8 @@ class CarritoCompra(models.Model):
     id_usuario = models.ForeignKey(
         Usuarios,
         models.DO_NOTHING,
-        db_column='id_usuario'
+        db_column='id_usuario',
+        related_name='carritos'
     )
     id_medicamento = models.IntegerField(blank=True, null=True)
     cantidad = models.IntegerField()
@@ -93,6 +94,14 @@ class CarritoCompra(models.Model):
     subtotal = models.DecimalField(max_digits=10, decimal_places=2)
     estado = models.CharField(max_length=50)
     id_factura = models.IntegerField(blank=True, null=True)
+    aprobado_por = models.ForeignKey(
+        Usuarios,
+        models.DO_NOTHING,
+        db_column='aprobado_por',
+        related_name='carritos_aprobados',
+        blank=True,
+        null=True
+    )
 
     class Meta:
         managed = False

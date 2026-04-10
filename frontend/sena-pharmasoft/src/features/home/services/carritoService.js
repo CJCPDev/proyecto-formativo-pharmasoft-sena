@@ -14,12 +14,13 @@ export const obtenerCarrito = async (idUsuario) => {
     return response.data;
 };
 
-export const agregarAlCarrito = async (idUsuario, idMedicamento, cantidad, precioUnitario) => {
+export const agregarAlCarrito = async (idUsuario, idMedicamento, cantidad, precioUnitario, estado = 'activo') => {
     const response = await axios.post(`${API_URL}/carrito/agregar/`, {
         id_usuario: idUsuario,
         id_medicamento: idMedicamento,
         cantidad,
-        precio_unitario: precioUnitario
+        precio_unitario: precioUnitario,
+        estado
     });
     return response.data;
 };
@@ -43,3 +44,5 @@ export const vaciarCarrito = async (idUsuario) => {
     const response = await axios.delete(`${API_URL}/carrito/${idUsuario}/vaciar/`);
     return response.data;
 };
+
+//Obtiene todos los carritos - solo para administrador

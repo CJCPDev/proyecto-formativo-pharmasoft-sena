@@ -66,6 +66,14 @@ export default function SaleForm({ onAddProduct }) {
     },
   ];
 
+  const formatDate = (dateString) => {
+  const date = new Date(dateString);
+
+  const pad = (n) => n.toString().padStart(2, "0");
+
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+};
+
   // ================== HANDLE CHANGE ==================
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -76,37 +84,90 @@ export default function SaleForm({ onAddProduct }) {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    const result = saleSchema.safeParse(formData);
+  const result = saleSchema.safeParse(formData);
 
-    if (!result.success) {
-      const fieldErrors = {};
+  if (!result.success) {
+    const fieldErrors = {};
 
-      result.error.issues.forEach((issue) => {
-        const field = issue.path[0];
-        fieldErrors[field] = issue.message;
-      });
+    result.error.issues.forEach((issue) => {
+      const field = issue.path[0];
+      fieldErrors[field] = issue.message;
+    });
 
-      setErrors(fieldErrors);
-      return;
-    }
+    setErrors(fieldErrors);
+    return;
+  }
 
-    setErrors({});
+  setErrors({});
 
-    try {
-      const response = await createSale(result.data);
+  try {
+    const dataToSend = {
+  usuario: formData.usuario,
+  farmaceuta: formData.farmaceuta,
+  estado_venta: formData.sellStates,
+};
 
-      console.log("Venta guardada en BD:", response);
+const response = await createSale(dataToSend);const handleSubmit = async (e) => {
+  e.preventDefault();
 
-      setIsEditing(false);
+  const result = saleSchema.safeParse(formData);
 
-      // opcional: limpiar formulario o redirigir
-    } catch (error) {
-      console.error("Error al guardar venta:", error);
-    }
-  };
+  if (!result.success) {
+    const fieldErrors = {};
+
+    result.error.issues.forEach((issue) => {
+      const field = issue.path[0];
+      fieldErrors[field] = issue.message;
+    });
+
+    setErrors(fieldErrors);
+    return;
+  }
+
+  setErrors({});
+
+  try {
+    const dataToSend = {
+      usuario: formData.usuario,
+      farmaceuta: formData.farmaceuta,
+      estado_venta: formData.sellStates,
+    };
+
+    const response = await createSale(dataToSend);
+
+    console.log("Venta guardada en BD:", response);
+
+    setFormData((prev) => ({
+      ...prev,
+      numeroFactura: response.numeroFactura,
+      fecha: formatDate(response.fechaHora),
+    }));
+
+    setIsEditing(false);
+
+  } catch (error) {
+    console.error("Error al guardar venta:", error);
+  }
+};
+
+    console.log("Venta guardada en BD:", response);
+
+
+    setFormData((prev) => ({
+      ...prev,
+      numeroFactura: response.numeroFactura,
+      fecha: formatDate(response.fechaHora),
+    }));
+
+    setIsEditing(false);
+
+  } catch (error) {
+    console.error("Error al guardar venta:", error);
+  }
+};
 
   // esto, esta pendiente apenas esten los productos se apunta al backend
   const handleAddProduct = () => {

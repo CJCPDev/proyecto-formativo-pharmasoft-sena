@@ -8,15 +8,12 @@ import { CarSellHome } from "@/features/home";
 import ProfilePage from "../../features/users/pages/ProfilePage";
 
 // Imports de Login
-
 import LoginPage from "../../features/auth/pages/LoginPage";
 import ForgotPasswordPage from "../../features/auth/components/ForgotPasswordForm";
 import ResetPasswordPage from "../../features/auth/components/ResetPasswordForm";
 import Loading from "../../shared/components/Loading";
 import AutoricedPage from "../../features/auth/pages/AutoricedPage";
-
 import ConfirmationPassword from "../../features/auth/components/ConfirmationPassword";
-
 import ProtectedRoute from "../../shared/components/ProtectedRoute";
 
 //  imports de usuarios
@@ -26,9 +23,9 @@ import { ProfileUserPage } from "@/features/users";
 import { EditUserPage } from "@/features/users";
 import { UserReportPage } from "@/features/users";
 import PermissionsPage from "../../features/users/pages/PermissionsPage";
+import ClientProfilePage from "../../features/home/pages/ClientProfilePage"
 
 // Import Ventas
-
 import CreateSalePage from "../../features/sales/pages/CreateSalePage";
 import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage";
@@ -37,7 +34,6 @@ import SalesEditPage from "../../features/sales/pages/SalesEditPage";
 // ------
 
 // Imports de proveedores
-
 import { SuppliersPage } from "@/features/suppliers";
 import SuppliersListPage from "@/features/suppliers/pages/SupplierListPage";
 import SuppliersDetailPage from "@/features/suppliers/pages/SuppliersDetailPage";
@@ -53,6 +49,12 @@ import AdminProductDetailPage from "../../features/products/admin/pages/AdminPro
 import ProductsEditPage from "../../features/products/admin/pages/ProductsEditPage";
 import AdminProductReportPage from "../../features/products/admin/pages/AdminProductReportPage";
 import DetailProductPage from "@/features/products/pages/DetailProductPage";
+
+//Imports de carritos
+import CartListPage from "../../features/cart/pages/CartListPage";
+import CreateCartPage from "../../features/cart/pages/CreateCartPage";
+import EditCartPage from "../../features/cart/pages/EditCartPage";
+import DetailCartPage from "../../features/cart/pages/DetailCartPage";
 
 const router = createBrowserRouter([
     {
@@ -72,6 +74,14 @@ const router = createBrowserRouter([
     children: [
                 //Ruta protegida
                 {
+                    path: "mi-perfil",
+                    element: (
+                        <ProtectedRoute rolesPermitidos={[2]}>
+                            <ClientProfilePage />
+                        </ProtectedRoute>
+                    )
+                },
+                {
                     path: "DashboardMain",
                     element: (
                         <ProtectedRoute>
@@ -82,7 +92,7 @@ const router = createBrowserRouter([
                     {
                         path: "crear-proveedor",
                         element: (
-                            <ProtectedRoute>
+                        <ProtectedRoute>
                             <SuppliersPage/>
                         </ProtectedRoute> 
                         )
@@ -122,7 +132,7 @@ const router = createBrowserRouter([
                     {
                         path: "medicamentos",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[5, 7]}>
+                            <ProtectedRoute rolesPermitidos={[1, 3]}>
                                 <AdminProductListPage />
                             </ProtectedRoute>
                         )
@@ -188,7 +198,10 @@ const router = createBrowserRouter([
                     {
                         path: "usuarios",
                         element: (
-                        <ProtectedRoute rolesPermitidos={[5,7]}>
+                        <ProtectedRoute 
+                            rolesPermitidos={[1,3]}
+                            permisosRequeridos={['listar_usuarios']}
+                            >
                             <UserListPage/>
                         </ProtectedRoute>
                         )
@@ -196,9 +209,12 @@ const router = createBrowserRouter([
                     {
                         path: "crear-usuarios",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[5,7]}>
-                                <CreateUserPage/> 
-                            </ProtectedRoute>
+                        <ProtectedRoute 
+                            rolesPermitidos={[1,3]}
+                            permisosRequeridos={['crear_usuario']}
+                            >
+                            <CreateUserPage/>
+                        </ProtectedRoute>
                         )
                     },
                     {
@@ -212,7 +228,10 @@ const router = createBrowserRouter([
                     {
                         path: "editar-usuarios/:id",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[5,7]}>
+                            <ProtectedRoute 
+                                rolesPermitidos={[1,3]}
+                                permisosRequeridos={['actualizar_usuario']}
+                                >
                                 <EditUserPage/> 
                             </ProtectedRoute>
                         )
@@ -220,7 +239,10 @@ const router = createBrowserRouter([
                     {
                         path: "ver-usuarios/:id",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[5,7]}>
+                            <ProtectedRoute 
+                                rolesPermitidos={[1,3]}
+                                permisosRequeridos={['visualizar_usuario']}
+                                >
                                 <ProfileUserPage/> 
                             </ProtectedRoute>
                         )
@@ -229,40 +251,85 @@ const router = createBrowserRouter([
                     {
                         path: "permisos",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[5]}>
+                            <ProtectedRoute rolesPermitidos={[1]}>
                                 <PermissionsPage/> 
+                            </ProtectedRoute>
+                        )
+                    },
+                    {
+                        path: "carritos",
+                        element: (
+                            <ProtectedRoute rolesPermitidos={[1, 3]}>
+                                <CartListPage />
+                            </ProtectedRoute>
+                        )
+                    },
+                    {
+                        path: "crear-carrito",
+                        element: (
+                            <ProtectedRoute rolesPermitidos={[1, 3]}>
+                                <CreateCartPage />
+                            </ProtectedRoute>
+                        )
+                    },
+                    {
+                        path: "editar-carrito/:id",
+                        element: (
+                            <ProtectedRoute rolesPermitidos={[1]}>
+                                <EditCartPage />
+                            </ProtectedRoute>
+                        )
+                    },
+                    {
+                        path: "ver-carrito/:id",
+                        element: (
+                            <ProtectedRoute rolesPermitidos={[1, 3]}>
+                                <DetailCartPage />
                             </ProtectedRoute>
                         )
                     },
                 ],
             },
     {
+    {
     //Login con rutas completo
     element: <AuthLayout />,
     children: [
         {
+        {
         path: "perfil",
         element: <AuthLayout />,
+        },
+        {
         },
         {
         path: "login",
         element: <LoginPage />,
         },
         {
+        },
+        {
         path: "forgot-password",
         element: <ForgotPasswordPage />,
+        },
+        {
         },
         {
         path: "reset-password",
         element: <ResetPasswordPage />,
         },
         {
+        },
+        {
         path: "validation",
         element: <Loading />,
         },
         {
+        },
+        {
         path: "validationPassword",
         element: <ConfirmationPassword />,
+        },
         },
     ],
     },

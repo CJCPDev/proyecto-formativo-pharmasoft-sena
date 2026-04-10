@@ -54,10 +54,10 @@ export default function LoginForm() {
       const data = await login(formData.email, formData.password);
 
       //Redirigimos según el rol del usuario
-      if (data.usuario.id_rol === 5) {
+      if (data.usuario.id_rol === 1) {
         //Administrador va al dashboard principal
         navigate("/DashboardMain");
-      } else if (data.usuario.id_rol === 7) {
+      } else if (data.usuario.id_rol === 3) {
         //Farmaceuta por definir ruta
         navigate("/medicamentos");
       }

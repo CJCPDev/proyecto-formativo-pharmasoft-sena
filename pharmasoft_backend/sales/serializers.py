@@ -3,6 +3,7 @@ from .models import Ventas, DetalleVenta
 
 
 
+
 # Este es para obtener de la base de datos
 class VentaSerializer(serializers.ModelSerializer):
     numeroFactura = serializers.IntegerField(source='id_factura', read_only=True)
@@ -36,3 +37,5 @@ class DetalleVentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = DetalleVenta
         fields = "__all__"
+
+

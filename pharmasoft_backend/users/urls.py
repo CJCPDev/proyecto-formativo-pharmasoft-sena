@@ -20,7 +20,10 @@ from .views import (
     agregar_al_carrito,
     actualizar_cantidad,
     eliminar_del_carrito,
-    vaciar_carrito
+    vaciar_carrito,
+    obtener_todos_los_carritos,
+    obtener_carrito_detalle,
+    actualizar_carrito
 )
 from .auth import login, logout
 
@@ -54,4 +57,8 @@ urlpatterns = router.urls + [
     path('carrito/<int:id_carrito>/actualizar/', actualizar_cantidad, name='actualizar-carrito'),
     path('carrito/<int:id_carrito>/eliminar/', eliminar_del_carrito, name='eliminar-carrito'),
     path('carrito/<int:id_usuario>/vaciar/', vaciar_carrito, name='vaciar-carrito'),
+
+    path('carrito/', obtener_todos_los_carritos, name='todos_los_carritos'),
+    path('carrito/<int:id_carrito>/detalle/', obtener_carrito_detalle, name='detalle-carrito'),
+    path('carrito/<int:id_carrito>/actualizar-carrito/', actualizar_carrito, name='actualizar-carrito'),
 ]

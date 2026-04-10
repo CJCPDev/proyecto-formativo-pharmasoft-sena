@@ -17,7 +17,7 @@ import { Button } from "@/shared/components";
 // Recibe:
 // - data: datos que se mostrarán
 // - columns: configuración de columnas
-export default function DataTable({ data, columns }) {
+export default function DataTable({ data = [], columns }) {
   // ================== ESTADO DE PAGINACIÓN ==================
   // pageIndex → página actual
   // pageSize → cantidad de filas por página

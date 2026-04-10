@@ -38,6 +38,7 @@ class UsuarioSerializer(serializers.ModelSerializer):
             'direccion',
             'avatarUrl',
             'estado',
+            'contrasena',
         ]
 
     def get_name(self, obj):
@@ -57,22 +58,29 @@ class UsuarioSerializer(serializers.ModelSerializer):
             internal['apellidos'] = partes[1] if len(partes) > 1 else ''
         if 'avatarUrl' in data and data['avatarUrl']:
             internal['file'] = data['avatarUrl']
+        if 'contrasena' in data and data['contrasena']:
+            internal['contrasena'] = data['contrasena']
         return internal
 
     def create(self, validated_data):
-        from users.auth import encriptar_contraseña
+        from users.auth import encriptar_contrasena
 
         # Asignamos estado activo por defecto
         validated_data['id_estado_usuario_id'] = 1
 
         # Si es administrador o farmaceuta la contraseña inicial es el número de docuemnto
-        roles_con_contraseña_inicial = [5,7]
+        roles_con_contrasena_inicial = [1,3]
         id_rol = validated_data.get('id_rol_id')
 
-        if id_rol in roles_con_contraseña_inicial:
+        if id_rol in roles_con_contrasena_inicial:
             numero_documento = validated_data.get('numero_documento')
             # Enxriptamos el número de documento como contraseña inicial
-            validated_data['contrasena'] = encriptar_contraseña(str(numero_documento))
+            validated_data['contrasena'] = encriptar_contrasena(str(numero_documento))
+
+        if id_rol == 2:
+            contrasena = validated_data.pop('contrasena', None)
+            if contrasena:
+                validated_data['contrasena'] = encriptar_contrasena(contrasena)
 
         # Creamos el usuario
         usuario = Usuarios.objects.create(**validated_data)
@@ -145,6 +153,12 @@ class UsuarioPermisoSerializer(serializers.ModelSerializer):
         fields = ['id', 'id_permiso', 'codigo', 'nombre', 'modulo']
 
 class CarritoCompraSerializer(serializers.ModelSerializer):
+
+    nombre_medicamento = serializers.SerializerMethodField()
+    imagen_medicamento = serializers.SerializerMethodField()
+    nombre_cliente = serializers.SerializerMethodField()
+    nombre_aprobado_por = serializers.SerializerMethodField()
+    documento_cliente = serializers.SerializerMethodField()
     class Meta:
         model = CarritoCompra
         fields = '__all__'
@@ -174,3 +188,23 @@ class CarritoCompraSerializer(serializers.ModelSerializer):
                 return row[0] if row else None
         except Exception:
             return None
+        
+    def get_nombre_cliente(self, obj):
+        try:
+            return f"{obj.id_usuario.nombres} {obj.id_usuario.apellidos}"
+        except Exception:
+            return f"Usuario #{obj.id_usuario_id}"
+        
+    def get_documento_cliente(self, obj):
+        try:
+            return str(obj.id_usuario.numero_documento)
+        except Exception:
+            return ""
+    
+    def get_nombre_aprobado_por(self, obj):
+        try:
+            if obj.aprobado_por:
+                return f"{obj.aprobado_por.nombres} {obj.aprobado_por.apellidos}"
+            return "Sin aprobar"
+        except Exception:
+            return "Sin aprobar"
