@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────
+//─────────────────────────────────────────────
 // CartModal.jsx
 // Modal del carrito de compras
 // Se conecta con la API de Django
