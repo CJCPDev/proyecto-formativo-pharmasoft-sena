@@ -17,7 +17,9 @@ export default function DetailProductPage (){
     }, []);
     return(
         <div>
-            <HomeNavbar/>
+            <HomeNavbar
+                showSearch={false}
+            />
             <div className="min-h-screen m-auto w-full flex items-center justify-center text-black">
                 {product && <DetailCard product = {product}/>}
             </div>

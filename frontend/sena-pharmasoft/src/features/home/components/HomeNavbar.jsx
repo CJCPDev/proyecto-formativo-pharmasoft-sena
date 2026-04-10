@@ -7,6 +7,8 @@ import { getUsuarioActual } from "@/features/auth/services/authService";
 import { obtenerCarrito } from "@/features/home/services/carritoService";
 
 const Navbar = ({ variant = "solid",
+  onSearch,
+  showSearch = true,
   onOpenRegister, 
   setOpenLogin,
   shouldOpenCart,
@@ -70,15 +72,17 @@ useEffect(() => {
           </Link>
 
           {/* SEARCH */}
-          <div className="relative w-full max-w-3xl hidden md:block">
-            <Search className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Buscar productos..."
-              className="w-full pl-4 pr-9 py-2.5 border border-gray-300 rounded-md 
-              focus:outline-none focus:ring-1 focus:ring-bg-brand-soft transition"
-            />
-          </div>
+          {showSearch && (  //solo muestra si showSearch es true
+            <div className="relative w-full max-w-3xl hidden md:block">
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
+                <input
+                    type="text"
+                    placeholder="Buscar productos..."
+                    onChange={(e) => onSearch(e.target.value)}
+                    className="w-full pl-4 pr-9 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-bg-brand-soft transition"
+                />
+            </div>
+        )}
 
           {/* ACTIONS */}
           <div className="flex items-center gap-6 font-secondary">

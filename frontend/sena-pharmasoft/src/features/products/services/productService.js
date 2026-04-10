@@ -8,6 +8,12 @@ export const getAllProducts = async () => {
   const response = await productsApi.get("/");
   return response.data;
 };
+
+export const searchProducts = async (q) => {
+  const response = await productsApi.get(`/buscar/?q=${q}`);
+  console.log("productos buscados:", response.data);
+  return response.data;
+};
 // const API_URL = "http://localhost:4000/api/products";
 
 

@@ -4,7 +4,7 @@ import { getUsuarioActual } from "@/features/auth/services/authService";
 import { agregarAlCarrito } from "@/features/home/services/carritoService";
 
 export default function Card({ product, onProductoAgregado }) {
-  const { nombre_medicamento, imagen, precio_venta, descripcion } = product;
+  const { nombre_medicamento, imagen_url, precio_venta, descripcion } = product;
   const navigate = useNavigate();
 
   const handleAgregarAlCarrito = async (e) => {
@@ -55,7 +55,7 @@ export default function Card({ product, onProductoAgregado }) {
       onClick={() => navigate(`/ver-card/${product.id_medicamento}`)}
     >
       <img
-        src={imagen}
+        src={imagen_url}
         alt={nombre_medicamento}
         className="w-full h-42 object-contain bg-white rounded-2xl"
       />
