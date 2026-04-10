@@ -5,9 +5,24 @@
 // ─────────────────────────────────────────────
 
 import { useState } from "react";
+import { z } from "zod";
 import { Button, Input } from "@/shared/components";
 import { cambiarContrasena } from "../services/usuarioService";
 import { getUsuarioActual } from "@/features/auth/services/authService";
+
+// Schema de validación de contraseña
+const contrasenaSchema = z.object({
+  contrasena_actual: z.string().min(1, "La contraseña actual es requerida"),
+  nueva_contrasena: z.string()
+    .min(8, "La contraseña debe tener mínimo 8 caracteres")
+    .regex(/[A-Z]/, "Debe tener al menos una letra mayúscula")
+    .regex(/[a-z]/, "Debe tener al menos una letra minúscula")
+    .regex(/[^A-Za-z0-9]/, "Debe tener al menos un carácter especial"),
+  confirmar_contrasena: z.string().min(1, "Confirma tu nueva contraseña"),
+}).refine((data) => data.nueva_contrasena === data.confirmar_contrasena, {
+  message: "Las contraseñas no coinciden",
+  path: ["confirmar_contrasena"],
+});
 
 export default function CambiarContrasenaModal({ isOpen, onClose }) {
 
@@ -17,40 +32,43 @@ export default function CambiarContrasenaModal({ isOpen, onClose }) {
     confirmar_contrasena: "",
   });
 
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [exito, setExito] = useState(false);
+  const [errorGeneral, setErrorGeneral] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    // Limpiamos el error del campo cuando el usuario escribe
+    setErrors((prev) => ({ ...prev, [name]: null }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
+    setErrorGeneral(null);
+    setErrors({});
 
-    // Validamos que las contraseñas coincidan antes de enviar
-    if (formData.nueva_contrasena !== formData.confirmar_contrasena) {
-      setError("Las contraseñas no coinciden");
-      return;
-    }
+    // Validamos con Zod
+    const result = contrasenaSchema.safeParse(formData);
 
-    // Validamos longitud mínima
-    if (formData.nueva_contrasena.length < 6) {
-      setError("La contraseña debe tener mínimo 6 caracteres");
+    if (!result.success) {
+      const fieldErrors = {};
+      result.error.issues.forEach((issue) => {
+        const field = issue.path[0];
+        fieldErrors[field] = issue.message;
+      });
+      setErrors(fieldErrors);
       return;
     }
 
     setLoading(true);
 
     try {
-      // Obtenemos el ID del usuario autenticado
       const usuarioActual = getUsuarioActual();
       await cambiarContrasena(usuarioActual.id, formData);
       setExito(true);
 
-      // Cerramos el modal después de 2 segundos
       setTimeout(() => {
         setExito(false);
         setFormData({
@@ -62,7 +80,7 @@ export default function CambiarContrasenaModal({ isOpen, onClose }) {
       }, 2000);
 
     } catch (err) {
-      setError(err.response?.data?.error || "Error al cambiar la contraseña");
+      setErrorGeneral(err.response?.data?.error || "Error al cambiar la contraseña");
     } finally {
       setLoading(false);
     }
@@ -92,15 +110,17 @@ export default function CambiarContrasenaModal({ isOpen, onClose }) {
             placeholder="Ingresa tu contraseña actual"
             value={formData.contrasena_actual}
             onChange={handleChange}
+            error={errors.contrasena_actual}
           />
 
           <Input
             label="Nueva contraseña"
             type="password"
             name="nueva_contrasena"
-            placeholder="Ingresa la nueva contraseña"
+            placeholder="Mín. 8 caracteres, mayúscula, minúscula y carácter especial"
             value={formData.nueva_contrasena}
             onChange={handleChange}
+            error={errors.nueva_contrasena}
           />
 
           <Input
@@ -110,14 +130,31 @@ export default function CambiarContrasenaModal({ isOpen, onClose }) {
             placeholder="Confirma la nueva contraseña"
             value={formData.confirmar_contrasena}
             onChange={handleChange}
+            error={errors.confirmar_contrasena}
           />
 
-          {/* Mensaje de error */}
-          {error && (
-            <p className="text-red-500 text-sm text-center">{error}</p>
+          {/* Indicador de requisitos */}
+          <div className="text-xs text-gray-500 bg-gray-50 rounded-lg p-3 grid gap-1">
+            <p className={formData.nueva_contrasena.length >= 8 ? "text-green-600" : ""}>
+              {formData.nueva_contrasena.length >= 8 ? "✅" : "⚪"} Mínimo 8 caracteres
+            </p>
+            <p className={/[A-Z]/.test(formData.nueva_contrasena) ? "text-green-600" : ""}>
+              {/[A-Z]/.test(formData.nueva_contrasena) ? "✅" : "⚪"} Al menos una mayúscula
+            </p>
+            <p className={/[a-z]/.test(formData.nueva_contrasena) ? "text-green-600" : ""}>
+              {/[a-z]/.test(formData.nueva_contrasena) ? "✅" : "⚪"} Al menos una minúscula
+            </p>
+            <p className={/[^A-Za-z0-9]/.test(formData.nueva_contrasena) ? "text-green-600" : ""}>
+              {/[^A-Za-z0-9]/.test(formData.nueva_contrasena) ? "✅" : "⚪"} Al menos un carácter especial (!@#$...)
+            </p>
+          </div>
+
+          {/* Error general */}
+          {errorGeneral && (
+            <p className="text-red-500 text-sm text-center">{errorGeneral}</p>
           )}
 
-          {/* Mensaje de éxito */}
+          {/* Éxito */}
           {exito && (
             <p className="text-green-500 text-sm text-center">
               ✅ Contraseña actualizada correctamente

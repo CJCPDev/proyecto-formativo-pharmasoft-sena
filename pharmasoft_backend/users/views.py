@@ -243,28 +243,27 @@ def agregar_al_carrito(request):
     id_medicamento = request.data.get('id_medicamento')
     cantidad = request.data.get('cantidad', 1)
     precio_unitario = request.data.get('precio_unitario')
+    estado = request.data.get('estado', 'activo')  #nuevo campo
 
     if not id_usuario or not id_medicamento or not precio_unitario:
         return Response(
-            {'Error': 'id_usuario, id_medicamento y precio_unitario son requeridos'},
+            {'error': 'id_usuario, id_medicamento y precio_unitario son requeridos'},
             status=status.HTTP_400_BAD_REQUEST
         )
-    
-    # Verificamos si el producto ya está en el carrio
+
+    # Verificamos si el producto ya está en el carrito con el mismo estado
     item_existente = CarritoCompra.objects.filter(
         id_usuario=id_usuario,
         id_medicamento=id_medicamento,
-        estado='activo'
+        estado=estado  #filtramos por el estado actual
     ).first()
 
     if item_existente:
-        # Si ya existe solo actualizamos la cantidad
         item_existente.cantidad += int(cantidad)
         item_existente.subtotal = item_existente.cantidad * float(precio_unitario)
         item_existente.save()
         serializer = CarritoCompraSerializer(item_existente)
     else:
-        # Si no existe creamos un nuevo item
         subtotal = int(cantidad) * float(precio_unitario)
         item = CarritoCompra.objects.create(
             id_usuario_id=id_usuario,
@@ -272,7 +271,7 @@ def agregar_al_carrito(request):
             cantidad=cantidad,
             precio_unitario=precio_unitario,
             subtotal=subtotal,
-            estado='activo'
+            estado=estado  #usamos el estado recibido
         )
         serializer = CarritoCompraSerializer(item)
 
@@ -316,3 +315,133 @@ def vaciar_carrito(request, id_usuario):
         estado='activo'
     ).delete()
     return Response({'message': 'Carrito vaciado correctamente'}, status=status.HTTP_200_OK)
+
+# Obtiene todos los carritos
+@api_view(['GET'])
+def obtener_todos_los_carritos(request):
+    from django.db.models import Sum, Count
+    from django.db import connection
+    
+    items = CarritoCompra.objects.select_related('id_usuario', 'aprobado_por').all()
+    
+    # Agrupamos por usuario y estado
+    carritos_agrupados = {}
+    for item in items:
+        key = f"{item.id_usuario_id}_{item.estado}"
+        
+        if key not in carritos_agrupados:
+            usuario = item.id_usuario
+            aprobado = item.aprobado_por
+            carritos_agrupados[key] = {
+                'id_carrito': item.id_carrito,
+                'id_usuario': item.id_usuario_id,
+                'nombre_cliente': f"{usuario.nombres} {usuario.apellidos}",
+                'documento_cliente': str(usuario.numero_documento),
+                'estado': item.estado,
+                'id_factura': item.id_factura,
+                'nombre_aprobado_por': f"{aprobado.nombres} {aprobado.apellidos}" if aprobado else "Sin aprobar",
+                'total': float(item.subtotal),
+                'items': []
+            }
+        else:
+            carritos_agrupados[key]['total'] += float(item.subtotal)
+
+        # Buscar el nombre real del medicamento
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT nombre_medicamento FROM medicamentos WHERE id_medicamento = %s",
+                    [item.id_medicamento]
+                )
+                row = cursor.fetchone()
+                nombre_medicamento = row[0] if row else f"Medicamento #{item.id_medicamento}"
+        except Exception:
+            nombre_medicamento = f"Medicamento #{item.id_medicamento}"
+
+        carritos_agrupados[key]['items'].append({
+            'id_carrito': item.id_carrito,
+            'id_medicamento': item.id_medicamento,
+            'nombre_medicamento': nombre_medicamento,
+            'cantidad': item.cantidad,
+            'precio_unitario': float(item.precio_unitario),
+            'subtotal': float(item.subtotal),
+        })
+
+    return Response(list(carritos_agrupados.values()), status=status.HTTP_200_OK)
+
+# Obtiene el detalle de un carrito por ID
+@api_view(['GET'])
+def obtener_carrito_detalle(request, id_carrito):
+    try:
+        item = CarritoCompra.objects.select_related('id_usuario', 'aprobado_por').get(pk=id_carrito)
+        
+        items = CarritoCompra.objects.filter(
+            id_usuario=item.id_usuario_id,
+            estado=item.estado
+        )
+
+        usuario = item.id_usuario
+        aprobado = item.aprobado_por
+
+        detalle = {
+            'id_carrito': item.id_carrito,
+            'id_usuario': item.id_usuario_id,
+            'nombre_cliente': f"{usuario.nombres} {usuario.apellidos}",
+            'estado': item.estado,
+            'id_factura': item.id_factura,
+            'nombre_aprobado_por': f"{aprobado.nombres} {aprobado.apellidos}" if aprobado else "Sin aprobar",
+            'items': []
+        }
+
+        for i in items:
+            #Buscar el nombre real del medicamento
+            try:
+                from django.db import connection
+                with connection.cursor() as cursor:
+                    cursor.execute(
+                        "SELECT nombre_medicamento FROM medicamentos WHERE id_medicamento = %s",
+                        [i.id_medicamento]
+                    )
+                    row = cursor.fetchone()
+                    nombre_medicamento = row[0] if row else f"Medicamento #{i.id_medicamento}"
+            except Exception:
+                nombre_medicamento = f"Medicamento #{i.id_medicamento}"
+
+            detalle['items'].append({
+                'id_carrito': i.id_carrito,
+                'id_medicamento': i.id_medicamento,
+                'nombre_medicamento': nombre_medicamento,  #nombre real
+                'cantidad': i.cantidad,
+                'precio_unitario': float(i.precio_unitario),
+                'subtotal': float(i.subtotal),
+                'estado': i.estado,
+            })
+
+        detalle['total'] = sum(i['subtotal'] for i in detalle['items'])
+
+        return Response(detalle, status=status.HTTP_200_OK)
+    except CarritoCompra.DoesNotExist:
+        return Response({'error': 'Carrito no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+    
+# Actualiza el estado y factura del carrito
+@api_view(['PATCH'])
+def actualizar_carrito(request, id_carrito):
+    try:
+        item = CarritoCompra.objects.get(pk=id_carrito)
+    except CarritoCompra.DoesNotExist:
+        return Response({'error': 'Carrito no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+    estado = request.data.get('estado')
+    id_factura = request.data.get('id_factura')
+    aprobado_por = request.data.get('aprobado_por')
+
+    if estado:
+        item.estado = estado
+    if id_factura:
+        item.id_factura = id_factura
+    if aprobado_por:
+        item.aprobado_por_id = aprobado_por
+
+    item.save()
+    serializer = CarritoCompraSerializer(item)
+    return Response(serializer.data, status=status.HTTP_200_OK)

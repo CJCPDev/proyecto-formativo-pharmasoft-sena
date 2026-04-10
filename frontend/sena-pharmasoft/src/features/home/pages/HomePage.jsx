@@ -10,7 +10,7 @@ export default function HomePage() {
 
   // Estado para forzar actualización del contador
   const [contadorKey, setContadorKey] = useState(0);
-const [shouldOpenCart, setShouldOpenCart] = useState(false);
+  const [shouldOpenCart, setShouldOpenCart] = useState(false);
   // Estados para el modal de autenticación
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
@@ -36,7 +36,7 @@ const [shouldOpenCart, setShouldOpenCart] = useState(false);
           key={contadorKey}
           onOpenRegister={() => setOpenLogin(true)}
           setOpenLogin={setOpenLogin}
-           setShouldOpenCart={setShouldOpenCart}  // 👈 NUEVO
+          setShouldOpenCart={setShouldOpenCart}
           shouldOpenCart={shouldOpenCart}  
         />
       </div>

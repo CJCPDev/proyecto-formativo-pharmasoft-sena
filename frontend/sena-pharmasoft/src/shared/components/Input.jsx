@@ -25,7 +25,7 @@ export default function Input({
       <div className="relative h-12 flex items-center">
         {/* Área clickeable */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 pointer-events-none"
           onMouseDown={(e) => {
             e.preventDefault();
             e.currentTarget.nextSibling.focus();
