@@ -124,41 +124,41 @@ const router = createBrowserRouter([
                     {
                         path: "medicamentos",
                         element: (
-                            <ProtectedRoute rolesPermitidos={[5, 7]}>
+                            // <ProtectedRoute rolesPermitidos={[5, 7]}>
                                 <AdminProductListPage />
-                            </ProtectedRoute>
+                            // </ProtectedRoute>
                         )
                     },
                     {
                         path: "crear-medicamento",
                         element: (
-                            <ProtectedRoute>
+                            // <ProtectedRoute>
                                 <CreateProductPage/>
-                            </ProtectedRoute>
+                            // </ProtectedRoute>
                         )
                     },
                     {
                         path: "ver-medicamento/:id",
                         element: (
-                            <ProtectedRoute>
+                            // <ProtectedRoute>
                                 <AdminProductDetailPage/>
-                            </ProtectedRoute>
+                            // </ProtectedRoute>
                         )
                     },
                     {
                         path: "editar-medicamento/:id",
                         element: (
-                            <ProtectedRoute>
+                            // <ProtectedRoute>
                                 <ProductsEditPage/>
-                            </ProtectedRoute>
+                            // </ProtectedRoute>
                         )
                     },
                     {
                         path: "generar-reporte",
                         element: (
-                            <ProtectedRoute>
+                            // <ProtectedRoute>
                                 <AdminProductReportPage/>
-                            </ProtectedRoute>
+                            // </ProtectedRoute>
                         )
                     },
                     {

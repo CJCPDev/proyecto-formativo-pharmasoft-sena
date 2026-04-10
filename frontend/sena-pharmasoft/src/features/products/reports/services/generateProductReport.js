@@ -1,53 +1,110 @@
-    // Fuente de datos de usuarios (mock o fuente centralizada)
-    import { products } from "@/data/products/products";
+    // // Fuente de datos de usuarios (mock o fuente centralizada)
+    // import { products } from "@/data/products/products";
 
-    // Utilidad para transformar datos en dataset de reporte
+    // // Utilidad para transformar datos en dataset de reporte
+    // import { buildReportDataset } from "../utils/buildReportDataset";
+
+    // // Servicios de exportación
+    // import { generateExcelReport } from "./generateExcelReport";
+    // import { generatePdfReport } from "./generatePdfReport";
+
+    // // Caso de uso: orquestador de generación de reportes de usuarios
+    // // Patrón: Application Service (coordina utilidades y servicios)
+    // export function generateProductReport({
+    // format,          // "excel" | "pdf"
+    // selectedFields,  // Campos seleccionados por el usuario
+    // scope,           // Alcance del reporte
+    // formaFarmaceutica   // Filtro opcional
+    // }) {
+
+    // // Construcción del dataset (desacoplado de la UI)
+    //     const { headers, rows } = buildReportDataset({
+    //         products,
+    //         selectedFields,
+    //         scope,
+    //         formaFarmaceutica
+    //     });
+
+    //     // Validación: evita generar archivos vacíos
+    //     if (!rows.length) {
+    //         alert("No hay datos para generar el reporte.");
+    //         return; // Corte de ejecución
+    //     }
+
+    //     // Generación de timestamp para nombres únicos de archivo (YYYY-MM-DD)
+    //     const timestamp = new Date().toISOString().slice(0, 10);
+
+    //     // Selección de estrategia de exportación según formato
+    //     if (format === "excel") {
+    //         generateExcelReport({
+    //         headers,
+    //         rows,
+    //         fileName: `products-report-${timestamp}.xlsx`
+    //         });
+    //     }
+
+    //     if (format === "pdf") {
+    //         generatePdfReport({
+    //         headers,
+    //         rows,
+    //         fileName: `products-report-${timestamp}.pdf`
+    //         });
+    //     }
+    // }
     import { buildReportDataset } from "../utils/buildReportDataset";
+import { generateExcelReport } from "./generateExcelReport";
+import { generatePdfReport } from "./generatePdfReport";
 
-    // Servicios de exportación
-    import { generateExcelReport } from "./generateExcelReport";
-    import { generatePdfReport } from "./generatePdfReport";
-
-    // Caso de uso: orquestador de generación de reportes de usuarios
-    // Patrón: Application Service (coordina utilidades y servicios)
-    export function generateProductReport({
-    format,          // "excel" | "pdf"
-    selectedFields,  // Campos seleccionados por el usuario
-    scope,           // Alcance del reporte
-    formaFarmaceutica   // Filtro opcional
+export async function generateProductReport({
+    format,
+    selectedFields,
+    scope,
+    formaFarmaceutica
     }) {
+    // Trae los datos del backend
+    let url = "http://127.0.0.1:8000/api/medicamentos/";
+    
+    const res = await fetch(url);
+    const products = await res.json();
 
-    // Construcción del dataset (desacoplado de la UI)
-        const { headers, rows } = buildReportDataset({
-            products,
-            selectedFields,
-            scope,
-            formaFarmaceutica
-        });
+    // Mapea los campos del backend a los keys del reporte
+    const mappedProducts = products.map((p) => ({
+        nombreMedicamento: p.nombre_medicamento,
+        formaFarmaceutica: p.nombre_forma_farmaceutica,
+        concentracion: p.concentracion,
+        viaAdministracion: p.nombre_via_administracion,
+        stock: p.stock,
+        fechaVencimiento: p.fecha_vencimiento,
+        precioVenta: p.precio_venta,
+    }));
 
-        // Validación: evita generar archivos vacíos
-        if (!rows.length) {
-            alert("No hay datos para generar el reporte.");
-            return; // Corte de ejecución
-        }
+    const { headers, rows } = buildReportDataset({
+        products: mappedProducts,
+        selectedFields,
+        scope,
+        formaFarmaceutica
+    });
 
-        // Generación de timestamp para nombres únicos de archivo (YYYY-MM-DD)
-        const timestamp = new Date().toISOString().slice(0, 10);
-
-        // Selección de estrategia de exportación según formato
-        if (format === "excel") {
-            generateExcelReport({
-            headers,
-            rows,
-            fileName: `products-report-${timestamp}.xlsx`
-            });
-        }
-
-        if (format === "pdf") {
-            generatePdfReport({
-            headers,
-            rows,
-            fileName: `products-report-${timestamp}.pdf`
-            });
-        }
+    if (!rows.length) {
+        alert("No hay datos para generar el reporte.");
+        return;
     }
+
+    const timestamp = new Date().toISOString().slice(0, 10);
+
+    if (format === "excel") {
+        generateExcelReport({
+        headers,
+        rows,
+        fileName: `products-report-${timestamp}.xlsx`
+        });
+    }
+
+    if (format === "pdf") {
+        generatePdfReport({
+        headers,
+        rows,
+        fileName: `products-report-${timestamp}.pdf`
+        });
+    }
+}
