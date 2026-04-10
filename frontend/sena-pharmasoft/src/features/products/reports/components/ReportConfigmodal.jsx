@@ -64,17 +64,15 @@ export default function ReportConfigModal({ isOpen, onClose }) {
     };
 
 
-    const handleGenerateReport = () => {
-
-    generateProductReport({
+    const handleGenerateReport = async () => {
+    await generateProductReport({
         format,
         selectedFields,
         scope,
-        formaFarmaceutica, // aquí ya va limpio
+        formaFarmaceutica,
     });
-
     onClose();
-};
+    };
 
 
     return (
