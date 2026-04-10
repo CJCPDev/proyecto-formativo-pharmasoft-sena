@@ -57,7 +57,10 @@ export default function Input({
         />
       </div>
 
-      <p className="text-red-700 text-xs mt-1 h-4">{error || ""}</p>
+      {/*  ESPACIO FIJO PARA ERROR */}
+      <p className="text-red-700 text-xs mt-1 h-4">
+        {error || ""}
+      </p>
     </div>
   );
 }
