@@ -1,15 +1,16 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <footer
-      className="w-full bg-brand-soft/50 p-6 mt-10
+      className="w-full bg-brand-hover p-6 mt-10
         "
     >
       <div className="max-w-7xl m-auto grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center md:text-left">
-
         <div className="text-left">
           <h2
             className="
-                text-brand-hover
+                text-white
                 font-main
                 text-general-title
                 font-semibold
@@ -19,19 +20,25 @@ export default function Footer() {
           </h2>
           <p
             className="
-                text-text-mute
+                text-brand-soft
                 font-secondary
             "
           >
             <span>Soluciones digitales para farmacias y droguerías.</span>
           </p>
+          <div className="mt-4">
+            <Link to="/Login">
+              <span className="text-brand-soft text-xl hover:underline">
+                Ingreso portal empleados
+              </span>
+            </Link>
+          </div>
         </div>
-
 
         <div className="text-left">
           <h2
             className="
-                text-brand-hover
+                text-white
                 font-main
                 text-general-title
                 font-semibold
@@ -39,7 +46,7 @@ export default function Footer() {
           >
             Enlaces útiles
           </h2>
-          <div className="grid text-text-mute">
+          <div className="grid text-brand-soft">
             <span>Productos</span>
             <span>Proveedores</span>
             <span>Contacto</span>
@@ -50,7 +57,7 @@ export default function Footer() {
         <div className="text-left">
           <h2
             className="
-                text-brand-hover
+                text-white
                 font-main
                 text-general-title
                 font-semibold
@@ -60,7 +67,7 @@ export default function Footer() {
           </h2>
           <p
             className="
-                text-text-mute
+                text-brand-soft
                 font-secondary
                 "
           >
@@ -68,7 +75,7 @@ export default function Footer() {
           </p>
           <p
             className="
-                text-text-mute
+                text-brand-soft
                 font-secondary 
                 text-info-general"
           >
@@ -76,7 +83,7 @@ export default function Footer() {
           </p>
           <p
             className="
-                text-text-mute
+                text-brand-soft
                 font-secondary 
                 text-info-general"
           >
@@ -88,11 +95,11 @@ export default function Footer() {
       {/* Línea inferior */}
       <div
         className="
-            text-text-mute
+            text-brand-soft
             font-secondary
             text-info-regular
             text-center
-            mt-6
+            mt-4
         "
       >
         {new Date().getFullYear()} PharmaSoft. Todos los derechos reservados.
