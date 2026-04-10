@@ -1,7 +1,6 @@
 import { InputHome } from "@/features/home";
 import { Select, Input, Button } from "@/shared/components";
 import { useState } from "react";
-import { loginFake } from "@/features/auth/services/authService";
 
 export default function AuthModal({
   openLogin,
@@ -12,20 +11,7 @@ export default function AuthModal({
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
 
-//--------------------------------------------
-// Esto se creo para validar que el boton al iniciar sesion con usuario y contraseña prueba permita el cargue
-  const handleLogin = (e) => {
-    e.preventDefault();
 
-    const user = loginFake(correo, password);
-    console.log(correo, password);
-    if (!user) {
-      alert("Credenciales incorrectas");
-      return;
-    }
-    window.location.reload();
-  };
-//--------------------------------------
   return (
     <>
       {/* REGISTER */}
