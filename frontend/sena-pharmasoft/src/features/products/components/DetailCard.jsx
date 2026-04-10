@@ -1,38 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ShoppingCart, Undo2, Package, Plus, Minus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { products } from "@/features/home/services/products.js";
+import { getAllProducts } from "@/features/products/services/productService.js";
 import { Card } from "@/shared/components";
 
 export default function DetailCard({ product }) {
-  const { title, image, price, description, marca, detail, stock } = product;
+  const { nombre_medicamento, imagen, precio_venta, descripcion, nombre_laboratorio, concentracion, stock } = product;
+  const [products, setProducts] = useState([]);
+
   const navigate = useNavigate();
-
+  
   const [quantity, setQuantity] = useState(1);
-
+  
   const stockDisponible = stock - quantity;
   const sinStock = stock === 0;
-
+  
   const aumentar = () => {
     if (quantity < stock) setQuantity((q) => q + 1);
   };
-
+  
   const disminuir = () => {
     if (quantity > 1) setQuantity((q) => q - 1);
   };
-
+  
   const stockColor =
-    stockDisponible === 0
-      ? "bg-red-50 text-red-600 border-red-200"
-      : stockDisponible <= 3
-      ? "bg-amber-50 text-amber-700 border-amber-200"
-      : "bg-green-50 text-green-700 border-green-200";
-
-  // Productos de la misma marca, excluyendo el actual
+  stockDisponible === 0
+  ? "bg-red-50 text-red-600 border-red-200"
+  : stockDisponible <= 3
+  ? "bg-amber-50 text-amber-700 border-amber-200"
+  : "bg-green-50 text-green-700 border-green-200";
+  
+  // Productos de la misma nombre_laboratorio, excluyendo el actual
   const relacionados = products.filter(
-    (p) => p.marca === marca && p.id !== product.id
+    (p) => p.nombre_laboratorio === nombre_laboratorio && p.id_medicamento !== product.id_medicamento
   );
-
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    getAllProducts().then(data => {
+        setProducts(data);
+    });
+  }, []);
   return (
     <div className="font-main w-full max-w-5xl mx-auto px-4 py-10">
 
@@ -66,8 +74,8 @@ export default function DetailCard({ product }) {
         {/* Imagen */}
         <div className="bg-gray-50 flex items-center justify-center p-10 min-h-80">
           <img
-            src={image}
-            alt={title}
+            src={imagen}
+            alt={nombre_medicamento}
             className="object-contain w-full max-h-80 drop-shadow-md"
           />
         </div>
@@ -76,10 +84,10 @@ export default function DetailCard({ product }) {
         <div className="flex flex-col justify-between p-8 gap-6">
           <div>
             <p className="text-xs uppercase tracking-widest text-brand-hover font-bold mb-1 opacity-70">
-              {marca}
+              {nombre_laboratorio}
             </p>
             <h1 className="text-2xl font-bold text-black leading-snug mb-4">
-              {title}
+              {nombre_medicamento}
             </h1>
             <div className="h-px bg-brand-hover/10 mb-4" />
             <div className="space-y-4 text-sm text-gray-600 leading-relaxed">
@@ -87,13 +95,13 @@ export default function DetailCard({ product }) {
                 <span className="block text-xs uppercase tracking-wider font-bold text-black mb-0.5">
                   Descripción
                 </span>
-                {description}
+                {descripcion}
               </div>
               <div>
                 <span className="block text-xs uppercase tracking-wider font-bold text-black mb-0.5">
-                  Detalle
+                  Concentración
                 </span>
-                {detail}
+                {concentracion}
               </div>
             </div>
           </div>
@@ -105,10 +113,10 @@ export default function DetailCard({ product }) {
             <div className="flex items-end justify-between">
               <div>
                 <p className="text-4xl font-bold text-brand-hover tracking-tight">
-                  ${(price * quantity).toLocaleString()}
+                  ${Number((precio_venta) * quantity).toLocaleString()}
                 </p>
                   <p className="text-xs text-gray-400 mt-0.5">
-                    ${price.toLocaleString()} por unidad
+                    ${Number(precio_venta).toLocaleString()} por unidad
                   </p>
               </div>
               <span
@@ -175,7 +183,7 @@ export default function DetailCard({ product }) {
         <div className="mt-12">
           <h2 className="text-lg font-bold text-black mb-1">
             Más productos de{" "}
-            <span className="text-brand-hover">{marca}</span>
+            <span className="text-brand-hover">{nombre_laboratorio}</span>
           </h2>
           <p className="text-xs text-gray-400 uppercase tracking-wider mb-6">
             {relacionados.length} producto{relacionados.length !== 1 ? "s" : ""} disponible{relacionados.length !== 1 ? "s" : ""}
@@ -183,7 +191,7 @@ export default function DetailCard({ product }) {
 
           <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-brand-hover/20 scrollbar-track-transparent">
             {relacionados.map((p) => (
-              <div key={p.id} className="shrink-0">
+              <div key={p.id_medicamento} className="shrink-0">
                 <Card product={p} />
               </div>
             ))}

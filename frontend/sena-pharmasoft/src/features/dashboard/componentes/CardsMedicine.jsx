@@ -1,8 +1,16 @@
 import { Card } from "@/shared/components"
-import { products } from "@/features/home/services/products.js"
+import { getAllProducts } from "@/features/products/services/productService.js";
+import { useEffect, useState } from "react";
 
 export default function CardsMedicine ({onProductoAgregado}){
     // const product = products.find(prod => prod.id === 1)
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        getAllProducts().then(data => {
+            setProducts(data);
+        });
+    }, []);
     return(
         <section className="
           relative  w-full flex items-center justify-center text-black pt-8"
@@ -18,7 +26,7 @@ export default function CardsMedicine ({onProductoAgregado}){
                 ">
                     {/* se renderiza la lista qie contiene todas las card */}
                     {products.map((product) => (
-                        <Card key = {product.id}
+                        <Card key = {product.id_medicamento}
                         product = {product}
                         onProductoAgregado={onProductoAgregado}
                         />))}
