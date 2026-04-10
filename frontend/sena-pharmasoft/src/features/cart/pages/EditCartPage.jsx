@@ -128,25 +128,28 @@ export default function EditCartPage() {
     }
   };
 
-    const handleAgregarMedicamento = async () => {
-        const { id_medicamento, cantidad, precio_unitario } = nuevoMedicamento;
-        if (!id_medicamento || !cantidad || !precio_unitario) return;
+  const handleAgregarMedicamento = async () => {
+    const { id_medicamento, cantidad, precio_unitario } = nuevoMedicamento;
+    if (!id_medicamento || !cantidad || !precio_unitario) return;
 
-        try {
-          await agregarAlCarrito(
-            carrito.id_usuario,
-            id_medicamento,
-            cantidad,
-            precio_unitario,
-            carrito.estado
-          );
-          await cargarCarrito();
-          setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
-          setMedicamentoSeleccionado(null); //limpiar
-        } catch (error) {
-          console.error("Error al agregar medicamento:", error);
-        }
-      };
+    try {
+      await agregarAlCarrito(
+        carrito.id_usuario,
+        id_medicamento,
+        cantidad,
+        precio_unitario,
+        carrito.estado
+      );
+      await cargarCarrito();
+      setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
+      setMedicamentoSeleccionado(null);
+    } catch (error) {
+      console.error("Error al agregar medicamento:", error);
+      // 👈 mostrar error de stock
+      const mensajeError = error.response?.data?.error || "Error al agregar el medicamento";
+      alert(mensajeError);
+    }
+  };
 
   const handleEliminar = async (idCarrito) => {
     try {
@@ -180,11 +183,11 @@ export default function EditCartPage() {
     }
   };
 
-  const handleGuardar = async () => {
+const handleGuardar = async () => {
     setSaving(true);
     try {
       for (const item of carrito.items) {
-        await updateCarrito(item.id_carrito, {
+        const response = await updateCarrito(item.id_carrito, {
           estado: formData.estado,
           id_factura: formData.id_factura || null,
           aprobado_por: usuarioActual.id,
@@ -194,7 +197,12 @@ export default function EditCartPage() {
       navigate("/carritos");
     } catch (error) {
       console.error("Error al guardar:", error);
-      alert("Error al guardar el carrito");
+      console.log("Error completo:", error);
+      console.log("Error response:", error.response);
+      console.log("Error data:", error.response?.data);
+      //mostrar error de stock
+      const mensajeError = error.response?.data?.error || "Error al guardar el carrito";
+      alert(mensajeError);
     } finally {
       setSaving(false);
     }
@@ -230,6 +238,7 @@ export default function EditCartPage() {
                 onChange={handleChange}
                 placeholder="Número de factura"
               />
+              <div className="relative z-50">
               <Select
                 label="Estado"
                 name="estado"
@@ -241,6 +250,7 @@ export default function EditCartPage() {
                   { label: "Cancelado", value: "cancelado" },
                 ]}
               />
+              </div>
 
               {/* Agregar nuevo medicamento */}
               <div className="border rounded-lg p-3 grid gap-3">
@@ -311,6 +321,15 @@ export default function EditCartPage() {
                 />
                 <Button variant="primary" type="button" onClick={handleAgregarMedicamento}>
                   Agregar
+                </Button>
+              </div>
+              {/* Botones guardar */}
+              <div className="flex gap-4 justify-center pt-2">
+                <Button variant="secondary" onClick={() => navigate("/carritos")}>
+                  Cancelar
+                </Button>
+                <Button variant="primary" onClick={handleGuardar} disabled={saving}>
+                  {saving ? "Guardando..." : "Guardar cambios"}
                 </Button>
               </div>
             </div>

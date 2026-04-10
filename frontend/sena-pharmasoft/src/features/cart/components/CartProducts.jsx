@@ -57,14 +57,16 @@ export default function CartProducts({ products = [], setProducts, cartData }) {
           cartData.id_cliente,
           product.id_medicamento,
           product.cantidad,
-          product.precio_unitario
+          product.precio_unitario,
+          cartData.estado || 'activo'
         );
       }
       alert("Carrito guardado correctamente");
       navigate("/carritos");
     } catch (error) {
       console.error("Error al guardar carrito:", error);
-      alert("Error al guardar el carrito");
+      const mensajeError = error.response?.data?.error || "Error al guarda el carro"
+      alert(mensajeError)
     } finally {
       setLoading(false);
     }
