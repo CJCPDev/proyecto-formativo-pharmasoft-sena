@@ -12,7 +12,7 @@ class SupplierSerializer(serializers.ModelSerializer):
         source='id_municipio',
         queryset=Municipio.objects.all()
     )
-    departamento = serializers.PrimaryKeyRelatedField(  # 👈 agregado
+    departamento = serializers.PrimaryKeyRelatedField(
         source='id_departamento',
         queryset=Departamento.objects.all()
     )
