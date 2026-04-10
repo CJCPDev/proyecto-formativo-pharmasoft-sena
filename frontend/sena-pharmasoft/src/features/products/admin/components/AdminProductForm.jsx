@@ -141,11 +141,8 @@ export default function AdminProductForm() {
   requiresPrescription: formData.requiresPrescription,
 };
 
-<<<<<<< HEAD
-=======
   const result = medicamentoSchema.safeParse(parsedData);
 
->>>>>>> dev
     if (!result.success) {
       const fieldErrors = {};
       result.error.issues.forEach((issue) => {

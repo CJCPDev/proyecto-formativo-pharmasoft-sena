@@ -6,15 +6,10 @@
 
 import { useState, useEffect } from "react";
 import { InputHome } from "@/features/home";
-<<<<<<< HEAD
 import { Select } from "@/shared/components";
 import axios from "@/shared/services/axiosConfig";
 
 const API_URL = "http://localhost:8000/api";
-=======
-import { Select, Input, Button } from "@/shared/components";
-import { useState } from "react";
->>>>>>> dev
 
 export default function AuthModal({
   openLogin,
@@ -29,7 +24,6 @@ export default function AuthModal({
   const [errorLogin, setErrorLogin] = useState(null);
   const [loadingLogin, setLoadingLogin] = useState(false);
 
-<<<<<<< HEAD
   // Estados del registro
   const [tiposDocumento, setTiposDocumento] = useState([]);
   const [formRegistro, setFormRegistro] = useState({
@@ -153,9 +147,6 @@ const handleLogin = async (e) => {
     }
   };
 
-=======
-
->>>>>>> dev
   return (
     <>
       {/* REGISTER */}
