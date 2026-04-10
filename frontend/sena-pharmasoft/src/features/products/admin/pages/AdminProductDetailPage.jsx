@@ -35,6 +35,7 @@ export default function AdminProductDetailPage() {
           <div className="flex flex-col gap-6 flex-1">
             <Input label="Nombre" value={medicamento.nombre_medicamento ?? ""} readOnly />
             <Input label="Forma farmacéutica" value={medicamento.nombre_forma_farmaceutica ?? ""} readOnly />
+            <Input label="Presentación" value={medicamento.nombre_subforma_farmaceutica ?? ""} readOnly />
             <Input label="Vía de administración" value={medicamento.nombre_via_administracion ?? ""} readOnly />
             <Input label="Laboratorio" value={medicamento.nombre_laboratorio ?? ""} readOnly />
             <Input label="Concentración" value={medicamento.concentracion ?? ""} readOnly />
