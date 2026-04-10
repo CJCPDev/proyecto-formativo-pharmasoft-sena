@@ -1,4 +1,4 @@
-import './../../styles/global.css'
+import "./../../styles/global.css";
 
 export default function Input({
   label,
@@ -9,7 +9,6 @@ export default function Input({
 }) {
   return (
     <div className="w-full flex flex-col">
-      
       {/* Label */}
       {label && (
         <label
@@ -24,7 +23,6 @@ export default function Input({
 
       {/* Contenedor */}
       <div className="relative h-12 flex items-center">
-        
         {/* Área clickeable */}
         <div
           className="absolute inset-0"
@@ -43,31 +41,23 @@ export default function Input({
             text-base
             rounded-xl
             transition
-
             bg-brand-soft/60
-
             border
             ${error ? "border-red-600" : "border-border-strong"}
-
             focus:outline-none
             focus:ring-1
             focus:ring-brand-hover
             focus:border-brand-hover
             focus:bg-white
-
             hover:bg-white
             hover:border-brand-hover
-
             ${className}
           `}
           {...props}
         />
       </div>
 
-      {/* 🔥 ESPACIO FIJO PARA ERROR */}
-      <p className="text-red-700 text-xs mt-1 h-4">
-        {error || ""}
-      </p>
+      <p className="text-red-700 text-xs mt-1 h-4">{error || ""}</p>
     </div>
   );
 }
