@@ -1,8 +1,9 @@
-export default function InputHome({ label, type }) {
+export default function InputHome({ label, type, ...props }) {
   return (
     <div className="relative w-full">
       <input
         type={type}
+       {...props}
         placeholder=" "
         className="
           peer

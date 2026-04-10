@@ -27,8 +27,10 @@ console.log("Respuesta backend:", response.data);
     return response.data;
 };
 
+//---------------------------------------------------------
+// descomentar y borrar la parte final
 //Cierra sesión y elimina los tokens
-export const logout = async () => {
+/* export const logout = async () => {
     const refreshToken = localStorage.getItem('refresh_token');
     try {
         await axios.post(`${API_URL}/auth/logout/`, {
@@ -44,13 +46,15 @@ export const logout = async () => {
             localStorage.removeItem('expiracion');
             localStorage.removeItem('horas_sesion');
     }
-};
+}; */
 
 //Obtiene el usuario guardado en localStorage
-export const getUsuarioActual = () => {
+/* export const getUsuarioActual = () => {
     const usuario = localStorage.getItem('usuario');
     return usuario ? JSON.parse(usuario) : null;
-}
+} */
+
+    //----------------------------------------------------------------------
 
 //Verifica si hay un usuario autenticado y si su sesion no ha expirado
 export const estaAutenticado = () => {
@@ -90,4 +94,30 @@ export const tiempoRestante = () => {
     return Math.max(0, Math.floor(diferencia / 60000));
 }
 
+//------------------------------------------------------
+// borrar es solo para probar el log del carrito
+export const loginFake = (correo, password) => {
+  // 👇 credenciales de prueba
+  if (correo === "admin@test.com" && password === "1234") {
+    console.log(correo, password)
+    const user = {
+      id: 1,
+      nombre: "Admin Test",
+      correo: "admin@test.com"
+    };
 
+    localStorage.setItem("usuario", JSON.stringify(user));
+    return user;
+  }
+
+  return null;
+};
+
+export const getUsuarioActual = () => {
+  const user = localStorage.getItem("usuario");
+  return user ? JSON.parse(user) : null;
+};
+
+export const logout = () => {
+  localStorage.removeItem("usuario");
+};

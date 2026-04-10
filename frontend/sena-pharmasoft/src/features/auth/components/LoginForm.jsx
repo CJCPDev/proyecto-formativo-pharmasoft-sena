@@ -50,27 +50,25 @@ export default function LoginForm() {
     }
   };
 
-
-
-    return(
-        <div className="">
-            <form 
-            onSubmit={handleSubmit}
-            className="
+  return (
+    <div>
+      <form
+        onSubmit={handleSubmit}
+        className="
             relative
             px-6 py-12 
-            grid grid-cols-1 gap-6
+            grid grid-cols-1 gap-2
             bg-white
             shadow-2xl
             ring-1
             ring-brand-soft/80
             rounded-xl
             font-main
-            w-90
+            w-94
             h-100
             "
       >
-        <h1 className="text-general-title text-brand-hover font-extrabold text-center">
+        <h1 className="text-general-title text-brand-fort font-extrabold text-center">
           Iniciar sesion
         </h1>
         <Input
@@ -109,7 +107,7 @@ export default function LoginForm() {
             {/* Iniciar sesion */}
           </Button>
         </div>
-        </form>
-        </div>
+      </form>
+    </div>
   );
 }
