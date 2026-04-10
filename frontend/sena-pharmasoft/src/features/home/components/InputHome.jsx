@@ -3,12 +3,7 @@ export default function InputHome({ label, type, value, onChange, name }) {
     <div className="relative w-full">
       <input
         type={type}
-<<<<<<< HEAD
         name={name}
-=======
-
-              name={name}
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
         value={value}
         onChange={onChange}
         placeholder=" "

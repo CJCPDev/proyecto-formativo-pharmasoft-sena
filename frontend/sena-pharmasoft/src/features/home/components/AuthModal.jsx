@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // ─────────────────────────────────────────────
 // AuthModal.jsx
 // Modal de autenticación para clientes
@@ -8,11 +7,6 @@
 import { useState, useEffect } from "react";
 import { InputHome } from "@/features/home";
 import { Select } from "@/shared/components";
-=======
-import { useState, useEffect } from "react";
-import { InputHome } from "@/features/home";
-import { Select,  Button } from "@/shared/components";
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
 import axios from "@/shared/services/axiosConfig";
 
 const API_URL = "http://localhost:8000/api";
@@ -23,7 +17,6 @@ export default function AuthModal({
   setOpenLogin,
   setOpenRegister,
 }) {
-<<<<<<< HEAD
 
   // Estados del login
   const [email, setEmail] = useState("");
@@ -47,27 +40,6 @@ export default function AuthModal({
   const [errorRegistro, setErrorRegistro] = useState(null);
   const [loadingRegistro, setLoadingRegistro] = useState(false);
 
-=======
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorLogin, setErrorLogin] = useState(null);
-  const [loadingLogin, setLoadingLogin] = useState(false);
-  const [tiposDocumento, setTiposDocumento] = useState([]);
-  const [formRegistro, setFormRegistro] = useState({
-    nombre: "",
-    apellidos: "",
-    email: "",
-    tipoDocumento: "",
-    numeroDocumento: "",
-    telefono: "",
-    direccion: "",
-    contrasena: "",
-    confirmarContrasena: "",
-  });
-  const [errorRegistro, setErrorRegistro] = useState(null);
-  const [loadingRegistro, setLoadingRegistro] = useState(false);
-
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
   // Carga los tipos de documento al abrir el modal de registro
   useEffect(() => {
     if (openRegister) {
@@ -90,11 +62,7 @@ export default function AuthModal({
   };
 
   // Login del cliente
-<<<<<<< HEAD
 const handleLogin = async (e) => {
-=======
-  const handleLogin = async (e) => {
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
     e.preventDefault();
     setErrorLogin(null);
     setLoadingLogin(true);
@@ -102,16 +70,11 @@ const handleLogin = async (e) => {
     try {
       const response = await axios.post(`${API_URL}/auth/login/`, {
         email,
-<<<<<<< HEAD
         password
-=======
-        password,
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
       });
 
       // Verificamos que sea un cliente (rol 2)
       if (response.data.usuario.id_rol !== 2) {
-<<<<<<< HEAD
         setErrorLogin("Este acceso es solo para clientes. Por favor usa el login de administradores.");
         return;
       }
@@ -130,36 +93,11 @@ const handleLogin = async (e) => {
         localStorage.setItem('permisos', JSON.stringify(permisos));
       } catch (error) {
         localStorage.setItem('permisos', JSON.stringify([]));
-=======
-        setErrorLogin(
-          "Este acceso es solo para clientes. Por favor usa el login de administradores.",
-        );
-        return;
-      }
-
-      localStorage.setItem("access_token", response.data.access);
-      localStorage.setItem("refresh_token", response.data.refresh);
-      localStorage.setItem("usuario", JSON.stringify(response.data.usuario));
-      localStorage.setItem("expiracion", response.data.expiracion);
-      localStorage.setItem("horas_sesion", response.data.horas_sesion);
-
-      try {
-        const permisosResponse = await axios.get(
-          `${API_URL}/usuarios/${response.data.usuario.id}/permisos-combinados/`,
-        );
-        const permisos = permisosResponse.data.map((p) => p.codigo);
-        localStorage.setItem("permisos", JSON.stringify(permisos));
-      } catch (error) {
-        localStorage.setItem("permisos", JSON.stringify([]));
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
       }
 
       setOpenLogin(false);
       window.location.reload();
-<<<<<<< HEAD
 
-=======
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
     } catch (err) {
       setErrorLogin(err.response?.data?.error || "Credenciales inválidas");
     } finally {
@@ -201,10 +139,7 @@ const handleLogin = async (e) => {
       setOpenRegister(false);
       setOpenLogin(true);
       alert("Cuenta creada correctamente. Ahora puedes iniciar sesión.");
-<<<<<<< HEAD
 
-=======
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
     } catch (err) {
       setErrorRegistro(err.response?.data?.error || "Error al crear la cuenta");
     } finally {
@@ -214,6 +149,7 @@ const handleLogin = async (e) => {
 
   return (
     <>
+      {/* REGISTER */}
       {openRegister && (
         <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
           <div className="bg-white rounded-2xl w-7xl p-6 relative">
@@ -233,56 +169,7 @@ const handleLogin = async (e) => {
                 Al crear tu cuenta accedes a muchos descuentos y beneficios
               </span>
             </div>
-            <form
-              onSubmit={handleRegistro}
-              className="grid grid-cols-3 gap-6 m-6 p-6"
-            >
-              <div className="grid grid-cols-1 gap-6">
-                <Select
-                  label="Tipo de documento"
-                  name="tipoDocumento"
-                  value={formRegistro.tipoDocumento}
-                  onChange={handleChangeRegistro}
-                  options={tiposDocumento}
-                />
-                <InputHome
-                  type="text"
-                  label="Nombre"
-                  name="nombre"
-                  value={formRegistro.nombre}
-                  onChange={handleChangeRegistro}
-                />
-                <InputHome
-                  type="text"
-                  label="Apellidos"
-                  name="apellidos"
-                  value={formRegistro.apellidos}
-                  onChange={handleChangeRegistro}
-                />
-                <InputHome
-                  type="email"
-                  label="Correo electrónico"
-                  name="email"
-                  value={formRegistro.email}
-                  onChange={handleChangeRegistro}
-                />
-                <div className="grid grid-cols-1 gap-6">
-                  <InputHome
-                    type="password"
-                    label="Contraseña"
-                    name="contrasena"
-                    value={formRegistro.contrasena}
-                    onChange={handleChangeRegistro}
-                  />
-                  <InputHome
-                    type="password"
-                    label="Confirmar contraseña"
-                    name="confirmarContrasena"
-                    value={formRegistro.confirmarContrasena}
-                    onChange={handleChangeRegistro}
-                  />
 
-<<<<<<< HEAD
             <form onSubmit={handleRegistro} className="grid grid-cols-3 gap-6 m-6 p-6">
               <div className="grid grid-cols-1 gap-6">
                 <Select
@@ -371,33 +258,11 @@ const handleLogin = async (e) => {
             </form>
               <div className="flex text-center w-full gap-6 justify-center">
             <Button
-=======
-                  {/* Mensaje de error */}
-                  {errorRegistro && (
-                    <p className="text-red-500 text-sm text-center">
-                      {errorRegistro}
-                    </p>
-                  )}
-
-                  <button
-                    type="submit"
-                    disabled={loadingRegistro}
-                    className="bg-green-600 text-white py-2 rounded-2xl h-12 font-bold cursor-pointer hover:bg-green-500"
-                  >
-                    {loadingRegistro ? "Creando cuenta..." : "Guardar"}
-                  </button>
-                </div>
-              </div>
-            </form>
-
-            <div className="flex text-center w-full gap-6 justify-center">
-              <Button
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
                 onClick={() => {
                   setOpenRegister(false);
                   setOpenLogin(true);
                 }}
-                variant="primary"
+                variant="secondary"
               >
                 Regresar
               
@@ -412,10 +277,7 @@ const handleLogin = async (e) => {
         </div>
       )}
 
-<<<<<<< HEAD
       {/* LOGIN */}
-=======
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
       {openLogin && (
         <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
           <div className="bg-white rounded-2xl w-95 p-6 relative">
@@ -453,12 +315,7 @@ const handleLogin = async (e) => {
                 disabled={loadingLogin}
                 className="bg-green-600 hover:bg-green-500 font-bold text-white py-2 rounded-2xl h-12 cursor-pointer"
               >
-<<<<<<< HEAD
                 {loadingLogin ? "Ingresando..." : "Ingresar"}
-=======
-                Ingresar
-                {loadingLogin ? "Ingresando..." : ""}
->>>>>>> 8189f8f (feat: arreglo de bug en componentes y modulos)
               </button>
             </form>
 
