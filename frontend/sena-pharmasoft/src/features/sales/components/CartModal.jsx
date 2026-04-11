@@ -95,7 +95,7 @@ useEffect(() => {
 
 const handleCheckout = async () => {
   try {
-    navigate("/CarSellHome", {
+    navigate("/pasarela", {
       state: {
         cart: cart,
         total: total,
@@ -152,12 +152,20 @@ const handleCheckout = async () => {
                   className="flex gap-8 border-b border-brand-hover pb-3"
                 >
                   {/* Imagen del medicamento */}
-                  {item.imagen_medicamento && (
+                  {item.imagen_medicamento ? (
                     <img
-                      src={item.imagen_medicamento}
+                      src={
+                        item.imagen_medicamento.startsWith("http")
+                        ?item.imagen_medicamento
+                        : `http://localhost:8000/media/${item.imagen_medicamento}`
+                      }
                       alt={item.nombre_medicamento}
                       className="w-20 h-20 object-cover rounded-md"
                     />
+                    ) : (
+                      <div className="w-20 h-20 rounded-md bg-brand-soft/40 flex items-center justify-center flex-shrink-0">
+                        <span className="text-xs text-text-muted text-center px-1">Sin imagen</span>
+                      </div>
                   )}
 
                   <div className="flex flex-col flex-1">

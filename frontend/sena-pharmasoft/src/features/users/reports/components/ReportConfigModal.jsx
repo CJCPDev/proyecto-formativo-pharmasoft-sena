@@ -1,7 +1,6 @@
 // ─────────────────────────────────────────────
 // ReportConfigModal.jsx
 // Modal para configurar y generar reportes de usuarios
-// El administrador puede filtrar por rol
 // ─────────────────────────────────────────────
 
 import { useState } from "react";
@@ -16,12 +15,11 @@ export default function ReportConfigModal({ isOpen, onClose }) {
   const [format, setFormat] = useState("pdf");
   const [scope, setScope] = useState("all");
   const [documentNumber, setDocumentNumber] = useState("");
-  const [rolFiltro, setRolFiltro] = useState("todos"); // nuevo filtro por rol
+  const [rolFiltro, setRolFiltro] = useState("todos");
   const [selectedFields, setSelectedFields] = useState(() =>
     userReportFields.filter((f) => f.default)
   );
 
-  // Obtenemos el usuario actual para verificar si es administrador
   const usuarioActual = getUsuarioActual();
   const esAdmin = usuarioActual?.id_rol === 1;
 
@@ -37,27 +35,28 @@ export default function ReportConfigModal({ isOpen, onClose }) {
   };
 
   const handleGenerateReport = () => {
-    console.log("rolFiltro:", rolFiltro),
     generateUserReport({
       format,
       selectedFields,
       scope,
       documentNumber,
-      rolFiltro: esAdmin ? rolFiltro : "2", // farmaceuta siempre filtra por clientes
+      rolFiltro: esAdmin ? rolFiltro : "2",
     });
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-lg">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div className="w-full max-w-lg rounded-xl bg-white shadow-lg flex flex-col max-h-[90vh]">
 
-        <h2 className="mb-6 text-xl font-semibold">
-          Generar reporte de usuarios
-        </h2>
+        {/* Header */}
+        <div className="p-6 border-b">
+          <h2 className="text-xl font-semibold">Generar reporte de usuarios</h2>
+        </div>
 
-        {/* Formato */}
-        <div className="mb-4">
+        {/* Contenido con scroll */}
+        <div className="p-6 overflow-y-auto flex-1 grid gap-4">
+
           <Select
             label="Formato del reporte"
             value={format}
@@ -67,11 +66,8 @@ export default function ReportConfigModal({ isOpen, onClose }) {
               { label: "Excel", value: "excel" },
             ]}
           />
-        </div>
 
-        {/* Filtro por rol — solo para administrador */}
-        {esAdmin && (
-          <div className="mb-4">
+          {esAdmin && (
             <Select
               label="Filtrar por rol"
               value={rolFiltro}
@@ -83,31 +79,27 @@ export default function ReportConfigModal({ isOpen, onClose }) {
                 { label: "Clientes", value: "2" },
               ]}
             />
-          </div>
-        )}
+          )}
 
-        {/* Campos del reporte */}
-        <div className="mb-4">
-          <p className="mb-2 font-medium">Campos del reporte</p>
-          <div className="grid grid-cols-2 gap-2">
-            {userReportFields.map((field) => {
-              const checked = selectedFields.some((f) => f.key === field.key);
-              return (
-                <Checkbox
-                  key={field.key}
-                  id={field.key}
-                  name={field.key}
-                  label={field.label}
-                  checked={checked}
-                  onChange={() => handleFieldToggle(field)}
-                />
-              );
-            })}
+          <div>
+            <p className="mb-2 font-medium">Campos del reporte</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {userReportFields.map((field) => {
+                const checked = selectedFields.some((f) => f.key === field.key);
+                return (
+                  <Checkbox
+                    key={field.key}
+                    id={field.key}
+                    name={field.key}
+                    label={field.label}
+                    checked={checked}
+                    onChange={() => handleFieldToggle(field)}
+                  />
+                );
+              })}
+            </div>
           </div>
-        </div>
 
-        {/* Alcance */}
-        <div className="mb-4">
           <Select
             label="Alcance del reporte"
             value={scope}
@@ -117,22 +109,20 @@ export default function ReportConfigModal({ isOpen, onClose }) {
               { label: "Filtrar por documento", value: "document" },
             ]}
           />
-        </div>
 
-        {/* Filtro por documento */}
-        {scope === "document" && (
-          <div className="mb-4">
+          {scope === "document" && (
             <Input
               label="Número de documento"
               value={documentNumber}
               onChange={(e) => setDocumentNumber(e.target.value)}
               placeholder="Ingrese número de documento"
             />
-          </div>
-        )}
+          )}
 
-        {/* Botones */}
-        <div className="flex justify-end gap-2 mt-6">
+        </div>
+
+        {/* Footer */}
+        <div className="p-6 border-t flex flex-col sm:flex-row justify-end gap-2">
           <Button variant="secondary" onClick={onClose}>
             Cancelar
           </Button>

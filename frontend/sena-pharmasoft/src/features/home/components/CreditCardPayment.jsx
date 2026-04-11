@@ -74,6 +74,19 @@ export default function CreditCardPayment({ total = 0, onSuccess }) {
         className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-400"
       />
 
+      {/* Botón para autocompletar con datos de prueba */}
+      <button
+        type="button"
+        onClick={() => {
+          setCardNumber("4242 4242 4242 4242");
+          setName("USUARIO PRUEBA");
+          setCvv("123");
+        }}
+        className="w-full border border-dashed border-gray-300 text-gray-500 py-2 rounded-lg text-sm hover:bg-gray-50 transition"
+      >
+        Usar tarjeta de prueba
+      </button>
+
       <button
         onClick={handlePay}
         disabled={loading}

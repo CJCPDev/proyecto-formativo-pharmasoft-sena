@@ -36,6 +36,7 @@ export default function HomePage() {
           setShouldOpenCart={setShouldOpenCart}
           shouldOpenCart={shouldOpenCart}
           onSearch={setSearchQuery}
+          showSearch={false}
         />
       </div>
 

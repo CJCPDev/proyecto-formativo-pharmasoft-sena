@@ -8,7 +8,7 @@ import UserForm from "../components/UserForm"
 
 export default function EditUserPage() {
   return (
-    <div className="relative bg-white rounded-xl shadow-2xl">
+    <div className="relative bg-white rounded-xl shadow-2xl p-4 max-w-7xl mx-auto">
       {/* UserForm detecta el :id de la URL automáticamente con useParams */}
       <UserForm />
     </div>
