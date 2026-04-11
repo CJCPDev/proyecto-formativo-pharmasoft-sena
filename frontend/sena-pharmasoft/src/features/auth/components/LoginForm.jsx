@@ -1,7 +1,8 @@
-import { Button, Input } from "@/shared/components";
+import { Button, Input, Modal } from "@/shared/components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../services/authService";
+import { loginSchema } from "../schemas/loginSchema"
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -13,7 +14,9 @@ export default function LoginForm() {
   });
 
   //Estado para mostrar errores
-  const [error, setError] = useState(null);
+  const [error, setErrors] = useState({})
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   //Estado para mostrar el loading mientas inicia sesión
   const [loading, setLoading] = useState(false);
@@ -27,10 +30,27 @@ export default function LoginForm() {
   //Maneja el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
     setLoading(true);
 
     try {
+       const result = loginSchema.safeParse(formData); 
+        // Si la validación falla 
+        if (!result.success) { 
+            // Objeto donde se almacenarán los errores por campo 
+            const fieldErrors = {}; 
+            // Zod devuelve los errores en un arreglo llamado issues 
+            // Se recorren para asociar cada error a su campo correspondiente 
+            result.error.issues.forEach((issue) => { 
+                // issue.path contiene la ruta del campo que falló 
+                const field = issue.path[0]; 
+                // Se guarda el mensaje de error en el objeto fieldErrors 
+                fieldErrors[field] = issue.message; 
+            }); 
+            // Se actualiza el estado de errores para mostrarlos en el formulario 
+            setErrors(fieldErrors); 
+            // Se detiene la ejecución porque el formulario tiene errores 
+            return; 
+        }
       const data = await login(formData.email, formData.password);
 
       //Redirigimos según el rol del usuario
@@ -44,7 +64,8 @@ export default function LoginForm() {
     } catch (error) {
       //Mostramos el mensaje de error que devuelve Django
       const mensaje = error.response?.data.error || "Error al iniciar sesión";
-      setError(mensaje);
+      setModalMessage(mensaje);
+      setShowModal(true);
     } finally {
       setLoading(false);
     }
@@ -65,7 +86,7 @@ export default function LoginForm() {
             rounded-xl
             font-main
             w-94
-            h-100
+            h-auto
             "
       >
         <h1 className="text-general-title text-brand-fort font-extrabold text-center">
@@ -77,6 +98,7 @@ export default function LoginForm() {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          error={error.email}
         ></Input>
         <Input
           label="Contraseña"
@@ -85,10 +107,8 @@ export default function LoginForm() {
           name="password"
           value={formData.password}
           onChange={handleChange}
+          error={error.password}
         ></Input>
-
-        {/* Mensaje de error si las credenciales son incorrectas */}
-        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
         <Link
           to="/forgot-password"
@@ -107,7 +127,12 @@ export default function LoginForm() {
             {/* Iniciar sesion */}
           </Button>
         </div>
-      </form>
-    </div>
+         {showModal && (
+              <Modal onClose={() => setShowModal(false)}>
+                {modalMessage}
+              </Modal>
+            )}
+        </form>
+        </div>
   );
 }

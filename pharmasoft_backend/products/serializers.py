@@ -59,8 +59,11 @@ class MedicamentosSerializer(serializers.ModelSerializer):
     imagen_url = serializers.SerializerMethodField()
 
     def get_imagen_url(self, obj):
-        if obj.imagen:
-            return obj.imagen.url
+        request = self.context.get('request')
+        if obj.imagen and request:
+            return request.build_absolute_uri(obj.imagen.url)
+        elif obj.imagen:
+            return f"http://127.0.0.1:8000{obj.imagen.url}"
         return None
 
     class Meta:

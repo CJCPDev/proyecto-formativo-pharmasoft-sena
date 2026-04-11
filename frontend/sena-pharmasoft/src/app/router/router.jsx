@@ -57,7 +57,6 @@ import EditCartPage from "../../features/cart/pages/EditCartPage";
 import DetailCartPage from "../../features/cart/pages/DetailCartPage";
 
 const router = createBrowserRouter([
-
     {
     path: "/",
     element: <HomePage />,
@@ -67,10 +66,9 @@ const router = createBrowserRouter([
     element: <CarSellHome/>,
     },
     {
-    path: "ver-card/:id",
+    path: "ver-card/:id_medicamento",
     element: <DetailProductPage />,
-    
-},
+    },
 {
     element: <MainLayout />,
     children: [
@@ -292,6 +290,7 @@ const router = createBrowserRouter([
                     },
                 ],
             },
+    
     {
     //Login con rutas completo
     element: <AuthLayout />,
@@ -301,27 +300,39 @@ const router = createBrowserRouter([
         element: <AuthLayout />,
         },
         {
+        },
+        {
         path: "login",
         element: <LoginPage />,
+        },
+        {
         },
         {
         path: "forgot-password",
         element: <ForgotPasswordPage />,
         },
         {
+        },
+        {
         path: "reset-password",
         element: <ResetPasswordPage />,
+        },
+        {
         },
         {
         path: "validation",
         element: <Loading />,
         },
         {
+        },
+        {
         path: "validationPassword",
         element: <ConfirmationPassword />,
         },
+        
     ],
     },
+
 ]);
 
 export default router;

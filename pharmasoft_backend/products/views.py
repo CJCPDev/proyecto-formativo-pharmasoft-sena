@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from .models import SubformaFarmaceutica
 from .serializers import SubformaFarmaceuticaSerializer
+from rest_framework.decorators import api_view 
+from rest_framework.response import Response   
 from .models import (
     Medicamentos,
     FormaFarmaceutica,
@@ -57,3 +59,10 @@ class SubformaFarmaceuticaViewSet(viewsets.ModelViewSet):
         if id_forma:
             queryset = queryset.filter(id_forma_farmaceutica=id_forma)
         return queryset
+    
+@api_view(['GET'])
+def buscar_medicamentos(request):
+    q = request.GET.get('q', '')
+    productos = Medicamentos.objects.filter(nombre_medicamento__icontains=q)
+    serializer = MedicamentosSerializer(productos, many=True, context={'request': request})  # 👈
+    return Response(serializer.data)

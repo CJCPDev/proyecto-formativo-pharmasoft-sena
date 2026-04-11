@@ -1,8 +1,18 @@
 import { Card } from "@/shared/components"
-import { products } from "@/features/home/services/products.js"
+import { getAllProducts, searchProducts } from "@/features/products/services/productService.js";
+import { useEffect, useState } from "react";
 
-export default function CardsMedicine ({onProductoAgregado}){
+export default function CardsMedicine ({onProductoAgregado, searchQuery}){
     // const product = products.find(prod => prod.id === 1)
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        if (searchQuery && searchQuery.trim() !== "") {
+            searchProducts(searchQuery).then(setProducts);
+        } else {
+            getAllProducts().then(setProducts);
+        }
+    }, [searchQuery]);
     return(
         <section className="
           relative  w-full flex items-center justify-center text-black pt-8"
@@ -17,11 +27,17 @@ export default function CardsMedicine ({onProductoAgregado}){
                     justify-items-center
                 ">
                     {/* se renderiza la lista qie contiene todas las card */}
-                    {products.map((product) => (
-                        <Card key = {product.id}
-                        product = {product}
-                        onProductoAgregado={onProductoAgregado}
-                        />))}
+                    {products.length > 0 ? (
+                        products.map((product) => (
+                            <Card
+                                key={product.id_medicamento}
+                                product={product}
+                                onProductoAgregado={onProductoAgregado}
+                            />
+                        ))
+                    ) : (
+                        <p className="text-gray-500 col-span-4">No se encontraron productos.</p>
+                    )}
                 </div>
             </div>
         </section>

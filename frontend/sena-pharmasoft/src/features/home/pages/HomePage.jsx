@@ -12,6 +12,7 @@ export default function HomePage() {
   // Estados para el modal de autenticación
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleProductoAgregado = () => {
     setContadorKey((prev) => prev + 1);
@@ -34,6 +35,7 @@ export default function HomePage() {
           setOpenLogin={setOpenLogin}
           setShouldOpenCart={setShouldOpenCart}
           shouldOpenCart={shouldOpenCart}  
+          onSearch={setSearchQuery}
         />
       </div>
 
@@ -42,7 +44,10 @@ export default function HomePage() {
       </div>
 
       <div className="flex pt-8">
-        <CardsMedicine onProductoAgregado={handleProductoAgregado} />
+        <CardsMedicine
+          onProductoAgregado={handleProductoAgregado}
+          searchQuery={searchQuery}
+        />
       </div>
       <Footer />
     </div>

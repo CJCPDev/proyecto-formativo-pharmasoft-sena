@@ -4,7 +4,7 @@ import { getUsuarioActual } from "@/features/auth/services/authService";
 import { agregarAlCarrito } from "@/features/home/services/carritoService";
 
 export default function Card({ product, onProductoAgregado }) {
-  const { title, image, price, description } = product;
+  const { nombre_medicamento, imagen_url, precio_venta, descripcion } = product;
   const navigate = useNavigate();
 
   const handleAgregarAlCarrito = async (e) => {
@@ -26,7 +26,7 @@ export default function Card({ product, onProductoAgregado }) {
         onProductoAgregado();
       }
 
-      alert(`${title} agregado al carrito ✅`);
+      alert(`${nombre_medicamento} agregado al carrito ✅`);
     } catch (error) {
       console.error("Error al agregar al carrito:", error);
       alert("Error al agregar el producto al carrito");
@@ -36,8 +36,9 @@ export default function Card({ product, onProductoAgregado }) {
   return (
     <div
       className="
+        flex flex-col
         w-70
-        h-auto
+        h-90
         dark:bg-white/60
         backdrop-blur-lg
         shadow-lg
@@ -51,25 +52,25 @@ export default function Card({ product, onProductoAgregado }) {
         p-6
         cursor-pointer
       "
-      onClick={() => navigate(`/ver-card/${product.id}`)}
+      onClick={() => navigate(`/ver-card/${product.id_medicamento}`)}
     >
       <img
-        src={image}
-        alt={title}
+        src={imagen_url}
+        alt={nombre_medicamento}
         className="w-full h-42 object-contain bg-white rounded-2xl"
       />
 
       <div className="grid">
         <h2 className="text-xl text-secondary font-light text-black">
-          {title}
+          {nombre_medicamento}
         </h2>
-        <p className="text-small-label text-black">{description}</p>
+        <p className="h-8 text-small-label text-black">{descripcion}</p>
         <p className="text-3xl font-medium text-brand-hover">
-          ${price.toLocaleString()}
+          ${Number(precio_venta).toLocaleString("es-CO")}
         </p>
       </div>
 
-      <div className="flex mt-2 justify-between bg-brand-hover/90 w-full h-10 rounded-full cursor-pointer hover:bg-brand-hover/80 z-20 px-auto">
+      <div className="flex mt-auto justify-between bg-brand-hover/90 w-full h-10 rounded-full cursor-pointer hover:bg-brand-hover/80 z-20 px-auto">
         <ShoppingCart
           className="stroke-brand-soft ml-4 my-auto"
           onClick={handleAgregarAlCarrito}
