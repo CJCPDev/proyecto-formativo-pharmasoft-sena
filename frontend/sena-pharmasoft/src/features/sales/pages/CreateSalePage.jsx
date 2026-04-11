@@ -6,7 +6,9 @@ import {  useState } from "react";
 export default function CreateSalePage() {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  
+  const [saleCreated, setSaleCreated] = useState(false);
+  const [saleData, setSaleData] = useState(false);
+
 
   const handleAddProduct = (product) => {
   setProducts((prev) => [...prev, product]);
@@ -31,8 +33,11 @@ export default function CreateSalePage() {
           </div>
 
           <div className="bg-white border border-brand-hover/20 rounded-lg z-10">
-            <SaleForm onAddProduct={handleAddProduct} />
-            
+<SaleForm
+  saleData={saleData}
+  setSaleData={setSaleData}
+  onAddProduct={handleAddProduct}
+/>
           </div>
 
         </div>
@@ -40,9 +45,13 @@ export default function CreateSalePage() {
 
         <div className="flex-1 mt-11">
           <div className="bg-white border border-brand-hover/20 rounded-lg p-4 h-full">
-            <InformationSale 
-  products={products} 
-  setProducts={setProducts} 
+<InformationSale
+  products={products}
+  setProducts={setProducts}
+  saleData={saleData}
+  setSaleData={setSaleData}
+  saleCreated={saleCreated}
+  setSaleCreated={setSaleCreated}
 />
           </div>
         </div>
