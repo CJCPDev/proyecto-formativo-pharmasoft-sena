@@ -69,18 +69,18 @@ const router = createBrowserRouter([
     path: "ver-card/:id_medicamento",
     element: <DetailProductPage />,
     },
+    {
+        path: "mi-perfil",
+        element: (
+            <ProtectedRoute rolesPermitidos={[2]}>
+                <ClientProfilePage />
+            </ProtectedRoute>
+        )
+    },
 {
     element: <MainLayout />,
     children: [
                 //Ruta protegida
-                {
-                    path: "mi-perfil",
-                    element: (
-                        <ProtectedRoute rolesPermitidos={[2]}>
-                            <ClientProfilePage />
-                        </ProtectedRoute>
-                    )
-                },
                 {
                     path: "DashboardMain",
                     element: (
