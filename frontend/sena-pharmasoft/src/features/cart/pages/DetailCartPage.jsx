@@ -129,13 +129,15 @@ export default function DetailCartPage() {
                 <div className="min-w-[600px]">
 
                   {/* Header */}
-                  <div className="grid grid-cols-6 w-full text-center bg-brand-hover mt-2">
+                  <div className={`grid ${carrito.estado === 'activo' ? 'grid-cols-6' : 'grid-cols-5'} w-full text-center bg-brand-hover mt-2`}>
                     <span className="border text-white py-2 text-sm">Medicamento</span>
                     <span className="border text-white py-2 text-sm">Cantidad</span>
                     <span className="border text-white py-2 text-sm">Precio unitario</span>
                     <span className="border text-white py-2 text-sm">Subtotal</span>
                     <span className="border text-white py-2 text-sm">Estado</span>
+                    {carrito.estado === 'activo' && (
                     <span className="border text-white py-2 text-sm">Acciones</span>
+                    )}
                   </div>
 
                   {/* Lista */}
@@ -148,7 +150,7 @@ export default function DetailCartPage() {
                       carrito.items?.map((item) => (
                         <div
                           key={item.id_carrito}
-                          className="grid grid-cols-6 text-center items-stretch w-full min-h-16 border-b"
+                          className={`grid ${carrito.estado === 'activo' ? 'grid-cols-6' : 'grid-cols-5'} text-center items-stretch w-full min-h-16 border-b`}
                         >
                           <span className="border flex justify-center items-center gap-2 p-2 text-sm">
                             {item.imagen ? (
@@ -179,6 +181,8 @@ export default function DetailCartPage() {
                             </span>
                           </span>
                           <div className="border flex justify-center items-center gap-3">
+                            {/* Solo mostrar acciones si el carrito está activo */}
+                            {carrito.estado === 'activo' && (
                             <button
                               className="z-10"
                               onClick={() => {
@@ -188,6 +192,7 @@ export default function DetailCartPage() {
                             >
                               <Pencil className="w-5 h-5 stroke-brand-fort" />
                             </button>
+                            )}
                           </div>
                         </div>
                       ))

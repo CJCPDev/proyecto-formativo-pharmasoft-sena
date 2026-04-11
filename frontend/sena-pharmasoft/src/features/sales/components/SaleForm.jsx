@@ -5,16 +5,16 @@ import { useState, useEffect } from "react";
 import { saleSchema } from "../schemas/saleSchema";
 import { useParams } from "react-router-dom";
 import { getSalesById } from "../services/getSalesById";
-import { createSale } from "../services/saleService";
 
-export default function SaleForm({ onAddProduct }) {
+export default function SaleForm({
+  onAddProduct,
+  setSaleData,
+  saleData
+}) {
   const params = useParams();
   const isEdit = Boolean(params.id);
 
-  // ================== STATES ==================
   const [formData, setFormData] = useState({
-    numeroFactura: "",
-    fecha: "",
     usuario: "",
     farmaceuta: "",
     sellStates: "",
@@ -28,51 +28,38 @@ export default function SaleForm({ onAddProduct }) {
   // ================== LOAD DATA ==================
   useEffect(() => {
     const fetchData = async () => {
-      if (isEdit) {
-        try {
-          const sales = await getSalesById(params.id);
+      if (!isEdit) return;
 
-          setFormData({
-            numeroFactura: sales?.numeroFactura || "",
-            fecha: sales?.fechaHora || "",
-            usuario: sales?.usuario || "",
-            farmaceuta: sales?.farmaceuta || "",
-            sellStates: sales?.sellStates || "",
-            paymentStates: sales?.paymentStates || "",
-          });
-        } catch (error) {
-          console.error("Error cargando venta:", error);
-        }
+      try {
+        const sales = await getSalesById(params.id);
+
+        // 🔥 NORMALIZAR DATOS BACKEND → FRONTEND
+        setSaleData((prev) => ({
+          ...prev,
+          numeroFactura: sales?.numero_factura || sales?.numeroFactura || "",
+          fecha:  sales?.fecha_hora || sales?.fechaHora || "",
+          usuario: sales?.usuario || "",
+          farmaceuta: sales?.farmaceuta || "",
+          productos: sales?.productos || [],
+          subtotal: sales?.subtotal_venta || 0,
+          iva: sales?.iva || 0,
+          total: sales?.total || 0,
+        }));
+
+        setFormData({
+          usuario: sales?.usuario || "",
+          farmaceuta: sales?.farmaceuta || "",
+          sellStates: sales?.estado_venta || "",
+          paymentStates: sales?.tipo_pago || "",
+        });
+
+      } catch (error) {
+        console.error("Error cargando venta:", error);
       }
     };
 
     fetchData();
   }, [isEdit, params.id]);
-
-  // prueba mientras cargan productos
-  const fakeProducts = [
-    {
-      id: 1,
-      name: "Acetaminofén",
-      price: 2000,
-      image:
-        "https://beta1.cruzverde.com.co/on/demandware.static/-/Sites-masterCatalog_Colombia/default/dwa87e0ae1/images/large/125834_1_PROT_SOLAR_GL_CREM_OIL_FPS_50_EUCERIN_FCO_X_50ML_DIC_2025.jpg",
-    },
-    {
-      id: 2,
-      name: "Ibuprofeno",
-      price: 3000,
-      image: "https://via.placeholder.com/50",
-    },
-  ];
-
-  const formatDate = (dateString) => {
-  const date = new Date(dateString);
-
-  const pad = (n) => n.toString().padStart(2, "0");
-
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
-};
 
   // ================== HANDLE CHANGE ==================
   const handleChange = (e) => {
@@ -84,97 +71,56 @@ export default function SaleForm({ onAddProduct }) {
     }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  // ================== SUBMIT ==================
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const result = saleSchema.safeParse(formData);
+    const result = saleSchema.safeParse(formData);
 
-  if (!result.success) {
-    const fieldErrors = {};
+    if (!result.success) {
+      const fieldErrors = {};
+      result.error.issues.forEach((issue) => {
+        const field = issue.path[0];
+        fieldErrors[field] = issue.message;
+      });
+      setErrors(fieldErrors);
+      return;
+    }
 
-    result.error.issues.forEach((issue) => {
-      const field = issue.path[0];
-      fieldErrors[field] = issue.message;
-    });
+    setErrors({});
 
-    setErrors(fieldErrors);
-    return;
-  }
-
-  setErrors({});
-
-  try {
-    const dataToSend = {
-  usuario: formData.usuario,
-  farmaceuta: formData.farmaceuta,
-  estado_venta: formData.sellStates,
-};
-
-const response = await createSale(dataToSend);const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  const result = saleSchema.safeParse(formData);
-
-  if (!result.success) {
-    const fieldErrors = {};
-
-    result.error.issues.forEach((issue) => {
-      const field = issue.path[0];
-      fieldErrors[field] = issue.message;
-    });
-
-    setErrors(fieldErrors);
-    return;
-  }
-
-  setErrors({});
-
-  try {
-    const dataToSend = {
+    setSaleData((prev) => ({
+      ...prev,
       usuario: formData.usuario,
       farmaceuta: formData.farmaceuta,
       estado_venta: formData.sellStates,
-    };
-
-    const response = await createSale(dataToSend);
-
-    console.log("Venta guardada en BD:", response);
-
-    setFormData((prev) => ({
-      ...prev,
-      numeroFactura: response.numeroFactura,
-      fecha: formatDate(response.fechaHora),
+      tipo_pago: formData.paymentStates,
     }));
 
     setIsEditing(false);
+  };
 
-  } catch (error) {
-    console.error("Error al guardar venta:", error);
-  }
-};
+  // ================== PRODUCTOS ==================
+  const fakeProducts = [
+    {
+      id: 1,
+      name: "Acetaminofén",
+      price: 2000,
+      image: "https://via.placeholder.com/50",
+    },
+    {
+      id: 2,
+      name: "Ibuprofeno",
+      price: 3000,
+      image: "https://via.placeholder.com/50",
+    },
+  ];
 
-    console.log("Venta guardada en BD:", response);
-
-
-    setFormData((prev) => ({
-      ...prev,
-      numeroFactura: response.numeroFactura,
-      fecha: formatDate(response.fechaHora),
-    }));
-
-    setIsEditing(false);
-
-  } catch (error) {
-    console.error("Error al guardar venta:", error);
-  }
-};
-
-  // esto, esta pendiente apenas esten los productos se apunta al backend
   const handleAddProduct = () => {
     if (!search.trim()) return;
 
     const selected = fakeProducts.find(
-      (p) => p.name.toLowerCase() === search.toLowerCase(),
+      (p) => p.name.toLowerCase() === search.toLowerCase()
     );
 
     if (!selected) return;
@@ -193,40 +139,27 @@ const response = await createSale(dataToSend);const handleSubmit = async (e) => 
   // ================== RENDER ==================
   return (
     <div className="font-main bg-white grid gap-4 w-full h-120 p-2 rounded-lg">
-      {/* ================= Inicia el FORM los estilos son predeterminados a mi gusto por si los piensan usar================= */}
+
       <form onSubmit={handleSubmit} className="w-full px-6 rounded-xl">
-        {isEdit ? (
-          <Title title="Editar venta" />
-        ) : (
-          <Title title="Crear venta" />
-        )}
+
+        <Title title={isEdit ? "Editar venta" : "Crear venta"} />
 
         <div className="grid grid-cols-2 w-full gap-2">
+
+          {/* FACTURA */}
           <Input
-            className="
-      w-full
-      h-10
-      text-black/20
-      rounded-xl
-      bg-brand-soft/60
-      border
-      border-background
-      text-base"
-            label="Numero de factura"
+            label="Número de factura"
             disabled
-            value={formData.numeroFactura}
+            value={saleData?.numeroFactura || ""}
           />
 
           <Input
-            className="w-full h-10"
             label="Fecha y hora"
-            type="datetime-local"
-            name="fecha"
             disabled
-            value={formData.fecha}
+            value={saleData?.fecha || ""}
           />
 
-          <div className="col-span-2 -mt-5">
+          <div className="col-span-2">
             <Input
               label="Usuario"
               name="usuario"
@@ -237,7 +170,7 @@ const response = await createSale(dataToSend);const handleSubmit = async (e) => 
             />
           </div>
 
-          <div className="col-span-2 -mt-1">
+          <div className="col-span-2">
             <Input
               label="Vendedor"
               name="farmaceuta"
@@ -255,7 +188,6 @@ const response = await createSale(dataToSend);const handleSubmit = async (e) => 
             disabled={!isEditing}
             value={formData.sellStates}
             onChange={handleChange}
-            error={errors.sellStates}
           />
 
           <Select
@@ -265,7 +197,6 @@ const response = await createSale(dataToSend);const handleSubmit = async (e) => 
             disabled={!isEditing}
             value={formData.paymentStates}
             onChange={handleChange}
-            error={errors.paymentStates}
           />
         </div>
 
@@ -278,24 +209,35 @@ const response = await createSale(dataToSend);const handleSubmit = async (e) => 
 
           {isEditing && <Button type="submit">Guardar</Button>}
         </div>
+
       </form>
 
+      {/* PRODUCTOS */}
       <div className="mt-10 p-4 border rounded-lg">
+
         <h3>Agregar productos</h3>
 
         <div className="flex gap-2">
+
           <Input
             placeholder="Buscar producto..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            disabled={isEditing} // 🔥 solo cuando ya guardaste
+            disabled={isEditing}
           />
 
-          <Button type="button" disabled={isEditing} onClick={handleAddProduct}>
+          <Button
+            type="button"
+            disabled={isEditing}
+            onClick={handleAddProduct}
+          >
             Agregar
           </Button>
+
         </div>
+
       </div>
+
     </div>
   );
 }

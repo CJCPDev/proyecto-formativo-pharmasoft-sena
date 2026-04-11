@@ -1,6 +1,6 @@
-# products/urls.py
 from rest_framework.routers import DefaultRouter
-from .views import SubformaFarmaceuticaViewSet
+from django.urls import path
+from .views import SubformaFarmaceuticaViewSet, buscar_medicamentos  # 👈 importa la vista
 from .views import (
     MedicamentosViewSet,
     FormaFarmaceuticaViewSet,
@@ -21,4 +21,6 @@ router.register(r'estados-medicamento', EstadoMedicamentoViewSet)
 router.register(r'concentraciones', ConcentracionViewSet)
 router.register(r'subformas-farmaceuticas', SubformaFarmaceuticaViewSet, basename='subformas-farmaceuticas')
 
-urlpatterns = router.urls
+urlpatterns = [
+    path('medicamentos/buscar/', buscar_medicamentos),  # 👈 nueva ruta
+] + router.urls 

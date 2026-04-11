@@ -1,16 +1,12 @@
 // Fuente de datos de usuarios (mock o fuente centralizada)
-import { ventas } from "@/data/sells/sells";
+import { getVentas} from "../../services/saleService";
 
 // Utilidad para transformar datos en dataset de reporte
 import { buildReportDataset } from "../utils/buildReportDataset"; 
-
-// Servicios de exportación
 import { generateExcelReport } from "../services/generateExcelReport";
 import { generatePdfReport } from "../services/generatePdfReport";
 
-// Caso de uso: orquestador de generación de reportes de usuarios
-// Patrón: Application Service (coordina utilidades y servicios)
-export function generateSalesReport({
+export async function generateSalesReport({
   format,          // "excel" | "pdf"
   selectedFields,  // Campos seleccionados por el usuario
   scope,           // Alcance del reporte
@@ -18,6 +14,8 @@ export function generateSalesReport({
 }) {
 
   // Construcción del dataset (desacoplado de la UI)
+  const ventas = await getVentas();
+  console.log("sales", ventas)
   const { headers, rows } = buildReportDataset({
     ventas,
     selectedFields,
@@ -51,3 +49,4 @@ export function generateSalesReport({
     });
   }
 }
+

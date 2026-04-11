@@ -15,6 +15,8 @@ import { CambiarContrasenaModal } from "@/features/users";
 
 const Navbar = ({ 
   variant = "solid",
+  onSearch,
+  showSearch = true,
   onOpenRegister, 
   setOpenLogin,
   shouldOpenCart,
@@ -74,16 +76,18 @@ const Navbar = ({
               <img className="w-36 object-contain" src={Logo} alt="logo" />
             </Link>
 
-            {/* SEARCH */}
+          {/* SEARCH */}
+          {showSearch && (  //solo muestra si showSearch es true
             <div className="relative w-full max-w-3xl hidden md:block">
-              <Search className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Buscar productos..."
-                className="w-full pl-4 pr-9 py-2.5 border border-gray-300 rounded-md 
-                focus:outline-none focus:ring-1 focus:ring-bg-brand-soft transition"
-              />
+                <Search className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
+                <input
+                    type="text"
+                    placeholder="Buscar productos..."
+                    onChange={(e) => onSearch(e.target.value)}
+                    className="w-full pl-4 pr-9 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-bg-brand-soft transition"
+                />
             </div>
+        )}
 
             {/* ACTIONS */}
             <div className="flex items-center gap-6 font-secondary">
@@ -159,7 +163,6 @@ const Navbar = ({
                 className="relative"
               >
                 <ShoppingCart className="size-7 stroke-2 stroke-brand-hover cursor-pointer" />
-
                 {totalProductos > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {totalProductos}

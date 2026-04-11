@@ -72,5 +72,5 @@ const toNumber = z.coerce.number({
 
     estado: toInt.min(1, "Debe seleccionar un estado"),
 
-    description: toInt.min(1, "Debe añadir descripción del medicamento"),
+    description: z.string() .min(1, "Debe añadir descripción del medicamento"),
 });

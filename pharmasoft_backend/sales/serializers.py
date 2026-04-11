@@ -8,7 +8,7 @@ from .models import Ventas, DetalleVenta
 class VentaSerializer(serializers.ModelSerializer):
     numeroFactura = serializers.IntegerField(source='id_factura', read_only=True)
     fechaHora = serializers.DateTimeField(source='fecha_hora', read_only=True)
-    is_active = serializers.BooleanField(source='estado_venta', read_only=True)
+    is_active = serializers.BooleanField(source='estado_venta')
 
     class Meta:
         model = Ventas

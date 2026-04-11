@@ -55,9 +55,9 @@ import CartListPage from "../../features/cart/pages/CartListPage";
 import CreateCartPage from "../../features/cart/pages/CreateCartPage";
 import EditCartPage from "../../features/cart/pages/EditCartPage";
 import DetailCartPage from "../../features/cart/pages/DetailCartPage";
+import PasarelaPage from "../../features/home/pages/PasarelaPage";
 
 const router = createBrowserRouter([
-
     {
     path: "/",
     element: <HomePage />,
@@ -67,22 +67,29 @@ const router = createBrowserRouter([
     element: <CarSellHome/>,
     },
     {
-    path: "ver-card/:id",
+    path: "/pasarela",
+    element: (
+        <ProtectedRoute rolesPermitidos={[2]}>
+            <PasarelaPage />
+        </ProtectedRoute>
+        ),
+    },
+    {
+    path: "ver-card/:id_medicamento",
     element: <DetailProductPage />,
-    
-},
+    },
+    {
+        path: "mi-perfil",
+        element: (
+            <ProtectedRoute rolesPermitidos={[2]}>
+                <ClientProfilePage />
+            </ProtectedRoute>
+        )
+    },
 {
     element: <MainLayout />,
     children: [
                 //Ruta protegida
-                {
-                    path: "mi-perfil",
-                    element: (
-                        <ProtectedRoute rolesPermitidos={[2]}>
-                            <ClientProfilePage />
-                        </ProtectedRoute>
-                    )
-                },
                 {
                     path: "DashboardMain",
                     element: (
@@ -292,6 +299,7 @@ const router = createBrowserRouter([
                     },
                 ],
             },
+    
     {
     //Login con rutas completo
     element: <AuthLayout />,
@@ -301,27 +309,39 @@ const router = createBrowserRouter([
         element: <AuthLayout />,
         },
         {
+        },
+        {
         path: "login",
         element: <LoginPage />,
+        },
+        {
         },
         {
         path: "forgot-password",
         element: <ForgotPasswordPage />,
         },
         {
+        },
+        {
         path: "reset-password",
         element: <ResetPasswordPage />,
+        },
+        {
         },
         {
         path: "validation",
         element: <Loading />,
         },
         {
+        },
+        {
         path: "validationPassword",
         element: <ConfirmationPassword />,
         },
+        
     ],
     },
+
 ]);
 
 export default router;
