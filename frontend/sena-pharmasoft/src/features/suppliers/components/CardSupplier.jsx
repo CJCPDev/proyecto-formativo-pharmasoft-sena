@@ -44,11 +44,11 @@ const CardSupplier = () => {
     } = supplier;
 
     return(
-        <section className="flex flex-col gap-6 w-175 px-4 py-6 font-main">
+        <section className="flex flex-col gap-6 w-full md:w-175 px-4 py-6 font-main">
 
             <Title title="Ver Proveedor" />
 
-            <div className="grid grid-cols-2 gap-y-4 gap-x-6 font-main">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 font-main">
 
                 <div>
                     <dt className="px-4 text-xs text-text-mute">NIT</dt>
