@@ -17,12 +17,12 @@ export default function SellRowActions({ sales, onView, onEdit }) {
   // Acción para editar el usuario
   // Redirige a la página de edición usando el id del usuario
   const handleEdit = () => {
-    navigate(`/ver-venta/${sales.id}/editar`, { state: { sale: sales } });
+    navigate(`/ver-venta/${sales.id_factura}/editar`, { state: { sale: sales } });
   };
 
   // Redirección a la página de detalles
   const handleDetail = () => {
-    navigate(`/ver-venta/${sales.id}`, { state: { sale: sales } });
+    navigate(`/ver-venta/${sales.id_factura}`, { state: { sale: sales } });
   };
 
   return (
@@ -31,10 +31,10 @@ export default function SellRowActions({ sales, onView, onEdit }) {
       {/* Botón editar */}
       <div className="relative group w-max">
         <button
-          onClick={() => onEdit(sales)} // Ejecuta la navegación a la página de edición
-          className="py-1 rounded cursor-pointer"
+          onClick={handleEdit} // Ejecuta la navegación a la página de edición
+          className="py-1 rounded  z-10 "
         >
-          <Pencil size={18} className="stroke-brand-fort" />{" "}
+          <Pencil size={18} className="stroke-brand-fort cursor-pointer" />{" "}
           {/* Icono de editar */}
         </button>
         <span
@@ -58,10 +58,10 @@ export default function SellRowActions({ sales, onView, onEdit }) {
       </div>
       <div className="relative group w-max">
         <button
-          onClick={() => onView(sales)}
-          className="relative py-1 rounded cursor-pointer"
+          onClick={handleDetail}
+          className="relative py-1 rounded "
         >
-          <Eye size={20} className="stroke-brand-fort" />
+          <Eye size={20} className="stroke-brand-fort cursor-pointer" />
         </button>
         <span
           className="
