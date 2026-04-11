@@ -41,3 +41,5 @@ class VentasViewSet(viewsets.ModelViewSet):
             "iva": venta.iva_venta,
             "total": venta.total_venta
         })
+    
+

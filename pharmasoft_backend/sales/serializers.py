@@ -30,9 +30,16 @@ class VentaSerializer(serializers.ModelSerializer):
 class VentaCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ventas
-        fields = ["usuario", "farmaceuta", "estado_venta"]
-
-
+        fields = [
+            "usuario",
+            "farmaceuta",
+            "estado_venta",
+            "subtotal_venta",
+            "iva_venta",
+            "descuento_venta",
+            "total_venta",
+        ]
+        
 class DetalleVentaSerializer(serializers.ModelSerializer):
     class Meta:
         model = DetalleVenta

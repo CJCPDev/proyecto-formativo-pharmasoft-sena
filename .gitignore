@@ -21,5 +21,8 @@ dist/
 .DS_Store
 Thumbs.db
 
+# excepcion archivo imagen en base de datos
+*.png
+
 # Logs
 *.log"__pycache__/" 
