@@ -1,6 +1,6 @@
 export default function FacturaPos({ saleData, products = [] }) {
   return (
-    <div className="w-75 bg-white p-4 text-sm font-mono border">
+    <div className="w-75 bg-white p-5 text-sm font-mono border">
 
       <h2 className="text-center font-bold">
         FARMACIA SENA
