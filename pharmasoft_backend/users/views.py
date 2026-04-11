@@ -243,7 +243,7 @@ def agregar_al_carrito(request):
     id_medicamento = request.data.get('id_medicamento')
     cantidad = request.data.get('cantidad', 1)
     precio_unitario = request.data.get('precio_unitario')
-    estado = request.data.get('estado', 'activo')  #nuevo campo
+    estado = request.data.get('estado', 'activo')
 
     if not id_usuario or not id_medicamento or not precio_unitario:
         return Response(
@@ -251,11 +251,44 @@ def agregar_al_carrito(request):
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    # Verificamos si el producto ya está en el carrito con el mismo estado
+    # 👈 Validar stock disponible antes de agregar
+    try:
+        from django.db import connection
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT stock, nombre_medicamento FROM medicamentos WHERE id_medicamento = %s",
+                [id_medicamento]
+            )
+            row = cursor.fetchone()
+            if row:
+                stock_actual = int(row[0])
+                nombre_medicamento = row[1]
+
+                # Verificar cuánto ya tiene en el carrito
+                item_existente = CarritoCompra.objects.filter(
+                    id_usuario=id_usuario,
+                    id_medicamento=id_medicamento,
+                    estado=estado
+                ).first()
+
+                cantidad_actual_carrito = item_existente.cantidad if item_existente else 0
+                cantidad_total = cantidad_actual_carrito + int(cantidad)
+
+                if cantidad_total > stock_actual:
+                    return Response(
+                        {
+                            'error': f'Stock insuficiente para {nombre_medicamento}. Stock disponible: {stock_actual}, cantidad en carrito: {cantidad_actual_carrito}, cantidad solicitada: {int(cantidad)}'
+                        },
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+    except Exception as e:
+        print(f"Error al validar stock: {e}")
+
+    # Verificamos si el producto ya está en el carrito
     item_existente = CarritoCompra.objects.filter(
         id_usuario=id_usuario,
         id_medicamento=id_medicamento,
-        estado=estado  #filtramos por el estado actual
+        estado=estado
     ).first()
 
     if item_existente:
@@ -271,7 +304,7 @@ def agregar_al_carrito(request):
             cantidad=cantidad,
             precio_unitario=precio_unitario,
             subtotal=subtotal,
-            estado=estado  #usamos el estado recibido
+            estado=estado
         )
         serializer = CarritoCompraSerializer(item)
 
@@ -424,6 +457,7 @@ def obtener_carrito_detalle(request, id_carrito):
         return Response({'error': 'Carrito no encontrado'}, status=status.HTTP_404_NOT_FOUND)
     
 # Actualiza el estado y factura del carrito
+# Actualiza el estado y factura del carrito
 @api_view(['PATCH'])
 def actualizar_carrito(request, id_carrito):
     try:
@@ -431,17 +465,58 @@ def actualizar_carrito(request, id_carrito):
     except CarritoCompra.DoesNotExist:
         return Response({'error': 'Carrito no encontrado'}, status=status.HTTP_404_NOT_FOUND)
 
-    estado = request.data.get('estado')
+    estado_anterior = item.estado
+    estado_nuevo = request.data.get('estado')
     id_factura = request.data.get('id_factura')
     aprobado_por = request.data.get('aprobado_por')
 
-    if estado:
-        item.estado = estado
+    # Si el carrito cambia a confirmado validamos el stock primero
+    if estado_anterior == 'activo' and estado_nuevo == 'confirmado':
+        try:
+            from django.db import connection
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT stock, nombre_medicamento FROM medicamentos WHERE id_medicamento = %s",
+                    [item.id_medicamento]
+                )
+                row = cursor.fetchone()
+                if row:
+                    stock_actual = int(row[0])
+                    nombre_medicamento = row[1]
+
+                    if stock_actual < item.cantidad:
+                        return Response(
+                            {
+                                'error': f'Stock insuficiente para {nombre_medicamento}. Stock disponible: {stock_actual}, cantidad solicitada: {item.cantidad}'
+                            },
+                            status=status.HTTP_400_BAD_REQUEST
+                        )
+
+                    # Stock suficiente — descontar
+                    nuevo_stock = stock_actual - item.cantidad
+                    cursor.execute(
+                        "UPDATE medicamentos SET stock = %s WHERE id_medicamento = %s",
+                        [nuevo_stock, item.id_medicamento]
+                    )
+
+                    # Si stock llega a 0 cambiar estado a Agotado
+                    if nuevo_stock == 0:
+                        cursor.execute(
+                            "UPDATE medicamentos SET id_estado = 3 WHERE id_medicamento = %s",
+                            [item.id_medicamento]
+                        )
+        except Exception as e:
+            print(f"Error al validar stock: {e}")
+
+    # Guardamos los cambios solo si pasó la validación
+    if estado_nuevo:
+        item.estado = estado_nuevo
     if id_factura:
         item.id_factura = id_factura
     if aprobado_por:
         item.aprobado_por_id = aprobado_por
 
     item.save()
+
     serializer = CarritoCompraSerializer(item)
     return Response(serializer.data, status=status.HTTP_200_OK)

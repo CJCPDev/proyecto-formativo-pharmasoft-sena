@@ -15,7 +15,7 @@ export default function CardsMedicine ({onProductoAgregado, searchQuery}){
     }, [searchQuery]);
     return(
         <section className="
-          relative  w-full flex items-center justify-center text-black pt-8"
+            relative  w-full flex items-center justify-center text-black pt-8"
         >
             <div className="relative z-10 text-center text-text-inverse">
                 <div className="

@@ -30,6 +30,8 @@ import CreateSalePage from "../../features/sales/pages/CreateSalePage";
 import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage";
 import SalesEditPage from "../../features/sales/pages/SalesEditPage";
+import { SaleForm } from "../../features/sales";
+
 
 // ------
 
@@ -47,7 +49,6 @@ import CreateProductPage from "../../features/products/admin/pages/CreateProduct
 import AdminProductListPage from "../../features/products/admin/pages/AdminProductListPage";
 import AdminProductDetailPage from "../../features/products/admin/pages/AdminProductDetailPage";
 import ProductsEditPage from "../../features/products/admin/pages/ProductsEditPage";
-import AdminProductReportPage from "../../features/products/admin/pages/AdminProductReportPage";
 import DetailProductPage from "@/features/products/pages/DetailProductPage";
 
 //Imports de carritos
@@ -55,6 +56,7 @@ import CartListPage from "../../features/cart/pages/CartListPage";
 import CreateCartPage from "../../features/cart/pages/CreateCartPage";
 import EditCartPage from "../../features/cart/pages/EditCartPage";
 import DetailCartPage from "../../features/cart/pages/DetailCartPage";
+import PasarelaPage from "../../features/home/pages/PasarelaPage";
 
 const router = createBrowserRouter([
     {
@@ -64,6 +66,14 @@ const router = createBrowserRouter([
     {
     path: "/CarSellHome",
     element: <CarSellHome/>,
+    },
+    {
+    path: "/pasarela",
+    element: (
+        <ProtectedRoute rolesPermitidos={[2]}>
+            <PasarelaPage />
+        </ProtectedRoute>
+        ),
     },
     {
     path: "ver-card/:id_medicamento",
@@ -162,14 +172,6 @@ const router = createBrowserRouter([
                         )
                     },
                     {
-                        path: "generar-reporte",
-                        element: (
-                            <ProtectedRoute>
-                                <AdminProductReportPage/>
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
                         path: "listar-ventas",
                         element: (
                             <ProtectedRoute>
@@ -178,12 +180,12 @@ const router = createBrowserRouter([
                         )
                     },
                     {
-                        path: "ver-venta/:id/editar",
-                        element: <CreateSalePage/> 
+                    path: "/ver-venta/:id",
+                    element: <SaleDetailPage />
                     },
                     {
-                        path: "ver-venta/:id",
-                        element: <SaleDetailPage/> 
+                    path: "/ver-venta/:id/editar",
+                    element: <SaleDetailPage/>
                     },
                     {
                         path: "crear-venta",

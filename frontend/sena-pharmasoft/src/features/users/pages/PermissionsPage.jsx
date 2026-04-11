@@ -1,7 +1,6 @@
 // ─────────────────────────────────────────────
 // PermissionsPage.jsx
 // Página de gestión de permisos por rol y por usuario individual
-// Se conecta con la API de Django a través de permisosService.js
 // ─────────────────────────────────────────────
 
 import { useState, useEffect } from "react";
@@ -40,6 +39,7 @@ export default function PermissionsPage() {
   const [documentSearch, setDocumentSearch] = useState("");
   const [foundUser, setFoundUser] = useState(null);
   const [modo, setModo] = useState(null);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   useEffect(() => {
     const cargarRoles = async () => {
@@ -62,6 +62,7 @@ export default function PermissionsPage() {
     setSelectedGroup(group);
     setFoundUser(null);
     setModo('rol');
+    setShowSidebar(false);
     try {
       const data = await getPermisosPorRol(group.id);
       const permisosObj = {};
@@ -81,8 +82,7 @@ export default function PermissionsPage() {
         setFoundUser(user);
         setSelectedGroup(null);
         setModo('usuario');
-
-        //Carga los permisos combiandos (rol + extras) del usuario
+        setShowSidebar(false);
         const permisos = await getPermisosCombinados(user.id_tipo_usuario);
         const permisosObj = {};
         permisos.forEach((p) => { permisosObj[p.codigo] = true; });
@@ -178,11 +178,12 @@ export default function PermissionsPage() {
   };
 
   return (
-    <div className="z-10 min-h-screen bg-surface p-8">
+    <div className="z-10 min-h-screen bg-surface p-4 sm:p-8">
 
+      {/* Modal editar nombre grupo */}
       {editingGroup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-xl p-6 shadow-lg w-80 flex flex-col gap-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="bg-white rounded-xl p-6 shadow-lg w-full max-w-sm flex flex-col gap-4">
             <h2 className="text-center font-bold text-lg">Cambiar nombre del grupo</h2>
             <input
               type="text"
@@ -199,9 +200,10 @@ export default function PermissionsPage() {
         </div>
       )}
 
+      {/* Modal nuevo grupo */}
       {isNewGroupModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white rounded-xl p-6 shadow-lg w-80 flex flex-col gap-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+          <div className="bg-white rounded-xl p-6 shadow-lg w-full max-w-sm flex flex-col gap-4">
             <h2 className="text-center font-bold text-lg">Grupo de Usuarios</h2>
             <input
               type="text"
@@ -218,6 +220,7 @@ export default function PermissionsPage() {
         </div>
       )}
 
+      {/* Toast */}
       {showToast && (
         <div className="fixed top-4 right-4 z-50 flex items-center gap-3 bg-white border border-green-200 text-green-700 px-4 py-3 rounded-xl shadow-lg">
           <div className="bg-brand-hover rounded-full p-1">
@@ -227,11 +230,24 @@ export default function PermissionsPage() {
         </div>
       )}
 
-      <Button onClick={() => navigate(-1)} className="flex items-center gap-2 mb-6 px-4 py-2 border rounded-lg hover:bg-brand-soft">
-        Volver
-      </Button>
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <Button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-brand-soft">
+          Volver
+        </Button>
 
-      <h1 className="text-3xl font-main text-center text-brand-hover mb-8">
+        {/* Botón para mostrar sidebar en móvil */}
+        <Button
+          variant="secondary"
+          size="sm"
+          className="lg:hidden"
+          onClick={() => setShowSidebar(!showSidebar)}
+        >
+          {showSidebar ? "Ocultar filtros" : "Filtrar por rol/usuario"}
+        </Button>
+      </div>
+
+      <h1 className="text-2xl sm:text-3xl font-main text-center text-brand-hover mb-4 sm:mb-8">
         Gestión de Permisos
       </h1>
 
@@ -244,9 +260,10 @@ export default function PermissionsPage() {
         </p>
       )}
 
-      <div className="flex gap-8">
+      <div className="flex flex-col lg:flex-row gap-6">
 
-        <div className="w-64 border rounded-xl p-4 bg-surface shadow h-fit">
+        {/* Sidebar — en móvil se muestra/oculta */}
+        <div className={`${showSidebar ? 'block' : 'hidden'} lg:block w-full lg:w-64 border rounded-xl p-4 bg-surface shadow h-fit`}>
           <h2 className="font-secondary text-center mb-4">Grupo de Usuarios</h2>
           <div className="flex flex-col gap-2 mb-6">
             <div
@@ -308,8 +325,9 @@ export default function PermissionsPage() {
           </div>
         </div>
 
+        {/* Contenido principal */}
         <div className="flex-1 flex flex-col gap-6">
-          <div className="border rounded-xl p-6 bg-surface shadow">
+          <div className="border rounded-xl p-4 sm:p-6 bg-surface shadow">
             {permissionGroups.map((group) => (
               <PermissionGroup
                 key={group.id}
@@ -322,7 +340,7 @@ export default function PermissionsPage() {
           </div>
 
           {getSelectedList().length > 0 && (
-            <div className="border rounded-xl p-6 bg-surface shadow">
+            <div className="border rounded-xl p-4 sm:p-6 bg-surface shadow">
               <h2 className="font-main text-lg text-brand-hover mb-4">Permisos seleccionados</h2>
               <div className="flex flex-col gap-3">
                 {permissionGroups.map((group) => {
@@ -347,6 +365,7 @@ export default function PermissionsPage() {
         </div>
       </div>
 
+      {/* Botón guardar */}
       <div className="flex justify-end mt-6">
         <Button variant="primary" size="md" onClick={handleSave} disabled={loading}>
           {loading ? "Guardando..." : "Guardar Cambios"}

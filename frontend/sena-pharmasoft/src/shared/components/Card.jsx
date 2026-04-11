@@ -18,7 +18,7 @@ export default function Card({ product, onProductoAgregado }) {
     }
 
     try {
-      await agregarAlCarrito(usuarioActual.id, product.id, 1, product.price);
+      await agregarAlCarrito(usuarioActual.id, product.id_medicamento, 1, product.precio_venta);
 
       // Notificamos al componente padre que se agregó un producto
       // para actualizar el contador del carrito
@@ -32,6 +32,12 @@ export default function Card({ product, onProductoAgregado }) {
       alert("Error al agregar el producto al carrito");
     }
   };
+
+  const imagenSrc = imagen_url
+    ? imagen_url.startsWith("http")
+      ? imagen_url
+      : `http://localhost:8000${imagen_url}`
+    : "http://placehold.co/300x200?text=Sin+imagen";
 
   return (
     <div
@@ -55,7 +61,7 @@ export default function Card({ product, onProductoAgregado }) {
       onClick={() => navigate(`/ver-card/${product.id_medicamento}`)}
     >
       <img
-        src={imagen_url}
+        src={imagenSrc}
         alt={nombre_medicamento}
         className="w-full h-42 object-contain bg-white rounded-2xl"
       />

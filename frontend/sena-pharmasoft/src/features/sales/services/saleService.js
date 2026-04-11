@@ -25,3 +25,7 @@ export const createSale = async (data) => {
   }
 };
 
+export const getSalesById = async (id) => {
+  const response = await axios.get(`${API_URL}${id}/`);
+  return response.data;
+};

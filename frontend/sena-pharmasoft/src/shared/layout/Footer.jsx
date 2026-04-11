@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Footer() {
+export default function Footer({showPortalEmpleados = true}) {
   return (
     // Footer principal — fondo verde corporativo
     <footer className="w-full bg-brand-hover p-6 mt-10">
@@ -16,11 +16,13 @@ export default function Footer() {
           </p>
           {/* Enlace al portal de empleados */}
           <div className="mt-4">
-            <Link to="/Login">
-              <span className="text-brand-soft text-xl hover:underline">
-                Ingreso portal empleados
-              </span>
-            </Link>
+            {showPortalEmpleados && (
+              <Link to="/Login">
+                <span className="text-brand-soft text-xl hover:underline">
+                  Ingreso portal empleados
+                </span>
+              </Link>
+            )}
           </div>
         </div>
 
