@@ -30,6 +30,8 @@ import CreateSalePage from "../../features/sales/pages/CreateSalePage";
 import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage";
 import SalesEditPage from "../../features/sales/pages/SalesEditPage";
+import { SaleForm } from "../../features/sales";
+
 
 // ------
 
@@ -187,12 +189,12 @@ const router = createBrowserRouter([
                         )
                     },
                     {
-                        path: "ver-venta/:id/editar",
-                        element: <CreateSalePage/> 
+                    path: "/ver-venta/:id",
+                    element: <SaleDetailPage />
                     },
                     {
-                        path: "ver-venta/:id",
-                        element: <SaleDetailPage/> 
+                    path: "/ver-venta/:id/editar",
+                    element: <SaleDetailPage/>
                     },
                     {
                         path: "crear-venta",

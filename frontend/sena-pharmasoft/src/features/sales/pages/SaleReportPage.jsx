@@ -1,51 +1,42 @@
 import { useEffect, useState } from "react";
-import { Pencil, Eye } from "lucide-react";
 import { getVentas } from "../services/saleService";
 import { DataTable } from "../../../shared/components";
 import { sellColumns } from "../table/SellColumns";
-import SalesRowActions from "../components/SalesRowActions";  // Suponiendo que SaleView está en tu carpeta components
+import SaleForm from "@/features/sales/components/SaleForm";
+import { useNavigate } from "react-router-dom";
 
 
 export default function SalesPage() {
   const [data, setData] = useState([]);
-const [selectedSale, setSelectedSale] = useState(null);
-const [mode, setMode] = useState(null);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const cargar = async () => {
       const res = await getVentas();
-
       setData(res);
     };
 
     cargar();
   }, []);
 
-    const handleView = (sale) => {
-    setSelectedSale(sale);
-    setMode("view");
-  };
 
-  const handleEdit = (sale) => {
-    setSelectedSale(sale);
-    setMode("edit");
-  };
+  const handleView = (sale) => {
+  navigate(`/ver-venta/${sale.id_factura}`);
+};
 
-
+const handleEdit = (sale) => {
+  navigate(`/ver-venta/${sale.id_factura}/editar`);
+};
 
   return (
-    <div className="w-full h-200 ">
+    <div className="w-full h-200">
 <DataTable
   data={data}
   columns={sellColumns({
-    onView: (handleView),
-    onEdit: (handleEdit) 
+    onView: handleView,
+    onEdit: handleEdit,
   })}
-/>
-{mode === "view" && selectedSale && <SaleView sale={selectedSale} />}
-{mode === "edit" && selectedSale && <SaleForm sale={selectedSale} />}
+      />
     </div>
-
   );
 }
