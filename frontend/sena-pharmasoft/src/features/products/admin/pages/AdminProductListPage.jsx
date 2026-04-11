@@ -152,12 +152,12 @@ export default function AdminProductListPage() {
       </div>
 
       {/* Contenedor de la tabla con los medicamentos cargados desde la API */}
-      <div className="flex gap-6">
-        <div className="w-full h-full">
+      <div className="w-full overflow-x-auto">
+        {/* <div className="w-full h-full"> */}
           {/* DataTable recibe los datos y las columnas para renderizar la tabla */}
           <DataTable data={products} columns={ProductsColumns} />
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

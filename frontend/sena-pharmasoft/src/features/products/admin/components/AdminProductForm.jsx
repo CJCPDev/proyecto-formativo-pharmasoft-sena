@@ -518,7 +518,7 @@ export default function AdminProductForm() {
         {/* El título cambia según si se está creando o editando */}
         {isEdit ? <Title title="Editar Medicamento" /> : <Title title="Crear Medicamento" />}
 
-        {/* Grilla de 3 columnas en pantallas grandes, 1 columna en móvil */}
+        {/* Grid de 3 columnas en pantallas grandes, 1 columna en móvil */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
           {/* Columna 1: datos de identificación del medicamento */}

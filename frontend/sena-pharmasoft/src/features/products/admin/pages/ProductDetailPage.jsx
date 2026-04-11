@@ -96,15 +96,15 @@ export default function ProductDetailPage() {
     if (!products) return <p>Cargando...</p>
 
     return (
-        <div>
+        <div className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4">
             <Title title="Detalle del medicamento" />
 
             {/* El formulario es solo de lectura, no tiene onSubmit porque no envía datos */}
             <form className="flex flex-col gap-10">
-                <div className="flex gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
                     {/* Columna 1: datos de identificación del medicamento */}
-                    <div className="flex flex-col gap-6 flex-1">
+                    <div className="flex flex-col gap-6 ">
                         {/* || "" evita que el input muestre "null" o "undefined" si el campo no tiene valor */}
                         <Input label="Nombre" value={products.nombreMedicamento || ""} readOnly />
                         <Input label="Forma farmacéutica" value={products.formaFarmaceuticaNombre || ""} readOnly />
@@ -115,7 +115,7 @@ export default function ProductDetailPage() {
                     </div>
 
                     {/* Columna 2: datos de inventario y precios */}
-                    <div className="flex flex-col gap-6 flex-1">
+                    <div className="flex flex-col gap-6 ">
                         <Input label="Lote" value={products.lote || ""} readOnly />
                         <Input label="Fecha fabricación" value={products.fechaFabricacion || ""} type="date" readOnly />
                         <Input label="Fecha vencimiento" value={products.fechaVencimiento || ""} type="date" readOnly />
@@ -125,7 +125,7 @@ export default function ProductDetailPage() {
                     </div>
 
                     {/* Columna 3: estado, prescripción, descripción e imagen */}
-                    <div className="flex flex-col gap-6 flex-1">
+                    <div className="flex flex-col gap-6 ">
                         <Input label="Requiere fórmula" value={products.requiresPrescription || ""} readOnly />
                         <Input label="Estado" value={products.estadoNombre || ""} readOnly />
                         <Input label="Descripción" value={products.description || ""} readOnly />

@@ -126,15 +126,17 @@ export default function AdminProductDetailPage() {
   if (!medicamento) return <p>Cargando detalle del medicamento...</p>;
 
   return (
-    <div>
-      <Title title="Detalle del medicamento" />
+    <div className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-[1128px]">
 
       {/* El formulario es solo de lectura, no tiene onSubmit porque no envía datos */}
-      <form className="flex flex-col gap-10">
-        <div className="flex gap-12">
+      <form className="flex flex-col gap-10 z-20">
+
+          <Title title="Detalle del medicamento" />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
           {/* Columna 1: datos de identificación del medicamento */}
-          <div className="flex flex-col gap-6 flex-1">
+          <div className="flex flex-col gap-6">
             {/* ?? "" evita que el input muestre "null" o "undefined" si el campo no tiene valor */}
             <Input label="Nombre" value={medicamento.nombre_medicamento ?? ""} readOnly />
             <Input label="Forma farmacéutica" value={medicamento.nombre_forma_farmaceutica ?? ""} readOnly />
@@ -146,7 +148,7 @@ export default function AdminProductDetailPage() {
           </div>
 
           {/* Columna 2: datos de inventario y precios */}
-          <div className="flex flex-col gap-6 flex-1">
+          <div className="flex flex-col gap-6">
             <Input label="Lote" value={medicamento.lote ?? ""} readOnly />
             <Input label="Fecha fabricación" type="date" value={medicamento.fecha_fabricacion ?? ""} readOnly />
             <Input label="Fecha vencimiento" type="date" value={medicamento.fecha_vencimiento ?? ""} readOnly />
@@ -156,14 +158,14 @@ export default function AdminProductDetailPage() {
           </div>
 
           {/* Columna 3: estado, prescripción, descripción e imagen */}
-          <div className="flex flex-col gap-6 flex-1">
+          <div className="flex flex-col gap-6">
             <Input label="Requiere fórmula" value={medicamento.requiere_formula ?? ""} readOnly />
             <Input label="Estado" value={medicamento.nombre_estado ?? ""} readOnly />
             <Input label="Descripción" value={medicamento.descripcion ?? ""} readOnly />
 
             {/* La imagen solo se renderiza si el backend devolvió una URL válida */}
             {medicamento.imagen_url && (
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-6">
                 <span className="text-sm font-medium text-brand-hover px-1">Imagen</span>
                 {/* La URL base del servidor se concatena con la ruta relativa de la imagen */}
                 <img

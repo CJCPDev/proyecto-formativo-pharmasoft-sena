@@ -456,7 +456,7 @@ export default function MedicamentosForm() {
                     : <Title title="Crear medicamento" />
                 }
 
-                {/* Grilla de 3 columnas en pantallas grandes, 1 columna en móvil */}
+                {/* Responsive de 3 columnas en pantallas grandes, 1 columna en móvil */}
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
                     {/* Columna 1: datos de identificación del medicamento */}
