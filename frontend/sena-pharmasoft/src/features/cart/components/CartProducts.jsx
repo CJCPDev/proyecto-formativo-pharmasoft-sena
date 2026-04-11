@@ -3,7 +3,7 @@
 // Tabla de medicamentos del carrito
 // ─────────────────────────────────────────────
 
-import { Title, Input, Button } from "@/shared/components";
+import { Title, Button } from "@/shared/components";
 import { Trash } from "lucide-react";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,30 +15,25 @@ export default function CartProducts({ products = [], setProducts, cartData }) {
   const [showConfirmarEliminar, setShowConfirmarEliminar] = useState(false);
   const [itemAEliminar, setItemAEliminar] = useState(null);
 
-  // Muestra el modal de confirmación
   const handleConfirmarEliminar = (id) => {
     setItemAEliminar(id);
     setShowConfirmarEliminar(true);
   };
 
-  // Elimina un producto de la lista
   const handleDelete = (id) => {
     setProducts((prev) => prev.filter((p) => p.id !== id));
   };
 
-  // Confirma y elimina
   const handleEliminarConfirmado = () => {
     handleDelete(itemAEliminar);
     setShowConfirmarEliminar(false);
     setItemAEliminar(null);
   };
 
-  // Total del carrito
   const total = useMemo(() => {
     return products.reduce((acc, item) => acc + item.subtotal, 0);
   }, [products]);
 
-  // Guarda todos los productos en la BD
   const handleGuardarCarrito = async () => {
     if (products.length === 0) {
       alert("No hay medicamentos en el carrito");
@@ -65,8 +60,8 @@ export default function CartProducts({ products = [], setProducts, cartData }) {
       navigate("/carritos");
     } catch (error) {
       console.error("Error al guardar carrito:", error);
-      const mensajeError = error.response?.data?.error || "Error al guarda el carro"
-      alert(mensajeError)
+      const mensajeError = error.response?.data?.error || "Error al guardar el carrito";
+      alert(mensajeError);
     } finally {
       setLoading(false);
     }
@@ -76,75 +71,82 @@ export default function CartProducts({ products = [], setProducts, cartData }) {
     <div className="bg-white w-full h-full p-4 rounded-lg font-main flex flex-col">
       <Title title="Medicamentos del carrito" />
 
-      {/* Header tabla */}
-      <div className="grid grid-cols-6 w-full text-center bg-brand-hover mt-2">
-        <span className="border text-white py-2">Medicamento</span>
-        <span className="border text-white py-2">Cantidad</span>
-        <span className="border text-white py-2">Precio unitario</span>
-        <span className="border text-white py-2">Subtotal</span>
-        <span className="border text-white py-2">Estado</span>
-        <span className="border text-white py-2">Acciones</span>
+      {/* Tabla con scroll horizontal en móvil */}
+      <div className="overflow-x-auto flex-1">
+        <div className="min-w-[600px] flex flex-col h-full">
+
+          {/* Header */}
+          <div className="grid grid-cols-6 w-full text-center bg-brand-hover mt-2">
+            <span className="border text-white py-2 text-sm">Medicamento</span>
+            <span className="border text-white py-2 text-sm">Cantidad</span>
+            <span className="border text-white py-2 text-sm">Precio unitario</span>
+            <span className="border text-white py-2 text-sm">Subtotal</span>
+            <span className="border text-white py-2 text-sm">Estado</span>
+            <span className="border text-white py-2 text-sm">Acciones</span>
+          </div>
+
+          {/* Lista */}
+          <div className="flex-1 overflow-y-auto">
+            {products.length === 0 ? (
+              <p className="text-center mt-4 text-black/40">
+                No hay medicamentos agregados
+              </p>
+            ) : (
+              products.map((item) => (
+                <div
+                  key={item.id}
+                  className="grid grid-cols-6 text-center items-stretch w-full min-h-16 border-b"
+                >
+                  <span className="border flex justify-center items-center p-2 text-sm">
+                    {item.nombre_medicamento}
+                  </span>
+                  <span className="border flex justify-center items-center z-10">
+                    <input
+                      type="number"
+                      min="1"
+                      value={item.cantidad}
+                      onChange={(e) => {
+                        const valor = parseInt(e.target.value);
+                        if (valor < 1) return;
+                        setProducts((prev) => prev.map(p =>
+                          p.id === item.id
+                            ? { ...p, cantidad: valor, subtotal: valor * p.precio_unitario }
+                            : p
+                        ));
+                      }}
+                      className="w-16 text-center rounded-lg p-1 focus:outline-none focus:border-brand-hover bg-transparent"
+                    />
+                  </span>
+                  <span className="border flex justify-center items-center text-sm">
+                    ${item.precio_unitario.toLocaleString()}
+                  </span>
+                  <span className="border flex justify-center items-center text-sm">
+                    ${item.subtotal.toLocaleString()}
+                  </span>
+                  <span className="border flex justify-center items-center">
+                    <span className={`px-2 py-1 rounded-full text-xs font-bold ${
+                      cartData?.estado === 'activo' ? 'bg-green-100 text-green-700' :
+                      cartData?.estado === 'confirmado' ? 'bg-blue-100 text-blue-700' :
+                      cartData?.estado === 'cancelado' ? 'bg-red-100 text-red-700' :
+                      'bg-green-100 text-green-700'
+                    }`}>
+                      {cartData?.estado || "activo"}
+                    </span>
+                  </span>
+                  <div className="border flex justify-center items-center z-10">
+                    <button onClick={() => handleConfirmarEliminar(item.id)}>
+                      <Trash className="w-5 h-5 stroke-red-600" />
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+
+        </div>
       </div>
 
-      {/* Lista de productos */}
-      <div className="flex-1 overflow-y-auto">
-        {products.length === 0 ? (
-          <p className="text-center mt-4 text-black/40">
-            No hay medicamentos agregados
-          </p>
-        ) : (
-          products.map((item) => (
-            <div
-              key={item.id}
-              className="grid grid-cols-6 text-center items-stretch w-full min-h-16 border-b"
-            >
-              <span className="border flex justify-center items-center p-2">
-                {item.nombre_medicamento}
-              </span>
-              <span className="border flex justify-center items-center z-10">
-                <input
-                  type="number"
-                  min="1"
-                  value={item.cantidad}
-                  onChange={(e) => {
-                    const valor = parseInt(e.target.value);
-                    if (valor < 1) return;
-                    setProducts((prev) => prev.map(p =>
-                      p.id === item.id
-                        ? { ...p, cantidad: valor, subtotal: valor * p.precio_unitario }
-                        : p
-                    ));
-                  }}
-                  className="w-20 text-center rounded-lg p-1 focus:outline-none focus:border-brand-hover bg-transparent"
-                />
-              </span>
-              <span className="border flex justify-center items-center">
-                ${item.precio_unitario.toLocaleString()}
-              </span>
-              <span className="border flex justify-center items-center">
-                ${item.subtotal.toLocaleString()}
-              </span>
-              <span className="border flex justify-center items-center">
-                <span className={`px-4 py-2 rounded-full text-sm font-bold ${
-                  cartData?.estado === 'activo' ? 'bg-green-100 text-green-700' :
-                  cartData?.estado === 'confirmado' ? 'bg-blue-100 text-blue-700' :
-                  cartData?.estado === 'cancelado' ? 'bg-red-100 text-red-700' :
-                  'bg-green-100 text-green-700'
-                }`}>
-                  {cartData?.estado || "activo"}
-                </span>
-              </span>
-              <div className="border flex justify-center items-center z-10">
-                <button onClick={() => handleConfirmarEliminar(item.id)}>
-                  <Trash className="w-5 h-5 stroke-red-600" />
-                </button>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-
-      {/* Footer */}
+      {/* Footer — fuera del scroll */}
       <div className="mt-3 border-t pt-3 flex flex-col gap-3">
         <div className="flex justify-end">
           <div className="flex flex-col gap-1">
@@ -156,7 +158,7 @@ export default function CartProducts({ products = [], setProducts, cartData }) {
             />
           </div>
         </div>
-        <div className="flex justify-end gap-2">
+        <div className="flex flex-col sm:flex-row justify-end gap-2">
           <Button variant="secondary" onClick={() => setProducts([])}>
             Cancelar
           </Button>

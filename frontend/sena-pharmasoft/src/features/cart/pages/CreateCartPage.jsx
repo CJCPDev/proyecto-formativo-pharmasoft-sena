@@ -15,26 +15,24 @@ export default function CreateCartPage() {
   const [products, setProducts] = useState([]);
   const [cartData, setCartData] = useState({});
 
-const handleAddProduct = (product) => {
+  const handleAddProduct = (product) => {
     if (product._actualizar) {
-      // Si tiene el flag actualizar, reemplazamos el existente
       setProducts((prev) => prev.map(p =>
         String(p.id_medicamento) === String(product.id_medicamento)
           ? { ...product, _actualizar: undefined }
           : p
       ));
     } else {
-      // Si es nuevo lo agregamos
       setProducts((prev) => [...prev, product]);
     }
   };
 
   return (
-    <div className="w-full min-h-screen p-6 flex justify-center">
-      <div className="w-full flex gap-6">
+    <div className="w-full min-h-screen p-4 sm:p-6">
+      <div className="w-full flex flex-col lg:flex-row gap-6">
 
         {/* Formulario izquierda */}
-        <div className="w-95 flex flex-col gap-2">
+        <div className="w-full lg:w-96 flex flex-col gap-2">
           <div>
             <Button variant="secondary" size="sm" onClick={() => navigate(-1)}>
               Atrás
@@ -50,7 +48,7 @@ const handleAddProduct = (product) => {
         </div>
 
         {/* Tabla derecha */}
-        <div className="flex-1 mt-11">
+        <div className="flex-1 lg:mt-11">
           <div className="bg-white border border-brand-hover/20 rounded-lg p-4 h-full">
             <CartProducts
               products={products}

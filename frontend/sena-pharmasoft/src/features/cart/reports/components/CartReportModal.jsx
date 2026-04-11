@@ -31,26 +31,22 @@ export default function CartReportModal({ isOpen, onClose }) {
   };
 
   const handleGenerateReport = () => {
-    generateCartReport({
-      format,
-      selectedFields,
-      filtroEstado,
-      scope,
-      documento,
-    });
+    generateCartReport({ format, selectedFields, filtroEstado, scope, documento });
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow-lg">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+      <div className="w-full max-w-lg rounded-xl bg-white shadow-lg flex flex-col max-h-[90vh]">
 
-        <h2 className="mb-6 text-xl font-semibold">
-          Generar reporte de carritos
-        </h2>
+        {/* Header */}
+        <div className="p-6 border-b">
+          <h2 className="text-xl font-semibold">Generar reporte de carritos</h2>
+        </div>
 
-        {/* Formato */}
-        <div className="mb-4">
+        {/* Contenido con scroll */}
+        <div className="p-6 overflow-y-auto flex-1 grid gap-4">
+
           <Select
             label="Formato del reporte"
             value={format}
@@ -60,10 +56,7 @@ export default function CartReportModal({ isOpen, onClose }) {
               { label: "Excel", value: "excel" },
             ]}
           />
-        </div>
 
-        {/* Filtro por estado */}
-        <div className="mb-4">
           <Select
             label="Filtrar por estado"
             value={filtroEstado}
@@ -75,30 +68,26 @@ export default function CartReportModal({ isOpen, onClose }) {
               { label: "Cancelado", value: "cancelado" },
             ]}
           />
-        </div>
 
-        {/* Campos del reporte */}
-        <div className="mb-4">
-          <p className="mb-2 font-medium">Campos del reporte</p>
-          <div className="grid grid-cols-2 gap-2">
-            {cartReportFields.map((field) => {
-              const checked = selectedFields.some((f) => f.key === field.key);
-              return (
-                <Checkbox
-                  key={field.key}
-                  id={field.key}
-                  name={field.key}
-                  label={field.label}
-                  checked={checked}
-                  onChange={() => handleFieldToggle(field)}
-                />
-              );
-            })}
+          <div>
+            <p className="mb-2 font-medium">Campos del reporte</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {cartReportFields.map((field) => {
+                const checked = selectedFields.some((f) => f.key === field.key);
+                return (
+                  <Checkbox
+                    key={field.key}
+                    id={field.key}
+                    name={field.key}
+                    label={field.label}
+                    checked={checked}
+                    onChange={() => handleFieldToggle(field)}
+                  />
+                );
+              })}
+            </div>
           </div>
-        </div>
 
-        {/* Alcance del reporte */}
-        <div className="mb-4">
           <Select
             label="Alcance del reporte"
             value={scope}
@@ -108,22 +97,20 @@ export default function CartReportModal({ isOpen, onClose }) {
               { label: "Filtrar por documento", value: "document" },
             ]}
           />
-        </div>
 
-        {/* Input documento — solo si scope es document */}
-        {scope === "document" && (
-          <div className="mb-4">
+          {scope === "document" && (
             <Input
               label="Número de documento"
               placeholder="Ingrese número de documento"
               value={documento}
               onChange={(e) => setDocumento(e.target.value)}
             />
-          </div>
-        )}
+          )}
 
-        {/* Botones */}
-        <div className="flex justify-end gap-2 mt-6">
+        </div>
+
+        {/* Footer */}
+        <div className="p-6 border-t flex flex-col sm:flex-row justify-end gap-2">
           <Button variant="secondary" onClick={onClose}>
             Cancelar
           </Button>

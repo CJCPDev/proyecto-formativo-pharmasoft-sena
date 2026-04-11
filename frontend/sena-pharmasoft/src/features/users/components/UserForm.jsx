@@ -157,7 +157,7 @@ export default function UserForm() {
   const esFarmaceuta = String(formData.userGroup) === "7";
 
   return (
-    <div className="bg-white grid gap-2 w-350 rounded-xl">
+    <div className="bg-white grid gap-2 w-full max-w-7xl mx-auto rounded-xl p-4">
 
       {isEdit ? <Title title="Editar Usuario" /> : <Title title="Crear Usuarios" />}
 
@@ -169,8 +169,9 @@ export default function UserForm() {
         userGroupId={formData.userGroup}
       />
 
-      <form onSubmit={handleSubmit} className="w-full px-6 rounded-xl">
-        <div className="grid grid-cols-3 gap-4">
+      <form onSubmit={handleSubmit} className="w-full px-2 sm:px-6 rounded-xl">
+        {/* Grid responsive — 1 col móvil, 2 col tablet, 3 col desktop */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
 
           {/* ── Columna 1 ── */}
           <div className="flex flex-col gap-3">
@@ -235,7 +236,7 @@ export default function UserForm() {
                 onChange={handleChange}
                 error={errors.userGroup}
               />
-              <div className="flex justify-center items-center py-8 gap-2">
+              <div className="flex justify-center items-center py-6 gap-2">
                 <Button
                   variant="primary"
                   size="md"
@@ -264,7 +265,7 @@ export default function UserForm() {
                   {mostrarTelefonoAdicional ? "Quitar Telefono" : "Agregar Telefono"}
                 </Button>
               </div>
-              <div className={`grid gap-3 ${mostrarTelefonoAdicional ? "grid-cols-2" : "grid-cols-1"}`}>
+              <div className={`grid gap-3 ${mostrarTelefonoAdicional ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"}`}>
                 <Input
                   label="Celular"
                   type="tel"
@@ -290,9 +291,9 @@ export default function UserForm() {
           </div>
 
           {/* ── Columna 3 — Fechas + Avatar ── */}
-          <div className="flex flex-col gap-3 p-9">
+          <div className="flex flex-col gap-3 md:col-span-2 xl:col-span-1 p-4 sm:p-9">
             {esFarmaceuta && (
-              <div className="grid grid-cols-2 gap-3 -mt-8.75">
+              <div className="grid grid-cols-2 gap-3">
                 <Input
                   type="date"
                   label="Fecha Inicio"
@@ -311,7 +312,7 @@ export default function UserForm() {
                 />
               </div>
             )}
-            <div className="bg-brand-soft/40 flex text-center items-center w-full h-full rounded-lg">
+            <div className="bg-brand-soft/40 flex text-center items-center w-full h-full rounded-lg min-h-48">
               <AvatarUploader
                 onUpload={(file) =>
                   setFormData((prev) => ({ ...prev, avatarUrl: file }))
@@ -326,7 +327,7 @@ export default function UserForm() {
         </div>
 
         {/* Botones */}
-        <div className="flex gap-6 justify-center items-center pt-8 pb-4">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 pb-4">
           {isEdit ? (
             <>
               <Button onClick={() => navigate(-1)} variant="secondary" size="sm">

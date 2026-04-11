@@ -11,11 +11,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserColumns } from "../table/UserColumns"
 import DataTable from "@/shared/components/DataTable"
-
-// Importamos el servicio que se conecta con Django
 import { getUsuarios } from "../services/usuarioService"
-
-//Importamos el servicio de autentificacion para obtener el usuario actual
 import { getUsuarioActual } from "@/features/auth/services/authService"
 
 export default function UserListPage() {
@@ -23,24 +19,16 @@ export default function UserListPage() {
   const [IsReportModalOpen, setIsReportModalOpen] = useState(false)
   const navigate = useNavigate();
 
-  //Obtenemos el usuario autenticado y verificamos su rol
   const usuarioActual = getUsuarioActual();
   const esFarmaceuta = usuarioActual?.id_rol === 3
 
-  // Estado para guardar la lista de usuarios que devuelve la API
   const [usuarios, setUsuarios] = useState([]);
-
-  // Estado para mostrar un mensaje mientras carga
   const [loading, setLoading] = useState(true);
-
-  // Estado para mostrar un mensaje si ocurre un error
   const [error, setError] = useState(null);
 
-  // Al montar el componente, cargamos los usuarios desde Django
   useEffect(() => {
     const cargarUsuarios = async () => {
       try {
-        //Si es farmaceuta solo carga clientes (id rol 6)
         const data = await getUsuarios(esFarmaceuta ? 2 : null);
         setUsuarios(data);
       } catch (err) {
@@ -54,11 +42,12 @@ export default function UserListPage() {
   }, []);
 
   return (
-    <div className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-350 h-150">
-      <Title title="Modulo de Usuarios" />
+    <div className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-full mx-4 sm:mx-6 lg:mx-8">
+      <Title title="Módulo de Usuarios" />
 
-      <div className="flex justify-between gap-6 items-center">
-        <div className="flex px-4">
+      {/* Barra de acciones */}
+      <div className="flex flex-col sm:flex-row justify-between gap-4 items-start sm:items-center">
+        <div className="flex px-2 sm:px-4">
           <Button
             variant="secondary"
             size="sm"
@@ -67,17 +56,16 @@ export default function UserListPage() {
             Regresar
           </Button>
         </div>
-        <div className="flex px-10 gap-6 items-center">
+        <div className="flex flex-col sm:flex-row px-2 sm:px-10 gap-3 sm:gap-6 items-stretch sm:items-center w-full sm:w-auto">
           <Button
             variant="primary"
             onClick={() => setIsReportModalOpen(true)}
           >
             Generar reporte
           </Button>
-          <Link className="w-40 relative inline-flex items-center justify-center rounded-xl transition-colors cursor-pointer
-                        h-10 px-4 before:absolute before:content-[''] before:-inset-y-[4px] before:-inset-x-[0px] font-main text-brand-soft font-semibold text-base bg-brand-hover hover:bg-brand-soft hover:text-brand-hover" to="/crear-usuarios">
+          <Button variant="primary" onClick={() => navigate("/crear-usuarios")}>
             Crear Usuario
-          </Link>
+          </Button>
         </div>
         <ReportConfigModal
           isOpen={IsReportModalOpen}
@@ -85,24 +73,16 @@ export default function UserListPage() {
         />
       </div>
 
-      <div className="flex gap-6">
-        <div className="w-full h-full">
-
-          {/* Mientras carga mostramos un mensaje */}
-          {loading && <p className="text-center text-gray-500">Cargando usuarios...</p>}
-
-          {/* Si ocurrió un error lo mostramos */}
-          {error && <p className="text-center text-red-500">{error}</p>}
-
-          {/* Cuando ya cargó mostramos la tabla con los datos de Django */}
-          {!loading && !error && (
-            <DataTable
-              data={usuarios}
-              columns={UserColumns}
-            />
-          )}
-
-        </div>
+      {/* Tabla */}
+      <div className="w-full overflow-x-auto">
+        {loading && <p className="text-center text-gray-500">Cargando usuarios...</p>}
+        {error && <p className="text-center text-red-500">{error}</p>}
+        {!loading && !error && (
+          <DataTable
+            data={usuarios}
+            columns={UserColumns}
+          />
+        )}
       </div>
     </div>
   );
