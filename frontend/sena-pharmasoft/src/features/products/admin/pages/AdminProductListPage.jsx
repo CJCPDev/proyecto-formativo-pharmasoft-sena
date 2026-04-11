@@ -2,7 +2,7 @@
 import DataTable from "@/shared/components/DataTable";
 
 // Definición de las columnas que se mostrarán en la tabla de productos
-import { ProductsColumns } from "../../table/ProductsColumns";
+import { getProductsColumns } from "../../table/ProductsColumns";
 
 // Componentes de UI reutilizables del sistema de diseño
 import { Button, Title } from "@/shared/components";
@@ -47,7 +47,7 @@ export default function AdminProductListPage() {
 
   return (
     <div className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-350 h-150">
-      <Title title="Modulo de Medicamentos" />
+      <Title title="Módulo de Medicamentos" />
 
       {/* Barra de acciones: botones de navegación y acciones principales */}
       <div className="flex justify-between gap-6 items-center">
@@ -87,7 +87,7 @@ export default function AdminProductListPage() {
       <div className="w-full overflow-x-auto">
         {/* <div className="w-full h-full"> */}
           {/* DataTable recibe los datos y las columnas para renderizar la tabla */}
-          <DataTable data={products} columns={ProductsColumns} />
+          <DataTable data={products} columns={getProductsColumns(cargarProductos)} />
         </div>
       {/* </div> */}
     </div>

@@ -151,12 +151,24 @@ export default function AdminProductForm() {
     const { name, value } = e.target;
 
     if (name === "formaFarmaceutica") {
-      // Al cambiar la forma farmacéutica, reseteamos la subforma porque las
-      // opciones anteriores ya no son válidas para la nueva forma seleccionada
-      setFormData((prev) => ({ ...prev, [name]: value, subformaFarmaceutica: "" }));
+      // Mantienes tu lógica original
+      setFormData((prev) => ({ 
+        ...prev, 
+        [name]: value, 
+        subformaFarmaceutica: "" 
+      }));
+    } else if (name === "precioCosto" || name === "precioVenta") {
+      // Guardas como número para poder formatear después
+      setFormData((prev) => ({ 
+        ...prev, 
+        [name]: value === "" ? "" : parseFloat(value) 
+      }));
     } else {
-      // Para cualquier otro campo, simplemente actualizamos su valor en el estado
-      setFormData((prev) => ({ ...prev, [name]: value }));
+      // Todo lo demás igual que antes
+      setFormData((prev) => ({ 
+        ...prev, 
+        [name]: value 
+      }));
     }
   };
 
@@ -275,21 +287,22 @@ export default function AdminProductForm() {
             <Select label="Vía de administración" name="viaAdministracion" value={formData.viaAdministracion} options={administrationTypes} onChange={handleChange} error={errors.viaAdministracion} />
             <Select label="Laboratorio" name="laboratorio" value={formData.laboratorio} options={laboratoriesTypes} onChange={handleChange} error={errors.laboratorio} />
             <Input label="Concentración" name="concentracion" value={formData.concentracion} onChange={handleChange} placeholder="Concentración" error={errors.concentracion} />
-            <Select label="Proveedor" name="proveedor" value={formData.proveedor} options={suppliers} onChange={handleChange} error={errors.proveedor} />
+            
           </div>
 
           {/* Columna 2: datos de inventario y precios */}
-          <div className="flex flex-col gap-5 z-10">
+          <div className="flex flex-col gap-5">
             <Input label="Lote" name="lote" value={formData.lote} onChange={handleChange} placeholder="Lote" error={errors.lote} />
-            <Input className="z-10" label="Fecha fabricación" type="date" name="fechaFabricacion" value={formData.fechaFabricacion} onChange={handleChange} error={errors.fechaFabricacion} />
-            <Input className="z-10" label="Fecha vencimiento" type="date" name="fechaVencimiento" value={formData.fechaVencimiento} onChange={handleChange} error={errors.fechaVencimiento} />
+            <Input className="z-10" label="Fecha de fabricación" type="date" name="fechaFabricacion" value={formData.fechaFabricacion} onChange={handleChange} error={errors.fechaFabricacion} />
+            <Input className="z-10" label="Fecha de vencimiento" type="date" name="fechaVencimiento" value={formData.fechaVencimiento} onChange={handleChange} error={errors.fechaVencimiento} />
             <Input label="Stock" name="stock" value={formData.stock} onChange={handleChange} placeholder="Stock" error={errors.stock} />
-            <Input label="Precio costo" name="precioCosto" value={formData.precioCosto} onChange={handleChange} placeholder="Precio costo" error={errors.precioCosto} />
-            <Input label="Precio venta" name="precioVenta" value={formData.precioVenta} onChange={handleChange} placeholder="Precio venta" error={errors.precioVenta} />
+            <Input label="Precio de costo" name="precioCosto" value={formData.precioCosto} onChange={handleChange} placeholder="Precio costo" error={errors.precioCosto} />
+            <Input label="Precio de venta" name="precioVenta" value={formData.precioVenta} onChange={handleChange} placeholder="Precio venta" error={errors.precioVenta} />
           </div>
 
           {/* Columna 3: estado, descripción e imagen */}
           <div className="flex flex-col gap-6">
+            <Select label="Proveedor" name="proveedor" value={formData.proveedor} options={suppliers} onChange={handleChange} error={errors.proveedor} />
             <Input label="Requiere fórmula" name="requiresPrescription" value={formData.requiresPrescription} onChange={handleChange} placeholder="Requiere fórmula" error={errors.requiresPrescription} />
             <Select label="Estado" name="estado" value={formData.estado} options={statesTypes} onChange={handleChange} error={errors.estado} />
             <Input label="Descripción" name="description" value={formData.description} onChange={handleChange} placeholder="Descripción" error={errors.description} />

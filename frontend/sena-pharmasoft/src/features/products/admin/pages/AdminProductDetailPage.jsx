@@ -59,21 +59,21 @@ export default function AdminProductDetailPage() {
             <Input label="Vía de administración" value={medicamento.nombre_via_administracion ?? ""} readOnly />
             <Input label="Laboratorio" value={medicamento.nombre_laboratorio ?? ""} readOnly />
             <Input label="Concentración" value={medicamento.concentracion ?? ""} readOnly />
-            <Input label="Proveedor" value={medicamento.nombre_proveedor ?? ""} readOnly />
           </div>
 
           {/* Columna 2: datos de inventario y precios */}
           <div className="flex flex-col gap-6">
             <Input label="Lote" value={medicamento.lote ?? ""} readOnly />
-            <Input label="Fecha fabricación" type="date" value={medicamento.fecha_fabricacion ?? ""} readOnly />
-            <Input label="Fecha vencimiento" type="date" value={medicamento.fecha_vencimiento ?? ""} readOnly />
+            <Input label="Fecha de fabricación" type="date" value={medicamento.fecha_fabricacion ?? ""} readOnly />
+            <Input label="Fecha de vencimiento" type="date" value={medicamento.fecha_vencimiento ?? ""} readOnly />
             <Input label="Stock" value={medicamento.stock ?? ""} readOnly />
-            <Input label="Precio costo" value={medicamento.precio_compra ?? ""} readOnly />
-            <Input label="Precio venta" value={medicamento.precio_venta ?? ""} readOnly />
+            <Input label="Precio de costo" value={medicamento.precio_compra ?? ""} readOnly />
+            <Input label="Precio de venta" value={medicamento.precio_venta ?? ""} readOnly />
           </div>
 
           {/* Columna 3: estado, prescripción, descripción e imagen */}
           <div className="flex flex-col gap-6">
+            <Input label="Proveedor" value={medicamento.nombre_proveedor ?? ""} readOnly />
             <Input label="Requiere fórmula" value={medicamento.requiere_formula ?? ""} readOnly />
             <Input label="Estado" value={medicamento.nombre_estado ?? ""} readOnly />
             <Input label="Descripción" value={medicamento.descripcion ?? ""} readOnly />

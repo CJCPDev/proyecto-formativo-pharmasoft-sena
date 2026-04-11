@@ -1,75 +1,15 @@
-// // Importaciones al inicio del archivo
-// import StatusSwitch from "../../../shared/components/StatusSwitch"; 
-// import ProductsRowActions from "../components/ProductsRowActions";
-
-// export const ProductsColumns = [
-//   {
-//     accessorKey: "id_medicamento",
-//     header: "Id",
-//   },
-//   {
-//     accessorKey: "nombre_medicamento",
-//     header: "Nombre de medicamento",
-//   },
-//   {
-//     accessorKey: "nombre_forma_farmaceutica",
-//     header: "Forma Farmacéutica",
-//   },
-//   {
-//     accessorKey: "concentracion",
-//     header: "Concentración",
-//   },
-//   {
-//     accessorKey: "nombre_via_administracion",
-//     header: "Vía de Administración",
-//   },
-//   {
-//     accessorKey: "stock",
-//     header: "Stock",
-//   },
-//   {
-//     accessorKey: "fecha_vencimiento",
-//     header: "Fecha de vencimiento",
-//   },
-//   {
-//     accessorKey: "precio_venta",
-//     header: "Precio de venta",
-//   },
-//   {
-//     accessorKey: "nombre_estado",
-//     header: "Estado",
-//     cell: ({ row }) => {
-//       const producto = row.original;
-//       const handleChange = (value) => {
-//         console.log("Actualizar estado producto:", producto.id_medicamento, value);
-//       };
-//       return (
-//         <StatusSwitch
-//           checked={producto.nombre_estado === "Activo"}
-//           onChange={handleChange}
-//         />
-//       );
-//     },
-//   },
-//   {
-//     id: "actions",
-//     header: "Acciones",
-//     cell: ({ row }) => <ProductsRowActions products={row.original} />,
-//   },
-// ];
 // Componente switch reutilizable para activar o desactivar el estado del medicamento
 import StatusSwitch from "../../../shared/components/StatusSwitch";
 
 // Componente con los botones de acción (editar, ver detalle) de cada fila
 import ProductsRowActions from "../components/ProductsRowActions";
 
-// Define las columnas de la tabla de medicamentos.
-// Este array es consumido por el componente DataTable para construir la tabla.
-// Cada objeto representa una columna con su campo de datos y su encabezado.
-export const ProductsColumns = [
+// Se exporta como función en lugar de array para poder recibir fetchMedicamentos
+// como parámetro y recargar la tabla después de cambiar el estado
+export const getProductsColumns = (fetchMedicamentos) => [
   {
-    accessorKey: "id_medicamento",       // Campo del objeto de datos que se muestra
-    header: "Id",                         // Texto del encabezado de la columna
+    accessorKey: "id_medicamento",
+    header: "Id",
   },
   {
     accessorKey: "nombre_medicamento",
@@ -77,7 +17,7 @@ export const ProductsColumns = [
   },
   {
     accessorKey: "nombre_forma_farmaceutica",
-    header: "Forma Farmacéutica",
+    header: "Forma farmacéutica",
   },
   {
     accessorKey: "concentracion",
@@ -85,7 +25,7 @@ export const ProductsColumns = [
   },
   {
     accessorKey: "nombre_via_administracion",
-    header: "Vía de Administración",
+    header: "Vía de administración",
   },
   {
     accessorKey: "stock",
@@ -102,20 +42,31 @@ export const ProductsColumns = [
   {
     accessorKey: "nombre_estado",
     header: "Estado",
-    // Columna con celda personalizada: en lugar de texto muestra un switch
+    // Columna con celda personalizada: muestra un switch en lugar de texto
     cell: ({ row }) => {
       const producto = row.original; // Objeto completo del medicamento en esta fila
 
-      // Aquí iría la llamada a la API para persistir el cambio de estado en el servidor
-      const handleChange = (value) => {
-        console.log("Actualizar estado producto:", producto.id_medicamento, value);
+      // Llama a la API para persistir el cambio de estado y recarga la tabla
+      const handleChange = async (value) => {
+        try {
+          await fetch(`http://127.0.0.1:8000/api/medicamentos/${producto.id_medicamento}/estado`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            // 1 = Activo, 2 = Inactivo según los ids de la tabla estados_medicamento
+            body: JSON.stringify({ id_estado: value ? 1 : 2 })
+          });
+          // Recargamos la tabla para reflejar el nuevo estado
+          fetchMedicamentos();
+        } catch (error) {
+          console.error("Error al actualizar estado:", error);
+        }
       };
 
       return (
         // El switch se marca como activo si el estado del medicamento es "Activo"
         <StatusSwitch
           checked={producto.nombre_estado === "Activo"}
-          onChange={handleChange}
+          onChange={(checked) => handleChange(checked)}
         />
       );
     },
