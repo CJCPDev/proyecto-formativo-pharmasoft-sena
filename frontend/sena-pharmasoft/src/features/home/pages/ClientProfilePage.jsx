@@ -4,10 +4,8 @@
 // Permite editar correo, teléfono y dirección
 // ─────────────────────────────────────────────
 import HomeNavbar from "../components/HomeNavbar";
-import { CardsMedicine } from "@/features/dashboard";
 import Footer from "../../../shared/layout/Footer";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Title, Input, Button } from "@/shared/components";
 import { getUsuarioActual } from "@/features/auth/services/authService";
 import {
@@ -16,7 +14,6 @@ import {
 } from "@/features/users/services/usuarioService";
 
 export default function ClientProfilePage() {
-  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -70,7 +67,10 @@ export default function ClientProfilePage() {
       setIsEditing(false);
       setTimeout(() => setExito(false), 3000);
     } catch (error) {
-      setError("Ups... ha ocurrido un error actualizando tu perfil intenta de nuevo", error);
+      setError(
+        "Ups... ha ocurrido un error actualizando tu perfil intenta de nuevo",
+        error,
+      );
     } finally {
       setSaving(false);
     }
@@ -80,23 +80,22 @@ export default function ClientProfilePage() {
 
   return (
     <div className="grid w-full items-start">
-        <div className="mb-2">
-          <HomeNavbar />
+      <div className="mb-2">
+        <HomeNavbar />
+      </div>
+      {error && (
+        <div className="relative">
+          <p className=" absolute p-3 bg-brand-soft w-120 h-12 right-0 text-center font-main text-current rounded-4xl text-brand-fort">
+            {error}
+          </p>
         </div>
-          {error && 
-          <div className="relative">
-              <p className=" absolute p-3 bg-brand-soft w-120 h-12 right-0 text-center font-main text-current rounded-4xl text-brand-fort">{error}</p>
-
-          </div>
-          
-          }
+      )}
       <div className="grid mx-auto bg-white rounded-xl shadow-2xl p-8 w-full max-w-lg gap-6 mt-8">
         {/* Modal de autenticación */}
 
         <div>
           {/* Botón regresar y título */}
           <div className="flex items-center gap-4 justify-center">
-
             <Title title="Mi perfil" />
           </div>
 
@@ -212,7 +211,6 @@ export default function ClientProfilePage() {
         </div>
       </div>
 
-      <div className="flex pt-8"></div>
       <Footer />
     </div>
   );

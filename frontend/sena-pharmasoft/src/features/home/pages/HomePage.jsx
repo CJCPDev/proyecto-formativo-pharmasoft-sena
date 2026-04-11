@@ -34,7 +34,7 @@ export default function HomePage() {
           onOpenRegister={() => setOpenLogin(true)}
           setOpenLogin={setOpenLogin}
           setShouldOpenCart={setShouldOpenCart}
-          shouldOpenCart={shouldOpenCart}  
+          shouldOpenCart={shouldOpenCart}
           onSearch={setSearchQuery}
         />
       </div>

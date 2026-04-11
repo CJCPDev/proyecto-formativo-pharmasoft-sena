@@ -1,0 +1,6 @@
+[
+    { "id": 1, "label": "Efectivo" },
+    { "id": 2, "label": "Tarjeta débito" },
+    { "id": 3, "label": "Tarjeta crédito" },
+    { "id": 4, "label": "Transferencia" }
+]
