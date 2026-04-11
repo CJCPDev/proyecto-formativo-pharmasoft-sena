@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { PaymentForm, PaymentResult, PaymentSummary, HomeNavbar } from "@/features/home";
+import { CreditCardPayment, PaymentResult, PaymentSummary, HomeNavbar } from "@/features/home";
 import { Home } from "lucide-react";
 
 export default function CarSellHome() {
@@ -22,7 +22,7 @@ export default function CarSellHome() {
 
 
       <div className="grid grid-cols-2">
-        <PaymentForm total={total} onSuccess={setResult} />
+        <CreditCardPayment total={total} onSuccess={setResult} />
         <PaymentResult result={result} />
       <PaymentSummary products={products} total={total} />
       </div>

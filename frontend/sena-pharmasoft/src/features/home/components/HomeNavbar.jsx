@@ -162,9 +162,12 @@ const Navbar = ({
                 )}
               </div>
 
-              {/* CARRITO */}
-              <button onClick={() => setIsCartOpen(true)} className="relative">
-                <ShoppingCart className="size-6 md:size-7 stroke-2 stroke-brand-hover cursor-pointer" />
+              {/* ICONO CARRITO CON CONTADOR */}
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative"
+              >
+                <ShoppingCart className="size-7 stroke-2 stroke-brand-hover cursor-pointer" />
                 {totalProductos > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {totalProductos}
