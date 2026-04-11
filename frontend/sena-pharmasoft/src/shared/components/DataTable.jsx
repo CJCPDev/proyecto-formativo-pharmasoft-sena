@@ -137,7 +137,8 @@ export default function DataTable({ data = [], columns }) {
       </div>
 
       {/* ================== FOOTER ================== */}
-      <div className="flex items-center justify-between mt-2">
+      {/* <div className="flex items-center justify-between mt-2"> */}
+      <div className="flex flex-col sm:flex-row items-center justify-between mt-2 gap-2">
         {/* ================== INFORMACIÓN ================== */}
         {/* Cantidad de registros visibles */}
         <span className="text-sm text-gray-600">
@@ -146,7 +147,8 @@ export default function DataTable({ data = [], columns }) {
         </span>
 
         {/* ================== CONTROLES DE PAGINACIÓN ================== */}
-        <div className="flex items-center gap-4">
+        {/* <div className="flex items-center gap-4"> */}
+        <div className="flex flex-wrap items-center justify-center gap-2">
           {/* Ir a la primera página */}
           <Button
             size="sm"

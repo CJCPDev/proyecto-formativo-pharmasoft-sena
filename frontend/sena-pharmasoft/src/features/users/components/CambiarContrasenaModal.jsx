@@ -90,7 +90,7 @@ export default function CambiarContrasenaModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-xl shadow-xl w-96 flex flex-col">
+      <div className="bg-white rounded-xl shadow-xl w-full max-w-sm mx-4 flex flex-col max-h-[90vh] overflow-y-auto">
 
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">

@@ -57,6 +57,7 @@ import CartListPage from "../../features/cart/pages/CartListPage";
 import CreateCartPage from "../../features/cart/pages/CreateCartPage";
 import EditCartPage from "../../features/cart/pages/EditCartPage";
 import DetailCartPage from "../../features/cart/pages/DetailCartPage";
+import PasarelaPage from "../../features/home/pages/PasarelaPage";
 
 const router = createBrowserRouter([
     {
@@ -66,6 +67,14 @@ const router = createBrowserRouter([
     {
     path: "/CarSellHome",
     element: <CarSellHome/>,
+    },
+    {
+    path: "/pasarela",
+    element: (
+        <ProtectedRoute rolesPermitidos={[2]}>
+            <PasarelaPage />
+        </ProtectedRoute>
+        ),
     },
     {
     path: "ver-card/:id_medicamento",

@@ -1,7 +1,7 @@
 // ─────────────────────────────────────────────
 // CartForm.jsx
 // Formulario con información general del carrito
-// Búsqueda de cliente en tiempo real
+// Búsqueda de cliente y medicamentos en tiempo real
 // ─────────────────────────────────────────────
 
 import { useState, useEffect } from "react";
@@ -23,61 +23,60 @@ export default function CartForm({ onAddProduct, onCartDataChange, products = []
     estado: "activo",
   });
 
+  // ── Estados búsqueda cliente ──
   const [busquedaCliente, setBusquedaCliente] = useState("");
   const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
   const [clientesEncontrados, setClientesEncontrados] = useState([]);
   const [todosLosClientes, setTodosLosClientes] = useState([]);
 
+  // ── Estados medicamento ──
   const [nuevoMedicamento, setNuevoMedicamento] = useState({
     id_medicamento: "",
     cantidad: "",
     precio_unitario: "",
   });
+  const [todosMedicamentos, setTodosMedicamentos] = useState([]);
+  const [medicamentosEncontrados, setMedicamentosEncontrados] = useState([]);
+  const [busquedaMedicamento, setBusquedaMedicamento] = useState("");
+  const [medicamentoSeleccionado, setMedicamentoSeleccionado] = useState(null);
 
-  // Al inicio del componente agrega estos estados
-const [todosMedicamentos, setTodosMedicamentos] = useState([]);
-const [medicamentosEncontrados, setMedicamentosEncontrados] = useState([]);
-const [busquedaMedicamento, setBusquedaMedicamento] = useState("");
-const [medicamentoSeleccionado, setMedicamentoSeleccionado] = useState(null);
+  // ── Carga todos los medicamentos al montar ──
+  useEffect(() => {
+    const cargarMedicamentos = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/medicamentos/`);
+        setTodosMedicamentos(response.data);
+      } catch (error) {
+        console.error("Error al cargar medicamentos:", error);
+      }
+    };
+    cargarMedicamentos();
+  }, []);
 
-// Carga todos los medicamentos al montar
-useEffect(() => {
-  const cargarMedicamentos = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/medicamentos/`);
-      setTodosMedicamentos(response.data);
-    } catch (error) {
-      console.error("Error al cargar medicamentos:", error);
+  // ── Filtra medicamentos mientras el usuario escribe ──
+  useEffect(() => {
+    if (!busquedaMedicamento.trim()) {
+      setMedicamentosEncontrados([]);
+      return;
     }
-  };
-  cargarMedicamentos();
-}, []);
+    const filtrados = todosMedicamentos.filter((m) =>
+      m.nombre_medicamento.toLowerCase().includes(busquedaMedicamento.toLowerCase())
+    );
+    setMedicamentosEncontrados(filtrados);
+  }, [busquedaMedicamento, todosMedicamentos]);
 
-// Filtra medicamentos mientras el usuario escribe
-useEffect(() => {
-  if (!busquedaMedicamento.trim()) {
+  const handleSeleccionarMedicamento = (medicamento) => {
+    setMedicamentoSeleccionado(medicamento);
+    setBusquedaMedicamento("");
     setMedicamentosEncontrados([]);
-    return;
-  }
-  const filtrados = todosMedicamentos.filter((m) =>
-    m.nombre_medicamento.toLowerCase().includes(busquedaMedicamento.toLowerCase())
-  );
-  setMedicamentosEncontrados(filtrados);
-}, [busquedaMedicamento, todosMedicamentos]);
+    setNuevoMedicamento((prev) => ({
+      ...prev,
+      id_medicamento: medicamento.id_medicamento,
+      precio_unitario: medicamento.precio_venta,
+    }));
+  };
 
-const handleSeleccionarMedicamento = (medicamento) => {
-  setMedicamentoSeleccionado(medicamento);
-  setBusquedaMedicamento("");
-  setMedicamentosEncontrados([]);
-  // Seteamos el precio automáticamente desde la BD
-  setNuevoMedicamento((prev) => ({
-    ...prev,
-    id_medicamento: medicamento.id_medicamento,
-    precio_unitario: medicamento.precio_venta,
-  }));
-};
-
-  // Carga todos los clientes al montar el componente
+  // ── Carga todos los clientes al montar ──
   useEffect(() => {
     const cargarClientes = async () => {
       try {
@@ -90,7 +89,7 @@ const handleSeleccionarMedicamento = (medicamento) => {
     cargarClientes();
   }, []);
 
-  // Filtra los clientes mientras el usuario escribe
+  // ── Filtra los clientes mientras el usuario escribe ──
   useEffect(() => {
     if (!busquedaCliente.trim()) {
       setClientesEncontrados([]);
@@ -132,35 +131,8 @@ const handleSeleccionarMedicamento = (medicamento) => {
     }
   };
 
-  // const handleAgregarProducto = () => {
-  //   const { id_medicamento, cantidad, precio_unitario } = nuevoMedicamento;
-  //   if (!id_medicamento || !cantidad || !precio_unitario) return;
-
-  //   const subtotal = parseFloat(cantidad) * parseFloat(precio_unitario);
-  //   const listaProductos = Array.isArray(products) ? products : [];
-  //   const existente = listaProductos.find(p => String(p.id_medicamento) === String(id_medicamento));
-
-  //   if (existente) {
-  //     onAddProduct({
-  //       ...existente,
-  //       cantidad: existente.cantidad + parseInt(cantidad),
-  //       subtotal: (existente.cantidad + parseInt(cantidad)) * parseFloat(precio_unitario),
-  //       _actualizar: true
-  //     });
-  //   } else {
-  //     onAddProduct({
-  //       id: Date.now(),
-  //       id_medicamento,
-  //       nombre_medicamento: `Medicamento #${id_medicamento}`,
-  //       cantidad: parseInt(cantidad),
-  //       precio_unitario: parseFloat(precio_unitario),
-  //       subtotal,
-  //     });
-  //   }
-
-  //   setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
-  // };
-
+  // ── Agrega el producto a la lista local ──
+  // La validación de stock se hace en el backend al guardar
   const handleAgregarProducto = () => {
     const { id_medicamento, cantidad, precio_unitario } = nuevoMedicamento;
     if (!id_medicamento || !cantidad || !precio_unitario) return;
@@ -180,16 +152,15 @@ const handleSeleccionarMedicamento = (medicamento) => {
       onAddProduct({
         id: Date.now(),
         id_medicamento,
-        nombre_medicamento: medicamentoSeleccionado?.nombre_medicamento || `Medicamento #${id_medicamento}`, // 👈 usar nombre real
+        nombre_medicamento: medicamentoSeleccionado?.nombre_medicamento || `Medicamento #${id_medicamento}`,
         cantidad: parseInt(cantidad),
         precio_unitario: parseFloat(precio_unitario),
         subtotal,
       });
     }
 
-    // Limpiamos todo después de agregar
     setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
-    setMedicamentoSeleccionado(null); // limpiar medicamento seleccionado
+    setMedicamentoSeleccionado(null);
   };
 
   return (
@@ -200,7 +171,6 @@ const handleSeleccionarMedicamento = (medicamento) => {
       <div className="border rounded-lg p-3 grid gap-3">
         <h3 className="font-semibold text-brand-hover">Buscar cliente</h3>
 
-        {/* Cliente seleccionado */}
         {clienteSeleccionado && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-3 flex justify-between items-center">
             <div>
@@ -216,7 +186,6 @@ const handleSeleccionarMedicamento = (medicamento) => {
           </div>
         )}
 
-        {/* Input de búsqueda */}
         {!clienteSeleccionado && (
           <>
             <Input
@@ -225,8 +194,6 @@ const handleSeleccionarMedicamento = (medicamento) => {
               value={busquedaCliente}
               onChange={(e) => setBusquedaCliente(e.target.value)}
             />
-
-            {/* Resultados en tiempo real */}
             {clientesEncontrados.length > 0 && (
               <div className="border rounded-lg overflow-hidden max-h-40 overflow-y-auto">
                 {clientesEncontrados.map((cliente) => (
@@ -241,8 +208,6 @@ const handleSeleccionarMedicamento = (medicamento) => {
                 ))}
               </div>
             )}
-
-            {/* Sin resultados */}
             {busquedaCliente && clientesEncontrados.length === 0 && (
               <p className="text-sm text-gray-500 text-center">No se encontraron clientes</p>
             )}
@@ -276,7 +241,6 @@ const handleSeleccionarMedicamento = (medicamento) => {
       <div className="border rounded-lg p-3 grid gap-3">
         <h3 className="font-semibold text-brand-hover">Agregar medicamento</h3>
 
-        {/* Medicamento seleccionado */}
         {medicamentoSeleccionado ? (
           <div className="bg-green-50 border border-green-200 rounded-lg p-3 flex justify-between items-center">
             <div>
@@ -332,7 +296,6 @@ const handleSeleccionarMedicamento = (medicamento) => {
         />
         <Input
           label="Precio unitario"
-          // type="number"
           name="precio_unitario"
           placeholder="Precio unitario"
           min="0"

@@ -25,7 +25,7 @@ const CardUser = ({ user }) => {
   const inicial = name?.charAt(0).toUpperCase();
 
   return (
-    <section className="flex flex-col gap-6 w-175 px-4 py-6 font-main">
+    <section className="flex flex-col gap-6 w-full max-w-2xl mx-auto px-4 py-6 font-main">
 
       <Title title="Ver Usuario" />
 
@@ -35,7 +35,7 @@ const CardUser = ({ user }) => {
           <img
             src={avatarUrl.startsWith("/media") ? `http://localhost:8000${avatarUrl}` : avatarUrl}
             alt={name}
-            className="w-24 h-24 rounded-full object-cover border-2 border-brand-soft flex-shrink-0"
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-brand-soft flex-shrink-0"
           />
         ) : (
           <div className="w-16 h-16 rounded-full bg-brand-soft flex items-center justify-center text-2xl font-semibold text-brand-hover flex-shrink-0">
@@ -52,7 +52,7 @@ const CardUser = ({ user }) => {
       </div>
 
       {/* ── Grid de campos ── */}
-      <dl className="grid grid-cols-2 gap-x-4 gap-y-4 font-main">
+      <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4 font-main">
 
         <div className="flex flex-col gap-1">
           <dt className="px-1 text-xs uppercase tracking-wide text-text-mute">Tipo de documento</dt>
@@ -83,7 +83,7 @@ const CardUser = ({ user }) => {
         </div>
 
         {/* Dirección ocupa las 2 columnas */}
-        <div className="flex flex-col gap-1 col-span-2">
+        <div className="flex flex-col gap-1 col-span-1 sm:col-span-2">
           <dt className="px-1 text-xs uppercase tracking-wide text-text-mute">Dirección</dt>
           <dd className="min-h-10 h-auto w-full bg-brand-soft px-4 py-2.5 rounded-xl flex items-center text-sm">
             {direccion}
@@ -93,7 +93,7 @@ const CardUser = ({ user }) => {
       </dl>
 
       {/* ── Acciones ── */}
-      <div className="flex gap-4 justify-center items-center pt-2">
+      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
         <Button variant="secondary" size="sm" onClick={() => navigate(-1)}>
           Regresar
         </Button>

@@ -111,7 +111,7 @@ export default function PermisosModal({ isOpen, onClose, onSave, userId, userGro
   return (
     <>
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-        <div className="bg-white rounded-xl shadow-xl w-2/3 max-h-[80vh] flex flex-col">
+        <div className="bg-white rounded-xl shadow-xl w-full max-w-2xl mx-4 max-h-[80vh] flex flex-col">
 
           {/* Header */}
           <div className="flex justify-between items-center p-6 border-b">
@@ -138,7 +138,7 @@ export default function PermisosModal({ isOpen, onClose, onSave, userId, userGro
                 </div>
 
                 {/* Lista de permisos */}
-                <div className="grid grid-cols-2 gap-2 pl-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pl-4">
                   {group.permissions.map((permission) => (
                     <div
                       key={permission.id}
@@ -186,7 +186,7 @@ export default function PermisosModal({ isOpen, onClose, onSave, userId, userGro
       {/* Modal de confirmación para permisos extra */}
       {showConfirmacion && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded-xl shadow-xl p-6 w-96 flex flex-col gap-4">
+          <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm mx-4 flex flex-col gap-4">
 
             <h3 className="text-lg font-bold text-brand-hover text-center">
               ¿Confirmar permisos extra?

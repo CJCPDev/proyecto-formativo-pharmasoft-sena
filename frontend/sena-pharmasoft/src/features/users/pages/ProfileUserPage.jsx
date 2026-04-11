@@ -34,7 +34,7 @@ export default function ProfileUserPage() {
   }, [id]);
 
   return (
-    <div className="relative bg-white rounded-xl shadow-2xl">
+    <div className="relative bg-white rounded-xl shadow-2xl p-4 max-w-7xl mx-auto">
       {loading && <p className="text-center p-8 text-gray-500">Cargando usuario...</p>}
       {error && <p className="text-center p-8 text-red-500">{error}</p>}
       {user && <CardUser user={user} />}
