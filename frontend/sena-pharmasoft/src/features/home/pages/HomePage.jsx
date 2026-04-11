@@ -19,7 +19,24 @@ export default function HomePage() {
   };
 
   return (
-    <div className="grid bg-brand-soft/10">
+  <div>
+    <div className="relative w-full overflow-x-hidden bg-brand-soft/10">
+      <HomeNavbar
+        key={contadorKey}
+        onOpenRegister={() => setOpenLogin(true)}
+        setOpenLogin={setOpenLogin}
+        setShouldOpenCart={setShouldOpenCart}
+        shouldOpenCart={shouldOpenCart}  
+        onSearch={setSearchQuery}
+      />
+      <Carousel />
+      <div className="flex pt-8">
+        <CardsMedicine
+          onProductoAgregado={handleProductoAgregado}
+          searchQuery={searchQuery}
+        />
+      </div>
+    </div>
       {/* Modal de autenticación */}
       <AuthModal
         openLogin={openLogin}
@@ -27,30 +44,7 @@ export default function HomePage() {
         setOpenLogin={setOpenLogin}
         setOpenRegister={setOpenRegister}
       />
-
-      <div className="mb-2">
-        <HomeNavbar
-          key={contadorKey}
-          onOpenRegister={() => setOpenLogin(true)}
-          setOpenLogin={setOpenLogin}
-          setShouldOpenCart={setShouldOpenCart}
-          shouldOpenCart={shouldOpenCart}
-          onSearch={setSearchQuery}
-          showSearch={false}
-        />
-      </div>
-
-      <div>
-        <Carousel />
-      </div>
-
-      <div className="flex pt-8">
-        <CardsMedicine
-          onProductoAgregado={handleProductoAgregado}
-          searchQuery={searchQuery}
-        />
-      </div>
       <Footer />
-    </div>
+  </div>
   );
 }

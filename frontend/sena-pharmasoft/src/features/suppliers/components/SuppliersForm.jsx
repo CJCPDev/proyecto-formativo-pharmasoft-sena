@@ -147,17 +147,11 @@ export default function SuppliersForm (){
             {/* Formulario para crear proveedores */}
             <form
                 onSubmit={handleSubmit} 
-                className="flex flex-col gap-6 w-175 px-4 py-6 font-main"  
+                className="flex flex-col gap-6 w-full md:w-175 px-4 py-6 font-main"  
             >
                 {isEdit ? <Title title="Editar proveedor"/> : <Title title="Crear proveedor"/> }
-                
-
-
-    {/*             <h1 className="w-full text-center text-text-primary font-bold text-3xl">
-                    Crear Proveedor
-                </h1> */}
-
-                <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+            
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
                     
                     <Input
                     label="NIT"
