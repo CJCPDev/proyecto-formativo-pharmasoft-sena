@@ -290,12 +290,11 @@ const router = createBrowserRouter([
                     },
                 ],
             },
-    {
+    
     {
     //Login con rutas completo
     element: <AuthLayout />,
     children: [
-        {
         {
         path: "perfil",
         element: <AuthLayout />,
@@ -330,7 +329,7 @@ const router = createBrowserRouter([
         path: "validationPassword",
         element: <ConfirmationPassword />,
         },
-        },
+        
     ],
     },
 
