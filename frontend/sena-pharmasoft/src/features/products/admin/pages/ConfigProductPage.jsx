@@ -1,17 +1,18 @@
+// useState maneja el estado del switch de activación
 import { useState } from "react";
-import { StatusSwitch } from "@/shared/components";
 
+// Componente reutilizable que renderiza un interruptor de estado activo/inactivo
+import { StatusSwitch } from "@/shared/components";
 
 export default function ConfigProductPage() {
 
-    // Estado que controla el switch
+  // Controla si el producto está activo o inactivo. Inicia en true (activo por defecto)
     const [isActive, setIsActive] = useState(true);
 
-    // Maneja el cambio enviado desde el switch
+    // Recibe el nuevo valor desde el switch y actualiza el estado.
+    // Aquí se conectaría la llamada a la API para persistir el cambio en el servidor.
     const handleStatusChange = (value) => {
         setIsActive(value);
-
-        // aquí normalmente iría una llamada a API
         console.log("Nuevo estado:", value);
     };
 
@@ -22,9 +23,10 @@ export default function ConfigProductPage() {
             Configuración de Producto
         </h2>
 
-        {/* Fila de configuración */}
+        {/* Fila que muestra la opción de configuración con su switch a la derecha */}
         <div className="flex items-center justify-between border p-4 rounded-lg">
 
+            {/* Texto descriptivo de la opción */}
             <div>
             <p className="font-medium">Producto activo</p>
             <p className="text-sm text-gray-500">
@@ -32,7 +34,7 @@ export default function ConfigProductPage() {
             </p>
             </div>
 
-            {/* Switch reutilizable */}
+            {/* Switch que refleja el estado actual y notifica los cambios al padre */}
             <StatusSwitch
             checked={isActive}
             onChange={handleStatusChange}
@@ -40,6 +42,6 @@ export default function ConfigProductPage() {
             />
 
         </div>
-    </div>
-
-)};
+        </div>
+    );
+    }

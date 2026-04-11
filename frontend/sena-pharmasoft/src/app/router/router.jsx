@@ -49,7 +49,6 @@ import CreateProductPage from "../../features/products/admin/pages/CreateProduct
 import AdminProductListPage from "../../features/products/admin/pages/AdminProductListPage";
 import AdminProductDetailPage from "../../features/products/admin/pages/AdminProductDetailPage";
 import ProductsEditPage from "../../features/products/admin/pages/ProductsEditPage";
-import AdminProductReportPage from "../../features/products/admin/pages/AdminProductReportPage";
 import DetailProductPage from "@/features/products/pages/DetailProductPage";
 
 //Imports de carritos
@@ -169,14 +168,6 @@ const router = createBrowserRouter([
                         element: (
                             <ProtectedRoute>
                                 <ProductsEditPage/>
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "generar-reporte",
-                        element: (
-                            <ProtectedRoute>
-                                <AdminProductReportPage/>
                             </ProtectedRoute>
                         )
                     },
