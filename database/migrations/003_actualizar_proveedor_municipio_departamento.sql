@@ -411,6 +411,17 @@ ALTER TABLE `municipio`
 -- Con id_proveedor, nit, id_municipio y estado como tinyint.
 -- ============================================================
 
+-- ============================================================
+--  FIX PROVEEDORES - PHARMASOFT
+--  Ejecutar este script si ya tienes departamento y municipio
+--  correctos pero falla la creación de proveedores.
+-- ============================================================
+
+
+-- Eliminar constraint que medicamentos tiene hacia proveedores
+-- para poder recrear la tabla sin conflicto
+ALTER TABLE `medicamentos` DROP FOREIGN KEY IF EXISTS `medicamentos_ibfk_5`;
+
 CREATE TABLE `proveedores` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_proveedor` varchar(50) NOT NULL,
@@ -435,26 +446,27 @@ CREATE TABLE `proveedores` (
     REFERENCES `departamento` (`id_departamento`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- ============================================================
--- PASO 7: INSERTAR DATOS DE PRUEBA EN PROVEEDORES
--- ============================================================
-
 INSERT INTO `proveedores` (`id`, `nombre_proveedor`, `razon_social`, `nombre_contacto`, `telefono_contacto`, `correo_contacto`, `direccion`, `estado`, `id_departamento`, `nit`, `id_municipio`) VALUES
-(1, 'pepito perez',        'pepito perez sas',            'Javier',   '3130000002', 'tech@correo.com',  'Carrera 11 # 37-20', 1, 23, '12345678-2', 873),
-(3, 'pepito perez',        'pepito perez',                'Javier',   '3104339122', 'tec@correo.com',   'Carrera 11 # 37-20', 0, 18, '12345678-3', 685),
-(4, 'Distribuciones Lopez','Distribuciones Lopez SAS',    'Federico', '3104339123', 'lucho@correo.com', 'Carrera 11 # 37-20', 1,  2, '12345678-4', 12),
-(8, 'Comercializadora',    'jonthan sas',                 'Laura',    '3104339122', 'lopez@correo.com', 'Carrera 11 # 37-20', 0, 12, '12355678-2', 462),
-(9, 'Distribuciones Lopez','Distribuciones marulo SAS',   'Federico', '3104339122', 'marulo@correo.com','Carrera 11 # 37-20', 1, 10, '12340078-2', 405);
+(1, 'pepito perez',         'pepito perez sas',          'Javier',   '3130000002', 'tech@correo.com',   'Carrera 11 # 37-20', 1, 23, '12345678-2', 873),
+(3, 'pepito perez',         'pepito perez',              'Javier',   '3104339122', 'tec@correo.com',    'Carrera 11 # 37-20', 0, 18, '12345678-3', 685),
+(4, 'Distribuciones Lopez', 'Distribuciones Lopez SAS',  'Federico', '3104339123', 'lucho@correo.com',  'Carrera 11 # 37-20', 1,  2, '12345678-4', 12),
+(8, 'Comercializadora',     'jonthan sas',               'Laura',    '3104339122', 'lopez@correo.com',  'Carrera 11 # 37-20', 0, 12, '12355678-2', 462),
+(9, 'Distribuciones Lopez', 'Distribuciones marulo SAS', 'Federico', '3104339122', 'marulo@correo.com', 'Carrera 11 # 37-20', 1, 10, '12340078-2', 405);
 
 ALTER TABLE `proveedores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
--- ============================================================
--- PASO 8: RESTAURAR VERIFICACIÓN DE LLAVES FORÁNEAS
--- ============================================================
+-- Restaurar la FK de medicamentos apuntando a la columna correcta (id)
+ALTER TABLE `medicamentos`
+  ADD CONSTRAINT `medicamentos_ibfk_5`
+  FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`) ON DELETE SET NULL;
 
 SET FOREIGN_KEY_CHECKS = 1;
 COMMIT;
+
+-- ============================================================
+--  ✅ Proveedores creada y FK de medicamentos restaurada.
+-- ============================================================
 
 -- ============================================================
 --  MIGRACIÓN COMPLETADA

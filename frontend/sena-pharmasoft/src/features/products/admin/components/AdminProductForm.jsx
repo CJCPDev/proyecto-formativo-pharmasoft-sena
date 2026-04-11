@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Select, Button, Input, Title, AvatarUploader } from "../../../../shared/components";
@@ -17,7 +16,15 @@ export default function AdminProductForm() {
   const params = useParams();
   const isEdit = Boolean(params.id);
 
+  // ── Estados del formulario ──
   const [subformas, setSubformas] = useState([]);
+  const [subformaInicial, setSubformaInicial] = useState(""); // guardamos la subforma al editar
+  const [pharmaForm, setPharmaForm] = useState([]);
+  const [administrationTypes, setAdministrationTypes] = useState([]);
+  const [suppliers, setSuppliers] = useState([]);
+  const [laboratoriesTypes, setLaboratoriesTypes] = useState([]);
+  const [statesTypes, setStatesTypes] = useState([]);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     nombreMedicamento: "",
     formaFarmaceutica: "",
@@ -39,11 +46,17 @@ export default function AdminProductForm() {
     imagenUrl: null,
   });
 
+  // ── Carga el medicamento cuando se edita ──
   useEffect(() => {
     if (isEdit) {
       fetch(`http://127.0.0.1:8000/api/medicamentos/${params.id}/`)
         .then((res) => res.json())
         .then((data) => {
+          // Guardamos la subforma por separado porque el select de subformas
+          // depende de que primero se cargue la forma farmacéutica.
+          // Si intentamos setear ambos al mismo tiempo el select no tiene
+          // las opciones disponibles aún y no puede mostrar el valor.
+          setSubformaInicial(data.id_subforma_farmaceutica || "");
           setFormData({
             nombreMedicamento: data.nombre_medicamento || "",
             formaFarmaceutica: data.id_forma_farmaceutica || "",
@@ -58,7 +71,7 @@ export default function AdminProductForm() {
             stock: data.stock || "",
             precioCosto: data.precio_compra || "",
             precioVenta: data.precio_venta || "",
-            requiresPrescription: data.requiere_formula === "Si" ? "Sí" : "No",
+            requiresPrescription: data.requiere_formula === "Si" ? "Si" : "No",
             estado: data.id_estado || "",
             description: data.descripcion || "",
             imagen: data.imagen || null,
@@ -69,12 +82,7 @@ export default function AdminProductForm() {
     }
   }, [isEdit, params.id]);
 
-  const [pharmaForm, setPharmaForm] = useState([]);
-  const [administrationTypes, setAdministrationTypes] = useState([]);
-  const [suppliers, setSuppliers] = useState([]);
-  const [laboratoriesTypes, setLaboratoriesTypes] = useState([]);
-  const [statesTypes, setStatesTypes] = useState([]);
-
+  // ── Carga los selects al montar el componente ──
   useEffect(() => {
     getPharmaForm().then(setPharmaForm);
     getAdministrationTypes().then(setAdministrationTypes);
@@ -83,7 +91,18 @@ export default function AdminProductForm() {
     getStatesTypes().then(setStatesTypes);
   }, []);
 
-  // useEffect que escucha cuando cambia formaFarmaceutica
+  // ── Cuando subformaInicial y subformas están listos seteamos la subforma ──
+  // Esto es necesario porque el select de subformas carga de forma asíncrona
+  // después de que se selecciona la forma farmacéutica. Si no esperamos a que
+  // las opciones estén disponibles el select no puede mostrar el valor guardado.
+  useEffect(() => {
+    if (subformaInicial && subformas.length > 0) {
+      setFormData((prev) => ({ ...prev, subformaFarmaceutica: subformaInicial }));
+      setSubformaInicial(""); // limpiamos para no volver a setear
+    }
+  }, [subformaInicial, subformas]);
+
+  // ── Carga las subformas cuando cambia la forma farmacéutica ──
   useEffect(() => {
     if (formData.formaFarmaceutica) {
       getSubformasFarmaceuticas(formData.formaFarmaceutica).then((data) => {
@@ -94,11 +113,10 @@ export default function AdminProductForm() {
     }
   }, [formData.formaFarmaceutica]);
 
-  const [errors, setErrors] = useState({});
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // Si cambia la forma farmacéutica, resetea la subforma
+    // Si cambia la forma farmacéutica reseteamos la subforma
+    // para que el usuario seleccione una nueva presentación
     if (name === "formaFarmaceutica") {
       setFormData((prev) => ({ ...prev, [name]: value, subformaFarmaceutica: "" }));
     } else {
@@ -109,10 +127,21 @@ export default function AdminProductForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const result = medicamentoSchema.safeParse(formData);
+    const parsedData = {
+  ...formData,
+  formaFarmaceutica: formData.formaFarmaceutica === "" ? 0 : Number(formData.formaFarmaceutica),
+  subformaFarmaceutica: formData.subformaFarmaceutica === "" ? 0 : Number(formData.subformaFarmaceutica),
+  viaAdministracion: formData.viaAdministracion === "" ? 0 : Number(formData.viaAdministracion),
+  laboratorio: formData.laboratorio === "" ? 0 : Number(formData.laboratorio),
+  proveedor: formData.proveedor === "" ? 0 : Number(formData.proveedor),
+  estado: formData.estado === "" ? 0 : Number(formData.estado),
+  stock: formData.stock === "" ? 0 : Number(formData.stock),
+  precioCosto: formData.precioCosto === "" ? 0 : Number(formData.precioCosto),
+  precioVenta: formData.precioVenta === "" ? 0 : Number(formData.precioVenta),
+  requiresPrescription: formData.requiresPrescription,
+};
 
-    console.log("FormData:", formData);
-    console.log("Validación:", result);
+  const result = medicamentoSchema.safeParse(parsedData);
 
     if (!result.success) {
       const fieldErrors = {};
@@ -124,6 +153,7 @@ export default function AdminProductForm() {
     }
 
     setErrors({});
+
     const url = isEdit
       ? `http://127.0.0.1:8000/api/medicamentos/${params.id}/`
       : `http://127.0.0.1:8000/api/medicamentos/`;
@@ -137,31 +167,37 @@ export default function AdminProductForm() {
     formDataToSend.append("stock", String(formData.stock));
     formDataToSend.append("precio_compra", formData.precioCosto);
     formDataToSend.append("precio_venta", formData.precioVenta);
-    formDataToSend.append("requiere_formula", formData.requiresPrescription === "Sí" ? "Si" : "No");
+    formDataToSend.append("requiere_formula", formData.requiresPrescription);
     formDataToSend.append("descripcion", formData.description);
     formDataToSend.append("concentracion", formData.concentracion);
     formDataToSend.append("id_forma_farmaceutica", formData.formaFarmaceutica);
-    formDataToSend.append("id_subforma_farmaceutica", formData.subformaFarmaceutica); // ← nuevo
+    formDataToSend.append("id_subforma_farmaceutica", formData.subformaFarmaceutica);
     formDataToSend.append("id_via_administracion", formData.viaAdministracion);
     formDataToSend.append("id_laboratorio", formData.laboratorio);
     formDataToSend.append("id_proveedor", formData.proveedor);
     formDataToSend.append("id_estado", formData.estado);
 
-    if (formData.imagen) {
+    // Solo enviamos la imagen si es un archivo nuevo
+    // Si el usuario no cambió la imagen no la enviamos para evitar errores
+    if (formData.imagen && formData.imagen instanceof File) {
       formDataToSend.append("imagen", formData.imagen);
     }
 
     fetch(url, { method, body: formDataToSend })
-      .then((res) => {
-        if (!res.ok) throw new Error("Error en el servidor");
+      .then(async (res) => {
+        if (!res.ok) {
+          const errorData = await res.json();
+          console.log("Error del backend:", errorData);
+          throw new Error(JSON.stringify(errorData));
+        }
         return res.json();
       })
       .then(() => {
         alert(isEdit ? "Medicamento actualizado exitosamente" : "Medicamento creado exitosamente");
         navigate("/medicamentos");
       })
-      .catch((err) => {
-        console.error("Error guardando medicamento:", err);
+      .catch((error) => {
+        console.error("Error guardando medicamento:", error);
         alert("Error al guardar el medicamento");
       });
   };
@@ -171,9 +207,9 @@ export default function AdminProductForm() {
       <form className="flex flex-col gap-10 z-20" onSubmit={handleSubmit}>
         {isEdit ? <Title title="Editar Medicamento" /> : <Title title="Crear Medicamento" />}
 
-        <div className="flex gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           {/* Columna 1 */}
-          <div className="flex flex-col gap-6 flex-1">
+          <div className="flex flex-col gap-6 ">
             <Input label="Nombre del medicamento" name="nombreMedicamento" value={formData.nombreMedicamento} onChange={handleChange} placeholder="Nombre del medicamento" error={errors.nombreMedicamento}/>
             <Select label="Forma farmacéutica" name="formaFarmaceutica" value={formData.formaFarmaceutica} options={pharmaForm} onChange={handleChange} error={errors.formaFarmaceutica}/>
             <Select label="Presentación" name="subformaFarmaceutica" value={formData.subformaFarmaceutica} options={subformas} onChange={handleChange} error={errors.subformaFarmaceutica} disabled={!formData.formaFarmaceutica}/>
@@ -184,7 +220,7 @@ export default function AdminProductForm() {
           </div>
 
           {/* Columna 2 */}
-          <div className="flex flex-col gap-5 flex-1 z-10">
+          <div className="flex flex-col gap-5 z-10">
             <Input label="Lote" name="lote" value={formData.lote} onChange={handleChange} placeholder="Lote" error={errors.lote}/>
             <Input className="z-10" label="Fecha fabricación" type="date" name="fechaFabricacion" value={formData.fechaFabricacion} onChange={handleChange} error={errors.fechaFabricacion}/>
             <Input className="z-10" label="Fecha vencimiento" type="date" name="fechaVencimiento" value={formData.fechaVencimiento} onChange={handleChange} error={errors.fechaVencimiento}/>
@@ -194,7 +230,7 @@ export default function AdminProductForm() {
           </div>
 
           {/* Columna 3 */}
-          <div className="flex flex-col gap-6 flex-1">
+          <div className="flex flex-col gap-6 ">
             <Input label="Requiere fórmula" name="requiresPrescription" value={formData.requiresPrescription} onChange={handleChange} placeholder="Requiere fórmula" error={errors.requiresPrescription}/>
             <Select label="Estado" name="estado" value={formData.estado} options={statesTypes} onChange={handleChange} error={errors.estado}/>
             <Input label="Descripción" name="description" value={formData.description} onChange={handleChange} placeholder="Descripción" error={errors.description}/>

@@ -53,13 +53,17 @@ class MedicamentosSerializer(serializers.ModelSerializer):
     nombre_laboratorio = serializers.CharField(source="id_laboratorio.nombre_laboratorio", read_only=True)
     nombre_estado = serializers.CharField(source="id_estado.nombre_estado", read_only=True)
     nombre_proveedor = serializers.CharField(source="id_proveedor.nombre_proveedor", read_only=True)
+    nombre_subforma_farmaceutica = serializers.CharField(source="id_subforma_farmaceutica.nombre_subforma_farmaceutica", read_only=True)
 
     # Campo para la imagen (URL)
     imagen_url = serializers.SerializerMethodField()
 
     def get_imagen_url(self, obj):
-        if obj.imagen:
-            return obj.imagen.url
+        request = self.context.get('request')
+        if obj.imagen and request:
+            return request.build_absolute_uri(obj.imagen.url)
+        elif obj.imagen:
+            return f"http://127.0.0.1:8000{obj.imagen.url}"
         return None
 
     class Meta:
@@ -80,6 +84,8 @@ class MedicamentosSerializer(serializers.ModelSerializer):
             "imagen_url",      # URL para frontend
             "id_forma_farmaceutica",
             "nombre_forma_farmaceutica",
+            "id_subforma_farmaceutica",
+            "nombre_subforma_farmaceutica",
             "id_via_administracion",
             "nombre_via_administracion",
             "id_laboratorio",

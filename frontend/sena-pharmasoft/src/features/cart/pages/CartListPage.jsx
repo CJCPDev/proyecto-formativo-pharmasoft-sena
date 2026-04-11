@@ -1,0 +1,82 @@
+// ─────────────────────────────────────────────
+// CartListPage.jsx
+// Página principal del módulo de carritos
+// Lista todos los carritos desde la API
+// ─────────────────────────────────────────────
+
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Title, Button } from "@/shared/components";
+import DataTable from "@/shared/components/DataTable";
+import { CartColumns } from "../table/CartColumns";
+import { getCarritos } from "../services/cartService";
+import { getUsuarioActual } from "@/features/auth/services/authService";
+import CartReportModal from "../reports/components/CartReportModal";
+
+export default function CartListPage() {
+    const [carritos, setCarritos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
+    const usuarioActual = getUsuarioActual();
+    const esAdmin = usuarioActual?.id_rol === 1;
+    const esFarmaceuta = usuarioActual?.id_rol === 3;
+
+    const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+
+    useEffect(() => {
+        const cargarCarritos = async () => {
+            try {
+                const data = await getCarritos();
+                console.log("Carritos recibidos:", data);
+                setCarritos(data);
+            } catch (err) {
+                console.error("Error al cargar los carritos:", err);
+                setError("No se pudieron cargar los carritos");
+            } finally {
+                setLoading(false);
+            }
+        };
+        cargarCarritos();
+    }, []);
+
+    return (
+        <div className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4">
+            <Title title="Módulo de Carritos" />
+            
+            <div className="flex justify-between gap-6 items-center">
+                <div className="flex px-4">
+                    <Button variant="secondary" size="sm" onClick={() => navigate(-1)}>
+                    Regresar
+                    </Button>
+                </div>
+
+                <div className="flex px-10 gap-6 items-center">
+                    <Button variant="primary" onClick={() => setIsReportModalOpen(true)}>
+                    Generar reporte
+                    </Button>
+
+                    {(esAdmin || esFarmaceuta) && (
+                        <Button variant="primary" onClick={() => navigate("/crear-carrito")}>
+                        Crear Carrito
+                        </Button>
+                    )}
+                </div>
+                </div>
+
+                <CartReportModal
+                isOpen={isReportModalOpen}
+                onClose={() => setIsReportModalOpen(false)}
+                />
+
+            <div className="w-full h-full">
+                {loading && <p className="text-center text-gray-500">Cargando carritos...</p>}
+                {error && <p className="text-center text-red-500">{error}</p>}
+                {!loading && !error && Array.isArray(carritos) && (
+                    <DataTable data={carritos} columns={CartColumns} />
+                )}
+            </div>
+        </div>
+    );
+}

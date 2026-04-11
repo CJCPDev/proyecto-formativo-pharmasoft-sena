@@ -1,30 +1,39 @@
 // ─────────────────────────────────────────────
 // ProtectedRoute.jsx
 // Componente que protege las rutas del sistema
-// Si el usuario no está autenticado lo redirige al login
+// Verifica autenticación, roles y permisos
 // ─────────────────────────────────────────────
 
 import { Navigate } from "react-router-dom";
-import { estaAutenticado, getUsuarioActual } from "../../features/auth/services/authService";
+import { estaAutenticado, getUsuarioActual, tienePermiso } from "../../features/auth/services/authService";
 
-export default function ProtectedRoute ({ children, rolesPermitidos}) {
+export default function ProtectedRoute ({ children, rolesPermitidos, permisosRequeridos }) {
 
     const autenticado = estaAutenticado();
     const usuario = getUsuarioActual();
+    const ES_ADMIN = usuario?.id_rol === 1;
 
-    //Si no esta autenticado lo mandamos al login
+    // Si no está autenticado lo mandamos al login
     if (!autenticado) {
         return <Navigate to="/login" replace/>;
     }
 
-    //Si se especificaron roles permitidos, verificamos que el usuario tenga el rol correcto
-    if (rolesPermitidos) {
-        if (!rolesPermitidos.includes(usuario?.id_rol)) {
-            //Si no tiene el rol correcto lo mandamos al login
-            return <Navigate to="/login" replace />;
+    // Si se especificaron roles permitidos verificamos el rol
+    if (rolesPermitidos && !rolesPermitidos.includes(usuario?.id_rol)) {
+        return <Navigate to="/DashboardMain" replace />;
+    }
+
+    //El admin siempre pasa - no necesita verificar permisos
+    if (ES_ADMIN) return children
+
+    // Si se especificaron permisos requeridos verificamos cada uno
+    // El admin siempre pasa — tienePermiso ya lo maneja internamente
+    if (permisosRequeridos) {
+        const tieneAcceso = permisosRequeridos.some(permiso => tienePermiso(permiso));
+        if (!tieneAcceso) {
+            return <Navigate to="/DashboardMain" replace />;
         }
     }
 
-    //Si está autenticado y tiene el rol correcto mostramos la página
     return children;
 }

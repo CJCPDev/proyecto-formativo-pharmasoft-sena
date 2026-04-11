@@ -3,7 +3,7 @@ import { z } from "zod"
 export const supplierSchema = z.object({
     nit: z
         .string()
-        .min(9,"El NIT debe tener minimo 10 caracteres")
+        .min(9,"El NIT debe tener minimo 9 caracteres")
         .regex(/[^A-Za-z0-9]/, "Debe contener al menos un guion medio")
         .regex(/[0-9]/, "Debe contener al menos 8 números")
         .max(13, "El Nit es demasiado largo"),

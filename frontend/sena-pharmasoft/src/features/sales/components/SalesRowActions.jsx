@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 // Componente que renderiza las acciones de cada fila de usuario
 // Recibe como prop el objeto
-export default function SellRowActions({ sales }) {
+export default function SellRowActions({ sales, onView, onEdit }) {
   // const handleEdit = () => {
   //   console.log("Editar usuario", user.id);
   // };
@@ -17,11 +17,12 @@ export default function SellRowActions({ sales }) {
   // Acción para editar el usuario
   // Redirige a la página de edición usando el id del usuario
   const handleEdit = () => {
-    navigate(`/ver-venta/${sales.id}/editar`);
+    navigate(`/ver-venta/${sales.id}/editar`, { state: { sale: sales } });
   };
 
+  // Redirección a la página de detalles
   const handleDetail = () => {
-    navigate(`/ver-venta/${sales.id}`);
+    navigate(`/ver-venta/${sales.id}`, { state: { sale: sales } });
   };
 
   return (
@@ -30,7 +31,7 @@ export default function SellRowActions({ sales }) {
       {/* Botón editar */}
       <div className="relative group w-max">
         <button
-          onClick={handleEdit} // Ejecuta la navegación a la página de edición
+          onClick={() => onEdit(sales)} // Ejecuta la navegación a la página de edición
           className="py-1 rounded cursor-pointer"
         >
           <Pencil size={18} className="stroke-brand-fort" />{" "}
@@ -57,7 +58,7 @@ export default function SellRowActions({ sales }) {
       </div>
       <div className="relative group w-max">
         <button
-          onClick={handleDetail}
+          onClick={() => onView(sales)}
           className="relative py-1 rounded cursor-pointer"
         >
           <Eye size={20} className="stroke-brand-fort" />

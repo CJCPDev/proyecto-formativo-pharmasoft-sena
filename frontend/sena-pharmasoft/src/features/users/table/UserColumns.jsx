@@ -53,7 +53,7 @@ export const UserColumns = [
       const usuarioActual = getUsuarioActual();
 
       //Solo el administrador puede cambiar el estado
-      const esAdmin = usuarioActual?.id_rol === 5;
+      const esAdmin = usuarioActual?.id_rol === 1;
 
       const handleChange = async (nuevoValor) => {
         try{
