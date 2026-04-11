@@ -64,5 +64,6 @@ export default function DetailProductPage() {
             {/* Pie de página al final de la pantalla */}
             <Footer />
         </div>
+            
     )
 }

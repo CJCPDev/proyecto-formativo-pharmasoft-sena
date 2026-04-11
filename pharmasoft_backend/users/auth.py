@@ -25,8 +25,8 @@ def get_tokens_for_user(usuario):
 
     # Tiempo de sesión según el rol
     tiempos_por_rol = {
-        5: 8,   # Administrador — 8 horas
-        7: 4,   # Farmaceuta — 4 horas
+        1: 8,   # Administrador — 8 horas
+        3: 4,   # Farmaceuta — 4 horas
     }
     horas = tiempos_por_rol.get(usuario.id_rol_id, 2)
 
@@ -99,7 +99,7 @@ def login(request):
         )
 
     # Verificamos que el rol tenga acceso al sistema
-    roles_permitidos = [5,6, 7]
+    roles_permitidos = [1, 2, 3]
     if usuario.id_rol_id not in roles_permitidos:
         return Response(
             {'error': 'No tienes acceso para acceder al sistema'},
@@ -111,7 +111,7 @@ def login(request):
         # Si tiene contraseña encriptada la verificamos con bcrypt
         if not verificar_contrasena(password, usuario.contrasena):
             return Response(
-                {'error': 'Credenciales inválidas hh'},
+                {'error': 'Credenciales inválidas'},
                 status=status.HTTP_401_UNAUTHORIZED
             )
     else:

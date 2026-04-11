@@ -65,6 +65,8 @@
 from rest_framework import viewsets
 from .models import SubformaFarmaceutica
 from .serializers import SubformaFarmaceuticaSerializer
+from rest_framework.decorators import api_view 
+from rest_framework.response import Response   
 from .models import (
     Medicamentos,
     FormaFarmaceutica,

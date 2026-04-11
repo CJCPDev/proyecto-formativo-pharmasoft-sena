@@ -32,6 +32,7 @@
 # DELETE /recurso/{id}/ -> eliminar uno por id
 
 from rest_framework.routers import DefaultRouter
+from django.urls import path
 from .views import SubformaFarmaceuticaViewSet
 from .views import (
     MedicamentosViewSet,

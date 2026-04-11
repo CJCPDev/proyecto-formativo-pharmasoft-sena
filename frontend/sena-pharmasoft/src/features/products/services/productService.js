@@ -1,26 +1,23 @@
-// const API_URL = "http://localhost:4000/api/products";
+// URL base de la API de medicamentos
+const API_URL = "http://127.0.0.1:8000/api/medicamentos/";
 
-// export async function createProduct(productData) {
-//   const response = await fetch(API_URL, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(productData),
-//   });
+// Obtiene todos los medicamentos desde la API
+export async function getAllProducts() {
+  const response = await fetch(API_URL);
+  if (!response.ok) {
+    throw new Error("Error al obtener productos");
+  }
+  return response.json();
+}
 
-
-//   if (!response.ok) {
-//     const error = await response.json();
-//     throw new Error(error.error || "Error al crear producto");
-//   }
-
-
-//   return response.json();
-// }
-// ``
-// URL base de la API de productos
-const API_URL = "http://localhost:4000/api/products";
+// Busca medicamentos por nombre usando el parámetro de búsqueda
+export async function searchProducts(query) {
+  const response = await fetch(`${API_URL}?search=${query}`);
+  if (!response.ok) {
+    throw new Error("Error al buscar productos");
+  }
+  return response.json();
+}
 
 // Envía un nuevo producto al backend mediante una petición POST.
 // Recibe el objeto con los datos del producto y retorna el producto creado.

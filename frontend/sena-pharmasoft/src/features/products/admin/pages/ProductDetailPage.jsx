@@ -1,4 +1,3 @@
-
 // useState almacena los datos del medicamento, useEffect dispara la petición al montar
 import { useState, useEffect } from "react"
 
@@ -13,33 +12,25 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function ProductDetailPage() {
     const navigate = useNavigate();
-    const { id } = useParams(); // id del medicamento tomado desde la URL
+    const { id } = useParams();
 
-    // Almacena los datos del medicamento una vez que la API responde
     const [products, setProducts] = useState(null);
 
-    // Carga el medicamento desde la API cuando el componente se monta o cambia el id
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/api/medicamentos/${id}/`)
             .then(res => res.json())
-            .then(data => setProducts(data)) // Guardamos los datos en el estado
+            .then(data => setProducts(data))
             .catch(err => console.error("Error:", err));
     }, [id]);
 
-    // Mientras los datos no lleguen mostramos un mensaje de carga al usuario
     if (!products) return <p>Cargando...</p>
 
     return (
         <div className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4">
             <Title title="Detalle del medicamento" />
-
-            {/* El formulario es solo de lectura, no tiene onSubmit porque no envía datos */}
             <form className="flex flex-col gap-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
-                    {/* Columna 1: datos de identificación del medicamento */}
-                    <div className="flex flex-col gap-6 ">
-                        {/* || "" evita que el input muestre "null" o "undefined" si el campo no tiene valor */}
+                    <div className="flex flex-col gap-6">
                         <Input label="Nombre" value={products.nombreMedicamento || ""} readOnly />
                         <Input label="Forma farmacéutica" value={products.formaFarmaceuticaNombre || ""} readOnly />
                         <Input label="Vía de administración" value={products.viaAdministracionNombre || ""} readOnly />
@@ -47,9 +38,7 @@ export default function ProductDetailPage() {
                         <Input label="Concentración" value={products.concentracion || ""} readOnly />
                         <Input label="Proveedor" value={products.proveedorNombre || ""} readOnly />
                     </div>
-
-                    {/* Columna 2: datos de inventario y precios */}
-                    <div className="flex flex-col gap-6 ">
+                    <div className="flex flex-col gap-6">
                         <Input label="Lote" value={products.lote || ""} readOnly />
                         <Input label="Fecha fabricación" value={products.fechaFabricacion || ""} type="date" readOnly />
                         <Input label="Fecha vencimiento" value={products.fechaVencimiento || ""} type="date" readOnly />
@@ -57,14 +46,10 @@ export default function ProductDetailPage() {
                         <Input label="Precio costo" value={products.precioCosto || ""} readOnly />
                         <Input label="Precio venta" value={products.precioVenta || ""} readOnly />
                     </div>
-
-                    {/* Columna 3: estado, prescripción, descripción e imagen */}
-                    <div className="flex flex-col gap-6 ">
+                    <div className="flex flex-col gap-6">
                         <Input label="Requiere fórmula" value={products.requiresPrescription || ""} readOnly />
                         <Input label="Estado" value={products.estadoNombre || ""} readOnly />
                         <Input label="Descripción" value={products.description || ""} readOnly />
-
-                        {/* Imagen estática del medicamento centrada al pie de la columna */}
                         <div className="flex justify-center items-start">
                             <img
                                 src="/images/desloratadina.jpg"
@@ -74,12 +59,8 @@ export default function ProductDetailPage() {
                         </div>
                     </div>
                 </div>
-
-                {/* Botones de acción centrados al pie de la página */}
                 <div className="flex justify-center gap-4 py-4">
-                    {/* Regresa al listado general de medicamentos */}
                     <Button variant="secondary" size="sm" onClick={() => navigate("/medicamentos")}>Regresar</Button>
-                    {/* Redirige al formulario de edición pasando el id en la URL */}
                     <Button variant="primary" onClick={() => navigate(`/editar-medicamento/${id}`)}>Editar</Button>
                 </div>
             </form>

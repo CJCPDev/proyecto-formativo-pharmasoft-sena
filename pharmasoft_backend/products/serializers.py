@@ -178,8 +178,11 @@ class MedicamentosSerializer(serializers.ModelSerializer):
 
     # Retorna la URL de la imagen si existe, o None si el medicamento no tiene imagen
     def get_imagen_url(self, obj):
-        if obj.imagen:
-            return obj.imagen.url
+        request = self.context.get('request')
+        if obj.imagen and request:
+            return request.build_absolute_uri(obj.imagen.url)
+        elif obj.imagen:
+            return f"http://127.0.0.1:8000{obj.imagen.url}"
         return None
 
     class Meta:

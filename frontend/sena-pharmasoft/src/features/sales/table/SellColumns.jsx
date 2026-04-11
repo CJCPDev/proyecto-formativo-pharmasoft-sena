@@ -2,11 +2,11 @@
 import {StatusSwitch} from "@/shared/components";
 import { updateSaleStatus } from "../services/saleService";
 // Componente que contiene los botones de acciones (editar y eliminar) para cada usuario
-import SalesRowActions from "../components/SalesRowActions";
+import { Pencil, Eye } from "lucide-react";
 
 // Definición de las columnas de la tabla de usuarios
 // Este arreglo suele usarse en librerías de tablas como TanStack Table
-export const sellColumns = [
+export const sellColumns = ({ onView, onEdit }) => [
   { accessorKey: "id_factura", header: "Id" },
 
   { accessorKey: "numeroFactura", header: "Número de factura" },
@@ -29,9 +29,10 @@ export const sellColumns = [
     cell: ({ row }) => {
       const sales = row.original;
 
-      const handleChange = async (value) => {
-        await updateSaleStatus(sales.id, value);
-      };
+const handleChange = async (checked) => {
+  console.log("SWITCH VALUE:", checked);
+  await updateSaleStatus(sales.id, checked);
+};
 
       return (
         <StatusSwitch
@@ -42,10 +43,21 @@ export const sellColumns = [
     },
   },
 
-  {
+
+{
     id: "actions",
     header: "Acciones",
-    cell: ({ row }) => <SalesRowActions sales={row.original} />,
+    cell: ({ row }) => (
+      <div className="flex gap-4">
+        <button onClick={() => onEdit(row.original)}>
+          <Pencil size={18} />
+        </button>
+
+        <button onClick={() => onView(row.original)}>
+          <Eye size={18} />
+        </button>
+      </div>
+    ),
   },
 ];
 

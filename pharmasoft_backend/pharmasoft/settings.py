@@ -89,6 +89,7 @@ STATIC_URL = 'static/'
 # Permite que React en el puerto 5173 pueda hacer peticiones a Django
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "http://localhost:5174",
 ]
 
 # Carpeta donde se guardan las imágenes subidas
