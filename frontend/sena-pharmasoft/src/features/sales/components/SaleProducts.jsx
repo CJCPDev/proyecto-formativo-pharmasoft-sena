@@ -2,11 +2,43 @@ import { Title, Input, Button } from "@/shared/components";
 import { Trash, Pencil } from "lucide-react";
 import { useState, useMemo } from "react";
 import { createSale } from "../services/saleService";
+import {FacturaPos} from "@/features/sales";
 
-export default function SaleProducts({ products = [], setProducts, saleData }) {
+export default function SaleProducts({
+  products = [],
+  setProducts,
+  saleData,
+  setSaleData,
+  saleCreated,
+  setSaleCreated
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(false);
+const [showFactura, setShowFactura] = useState(false);
+const [isLocked, setIsLocked] = useState(false);
+
+const handlePrintFactura = () => {
+  setShowFactura(true);
+
+  setTimeout(() => {
+    const content = document.getElementById("invoice");
+
+    if (!content) return;
+
+    const win = window.open("", "_blank");
+
+    win.document.write(`
+      <html>
+        <body>${content.innerHTML}</body>
+      </html>
+    `);
+
+    win.document.close();
+    win.print();
+  }, 300); // 👈 espera render
+};
+
 
   // ================== DELETE ==================
   const handleDelete = (id) => {
@@ -20,7 +52,6 @@ export default function SaleProducts({ products = [], setProducts, saleData }) {
         p.id === selectedProduct.id ? selectedProduct : p
       )
     );
-
     setIsModalOpen(false);
   };
 
@@ -35,163 +66,178 @@ export default function SaleProducts({ products = [], setProducts, saleData }) {
   const iva = useMemo(() => subtotal * 0.19, [subtotal]);
 
   const total = useMemo(() => subtotal + iva, [subtotal, iva]);
- 
+
   // ================== CREATE SALE ==================
-  const handleCreateSale = async () => {
-    if (products.length === 0) {
-      alert("No hay productos");
-      return;
-    }
+const handleCreateSale = async () => {
+  if (products.length === 0) {
+    alert("No hay productos");
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-   
-      const payload = {
-        ...saleData, 
-        subtotal_venta: subtotal,
-        iva_venta: iva,
-        descuento_venta: 0,
-        total_venta: total,
-        productos: products,
-      };
+  try {
+    const payload = {
+      usuario: saleData.usuario,
+      farmaceuta: saleData.farmaceuta,
+      subtotal_venta: subtotal,
+      descuento_venta: 0,
+      productos: products,
+    };
 
-      const response = await createSale(payload);
+    const response = await createSale(payload);
+    const data = response?.data || response;
 
-      console.log("Venta creada:", response);
+    setSaleData((prev) => ({
+      ...prev,
+      numeroFactura: data.numeroFactura || data.id_factura,
+      fecha: data.fechaHora || data.fecha_hora,
+    }));
 
-      setProducts([]); 
-    } catch (error) {
-      console.error("Error creando venta:", error?.response?.data || error);
-    } finally {
-      setLoading(false);
-    }
+    // 🔥 bloquear pantalla
+    setIsLocked(true);
+    setSaleCreated(true);
+    setShowFactura(true);
+
+    // 🔥 después de unos segundos redirigir
+
+  } catch (error) {
+    console.error("Error creando venta:", error);
+  } finally {
+    setLoading(false);
+  }
+};
+
+  // ================== PRINT ==================
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
-    
     <div className="bg-white w-full h-190 p-8 rounded-lg font-main flex flex-col">
-<div className="flex justify-between items-center mb-3">
 
+      <Title title="Descripción de productos" />
 
-{/*   
-    esta por diseño para mejorar 
-  <Button onClick={() => {
-      
-      setSelectedProduct({
-        id: Date.now(),
-        name: "",
-        price: 0,
-        quantity: 1
-      });
-      setIsModalOpen(true);
-    }}>
-      + Agregar producto
-    </Button> */}
-</div>
-      <Title title="Descripcion de productos" />
-
-      {/* TABLA HEADER */}
-      <div className="grid grid-cols-6 w-full text-center bg-brand-hover mt-2">
+      {/* TABLA */}
+      <div className="grid grid-cols-6 text-center bg-brand-hover mt-2">
         <span className="border text-white">Producto</span>
         <span className="border text-white">Cantidad</span>
         <span className="border text-white">Valor Und</span>
-        <span className="border text-white">Iva</span>
-        <span className="border text-white">Valor Total</span>
+        <span className="border text-white">IVA</span>
+        <span className="border text-white">Total</span>
         <span className="border text-white">Actions</span>
       </div>
 
-      {/* LISTA */}
-      <div className="flex-1 overflow-y-auto z-10">
-        {products.length === 0 ? (
-          <p className="text-center mt-4 text-black/40">
-            No hay productos cargados
-          </p>
-        ) : (
-          products.map((item) => (
-            <div
-              key={item.id}
-              className="grid grid-cols-6 text-center items-stretch w-full min-h-20"
-            >
-              <div className="border flex items-center gap-2 p-2">
-              <img src={item.image} alt={`imagen  ${item.name}`} className="h-16 w-20" />
-                <span>{item.name}</span>
-              </div>
+      <div className="flex-1 overflow-y-auto">
+        {products.map((item) => (
+          <div
+            key={item.id}
+            className="grid grid-cols-6 text-center items-center min-h-16"
+          >
+            <span className="border">{item.name}</span>
+            <span className="border">{item.quantity}</span>
+            <span className="border">{item.price}</span>
+            <span className="border">
+              {(item.price * 0.19 * item.quantity).toFixed(2)}
+            </span>
+            <span className="border">
+              {(item.price * 1.19 * item.quantity).toFixed(2)}
+            </span>
 
-              <span className="border flex justify-center items-center">
-                {item.quantity}
-              </span>
+            <div className="border flex justify-center gap-2">
+              <button onClick={() => {
+                setSelectedProduct(item);
+                setIsModalOpen(true);
+              }}>
+                <Pencil size={18} />
+              </button>
 
-              <span className="border flex justify-center items-center">
-                {item.price}
-              </span>
-
-              <span className="border flex justify-center items-center">
-                {(item.price * 0.19 * item.quantity).toFixed(2)}
-              </span>
-
-              <span className="border flex justify-center items-center">
-                {(item.price * 1.19 * item.quantity).toFixed(2)}
-              </span>
-
-              <div className="border flex gap-4 justify-center items-center">
-                <button
-                  onClick={() => {
-                    setSelectedProduct(item);
-                    setIsModalOpen(true);
-                  }}
-                >
-                  <Pencil className="w-6 h-6 stroke-brand-fort" />
-                </button>
-
-                <button onClick={() => handleDelete(item.id)}>
-                  <Trash className="w-6 h-6 stroke-red-600" />
-                </button>
-              </div>
+              <button onClick={() => handleDelete(item.id)}>
+                <Trash size={18} />
+              </button>
             </div>
-          ))
+          </div>
+        ))}
+      </div>
+
+      {/* TOTALES */}
+      <div className="mt-4 border-t pt-2 flex justify-between">
+        <span>Total:</span>
+        <span>{total.toFixed(2)}</span>
+      </div>
+
+      {/* BOTONES */}
+      <div className="flex justify-end gap-2 mt-4">
+
+        <Button
+        disabled={isLocked}
+          onClick={() => setProducts([])}
+          className="bg-red-600 text-white"
+        >
+          Cancelar
+        </Button>
+
+        <Button
+          onClick={handleCreateSale}
+          disabled={isLocked || loading }
+        >
+          {loading ? "Creando..." : "Crear venta"}
+        </Button>
+
+        {/* 👇 SOLO APARECE SI YA SE CREÓ */}
+        {saleCreated && (
+          <Button
+            onClick={handlePrint}
+            className="bg-green-600 text-white"
+          >
+            Imprimir factura
+          </Button>
         )}
       </div>
 
-      <div className="mt-3 border-t pt-3 flex flex-col gap-3">
+      {/* FACTURA MODAL */}
+{showFactura && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    
+    <div className="bg-white p-4 rounded-lg shadow-lg relative">
+      
+      {/* BOTÓN CERRAR */}
+      <button
+        className="absolute top-2 right-2 text-red-500"
+        onClick={() => setShowFactura(false)}
+      >
+        ✕
+      </button>
 
-        <div className="grid grid-cols-3 gap-3">
-          <Input disabled label="Subtotal" value={subtotal.toFixed(2)} />
-          <Input disabled label="IVA" value={iva.toFixed(2)} />
-          <Input disabled label="Total" value={total.toFixed(2)} />
-        </div>
+      {/* FACTURA */}
+      <FacturaPos
+        saleData={saleData}
+        products={products}
+      />
 
-        <div className="flex justify-end gap-2">
-          <Button
-            className="px-3 py-1 text-xs bg-red-600/90 text-white"
-            onClick={() => setProducts([])}
-          >
-            Cancelar
-          </Button>
-
-          <Button
-            onClick={handleCreateSale}
-            disabled={loading}
-          >
-            {loading ? "Creando..." : "Crear venta"}
-          </Button>
-        </div>
+      {/* BOTÓN IMPRIMIR */}
+      <div className="flex justify-end mt-4 z-50">
+        <Button onClick={handlePrintFactura}>
+          Imprimir
+        </Button>
       </div>
 
-      {/* MODAL */}
+    </div>
+    </div>
+
+    )}
+      {/* MODAL EDIT */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg w-100 flex flex-col gap-2">
-            <h2 className="text-center font-bold">Editar producto</h2>
+          <div className="bg-white p-4 rounded">
+            <h3>Editar producto</h3>
 
             <Input
-              label="Producto"
               value={selectedProduct?.name || ""}
               disabled
             />
 
             <Input
-              label="Cantidad"
               type="number"
               value={selectedProduct?.quantity || 1}
               onChange={(e) =>
@@ -202,30 +248,14 @@ export default function SaleProducts({ products = [], setProducts, saleData }) {
               }
             />
 
-            <Input
-              label="Precio"
-              type="number"
-              value={selectedProduct?.price || 0}
-              onChange={(e) =>
-                setSelectedProduct({
-                  ...selectedProduct,
-                  price: Number(e.target.value),
-                })
-              }
-            />
-
-            <div className="flex justify-end gap-4">
-              <Button onClick={() => setIsModalOpen(false)}>
-                Cancelar
-              </Button>
-
-              <Button onClick={handleUpdateProduct}>
-                Actualizar
-              </Button>
-            </div>
+            <Button onClick={handleUpdateProduct}>
+              Guardar
+            </Button>
           </div>
         </div>
       )}
+
+    
     </div>
   );
 }
