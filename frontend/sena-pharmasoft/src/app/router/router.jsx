@@ -185,7 +185,7 @@ const router = createBrowserRouter([
                     },
                     {
                     path: "/ver-venta/:id/editar",
-                    element: <SaleForm />
+                    element: <SaleDetailPage/>
                     },
                     {
                         path: "crear-venta",

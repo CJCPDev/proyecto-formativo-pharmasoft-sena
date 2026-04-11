@@ -201,7 +201,7 @@ export default function SaleProducts({
       {/* FACTURA MODAL */}
       {showFactura && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-20">
-          <div className="bg-white p-6 rounded-lg shadow-lg relative w-90 h-100 grid grid-cols-1">
+          <div className="bg-white p-6 rounded-lg shadow-lg relative w-90 h-110 grid grid-cols-1">
             {/* BOTÓN CERRAR */}
 <button
   className="absolute top-1 font-bold right-2 text-red-500 cursor-pointer"

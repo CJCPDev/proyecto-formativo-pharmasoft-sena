@@ -1,36 +1,54 @@
 import { InformationSale, SaleForm } from "../index";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getSalesById } from "../services/getSalesById";
+import { getSalesById } from "../services/saleService";
 
-
-export default function SaleDetailPage (){
-const [products, setProducts] = useState([]);
+export default function SaleDetailPage() {
+  const [products, setProducts] = useState([]);
   const [saleData, setSaleData] = useState({});
-  const [saleCreated, setSaleCreated] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const { id } = useParams();
 
   useEffect(() => {
     const fetchSale = async () => {
-      const data = await getSalesById(id);
+      try {
+        setLoading(true);
 
-      // 🔥 setear datos
-      setSaleData({
-        numeroFactura: data.numeroFactura,
-        fecha: data.fechaHora,
-        usuario: data.usuario,
-        farmaceuta: data.farmaceuta,
-        subtotal: data.subtotal_venta,
-        iva: data.iva_venta,
-        total: data.total_venta,
-      });
+        const data = await getSalesById(id);
 
-      setProducts(data.productos || []);
+        console.log("SALE BACKEND:", data); // 🔥 DEBUG IMPORTANTE
+
+        setSaleData({
+          numeroFactura: data.numeroFactura || data.id_factura,
+          fecha: data.fechaHora,
+          usuario: data.usuario,
+          farmaceuta: data.farmaceuta,
+          subtotal: data.subtotal_venta,
+          iva: data.iva_venta,
+          total: data.total_venta,
+        });
+
+        // 🔥 importante: asegurar array
+        setProducts(Array.isArray(data.productos) ? data.productos : []);
+
+      } catch (error) {
+        console.error("Error cargando venta:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchSale();
   }, [id]);
+
+  if (loading) {
+    return (
+      <div className="p-6 text-center">
+        Cargando venta...
+      </div>
+    );
+  }
 
   return (
     <div className="w-full min-h-screen p-6 flex justify-center">
@@ -42,7 +60,7 @@ const [products, setProducts] = useState([]);
             <SaleForm
               saleData={saleData}
               setSaleData={setSaleData}
-              isView={true} 
+              isView={true}
             />
           </div>
         </div>
@@ -55,8 +73,8 @@ const [products, setProducts] = useState([]);
               setProducts={setProducts}
               saleData={saleData}
               setSaleData={setSaleData}
-              saleCreated={saleCreated}
-              isView={true} 
+              saleCreated={true}
+              isView={true}
             />
           </div>
         </div>
