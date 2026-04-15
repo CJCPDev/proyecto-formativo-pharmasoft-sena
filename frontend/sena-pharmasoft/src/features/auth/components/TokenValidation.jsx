@@ -7,12 +7,8 @@
 import { useRef } from "react";
 
 export default function TokenValidation({ codigo, setCodigo }) {
-
   // Referencias para cada input — permite enfocar el siguiente automáticamente
-  const refs = [
-    useRef(), useRef(), useRef(),
-    useRef(), useRef(), useRef()
-  ];
+  const refs = [useRef(), useRef(), useRef(), useRef(), useRef(), useRef()];
 
   const handleChange = (index, value) => {
     // Solo acepta un dígito numérico
@@ -30,7 +26,7 @@ export default function TokenValidation({ codigo, setCodigo }) {
 
   const handleKeyDown = (index, e) => {
     // Si borra y el input está vacío, retrocede al anterior
-    if (e.key === 'Backspace' && !codigo[index] && index > 0) {
+    if (e.key === "Backspace" && !codigo[index] && index > 0) {
       refs[index - 1].current.focus();
     }
   };

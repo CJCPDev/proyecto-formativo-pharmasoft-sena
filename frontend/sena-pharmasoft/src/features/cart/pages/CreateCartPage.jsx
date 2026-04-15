@@ -17,11 +17,13 @@ export default function CreateCartPage() {
 
   const handleAddProduct = (product) => {
     if (product._actualizar) {
-      setProducts((prev) => prev.map(p =>
-        String(p.id_medicamento) === String(product.id_medicamento)
-          ? { ...product, _actualizar: undefined }
-          : p
-      ));
+      setProducts((prev) =>
+        prev.map((p) =>
+          String(p.id_medicamento) === String(product.id_medicamento)
+            ? { ...product, _actualizar: undefined }
+            : p,
+        ),
+      );
     } else {
       setProducts((prev) => [...prev, product]);
     }
@@ -30,7 +32,6 @@ export default function CreateCartPage() {
   return (
     <div className="w-full min-h-screen p-4 sm:p-6">
       <div className="w-full flex flex-col lg:flex-row gap-6">
-
         {/* Formulario izquierda */}
         <div className="w-full lg:w-96 flex flex-col gap-2">
           <div>
@@ -57,7 +58,6 @@ export default function CreateCartPage() {
             />
           </div>
         </div>
-
       </div>
     </div>
   );

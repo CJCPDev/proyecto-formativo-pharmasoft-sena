@@ -24,7 +24,7 @@ export const login = async (email, password) => {
   // Cargamos los permisos del usuario y los guardamos en localStorage
   try {
     const permisosResponse = await axios.get(
-      `${API_URL}/usuarios/${response.data.usuario.id}/permisos-combinados/`
+      `${API_URL}/usuarios/${response.data.usuario.id}/permisos-combinados/`,
     );
     const permisos = permisosResponse.data.map((p) => p.codigo);
     localStorage.setItem("permisos", JSON.stringify(permisos));

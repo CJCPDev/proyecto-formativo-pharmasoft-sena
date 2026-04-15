@@ -9,7 +9,7 @@ import { Eye, Pencil } from "lucide-react";
 
 function CartRowActions({ carrito }) {
   const navigate = useNavigate();
-  const esActivo = carrito.estado === 'activo';
+  const esActivo = carrito.estado === "activo";
 
   return (
     <div className="flex justify-center items-center gap-2">
@@ -58,11 +58,13 @@ export const CartColumns = [
         cancelado: "bg-red-100 text-red-700",
       };
       return (
-      <div className="flex justify-center">
-        <span className={`px-4 py-2 rounded-full text-xs font-bold ${colores[estado] || "bg-gray-100 text-gray-700"}`}>
-          {estado}
-        </span>
-      </div>
+        <div className="flex justify-center">
+          <span
+            className={`px-4 py-2 rounded-full text-xs font-bold ${colores[estado] || "bg-gray-100 text-gray-700"}`}
+          >
+            {estado}
+          </span>
+        </div>
       );
     },
   },

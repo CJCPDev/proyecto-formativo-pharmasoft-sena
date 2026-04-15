@@ -8,7 +8,11 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Title, Input, Select, Button } from "@/shared/components";
 import { getCarrito, updateCarrito } from "../services/cartService";
-import { agregarAlCarrito, actualizarCantidad, eliminarDelCarrito } from "@/features/home/services/carritoService";
+import {
+  agregarAlCarrito,
+  actualizarCantidad,
+  eliminarDelCarrito,
+} from "@/features/home/services/carritoService";
 import { getUsuarioActual } from "@/features/auth/services/authService";
 import { Trash } from "lucide-react";
 import axios from "axios";
@@ -67,7 +71,9 @@ export default function EditCartPage() {
       return;
     }
     const filtrados = todosMedicamentos.filter((m) =>
-      m.nombre_medicamento.toLowerCase().includes(busquedaMedicamento.toLowerCase())
+      m.nombre_medicamento
+        .toLowerCase()
+        .includes(busquedaMedicamento.toLowerCase()),
     );
     setMedicamentosEncontrados(filtrados);
   }, [busquedaMedicamento, todosMedicamentos]);
@@ -86,7 +92,7 @@ export default function EditCartPage() {
   const cargarCarrito = async () => {
     try {
       const data = await getCarrito(id);
-      if (data.estado !== 'activo') {
+      if (data.estado !== "activo") {
         alert("Solo se pueden editar carritos en estado activo");
         navigate("/carritos");
         return;
@@ -134,13 +140,18 @@ export default function EditCartPage() {
         id_medicamento,
         cantidad,
         precio_unitario,
-        carrito.estado
+        carrito.estado,
       );
       await cargarCarrito();
-      setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
+      setNuevoMedicamento({
+        id_medicamento: "",
+        cantidad: "",
+        precio_unitario: "",
+      });
       setMedicamentoSeleccionado(null);
     } catch (error) {
-      const mensajeError = error.response?.data?.error || "Error al agregar el medicamento";
+      const mensajeError =
+        error.response?.data?.error || "Error al agregar el medicamento";
       alert(mensajeError);
     }
   };
@@ -167,7 +178,10 @@ export default function EditCartPage() {
 
   const handleActualizarMedicamento = async () => {
     try {
-      await actualizarCantidad(selectedProduct.id_carrito, selectedProduct.cantidad);
+      await actualizarCantidad(
+        selectedProduct.id_carrito,
+        selectedProduct.cantidad,
+      );
       await cargarCarrito();
       setIsModalOpen(false);
       setSelectedProduct(null);
@@ -189,19 +203,20 @@ export default function EditCartPage() {
       alert("Carrito actualizado correctamente");
       navigate("/carritos");
     } catch (error) {
-      const mensajeError = error.response?.data?.error || "Error al guardar el carrito";
+      const mensajeError =
+        error.response?.data?.error || "Error al guardar el carrito";
       alert(mensajeError);
     } finally {
       setSaving(false);
     }
   };
 
-  const total = carrito?.items?.reduce((acc, item) => acc + item.subtotal, 0) || 0;
+  const total =
+    carrito?.items?.reduce((acc, item) => acc + item.subtotal, 0) || 0;
 
   return (
     <div className="w-full min-h-screen p-4 sm:p-6">
       <div className="w-full flex flex-col lg:flex-row gap-6">
-
         {/* Formulario izquierda */}
         <div className="w-full lg:w-96 flex flex-col gap-2">
           <div>
@@ -242,18 +257,31 @@ export default function EditCartPage() {
 
               {/* Agregar nuevo medicamento */}
               <div className="border rounded-lg p-3 grid gap-3">
-                <h3 className="font-semibold text-brand-hover">Agregar medicamento</h3>
+                <h3 className="font-semibold text-brand-hover">
+                  Agregar medicamento
+                </h3>
 
                 {medicamentoSeleccionado ? (
                   <div className="bg-green-50 border border-green-200 rounded-lg p-3 flex justify-between items-center">
                     <div>
-                      <p className="font-semibold text-green-700">{medicamentoSeleccionado.nombre_medicamento}</p>
-                      <p className="text-sm text-gray-500">Precio: ${parseFloat(medicamentoSeleccionado.precio_venta).toLocaleString()}</p>
+                      <p className="font-semibold text-green-700">
+                        {medicamentoSeleccionado.nombre_medicamento}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        Precio: $
+                        {parseFloat(
+                          medicamentoSeleccionado.precio_venta,
+                        ).toLocaleString()}
+                      </p>
                     </div>
                     <button
                       onClick={() => {
                         setMedicamentoSeleccionado(null);
-                        setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
+                        setNuevoMedicamento({
+                          id_medicamento: "",
+                          cantidad: "",
+                          precio_unitario: "",
+                        });
                       }}
                       className="text-red-500 text-sm hover:text-red-700"
                     >
@@ -276,15 +304,22 @@ export default function EditCartPage() {
                             onClick={() => handleSeleccionarMedicamento(med)}
                             className="w-full text-left px-4 py-2 hover:bg-brand-soft/30 border-b flex justify-between"
                           >
-                            <span className="font-medium">{med.nombre_medicamento}</span>
-                            <span className="text-sm text-gray-500">${parseFloat(med.precio_venta).toLocaleString()}</span>
+                            <span className="font-medium">
+                              {med.nombre_medicamento}
+                            </span>
+                            <span className="text-sm text-gray-500">
+                              ${parseFloat(med.precio_venta).toLocaleString()}
+                            </span>
                           </button>
                         ))}
                       </div>
                     )}
-                    {busquedaMedicamento && medicamentosEncontrados.length === 0 && (
-                      <p className="text-sm text-gray-500 text-center">No se encontraron medicamentos</p>
-                    )}
+                    {busquedaMedicamento &&
+                      medicamentosEncontrados.length === 0 && (
+                        <p className="text-sm text-gray-500 text-center">
+                          No se encontraron medicamentos
+                        </p>
+                      )}
                   </>
                 )}
 
@@ -305,17 +340,28 @@ export default function EditCartPage() {
                   value={nuevoMedicamento.precio_unitario}
                   readOnly
                 />
-                <Button variant="primary" type="button" onClick={handleAgregarMedicamento}>
+                <Button
+                  variant="primary"
+                  type="button"
+                  onClick={handleAgregarMedicamento}
+                >
                   Agregar
                 </Button>
               </div>
 
               {/* Botones guardar */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-                <Button variant="secondary" onClick={() => navigate("/carritos")}>
+                <Button
+                  variant="secondary"
+                  onClick={() => navigate("/carritos")}
+                >
                   Cancelar
                 </Button>
-                <Button variant="primary" onClick={handleGuardar} disabled={saving}>
+                <Button
+                  variant="primary"
+                  onClick={handleGuardar}
+                  disabled={saving}
+                >
                   {saving ? "Guardando..." : "Guardar cambios"}
                 </Button>
               </div>
@@ -340,20 +386,34 @@ export default function EditCartPage() {
                     const x = e.pageX - ele.offsetLeft;
                     ele.scrollLeft = scrollLeft - (x - startX);
                   };
-                  document.addEventListener('mousemove', onMouseMove);
-                  document.addEventListener('mouseup', () => {
-                    document.removeEventListener('mousemove', onMouseMove);
-                  }, { once: true });
+                  document.addEventListener("mousemove", onMouseMove);
+                  document.addEventListener(
+                    "mouseup",
+                    () => {
+                      document.removeEventListener("mousemove", onMouseMove);
+                    },
+                    { once: true },
+                  );
                 }}
               >
-                <div className="min-w-[500px]">
+                <div className="min-w-125">
                   {/* Header */}
                   <div className="grid grid-cols-5 w-full text-center bg-brand-hover mt-2">
-                    <span className="border text-white py-2 text-sm">Medicamento</span>
-                    <span className="border text-white py-2 text-sm">Cantidad</span>
-                    <span className="border text-white py-2 text-sm">Precio unitario</span>
-                    <span className="border text-white py-2 text-sm">Subtotal</span>
-                    <span className="border text-white py-2 text-sm">Acciones</span>
+                    <span className="border text-white py-2 text-sm">
+                      Medicamento
+                    </span>
+                    <span className="border text-white py-2 text-sm">
+                      Cantidad
+                    </span>
+                    <span className="border text-white py-2 text-sm">
+                      Precio unitario
+                    </span>
+                    <span className="border text-white py-2 text-sm">
+                      Subtotal
+                    </span>
+                    <span className="border text-white py-2 text-sm">
+                      Acciones
+                    </span>
                   </div>
 
                   {/* Lista */}
@@ -395,7 +455,9 @@ export default function EditCartPage() {
                           <div className="border flex justify-center items-center gap-3">
                             <button
                               className="z-10"
-                              onClick={() => handleConfirmarEliminar(item.id_carrito)}
+                              onClick={() =>
+                                handleConfirmarEliminar(item.id_carrito)
+                              }
                             >
                               <Trash className="w-5 h-5 stroke-red-600" />
                             </button>
@@ -410,7 +472,9 @@ export default function EditCartPage() {
               {/* Footer total */}
               <div className="mt-3 border-t pt-3 flex justify-end">
                 <div className="flex flex-col gap-1">
-                  <label className="text-xs font-bold text-brand-hover">Total</label>
+                  <label className="text-xs font-bold text-brand-hover">
+                    Total
+                  </label>
                   <input
                     disabled
                     value={`$${total.toLocaleString()}`}
@@ -418,11 +482,9 @@ export default function EditCartPage() {
                   />
                 </div>
               </div>
-
             </div>
           </div>
         )}
-
       </div>
 
       {/* Modal editar medicamento */}
@@ -432,7 +494,11 @@ export default function EditCartPage() {
             <h2 className="text-center font-bold text-brand-hover text-lg">
               Editar medicamento
             </h2>
-            <Input label="Medicamento" value={selectedProduct.nombre_medicamento} disabled />
+            <Input
+              label="Medicamento"
+              value={selectedProduct.nombre_medicamento}
+              disabled
+            />
             <Input
               label="Cantidad"
               type="number"
@@ -441,7 +507,11 @@ export default function EditCartPage() {
               onChange={(e) => {
                 const valor = parseInt(e.target.value);
                 if (valor < 1) return;
-                setSelectedProduct((prev) => ({ ...prev, cantidad: valor, subtotal: valor * prev.precio_unitario }));
+                setSelectedProduct((prev) => ({
+                  ...prev,
+                  cantidad: valor,
+                  subtotal: valor * prev.precio_unitario,
+                }));
               }}
             />
             <Input
@@ -452,7 +522,11 @@ export default function EditCartPage() {
               onChange={(e) => {
                 const valor = parseFloat(e.target.value);
                 if (valor < 0) return;
-                setSelectedProduct((prev) => ({ ...prev, precio_unitario: valor, subtotal: prev.cantidad * valor }));
+                setSelectedProduct((prev) => ({
+                  ...prev,
+                  precio_unitario: valor,
+                  subtotal: prev.cantidad * valor,
+                }));
               }}
             />
             <Input
@@ -461,7 +535,13 @@ export default function EditCartPage() {
               disabled
             />
             <div className="flex justify-center gap-4">
-              <Button variant="secondary" onClick={() => { setIsModalOpen(false); setSelectedProduct(null); }}>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setIsModalOpen(false);
+                  setSelectedProduct(null);
+                }}
+              >
                 Cancelar
               </Button>
               <Button variant="primary" onClick={handleActualizarMedicamento}>
@@ -483,17 +563,27 @@ export default function EditCartPage() {
               Esta acción eliminará el medicamento del carrito. ¿Estás seguro?
             </p>
             <div className="flex justify-center gap-4">
-              <Button variant="secondary" size="sm" onClick={() => { setShowConfirmarEliminar(false); setItemAEliminar(null); }}>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => {
+                  setShowConfirmarEliminar(false);
+                  setItemAEliminar(null);
+                }}
+              >
                 Cancelar
               </Button>
-              <Button variant="primary" size="sm" onClick={handleEliminarConfirmado}>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={handleEliminarConfirmado}
+              >
                 Sí, eliminar
               </Button>
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
 }

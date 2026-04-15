@@ -13,21 +13,20 @@ import { getUsuarioActual } from "@/features/auth/services/authService";
 import { obtenerCarrito } from "@/features/home/services/carritoService";
 import { CambiarContrasenaModal } from "@/features/users";
 
-const Navbar = ({ 
+const Navbar = ({
   variant = "solid",
-  onSearch,
+  onSearch = () => {},
   showSearch = true,
-  onOpenRegister, 
+  onOpenRegister,
   setOpenLogin,
   shouldOpenCart,
-  setShouldOpenCart
+  setShouldOpenCart,
 }) => {
-  
   const [totalProductos, setTotalProductos] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
-  
+
   const usuarioActual = getUsuarioActual();
   const navigate = useNavigate();
 
@@ -70,28 +69,26 @@ const Navbar = ({
       >
         <div className="mx-auto max-w-8xl px-16">
           <div className="flex h-18 items-center justify-between">
-
             {/* LOGO */}
             <Link to="/" className="flex items-center">
               <img className="w-36 object-contain" src={Logo} alt="logo" />
             </Link>
 
-          {/* SEARCH */}
-          {showSearch && (  //solo muestra si showSearch es true
-            <div className="relative w-full max-w-3xl hidden md:block">
+            {/* SEARCH */}
+            {showSearch && ( //solo muestra si showSearch es true
+              <div className="relative w-full max-w-3xl hidden md:block">
                 <Search className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
                 <input
-                    type="text"
-                    placeholder="Buscar productos..."
-                    onChange={(e) => onSearch(e.target.value)}
-                    className="w-full pl-4 pr-9 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-bg-brand-soft transition"
+                  type="text"
+                  placeholder="Buscar productos..."
+                  onChange={(e) => onSearch(e.target.value)}
+                  className="w-full pl-4 pr-9 py-2.5 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-bg-brand-soft transition"
                 />
-            </div>
-        )}
+              </div>
+            )}
 
             {/* ACTIONS */}
             <div className="flex items-center gap-6 font-secondary">
-
               {/* BOTÓN INICIAR SESIÓN o MENÚ DEL USUARIO */}
               <div className="relative flex items-center px-4 group">
                 <User className="size-8 group-hover:stroke-brand-fort stroke-brand-hover group-hover:delay-200" />
@@ -133,7 +130,8 @@ const Navbar = ({
                           <li>
                             <button
                               onClick={async () => {
-                                const { logout } = await import("@/features/auth/services/authService");
+                                const { logout } =
+                                  await import("@/features/auth/services/authService");
                                 await logout();
                                 window.location.reload();
                               }}
@@ -158,10 +156,7 @@ const Navbar = ({
               </div>
 
               {/* ICONO CARRITO CON CONTADOR */}
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="relative"
-              >
+              <button onClick={() => setIsCartOpen(true)} className="relative">
                 <ShoppingCart className="size-7 stroke-2 stroke-brand-hover cursor-pointer" />
                 {totalProductos > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
@@ -176,7 +171,6 @@ const Navbar = ({
                 setOpenLogin={setOpenLogin}
                 setShouldOpenCart={setShouldOpenCart}
               />
-
             </div>
           </div>
         </div>

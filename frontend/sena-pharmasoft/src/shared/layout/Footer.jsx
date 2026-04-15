@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function Footer({showPortalEmpleados = true}) {
+export default function Footer({ showPortalEmpleados = true }) {
   return (
     <footer
       className="w-full bg-brand-hover p-6 mt-10

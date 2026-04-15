@@ -6,9 +6,7 @@ export default function PaymentSummary({ products, total }) {
       {products.map((p) => (
         <div key={p.id_carrito} className="flex justify-between text-sm">
           <span>{p.nombre_medicamento}</span>
-          <span>
-            ${parseFloat(p.subtotal).toLocaleString()}
-          </span>
+          <span>${parseFloat(p.subtotal).toLocaleString()}</span>
         </div>
       ))}
 

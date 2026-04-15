@@ -16,27 +16,27 @@ import {
   vaciarCarrito,
 } from "@/features/home/services/carritoService";
 import { useNavigate } from "react-router-dom";
-import {CarSellHome} from "@/features/home";
+import { CarSellHome } from "@/features/home";
 
 export default function CartModal({ isOpen, onClose }) {
   const [success, setSuccess] = useState(false);
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const [usuarioActual, setUsuarioActual] = useState(undefined)
+  const [usuarioActual, setUsuarioActual] = useState(undefined);
 
   // Carga el carrito desde la API cuando se abre el modal
 
-useEffect(() => {
-  const user = getUsuarioActual();
-  setUsuarioActual(user ?? null);
-}, []);
+  useEffect(() => {
+    const user = getUsuarioActual();
+    setUsuarioActual(user ?? null);
+  }, []);
 
-useEffect(() => {
-  if (isOpen && usuarioActual) {
-    cargarCarrito();
-  }
-}, [isOpen, usuarioActual]);
+  useEffect(() => {
+    if (isOpen && usuarioActual) {
+      cargarCarrito();
+    }
+  }, [isOpen, usuarioActual]);
 
   const cargarCarrito = async () => {
     try {
@@ -56,11 +56,17 @@ useEffect(() => {
     try {
       await actualizarCantidad(item.id_carrito, item.cantidad + 1);
       //Actualizamos solo el item en el estado local sin recargar todo
-      setCart(prev => prev.map(i => 
-        i.id_carrito === item.id_carrito
-          ? {...i, cantidad: i.cantidad + 1, subtotal: (i.cantidad + 1) * parseFloat(i.precio_unitario) }
-          : i
-      ));
+      setCart((prev) =>
+        prev.map((i) =>
+          i.id_carrito === item.id_carrito
+            ? {
+                ...i,
+                cantidad: i.cantidad + 1,
+                subtotal: (i.cantidad + 1) * parseFloat(i.precio_unitario),
+              }
+            : i,
+        ),
+      );
     } catch (error) {
       console.error("Error al actualizar cantidad:", error);
     }
@@ -71,11 +77,17 @@ useEffect(() => {
     try {
       await actualizarCantidad(item.id_carrito, item.cantidad - 1);
       //Actualizamos solo el item en el estado local sin recargar todo
-      setCart(prev => prev.map(i => 
-        i.id_carrito === item.id_carrito
-          ? {...i, cantidad: i.cantidad -1, subtotal: (i.cantidad -1) * parseFloat(i.precio_unitario) }
-          : i
-      ));
+      setCart((prev) =>
+        prev.map((i) =>
+          i.id_carrito === item.id_carrito
+            ? {
+                ...i,
+                cantidad: i.cantidad - 1,
+                subtotal: (i.cantidad - 1) * parseFloat(i.precio_unitario),
+              }
+            : i,
+        ),
+      );
     } catch (error) {
       console.error("Error al actualizar cantidad:", error);
     }
@@ -85,7 +97,7 @@ useEffect(() => {
     try {
       await eliminarDelCarrito(idCarrito);
       //Eliminamos solo el item del estado local sin recargar todo
-      setCart(prev => prev.filter(i => i.id_carrito !== idCarrito));
+      setCart((prev) => prev.filter((i) => i.id_carrito !== idCarrito));
     } catch (error) {
       console.error("Error al eliminar del carrito:", error);
     }
@@ -93,21 +105,20 @@ useEffect(() => {
 
   const total = cart.reduce((acc, item) => acc + parseFloat(item.subtotal), 0);
 
-const handleCheckout = async () => {
-  try {
-    navigate("/pasarela", {
-      state: {
-        cart: cart,
-        total: total,
-      },
-    });
+  const handleCheckout = async () => {
+    try {
+      navigate("/pasarela", {
+        state: {
+          cart: cart,
+          total: total,
+        },
+      });
 
-    onClose(); // cerrar modal
-
-  } catch (error) {
-    console.error("Error al finalizar compra:", error);
-  }
-};
+      onClose(); // cerrar modal
+    } catch (error) {
+      console.error("Error al finalizar compra:", error);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black/30 flex justify-end z-50">
@@ -156,16 +167,18 @@ const handleCheckout = async () => {
                     <img
                       src={
                         item.imagen_medicamento.startsWith("http")
-                        ?item.imagen_medicamento
-                        : `http://localhost:8000/media/${item.imagen_medicamento}`
+                          ? item.imagen_medicamento
+                          : `http://localhost:8000/media/${item.imagen_medicamento}`
                       }
                       alt={item.nombre_medicamento}
                       className="w-20 h-20 object-cover rounded-md"
                     />
-                    ) : (
-                      <div className="w-20 h-20 rounded-md bg-brand-soft/40 flex items-center justify-center flex-shrink-0">
-                        <span className="text-xs text-text-muted text-center px-1">Sin imagen</span>
-                      </div>
+                  ) : (
+                    <div className="w-20 h-20 rounded-md bg-brand-soft/40 flex items-center justify-center flex-shrink-0">
+                      <span className="text-xs text-text-muted text-center px-1">
+                        Sin imagen
+                      </span>
+                    </div>
                   )}
 
                   <div className="flex flex-col flex-1">

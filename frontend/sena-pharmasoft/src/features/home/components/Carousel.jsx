@@ -41,7 +41,6 @@ export default function Carousel() {
 
   return (
     <div className="max-w-dvw h-72 -mx-4 overflow-hidden relative shadow-lg">
-      
       <div
         className="flex transition-transform duration-700"
         style={{ transform: `translateX(-${index * 100}%)` }}
@@ -52,7 +51,6 @@ export default function Carousel() {
             className={`min-w-full h-72 flex items-center justify-center ${slide.bg} text-white`}
           >
             <div className="flex items-center gap-10 px-10">
-
               {/* enderizado del mapeo de la info del card */}
               <div>
                 <h2 className="text-6xl font-bold">{slide.title}</h2>

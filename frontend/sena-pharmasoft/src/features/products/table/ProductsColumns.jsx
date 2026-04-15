@@ -49,12 +49,15 @@ export const getProductsColumns = (fetchMedicamentos) => [
       // Llama a la API para persistir el cambio de estado y recarga la tabla
       const handleChange = async (value) => {
         try {
-          await fetch(`http://127.0.0.1:8000/api/medicamentos/${producto.id_medicamento}/estado`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            // 1 = Activo, 2 = Inactivo según los ids de la tabla estados_medicamento
-            body: JSON.stringify({ id_estado: value ? 1 : 2 })
-          });
+          await fetch(
+            `http://127.0.0.1:8000/api/medicamentos/${producto.id_medicamento}/estado`,
+            {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              // 1 = Activo, 2 = Inactivo según los ids de la tabla estados_medicamento
+              body: JSON.stringify({ id_estado: value ? 1 : 2 }),
+            },
+          );
           // Recargamos la tabla para reflejar el nuevo estado
           fetchMedicamentos();
         } catch (error) {

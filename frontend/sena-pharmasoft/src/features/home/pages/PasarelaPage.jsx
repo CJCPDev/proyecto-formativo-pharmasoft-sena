@@ -46,10 +46,11 @@ export default function PasarelaPage() {
       setTimeout(() => {
         navigate("/");
       }, 3000);
-
     } catch (error) {
       console.error("Error al confirmar carrito:", error);
-      alert("El pago fue procesado pero hubo un error al confirmar el pedido. Contacta soporte.");
+      alert(
+        "El pago fue procesado pero hubo un error al confirmar el pedido. Contacta soporte.",
+      );
     } finally {
       setConfirmando(false);
     }
@@ -63,7 +64,6 @@ export default function PasarelaPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
-
       <AuthModal
         openLogin={openLogin}
         openRegister={openRegister}
@@ -80,7 +80,6 @@ export default function PasarelaPage() {
 
       <div className="flex-1 flex justify-center items-center p-6">
         <div className="grid md:grid-cols-2 gap-6 w-full max-w-4xl">
-
           {/* PAGOS */}
           <div className="min-h-87 transition-all duration-300">
             <PaymentMethods
@@ -95,11 +94,15 @@ export default function PasarelaPage() {
             {result && (
               <div className="mt-4 p-4 rounded-xl bg-green-100 text-green-700">
                 <h2 className="font-bold text-lg">✅ Pago exitoso</h2>
-                <p className="text-sm">ID Transacción: {result.transactionId}</p>
+                <p className="text-sm">
+                  ID Transacción: {result.transactionId}
+                </p>
                 {confirmando ? (
                   <p className="text-sm mt-1">Confirmando pedido...</p>
                 ) : (
-                  <p className="text-sm mt-1">Redirigiendo al inicio en 3 segundos...</p>
+                  <p className="text-sm mt-1">
+                    Redirigiendo al inicio en 3 segundos...
+                  </p>
                 )}
               </div>
             )}
@@ -128,12 +131,10 @@ export default function PasarelaPage() {
               </span>
             </div>
           </div>
-
         </div>
       </div>
 
       <Footer showPortalEmpleados={false} />
-
     </div>
   );
 }

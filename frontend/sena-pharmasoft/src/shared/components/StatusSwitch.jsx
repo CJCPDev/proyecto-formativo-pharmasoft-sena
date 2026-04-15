@@ -6,12 +6,11 @@ import { Check, X } from "lucide-react";
 
 // Componente reutilizable para representar un switch de estado (activo/inactivo)
 export default function StatusSwitch({
-  checked = false,   // Valor inicial del switch (controlado desde el padre)
-  onChange,          // Callback que se ejecuta cuando cambia el estado
-  disabled = false,  // Permite deshabilitar la interacción
-  size = "md",       // Tamaño del switch (sm, md, lg)
+  checked = false, // Valor inicial del switch (controlado desde el padre)
+  onChange, // Callback que se ejecuta cuando cambia el estado
+  disabled = false, // Permite deshabilitar la interacción
+  size = "md", // Tamaño del switch (sm, md, lg)
 }) {
-
   // Estado interno del componente
   // Se inicializa con el valor recibido desde la prop "checked"
   const [isActive, setIsActive] = useState(checked);
@@ -24,7 +23,6 @@ export default function StatusSwitch({
 
   // Función que maneja el cambio del switch
   const handleToggle = () => {
-
     // Si el switch está deshabilitado no permite interacción
     if (disabled) return;
 
@@ -56,11 +54,10 @@ export default function StatusSwitch({
   };
 
   return (
-
     // Botón que funciona como switch
     <button
-      onClick={handleToggle}   // Evento que cambia el estado
-      disabled={disabled}      // Permite deshabilitar el botón
+      onClick={handleToggle} // Evento que cambia el estado
+      disabled={disabled} // Permite deshabilitar el botón
       className={`
 
         // Posicionamiento base del switch
@@ -79,7 +76,6 @@ export default function StatusSwitch({
         ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
       `}
     >
-
       {/* 
         "Knob" del switch (el círculo que se mueve de izquierda a derecha)
       */}
@@ -100,7 +96,6 @@ export default function StatusSwitch({
           ${isActive ? "translate-x-full" : "translate-x-0"}
         `}
       >
-
         {/* 
           Icono que cambia dependiendo del estado
           ✔ activo
@@ -112,7 +107,6 @@ export default function StatusSwitch({
           <X size={12} className="text-gray-500" />
         )}
       </span>
-
     </button>
   );
 }

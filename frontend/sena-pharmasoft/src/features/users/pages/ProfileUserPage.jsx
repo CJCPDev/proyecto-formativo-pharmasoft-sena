@@ -4,10 +4,10 @@
 // Carga los datos desde la API de Django
 // ─────────────────────────────────────────────
 
-import { CardUser } from "@/features/users"
-import { useParams } from "react-router-dom"
-import { useState, useEffect } from "react"
-import { getUsuario } from "../services/usuarioService"
+import { CardUser } from "@/features/users";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getUsuario } from "../services/usuarioService";
 
 export default function ProfileUserPage() {
   const { id } = useParams();
@@ -35,7 +35,9 @@ export default function ProfileUserPage() {
 
   return (
     <div className="relative bg-white rounded-xl shadow-2xl p-4 max-w-7xl mx-auto">
-      {loading && <p className="text-center p-8 text-gray-500">Cargando usuario...</p>}
+      {loading && (
+        <p className="text-center p-8 text-gray-500">Cargando usuario...</p>
+      )}
       {error && <p className="text-center p-8 text-red-500">{error}</p>}
       {user && <CardUser user={user} />}
     </div>

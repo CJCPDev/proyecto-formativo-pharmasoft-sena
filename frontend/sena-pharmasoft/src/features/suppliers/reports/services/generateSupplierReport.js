@@ -1,5 +1,5 @@
 // Fuente de datos de usuarios (mock o fuente centralizada)
-import { getAllSuppliers } from "../../services/supplierService"
+import { getAllSuppliers } from "../../services/supplierService";
 // Utilidad para transformar datos en dataset de reporte
 import { buildReportDataset } from "../utils/buildReportDataset";
 
@@ -10,12 +10,11 @@ import { generatePdfReport } from "./generatePdfReport";
 // Caso de uso: orquestador de generación de reportes de usuarios
 // Patrón: Application Service (coordina utilidades y servicios)
 export async function generateSupplierReport({
-  format,          // "excel" | "pdf"
-  selectedFields,  // Campos seleccionados por el usuario
-  scope,           // Alcance del reporte
-  nit   // Filtro opcional
+  format, // "excel" | "pdf"
+  selectedFields, // Campos seleccionados por el usuario
+  scope, // Alcance del reporte
+  nit, // Filtro opcional
 }) {
-
   const suppliers = await getAllSuppliers();
   console.log("suppliers:", suppliers);
   // Construcción del dataset (desacoplado de la UI)
@@ -23,7 +22,7 @@ export async function generateSupplierReport({
     suppliers,
     selectedFields,
     scope,
-    nit
+    nit,
   });
 
   // Validación: evita generar archivos vacíos
@@ -40,7 +39,7 @@ export async function generateSupplierReport({
     generateExcelReport({
       headers,
       rows,
-      fileName: `supplier-report-${timestamp}.xlsx`
+      fileName: `supplier-report-${timestamp}.xlsx`,
     });
   }
 
@@ -48,7 +47,7 @@ export async function generateSupplierReport({
     generatePdfReport({
       headers,
       rows,
-      fileName: `supplier-report-${timestamp}.pdf`
+      fileName: `supplier-report-${timestamp}.pdf`,
     });
   }
 }

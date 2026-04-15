@@ -11,13 +11,12 @@ import Checkbox from "@/shared/components/Checkbox";
 import { getUsuarioActual } from "@/features/auth/services/authService";
 
 export default function ReportConfigModal({ isOpen, onClose }) {
-
   const [format, setFormat] = useState("pdf");
   const [scope, setScope] = useState("all");
   const [documentNumber, setDocumentNumber] = useState("");
   const [rolFiltro, setRolFiltro] = useState("todos");
   const [selectedFields, setSelectedFields] = useState(() =>
-    userReportFields.filter((f) => f.default)
+    userReportFields.filter((f) => f.default),
   );
 
   const usuarioActual = getUsuarioActual();
@@ -48,7 +47,6 @@ export default function ReportConfigModal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
       <div className="w-full max-w-lg rounded-xl bg-white shadow-lg flex flex-col max-h-[90vh]">
-
         {/* Header */}
         <div className="p-6 border-b">
           <h2 className="text-xl font-semibold">Generar reporte de usuarios</h2>
@@ -56,7 +54,6 @@ export default function ReportConfigModal({ isOpen, onClose }) {
 
         {/* Contenido con scroll */}
         <div className="p-6 overflow-y-auto flex-1 grid gap-4">
-
           <Select
             label="Formato del reporte"
             value={format}
@@ -118,7 +115,6 @@ export default function ReportConfigModal({ isOpen, onClose }) {
               placeholder="Ingrese número de documento"
             />
           )}
-
         </div>
 
         {/* Footer */}
@@ -130,7 +126,6 @@ export default function ReportConfigModal({ isOpen, onClose }) {
             Generar reporte
           </Button>
         </div>
-
       </div>
     </div>
   );

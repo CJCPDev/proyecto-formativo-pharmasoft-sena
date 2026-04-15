@@ -31,9 +31,7 @@ export default function CreditCardPayment({ total = 0, onSuccess }) {
 
   return (
     <div className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md space-y-4">
-      <h2 className="text-2xl font-bold text-gray-800">
-        💳 Pago con tarjeta
-      </h2>
+      <h2 className="text-2xl font-bold text-gray-800">💳 Pago con tarjeta</h2>
 
       {/* Tarjeta visual */}
       <div className="bg-linear-to-r from-green-600 to-brand-hover text-white p-4 rounded-xl shadow-md">
@@ -52,9 +50,7 @@ export default function CreditCardPayment({ total = 0, onSuccess }) {
         type="text"
         placeholder="Número de tarjeta"
         value={cardNumber}
-        onChange={(e) =>
-          setCardNumber(formatCardNumber(e.target.value))
-        }
+        onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
         className="w-full border rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-indigo-400"
       />
 

@@ -35,11 +35,10 @@ export default function ForgotPasswordForm() {
       await axios.post(`${API_URL}/auth/solicitar-codigo/`, { email });
 
       // Guardamos el email en sessionStorage para usarlo en el siguiente paso
-      sessionStorage.setItem('reset_email', email);
+      sessionStorage.setItem("reset_email", email);
 
       // Navegamos a la página donde ingresa el código
       navigate("/reset-password");
-
     } catch (err) {
       setError(err.response?.data?.error || "Error al enviar el código");
     } finally {
@@ -75,7 +74,12 @@ export default function ForgotPasswordForm() {
               <p className="text-red-500 text-sm text-center">{error}</p>
             )}
 
-            <Button variant="secondary" size="md" type="submit" disabled={loading}>
+            <Button
+              variant="secondary"
+              size="md"
+              type="submit"
+              disabled={loading}
+            >
               {loading ? "Enviando..." : "Enviar código"}
             </Button>
           </div>

@@ -1,8 +1,7 @@
 import { useState } from "react";
-import {StatusSwitch} from "@/shared/components/";
+import { StatusSwitch } from "@/shared/components/";
 
 export default function ConfigUserPage() {
-
   // Estado que controla el switch
   const [isActive, setIsActive] = useState(true);
 
@@ -16,14 +15,10 @@ export default function ConfigUserPage() {
 
   return (
     <div className="p-6 max-w-md space-y-4">
-
-      <h2 className="text-lg font-semibold">
-        Configuración de usuario
-      </h2>
+      <h2 className="text-lg font-semibold">Configuración de usuario</h2>
 
       {/* Fila de configuración */}
       <div className="flex items-center justify-between border p-4 rounded-lg">
-
         <div>
           <p className="font-medium">Usuario activo</p>
           <p className="text-sm text-gray-500">
@@ -37,8 +32,7 @@ export default function ConfigUserPage() {
           onChange={handleStatusChange}
           size="md"
         />
-
       </div>
     </div>
-  )
+  );
 }

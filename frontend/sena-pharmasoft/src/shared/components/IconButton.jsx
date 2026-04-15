@@ -16,8 +16,8 @@ export const IconButton = React.forwardRef(function IconButton(
     variant = "default",
 
     // Tamaños
-    hitSize = 48,   // px (área táctil)
-    iconSize = 24,  // px (ícono visible)
+    hitSize = 48, // px (área táctil)
+    iconSize = 24, // px (ícono visible)
 
     // Accesibilidad
     ariaLabel,
@@ -27,7 +27,7 @@ export const IconButton = React.forwardRef(function IconButton(
 
     ...props
   },
-  ref
+  ref,
 ) {
   const baseStyles = `
     inline-flex items-center justify-center

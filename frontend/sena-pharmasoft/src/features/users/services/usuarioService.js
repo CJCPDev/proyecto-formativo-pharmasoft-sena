@@ -13,7 +13,7 @@ const API_URL = "http://localhost:8000/api";
 //Si se pasa un idROl, filtra por ese rol
 //El farmaceuta usa esto para ver solo clientes
 export const getUsuarios = async (idRol = null) => {
-  const params = idRol ? `?rol=${idRol}` :  '';
+  const params = idRol ? `?rol=${idRol}` : "";
   const response = await axios.get(`${API_URL}/usuarios/${params}`);
   return response.data;
 };
@@ -67,14 +67,20 @@ export const subirAvatar = async (archivo) => {
 
 // Cambia el estado de un usuario (activo/inactivo)
 export const cambiarEstadoUsuario = async (id, idEstado) => {
-  const response = await axios.patch(`${API_URL}/usuarios/${id}/cambiar-estado/`, {
-    id_estado_usuario: idEstado
-  });
+  const response = await axios.patch(
+    `${API_URL}/usuarios/${id}/cambiar-estado/`,
+    {
+      id_estado_usuario: idEstado,
+    },
+  );
   return response.data;
 };
 
 //CAmbia la contraseña del usuario
 export const cambiarContrasena = async (id, datos) => {
-  const response = await axios.post(`${API_URL}/usuarios/${id}/cambiar_contrasena`, datos)
+  const response = await axios.post(
+    `${API_URL}/usuarios/${id}/cambiar_contrasena`,
+    datos,
+  );
   return response.data;
-}
+};

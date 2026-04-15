@@ -1,10 +1,3 @@
-# from django.apps import AppConfig
-
-
-# class ProductsConfig(AppConfig):
-#     default_auto_field = 'django.db.models.BigAutoField'
-#     name = 'products'
-
 # Configuración de la aplicación "products" dentro del proyecto Django.
 # Django la usa para registrar la app y aplicar sus ajustes al iniciar el servidor.
 

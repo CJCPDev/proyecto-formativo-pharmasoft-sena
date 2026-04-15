@@ -78,7 +78,7 @@ export default function DataTable({ data = [], columns }) {
 
         {/* ================== SELECTOR DE FILAS ================== */}
         {/* Permite cambiar cuántas filas se muestran por página */}
-{/*         <select
+        {/*         <select
           value={table.getState().pagination.pageSize}
           onChange={(e) => table.setPageSize(Number(e.target.value))}
           className="border rounded px-2 py-2"
@@ -100,7 +100,10 @@ export default function DataTable({ data = [], columns }) {
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <th key={header.id} className="p-0.5 text-center justify-between border border-gray-200 text-white ">
+                  <th
+                    key={header.id}
+                    className="p-0.5 text-center justify-between border border-gray-200 text-white "
+                  >
                     {/* 
                       flexRender permite renderizar:
                       - texto
@@ -122,7 +125,10 @@ export default function DataTable({ data = [], columns }) {
           <tbody>
             {/* Filas generadas por TanStack */}
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="hover:bg-brand-soft border border-gray-200">
+              <tr
+                key={row.id}
+                className="hover:bg-brand-soft border border-gray-200"
+              >
                 {/* Celdas visibles de cada fila */}
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="p-0.5 border border-gray-200">

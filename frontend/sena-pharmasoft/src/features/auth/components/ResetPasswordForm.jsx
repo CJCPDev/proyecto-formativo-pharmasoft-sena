@@ -17,7 +17,7 @@ export default function ResetPasswordForm() {
   const navigate = useNavigate();
 
   // Array de 6 dígitos para el código
-  const [codigo, setCodigo] = useState(['', '', '', '', '', '']);
+  const [codigo, setCodigo] = useState(["", "", "", "", "", ""]);
   const [nuevaContrasena, setNuevaContrasena] = useState("");
   const [confirmarContrasena, setConfirmarContrasena] = useState("");
   const [error, setError] = useState(null);
@@ -27,13 +27,13 @@ export default function ResetPasswordForm() {
   const [paso, setPaso] = useState(1);
 
   // Obtenemos el email guardado en el paso anterior
-  const email = sessionStorage.getItem('reset_email');
+  const email = sessionStorage.getItem("reset_email");
 
   const handleVerificarCodigo = async (e) => {
     e.preventDefault();
     setError(null);
 
-    const codigoCompleto = codigo.join('');
+    const codigoCompleto = codigo.join("");
     if (codigoCompleto.length < 6) {
       setError("Por favor ingresa el código completo");
       return;
@@ -44,7 +44,7 @@ export default function ResetPasswordForm() {
       // Verificamos el código con Django
       await axios.post(`${API_URL}/auth/verificar-codigo/`, {
         email,
-        codigo: codigoCompleto
+        codigo: codigoCompleto,
       });
 
       // Si el código es correcto pasamos al paso 2
@@ -75,16 +75,15 @@ export default function ResetPasswordForm() {
       // Cambiamos la contraseña en Django
       await axios.post(`${API_URL}/auth/cambiar-contrasena/`, {
         email,
-        codigo: codigo.join(''),
-        nueva_contrasena: nuevaContrasena
+        codigo: codigo.join(""),
+        nueva_contrasena: nuevaContrasena,
       });
 
       // Limpiamos el email del sessionStorage
-      sessionStorage.removeItem('reset_email');
+      sessionStorage.removeItem("reset_email");
 
       // Redirigimos al login
       navigate("/login");
-
     } catch (err) {
       setError(err.response?.data?.error || "Error al cambiar la contraseña");
     } finally {
@@ -95,7 +94,6 @@ export default function ResetPasswordForm() {
   return (
     <div className="absolute inset-0 flex items-center justify-center z-10">
       <div className="bg-white w-102 p-6 rounded-lg shadow-2xl">
-
         {/* Paso 1 — Verificar código */}
         {paso === 1 && (
           <form onSubmit={handleVerificarCodigo}>
@@ -105,16 +103,23 @@ export default function ResetPasswordForm() {
                 Restablecimiento de contraseña
               </h1>
               <p className="text-secondary text-info-general text-center font-light py-6">
-                Ingresa el <strong className="font-bold">código</strong> enviado a
-                tu correo electrónico
+                Ingresa el <strong className="font-bold">código</strong> enviado
+                a tu correo electrónico
               </p>
             </div>
             <div className="grid justify-items-center gap-6">
               <TokenValidation codigo={codigo} setCodigo={setCodigo} />
 
-              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+              {error && (
+                <p className="text-red-500 text-sm text-center">{error}</p>
+              )}
 
-              <Button variant="secondary" size="md" type="submit" disabled={loading}>
+              <Button
+                variant="secondary"
+                size="md"
+                type="submit"
+                disabled={loading}
+              >
                 {loading ? "Verificando..." : "Validar código"}
               </Button>
             </div>
@@ -147,15 +152,21 @@ export default function ResetPasswordForm() {
                 onChange={(e) => setConfirmarContrasena(e.target.value)}
               />
 
-              {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+              {error && (
+                <p className="text-red-500 text-sm text-center">{error}</p>
+              )}
 
-              <Button variant="secondary" size="md" type="submit" disabled={loading}>
+              <Button
+                variant="secondary"
+                size="md"
+                type="submit"
+                disabled={loading}
+              >
                 {loading ? "Guardando..." : "Cambiar contraseña"}
               </Button>
             </div>
           </form>
         )}
-
       </div>
     </div>
   );

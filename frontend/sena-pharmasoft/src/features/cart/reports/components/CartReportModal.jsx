@@ -10,13 +10,12 @@ import { Button, Input, Select } from "@/shared/components";
 import Checkbox from "@/shared/components/Checkbox";
 
 export default function CartReportModal({ isOpen, onClose }) {
-
   const [format, setFormat] = useState("pdf");
   const [filtroEstado, setFiltroEstado] = useState("todos");
   const [scope, setScope] = useState("all");
   const [documento, setDocumento] = useState("");
   const [selectedFields, setSelectedFields] = useState(() =>
-    cartReportFields.filter((f) => f.default)
+    cartReportFields.filter((f) => f.default),
   );
 
   if (!isOpen) return null;
@@ -31,14 +30,19 @@ export default function CartReportModal({ isOpen, onClose }) {
   };
 
   const handleGenerateReport = () => {
-    generateCartReport({ format, selectedFields, filtroEstado, scope, documento });
+    generateCartReport({
+      format,
+      selectedFields,
+      filtroEstado,
+      scope,
+      documento,
+    });
     onClose();
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
       <div className="w-full max-w-lg rounded-xl bg-white shadow-lg flex flex-col max-h-[90vh]">
-
         {/* Header */}
         <div className="p-6 border-b">
           <h2 className="text-xl font-semibold">Generar reporte de carritos</h2>
@@ -46,7 +50,6 @@ export default function CartReportModal({ isOpen, onClose }) {
 
         {/* Contenido con scroll */}
         <div className="p-6 overflow-y-auto flex-1 grid gap-4">
-
           <Select
             label="Formato del reporte"
             value={format}
@@ -106,7 +109,6 @@ export default function CartReportModal({ isOpen, onClose }) {
               onChange={(e) => setDocumento(e.target.value)}
             />
           )}
-
         </div>
 
         {/* Footer */}
@@ -118,7 +120,6 @@ export default function CartReportModal({ isOpen, onClose }) {
             Generar reporte
           </Button>
         </div>
-
       </div>
     </div>
   );

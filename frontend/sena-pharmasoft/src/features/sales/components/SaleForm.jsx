@@ -11,7 +11,7 @@ export default function SaleForm({
   onAddProduct,
   setSaleData,
   saleData,
-  isView = false
+  isView = false,
 }) {
   const params = useParams();
   const isEdit = Boolean(params.id);
@@ -27,7 +27,7 @@ export default function SaleForm({
   });
 
   const [errors, setErrors] = useState({});
-  const [isEditing, setIsEditing] = useState(!isEdit && !isView); // 🔥 IMPORTANTE
+  const [isEditing, setIsEditing] = useState(!isEdit && !isView);
   const [search, setSearch] = useState("");
 
   // ================== LOAD DATA ==================
@@ -56,7 +56,6 @@ export default function SaleForm({
           sellStates: sales?.estado_venta || "",
           paymentStates: sales?.tipo_pago || "",
         });
-
       } catch (error) {
         console.error("Error cargando venta:", error);
       }
@@ -88,9 +87,7 @@ export default function SaleForm({
 
     const results = products
       .filter((p) =>
-        p.nombre_medicamento
-          ?.toLowerCase()
-          .includes(search.toLowerCase())
+        p.nombre_medicamento?.toLowerCase().includes(search.toLowerCase()),
       )
       .slice(0, 5);
 
@@ -99,7 +96,7 @@ export default function SaleForm({
 
   // ================== HANDLE CHANGE ==================
   const handleChange = (e) => {
-    if (isView) return; // 🔥 BLOQUEO TOTAL
+    if (isView) return;
 
     const { name, value } = e.target;
 
@@ -112,7 +109,7 @@ export default function SaleForm({
   // ================== SUBMIT ==================
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isView) return; // 🔥 BLOQUEO
+    if (isView) return;
 
     const result = saleSchema.safeParse(formData);
 
@@ -141,8 +138,7 @@ export default function SaleForm({
 
   // ================== ADD PRODUCT ==================
   const handleAddProduct = (product) => {
-    if (!product || isView) return; // 🔥 BLOQUEO
-
+    if (!product || isView) return;
     onAddProduct({
       id: Date.now(),
       name: product.nombre_medicamento,
@@ -157,14 +153,23 @@ export default function SaleForm({
 
   return (
     <div className="font-main bg-white grid gap-4 w-full h-120 p-2 rounded-lg">
-
       <form onSubmit={handleSubmit} className="w-full px-6 rounded-xl">
-
-        <Title title={isView ? "Detalle de venta" : isEdit ? "Editar venta" : "Crear venta"} />
+        <Title
+          title={
+            isView
+              ? "Detalle de venta"
+              : isEdit
+                ? "Editar venta"
+                : "Crear venta"
+          }
+        />
 
         <div className="grid grid-cols-2 w-full gap-2">
-
-          <Input label="Número de factura" disabled value={saleData?.numeroFactura || ""} />
+          <Input
+            label="Número de factura"
+            disabled
+            value={saleData?.numeroFactura || ""}
+          />
 
           <Input label="Fecha y hora" disabled value={saleData?.fecha || ""} />
 
@@ -209,7 +214,6 @@ export default function SaleForm({
           />
         </div>
 
-        {/* 🔥 BOTONES SOLO SI NO ES VIEW */}
         {!isView && (
           <div className="flex py-4 justify-center">
             {isEdit && !isEditing && (
@@ -221,17 +225,13 @@ export default function SaleForm({
             {isEditing && <Button type="submit">Guardar</Button>}
           </div>
         )}
-
       </form>
 
-      {/* 🔥 PRODUCTOS SOLO SI NO ES VIEW */}
       {!isView && (
         <div className="mt-10 p-4 border rounded-lg relative">
-
           <h3>Agregar productos</h3>
 
           <div className="flex gap-2 flex-col">
-
             <Input
               placeholder="Buscar producto..."
               value={search}
@@ -251,12 +251,9 @@ export default function SaleForm({
                 ))}
               </div>
             )}
-
           </div>
-
         </div>
       )}
-
     </div>
   );
 }

@@ -1,4 +1,3 @@
-
 // React es necesario en archivos que contienen JSX
 import React from "react";
 

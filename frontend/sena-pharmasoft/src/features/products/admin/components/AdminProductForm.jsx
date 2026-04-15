@@ -6,7 +6,13 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 // Componentes reutilizables del sistema de diseño compartido
-import { Select, Button, Input, Title, AvatarUploader } from "../../../../shared/components";
+import {
+  Select,
+  Button,
+  Input,
+  Title,
+  AvatarUploader,
+} from "../../../../shared/components";
 
 // Esquema de validación del formulario usando Zod (o librería similar)
 import { medicamentoSchema } from "../../schemas/medicamentoSchema";
@@ -67,7 +73,7 @@ export default function AdminProductForm() {
     requiresPrescription: "",
     estado: "",
     description: "",
-    imagen: null,    // Archivo File cuando el usuario carga una imagen nueva
+    imagen: null, // Archivo File cuando el usuario carga una imagen nueva
     imagenUrl: null, // URL de la imagen ya guardada en el servidor (modo edición)
   });
 
@@ -121,13 +127,12 @@ export default function AdminProductForm() {
     getStatesTypes().then(setStatesTypes);
   }, []); // Array vacío: se ejecuta una sola vez al montar el componente
 
-  // ── Efecto: asignar la subforma una vez que sus opciones están cargadas ──
-  // Este efecto resuelve el problema de sincronía: cuando se edita un medicamento,
-  // la subforma no se puede mostrar hasta que su select tenga opciones disponibles.
-  // Este efecto espera a que ambas condiciones se cumplan para asignarla.
   useEffect(() => {
     if (subformaInicial && subformas.length > 0) {
-      setFormData((prev) => ({ ...prev, subformaFarmaceutica: subformaInicial }));
+      setFormData((prev) => ({
+        ...prev,
+        subformaFarmaceutica: subformaInicial,
+      }));
       // Limpiamos el valor temporal para que este efecto no vuelva a ejecutarse
       setSubformaInicial("");
     }
@@ -142,7 +147,7 @@ export default function AdminProductForm() {
       });
     } else {
       // Si no hay forma seleccionada, vaciamos las subformas disponibles
-    setSubformas([]);
+      setSubformas([]);
     }
   }, [formData.formaFarmaceutica]); // Se dispara cada vez que cambia la forma farmacéutica
 
@@ -152,22 +157,20 @@ export default function AdminProductForm() {
 
     if (name === "formaFarmaceutica") {
       // Mantienes tu lógica original
-      setFormData((prev) => ({ 
-        ...prev, 
-        [name]: value, 
-        subformaFarmaceutica: "" 
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+        subformaFarmaceutica: "",
       }));
     } else if (name === "precioCosto" || name === "precioVenta") {
-      // Guardas como número para poder formatear después
-      setFormData((prev) => ({ 
-        ...prev, 
-        [name]: value === "" ? "" : parseFloat(value) 
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value === "" ? "" : parseFloat(value),
       }));
     } else {
-      // Todo lo demás igual que antes
-      setFormData((prev) => ({ 
-        ...prev, 
-        [name]: value 
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
       }));
     }
   };
@@ -180,15 +183,27 @@ export default function AdminProductForm() {
     // a tipo Number, ya que el esquema de validación y el backend los esperan así
     const parsedData = {
       ...formData,
-      formaFarmaceutica: formData.formaFarmaceutica === "" ? 0 : Number(formData.formaFarmaceutica),
-      subformaFarmaceutica: formData.subformaFarmaceutica === "" ? 0 : Number(formData.subformaFarmaceutica),
-      viaAdministracion: formData.viaAdministracion === "" ? 0 : Number(formData.viaAdministracion),
-      laboratorio: formData.laboratorio === "" ? 0 : Number(formData.laboratorio),
+      formaFarmaceutica:
+        formData.formaFarmaceutica === ""
+          ? 0
+          : Number(formData.formaFarmaceutica),
+      subformaFarmaceutica:
+        formData.subformaFarmaceutica === ""
+          ? 0
+          : Number(formData.subformaFarmaceutica),
+      viaAdministracion:
+        formData.viaAdministracion === ""
+          ? 0
+          : Number(formData.viaAdministracion),
+      laboratorio:
+        formData.laboratorio === "" ? 0 : Number(formData.laboratorio),
       proveedor: formData.proveedor === "" ? 0 : Number(formData.proveedor),
       estado: formData.estado === "" ? 0 : Number(formData.estado),
       stock: formData.stock === "" ? 0 : Number(formData.stock),
-      precioCosto: formData.precioCosto === "" ? 0 : Number(formData.precioCosto),
-      precioVenta: formData.precioVenta === "" ? 0 : Number(formData.precioVenta),
+      precioCosto:
+        formData.precioCosto === "" ? 0 : Number(formData.precioCosto),
+      precioVenta:
+        formData.precioVenta === "" ? 0 : Number(formData.precioVenta),
       requiresPrescription: formData.requiresPrescription,
     };
 
@@ -230,7 +245,10 @@ export default function AdminProductForm() {
     formDataToSend.append("descripcion", formData.description);
     formDataToSend.append("concentracion", formData.concentracion);
     formDataToSend.append("id_forma_farmaceutica", formData.formaFarmaceutica);
-    formDataToSend.append("id_subforma_farmaceutica", formData.subformaFarmaceutica);
+    formDataToSend.append(
+      "id_subforma_farmaceutica",
+      formData.subformaFarmaceutica,
+    );
     formDataToSend.append("id_via_administracion", formData.viaAdministracion);
     formDataToSend.append("id_laboratorio", formData.laboratorio);
     formDataToSend.append("id_proveedor", formData.proveedor);
@@ -256,7 +274,11 @@ export default function AdminProductForm() {
       })
       .then(() => {
         // Si todo salió bien, notificamos al usuario y lo redirigimos al listado
-        alert(isEdit ? "Medicamento actualizado exitosamente" : "Medicamento creado exitosamente");
+        alert(
+          isEdit
+            ? "Medicamento actualizado exitosamente"
+            : "Medicamento creado exitosamente",
+        );
         navigate("/medicamentos");
       })
       .catch((error) => {
@@ -269,50 +291,168 @@ export default function AdminProductForm() {
   return (
     <div className="p-6">
       <form className="flex flex-col gap-10 z-20" onSubmit={handleSubmit}>
-
         {/* El título cambia según si se está creando o editando */}
-        {isEdit ? <Title title="Editar Medicamento" /> : <Title title="Crear Medicamento" />}
+        {isEdit ? (
+          <Title title="Editar Medicamento" />
+        ) : (
+          <Title title="Crear Medicamento" />
+        )}
 
         {/* Grid de 3 columnas en pantallas grandes, 1 columna en móvil */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
           {/* Columna 1: datos de identificación del medicamento */}
           <div className="flex flex-col gap-6">
-            <Input label="Nombre del medicamento" name="nombreMedicamento" value={formData.nombreMedicamento} onChange={handleChange} placeholder="Nombre del medicamento" error={errors.nombreMedicamento} />
-            <Select label="Forma farmacéutica" name="formaFarmaceutica" value={formData.formaFarmaceutica} options={pharmaForm} onChange={handleChange} error={errors.formaFarmaceutica} />
+            <Input
+              label="Nombre del medicamento"
+              name="nombreMedicamento"
+              value={formData.nombreMedicamento}
+              onChange={handleChange}
+              placeholder="Nombre del medicamento"
+              error={errors.nombreMedicamento}
+            />
+            <Select
+              label="Forma farmacéutica"
+              name="formaFarmaceutica"
+              value={formData.formaFarmaceutica}
+              options={pharmaForm}
+              onChange={handleChange}
+              error={errors.formaFarmaceutica}
+            />
 
             {/* El select de presentación se deshabilita si no hay forma farmacéutica seleccionada */}
-            <Select label="Presentación" name="subformaFarmaceutica" value={formData.subformaFarmaceutica} options={subformas} onChange={handleChange} error={errors.subformaFarmaceutica} disabled={!formData.formaFarmaceutica} />
+            <Select
+              label="Presentación"
+              name="subformaFarmaceutica"
+              value={formData.subformaFarmaceutica}
+              options={subformas}
+              onChange={handleChange}
+              error={errors.subformaFarmaceutica}
+              disabled={!formData.formaFarmaceutica}
+            />
 
-            <Select label="Vía de administración" name="viaAdministracion" value={formData.viaAdministracion} options={administrationTypes} onChange={handleChange} error={errors.viaAdministracion} />
-            <Select label="Laboratorio" name="laboratorio" value={formData.laboratorio} options={laboratoriesTypes} onChange={handleChange} error={errors.laboratorio} />
-            <Input label="Concentración" name="concentracion" value={formData.concentracion} onChange={handleChange} placeholder="Concentración" error={errors.concentracion} />
-            
+            <Select
+              label="Vía de administración"
+              name="viaAdministracion"
+              value={formData.viaAdministracion}
+              options={administrationTypes}
+              onChange={handleChange}
+              error={errors.viaAdministracion}
+            />
+            <Select
+              label="Laboratorio"
+              name="laboratorio"
+              value={formData.laboratorio}
+              options={laboratoriesTypes}
+              onChange={handleChange}
+              error={errors.laboratorio}
+            />
+            <Input
+              label="Concentración"
+              name="concentracion"
+              value={formData.concentracion}
+              onChange={handleChange}
+              placeholder="Concentración"
+              error={errors.concentracion}
+            />
           </div>
 
           {/* Columna 2: datos de inventario y precios */}
           <div className="flex flex-col gap-5">
-            <Input label="Lote" name="lote" value={formData.lote} onChange={handleChange} placeholder="Lote" error={errors.lote} />
-            <Input className="z-10" label="Fecha de fabricación" type="date" name="fechaFabricacion" value={formData.fechaFabricacion} onChange={handleChange} error={errors.fechaFabricacion} />
-            <Input className="z-10" label="Fecha de vencimiento" type="date" name="fechaVencimiento" value={formData.fechaVencimiento} onChange={handleChange} error={errors.fechaVencimiento} />
-            <Input label="Stock" name="stock" value={formData.stock} onChange={handleChange} placeholder="Stock" error={errors.stock} />
-            <Input label="Precio de costo" name="precioCosto" value={formData.precioCosto} onChange={handleChange} placeholder="Precio costo" error={errors.precioCosto} />
-            <Input label="Precio de venta" name="precioVenta" value={formData.precioVenta} onChange={handleChange} placeholder="Precio venta" error={errors.precioVenta} />
+            <Input
+              label="Lote"
+              name="lote"
+              value={formData.lote}
+              onChange={handleChange}
+              placeholder="Lote"
+              error={errors.lote}
+            />
+            <Input
+              className="z-10"
+              label="Fecha de fabricación"
+              type="date"
+              name="fechaFabricacion"
+              value={formData.fechaFabricacion}
+              onChange={handleChange}
+              error={errors.fechaFabricacion}
+            />
+            <Input
+              className="z-10"
+              label="Fecha de vencimiento"
+              type="date"
+              name="fechaVencimiento"
+              value={formData.fechaVencimiento}
+              onChange={handleChange}
+              error={errors.fechaVencimiento}
+            />
+            <Input
+              label="Stock"
+              name="stock"
+              value={formData.stock}
+              onChange={handleChange}
+              placeholder="Stock"
+              error={errors.stock}
+            />
+            <Input
+              label="Precio de costo"
+              name="precioCosto"
+              value={formData.precioCosto}
+              onChange={handleChange}
+              placeholder="Precio costo"
+              error={errors.precioCosto}
+            />
+            <Input
+              label="Precio de venta"
+              name="precioVenta"
+              value={formData.precioVenta}
+              onChange={handleChange}
+              placeholder="Precio venta"
+              error={errors.precioVenta}
+            />
           </div>
 
           {/* Columna 3: estado, descripción e imagen */}
           <div className="flex flex-col gap-6">
-            <Select label="Proveedor" name="proveedor" value={formData.proveedor} options={suppliers} onChange={handleChange} error={errors.proveedor} />
-            <Input label="Requiere fórmula" name="requiresPrescription" value={formData.requiresPrescription} onChange={handleChange} placeholder="Requiere fórmula" error={errors.requiresPrescription} />
-            <Select label="Estado" name="estado" value={formData.estado} options={statesTypes} onChange={handleChange} error={errors.estado} />
-            <Input label="Descripción" name="description" value={formData.description} onChange={handleChange} placeholder="Descripción" error={errors.description} />
+            <Select
+              label="Proveedor"
+              name="proveedor"
+              value={formData.proveedor}
+              options={suppliers}
+              onChange={handleChange}
+              error={errors.proveedor}
+            />
+            <Input
+              label="Requiere fórmula"
+              name="requiresPrescription"
+              value={formData.requiresPrescription}
+              onChange={handleChange}
+              placeholder="Requiere fórmula"
+              error={errors.requiresPrescription}
+            />
+            <Select
+              label="Estado"
+              name="estado"
+              value={formData.estado}
+              options={statesTypes}
+              onChange={handleChange}
+              error={errors.estado}
+            />
+            <Input
+              label="Descripción"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Descripción"
+              error={errors.description}
+            />
 
             {/* AvatarUploader muestra la imagen actual en modo edición.
                 Al subir una nueva, actualiza formData.imagen con el objeto File */}
             <AvatarUploader
               label="Cargar foto"
               currentImage={isEdit ? formData.imagenUrl : null}
-              onUpload={(file) => setFormData((prev) => ({ ...prev, imagen: file }))}
+              onUpload={(file) =>
+                setFormData((prev) => ({ ...prev, imagen: file }))
+              }
             />
           </div>
         </div>

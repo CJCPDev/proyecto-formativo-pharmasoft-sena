@@ -16,7 +16,7 @@ export async function generateUserReport({
   selectedFields,
   scope,
   documentNumber,
-  rolFiltro  // "todos" | "5" | "6" | "7"
+  rolFiltro, // "todos" | "5" | "6" | "7"
 }) {
   try {
     const usuarioActual = getUsuarioActual();
@@ -24,7 +24,11 @@ export async function generateUserReport({
 
     // Si es farmaceuta siempre filtra por clientes
     // Si es admin usa el filtro seleccionado en el modal
-    const idRol = esFarmaceuta ? 2 : (rolFiltro === "todos" ? null : Number(rolFiltro));
+    const idRol = esFarmaceuta
+      ? 2
+      : rolFiltro === "todos"
+        ? null
+        : Number(rolFiltro);
     console.log("idRol enviado a getUsuarios:", idRol);
     // Obtenemos los usuarios desde la API de Django
     const users = await getUsuarios(idRol);
@@ -35,7 +39,7 @@ export async function generateUserReport({
       users,
       selectedFields,
       scope,
-      documentNumber
+      documentNumber,
     });
 
     // Validación — evita generar archivos vacíos
@@ -50,7 +54,7 @@ export async function generateUserReport({
       generateExcelReport({
         headers,
         rows,
-        fileName: `users-report-${timestamp}.xlsx`
+        fileName: `users-report-${timestamp}.xlsx`,
       });
     }
 
@@ -58,10 +62,9 @@ export async function generateUserReport({
       generatePdfReport({
         headers,
         rows,
-        fileName: `users-report-${timestamp}.pdf`
+        fileName: `users-report-${timestamp}.pdf`,
       });
     }
-
   } catch (error) {
     console.error("Error al generar el reporte:", error);
     alert("Error al obtener los datos para el reporte");

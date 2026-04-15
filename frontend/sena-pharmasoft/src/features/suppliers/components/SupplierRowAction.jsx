@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 // Componente que renderiza las acciones de cada fila de usuario
 // Recibe como prop el objeto supplier
 export default function SupplierRowActions({ supplier }) {
-
   // const handleEdit = () => {
   //   console.log("Editar usuario", supplier.id);
   // };
@@ -31,15 +30,16 @@ export default function SupplierRowActions({ supplier }) {
   return (
     // Contenedor de los botones de acciones
     <div className="flex gap-4 items-center justify-center">
-
-          {/* Botón editar */}
-        <div className="relative group w-max">
-          <button
-            onClick={handleEdit} // Ejecuta la navegación a la página de edición
-            className="py-1 rounded cursor-pointer"
-          >
-          <Pencil size={18} className="stroke-brand-fort"/> {/* Icono de editar */}
-                      <span className="
+      {/* Botón editar */}
+      <div className="relative group w-max">
+        <button
+          onClick={handleEdit} // Ejecuta la navegación a la página de edición
+          className="py-1 rounded cursor-pointer"
+        >
+          <Pencil size={18} className="stroke-brand-fort" />{" "}
+          {/* Icono de editar */}
+          <span
+            className="
                         absolute
                         top-6
                         -right-2
@@ -52,19 +52,22 @@ export default function SupplierRowActions({ supplier }) {
                         text-sm 
                         rounded
                         z-15
-                      ">Editar
-                  </span>          
+                      "
+          >
+            Editar
+          </span>
         </button>
-        </div>
-          {/* Botón para ver el detalle */}
-        <div className="relative group w-max">     
-            <button
-              onClick={handleDetail} // Ejecuta la acción de eliminación
-              className="relative py-1 rounded cursor-pointer"
-            >
-              <Eye size={20} className="stroke-brand-fort"/> {/* Icono para ver */}
-            </button>
-                    <span className="
+      </div>
+      {/* Botón para ver el detalle */}
+      <div className="relative group w-max">
+        <button
+          onClick={handleDetail} // Ejecuta la acción de eliminación
+          className="relative py-1 rounded cursor-pointer"
+        >
+          <Eye size={20} className="stroke-brand-fort" /> {/* Icono para ver */}
+        </button>
+        <span
+          className="
                         absolute
                         top-6
                         -right-6
@@ -77,9 +80,11 @@ export default function SupplierRowActions({ supplier }) {
                         p-0.5
                         rounded
                         z-15
-                      ">Visualizar
-                  </span>
-        </div>
+                      "
+        >
+          Visualizar
+        </span>
+      </div>
     </div>
   );
 }

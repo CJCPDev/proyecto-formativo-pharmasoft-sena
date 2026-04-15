@@ -18,7 +18,12 @@ export default function Card({ product, onProductoAgregado }) {
     }
 
     try {
-      await agregarAlCarrito(usuarioActual.id, product.id_medicamento, 1, product.precio_venta);
+      await agregarAlCarrito(
+        usuarioActual.id,
+        product.id_medicamento,
+        1,
+        product.precio_venta,
+      );
 
       // Notificamos al componente padre que se agregó un producto
       // para actualizar el contador del carrito

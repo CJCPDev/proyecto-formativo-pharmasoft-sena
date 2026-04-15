@@ -27,7 +27,7 @@ export default function FileInput({
     }
 
     // Envía el archivo al componente padre solo si onUpload existe
-    if (typeof onUpload === 'function') {
+    if (typeof onUpload === "function") {
       onUpload(f);
     }
   };
@@ -36,12 +36,11 @@ export default function FileInput({
   // 1. Si el usuario seleccionó una nueva imagen → muestra la preview local
   // 2. Si no seleccionó pero tiene imagen guardada → muestra la imagen del servidor
   // 3. Si no tiene ninguna → no muestra nada
-  const imagenMostrar = preview
-    || (currentImage ? `http://localhost:8000${currentImage}` : null);
+  const imagenMostrar =
+    preview || (currentImage ? `http://localhost:8000${currentImage}` : null);
 
   return (
     <div className="grid grid-cols-1 text-center items-center mx-auto py-auto h-full">
-
       {/* Muestra la imagen actual o la nueva seleccionada */}
       {imagenMostrar && (
         <img
@@ -65,7 +64,6 @@ export default function FileInput({
             file:text-white cursor-pointer"
         />
       </div>
-
     </div>
   );
 }

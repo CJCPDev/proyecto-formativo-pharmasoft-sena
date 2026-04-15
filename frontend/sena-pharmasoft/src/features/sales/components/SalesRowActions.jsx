@@ -17,7 +17,9 @@ export default function SellRowActions({ sales, onView, onEdit }) {
   // Acción para editar el usuario
   // Redirige a la página de edición usando el id del usuario
   const handleEdit = () => {
-    navigate(`/ver-venta/${sales.id_factura}/editar`, { state: { sale: sales } });
+    navigate(`/ver-venta/${sales.id_factura}/editar`, {
+      state: { sale: sales },
+    });
   };
 
   // Redirección a la página de detalles
@@ -57,10 +59,7 @@ export default function SellRowActions({ sales, onView, onEdit }) {
         </span>
       </div>
       <div className="relative group w-max">
-        <button
-          onClick={handleDetail}
-          className="relative py-1 rounded "
-        >
+        <button onClick={handleDetail} className="relative py-1 rounded ">
           <Eye size={20} className="stroke-brand-fort cursor-pointer" />
         </button>
         <span

@@ -23,7 +23,6 @@ import {
 import { getRoles } from "../services/usuarioService";
 
 export default function PermissionsPage() {
-
   const navigate = useNavigate();
 
   const [selectedPermissions, setSelectedPermissions] = useState({});
@@ -61,12 +60,14 @@ export default function PermissionsPage() {
   const handleSelectGroup = async (group) => {
     setSelectedGroup(group);
     setFoundUser(null);
-    setModo('rol');
+    setModo("rol");
     setShowSidebar(false);
     try {
       const data = await getPermisosPorRol(group.id);
       const permisosObj = {};
-      data.forEach((p) => { permisosObj[p.codigo] = true; });
+      data.forEach((p) => {
+        permisosObj[p.codigo] = true;
+      });
       setSelectedPermissions(permisosObj);
     } catch (error) {
       console.error("Error al cargar permisos del rol:", error);
@@ -81,11 +82,13 @@ export default function PermissionsPage() {
         const user = data[0];
         setFoundUser(user);
         setSelectedGroup(null);
-        setModo('usuario');
+        setModo("usuario");
         setShowSidebar(false);
         const permisos = await getPermisosCombinados(user.id_tipo_usuario);
         const permisosObj = {};
-        permisos.forEach((p) => { permisosObj[p.codigo] = true; });
+        permisos.forEach((p) => {
+          permisosObj[p.codigo] = true;
+        });
         setSelectedPermissions(permisosObj);
       } else {
         setFoundUser(null);
@@ -105,10 +108,13 @@ export default function PermissionsPage() {
         .filter((p) => selectedPermissions[p.codigo])
         .map((p) => p.id_permiso);
 
-      if (modo === 'rol' && selectedGroup) {
+      if (modo === "rol" && selectedGroup) {
         await guardarPermisosRol(selectedGroup.id, permisosSeleccionados);
-      } else if (modo === 'usuario' && foundUser) {
-        await guardarPermisosUsuario(foundUser.id_tipo_usuario, permisosSeleccionados);
+      } else if (modo === "usuario" && foundUser) {
+        await guardarPermisosUsuario(
+          foundUser.id_tipo_usuario,
+          permisosSeleccionados,
+        );
       } else {
         alert("Selecciona un rol o busca un usuario antes de guardar");
         return;
@@ -132,15 +138,19 @@ export default function PermissionsPage() {
   };
 
   const handleGroupToggle = (group) => {
-    const allSelected = group.permissions.every((p) => selectedPermissions[p.id]);
+    const allSelected = group.permissions.every(
+      (p) => selectedPermissions[p.id],
+    );
     const updated = {};
-    group.permissions.forEach((p) => { updated[p.id] = !allSelected; });
+    group.permissions.forEach((p) => {
+      updated[p.id] = !allSelected;
+    });
     setSelectedPermissions((prev) => ({ ...prev, ...updated }));
   };
 
   const handleGroupActiveToggle = (groupId) => {
     setGroups((prev) =>
-      prev.map((g) => g.id === groupId ? { ...g, active: !g.active } : g)
+      prev.map((g) => (g.id === groupId ? { ...g, active: !g.active } : g)),
     );
   };
 
@@ -151,7 +161,9 @@ export default function PermissionsPage() {
 
   const handleSaveGroupName = () => {
     setGroups((prev) =>
-      prev.map((g) => g.id === editingGroup.id ? { ...g, label: editingName } : g)
+      prev.map((g) =>
+        g.id === editingGroup.id ? { ...g, label: editingName } : g,
+      ),
     );
     setEditingGroup(null);
     setEditingName("");
@@ -159,7 +171,11 @@ export default function PermissionsPage() {
 
   const handleCreateGroup = () => {
     if (!newGroupName.trim()) return;
-    const newGroup = { id: String(groups.length + 1), label: newGroupName, active: true };
+    const newGroup = {
+      id: String(groups.length + 1),
+      label: newGroupName,
+      active: true,
+    };
     setGroups((prev) => [...prev, newGroup]);
     setNewGroupName("");
     setIsNewGroupModalOpen(false);
@@ -179,12 +195,13 @@ export default function PermissionsPage() {
 
   return (
     <div className="z-10 min-h-screen bg-surface p-4 sm:p-8">
-
       {/* Modal editar nombre grupo */}
       {editingGroup && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="bg-white rounded-xl p-6 shadow-lg w-full max-w-sm flex flex-col gap-4">
-            <h2 className="text-center font-bold text-lg">Cambiar nombre del grupo</h2>
+            <h2 className="text-center font-bold text-lg">
+              Cambiar nombre del grupo
+            </h2>
             <input
               type="text"
               value={editingName}
@@ -193,8 +210,16 @@ export default function PermissionsPage() {
               className="w-full px-4 py-2 rounded-lg border border-brand bg-brand-soft/60 focus:outline-none focus:ring-2 focus:ring-brand-hover"
             />
             <div className="flex justify-center gap-4">
-              <Button variant="secondary" size="sm" onClick={() => setEditingGroup(null)}>Cancelar</Button>
-              <Button variant="primary" size="sm" onClick={handleSaveGroupName}>Aceptar</Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setEditingGroup(null)}
+              >
+                Cancelar
+              </Button>
+              <Button variant="primary" size="sm" onClick={handleSaveGroupName}>
+                Aceptar
+              </Button>
             </div>
           </div>
         </div>
@@ -213,8 +238,16 @@ export default function PermissionsPage() {
               className="w-full px-4 py-2 rounded-lg border border-brand bg-brand-soft/60 focus:outline-none focus:ring-2 focus:ring-brand-hover"
             />
             <div className="flex justify-center gap-4">
-              <Button variant="secondary" size="sm" onClick={() => setIsNewGroupModalOpen(false)}>Cancelar</Button>
-              <Button variant="primary" size="sm" onClick={handleCreateGroup}>Crear</Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setIsNewGroupModalOpen(false)}
+              >
+                Cancelar
+              </Button>
+              <Button variant="primary" size="sm" onClick={handleCreateGroup}>
+                Crear
+              </Button>
             </div>
           </div>
         </div>
@@ -232,7 +265,10 @@ export default function PermissionsPage() {
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-        <Button onClick={() => navigate(-1)} className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-brand-soft">
+        <Button
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-2 px-4 py-2 border rounded-lg hover:bg-brand-soft"
+        >
           Volver
         </Button>
 
@@ -253,17 +289,17 @@ export default function PermissionsPage() {
 
       {(selectedGroup || foundUser) && (
         <p className="text-center text-sm text-brand-hover mb-4">
-          {modo === 'rol'
+          {modo === "rol"
             ? `Editando permisos del rol: ${selectedGroup.label}`
-            : `Editando permisos del usuario: ${foundUser.name}`
-          }
+            : `Editando permisos del usuario: ${foundUser.name}`}
         </p>
       )}
 
       <div className="flex flex-col lg:flex-row gap-6">
-
         {/* Sidebar — en móvil se muestra/oculta */}
-        <div className={`${showSidebar ? 'block' : 'hidden'} lg:block w-full lg:w-64 border rounded-xl p-4 bg-surface shadow h-fit`}>
+        <div
+          className={`${showSidebar ? "block" : "hidden"} lg:block w-full lg:w-64 border rounded-xl p-4 bg-surface shadow h-fit`}
+        >
           <h2 className="font-secondary text-center mb-4">Grupo de Usuarios</h2>
           <div className="flex flex-col gap-2 mb-6">
             <div
@@ -271,7 +307,11 @@ export default function PermissionsPage() {
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <span>Grupo de Usuarios</span>
-              {isDropdownOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+              {isDropdownOpen ? (
+                <ChevronUp size={16} />
+              ) : (
+                <ChevronDown size={16} />
+              )}
             </div>
 
             {isDropdownOpen && (
@@ -279,12 +319,18 @@ export default function PermissionsPage() {
                 {groups.map((group) => (
                   <div
                     key={group.id}
-                    className={`flex items-center justify-between px-2 py-1 rounded cursor-pointer ${selectedGroup?.id === group.id ? 'bg-brand-soft' : ''}`}
+                    className={`flex items-center justify-between px-2 py-1 rounded cursor-pointer ${selectedGroup?.id === group.id ? "bg-brand-soft" : ""}`}
                     onClick={() => handleSelectGroup(group)}
                   >
                     <span className="text-sm font-medium">{group.label}</span>
                     <div className="flex items-center gap-2">
-                      <Button className="p-1 rounded hover:bg-gray-100" onClick={(e) => { e.stopPropagation(); handleEditGroup(group); }}>
+                      <Button
+                        className="p-1 rounded hover:bg-gray-100"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleEditGroup(group);
+                        }}
+                      >
                         <Pencil size={14} />
                       </Button>
                       <StatusSwitch
@@ -297,14 +343,20 @@ export default function PermissionsPage() {
               </div>
             )}
 
-            <Button variant="primary" size="sm" onClick={() => setIsNewGroupModalOpen(true)}>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={() => setIsNewGroupModalOpen(true)}
+            >
               Nuevo Grupo
             </Button>
           </div>
 
           <hr className="mb-4" />
 
-          <h2 className="font-secondary text-center mb-4">Usuario Individual</h2>
+          <h2 className="font-secondary text-center mb-4">
+            Usuario Individual
+          </h2>
           <div className="flex flex-col gap-2">
             <input
               type="text"
@@ -319,7 +371,9 @@ export default function PermissionsPage() {
             {foundUser && (
               <div className="bg-brand-soft/60 rounded-lg px-3 py-2 text-sm">
                 <p className="font-bold text-brand-hover">{foundUser.name}</p>
-                <p className="text-text-secundary">{foundUser.userGroupNombre}</p>
+                <p className="text-text-secundary">
+                  {foundUser.userGroupNombre}
+                </p>
               </div>
             )}
           </div>
@@ -341,17 +395,26 @@ export default function PermissionsPage() {
 
           {getSelectedList().length > 0 && (
             <div className="border rounded-xl p-4 sm:p-6 bg-surface shadow">
-              <h2 className="font-main text-lg text-brand-hover mb-4">Permisos seleccionados</h2>
+              <h2 className="font-main text-lg text-brand-hover mb-4">
+                Permisos seleccionados
+              </h2>
               <div className="flex flex-col gap-3">
                 {permissionGroups.map((group) => {
-                  const groupSelected = group.permissions.filter((p) => selectedPermissions[p.id]);
+                  const groupSelected = group.permissions.filter(
+                    (p) => selectedPermissions[p.id],
+                  );
                   if (!groupSelected.length) return null;
                   return (
                     <div key={group.id}>
-                      <p className="font-semibold text-sm text-text-secundary mb-1">{group.label}</p>
+                      <p className="font-semibold text-sm text-text-secundary mb-1">
+                        {group.label}
+                      </p>
                       <div className="flex flex-wrap gap-2">
                         {groupSelected.map((p) => (
-                          <span key={p.id} className="bg-brand-soft text-brand-hover text-xs px-3 py-1 rounded-full">
+                          <span
+                            key={p.id}
+                            className="bg-brand-soft text-brand-hover text-xs px-3 py-1 rounded-full"
+                          >
                             {p.label}
                           </span>
                         ))}
@@ -367,11 +430,15 @@ export default function PermissionsPage() {
 
       {/* Botón guardar */}
       <div className="flex justify-end mt-6">
-        <Button variant="primary" size="md" onClick={handleSave} disabled={loading}>
+        <Button
+          variant="primary"
+          size="md"
+          onClick={handleSave}
+          disabled={loading}
+        >
           {loading ? "Guardando..." : "Guardar Cambios"}
         </Button>
       </div>
-
     </div>
   );
 }

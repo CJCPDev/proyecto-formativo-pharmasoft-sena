@@ -10,7 +10,6 @@ import { getUsuarioActual } from "@/features/auth/services/authService";
 import { getUsuario } from "@/features/users/services/usuarioService";
 
 export default function ProfilePage() {
-
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,7 +41,9 @@ export default function ProfilePage() {
 
   return (
     <div className="relative rounded-xl">
-      {loading && <p className="text-center p-8 text-gray-500">Cargando perfil...</p>}
+      {loading && (
+        <p className="text-center p-8 text-gray-500">Cargando perfil...</p>
+      )}
       {error && <p className="text-center p-8 text-red-500">{error}</p>}
       {user && <CardUser user={user} />}
     </div>

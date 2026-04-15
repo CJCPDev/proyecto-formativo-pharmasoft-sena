@@ -31,12 +31,7 @@ export const sellColumns = ({ onView, onEdit } = {}) => [
         }
       };
 
-      return (
-        <StatusSwitch
-          checked={sale.is_active}
-          onChange={handleChange}
-        />
-      );
+      return <StatusSwitch checked={sale.is_active} onChange={handleChange} />;
     },
   },
 
@@ -49,11 +44,11 @@ export const sellColumns = ({ onView, onEdit } = {}) => [
       return (
         <div className="flex gap-4 justify-center">
           <button onClick={() => onEdit?.(sale)}>
-            <Pencil size={18} className="cursor-pointer"/>
+            <Pencil size={18} className="cursor-pointer" />
           </button>
 
           <button onClick={() => onView?.(sale)}>
-            <Eye size={18} className="cursor-pointer"/>
+            <Eye size={18} className="cursor-pointer" />
           </button>
         </div>
       );

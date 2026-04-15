@@ -56,7 +56,7 @@ export const UserColumns = [
       const esAdmin = usuarioActual?.id_rol === 1;
 
       const handleChange = async (nuevoValor) => {
-        try{
+        try {
           //1 = activo, 2 = Inactivo
           const idEstado = nuevoValor ? 1 : 2;
           await cambiarEstadoUsuario(user.id_tipo_usuario, idEstado);
@@ -69,17 +69,22 @@ export const UserColumns = [
       //Farmaceuta solo ve el estado como texto
       if (!esAdmin) {
         return (
-          <span className={`px-2 py-1 rounded full text-xs font-medium ${user.estado === 1
-            ? 'bg-green-100 text-green-700'
-            : 'bg-red-100 text-red-700'
-          }`}>
-            {user.estado === 1 ? 'activo' : 'inactivo'}
+          <span
+            className={`px-2 py-1 rounded full text-xs font-medium ${
+              user.estado === 1
+                ? "bg-green-100 text-green-700"
+                : "bg-red-100 text-red-700"
+            }`}
+          >
+            {user.estado === 1 ? "activo" : "inactivo"}
           </span>
-        )
+        );
       }
 
       //Administrador ve el switch interactivo
-      return <StatusSwitch checked={user.estado === 1} onChange={handleChange} />;
+      return (
+        <StatusSwitch checked={user.estado === 1} onChange={handleChange} />
+      );
     },
   },
   {

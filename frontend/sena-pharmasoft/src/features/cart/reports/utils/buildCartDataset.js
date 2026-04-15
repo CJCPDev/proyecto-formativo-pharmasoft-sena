@@ -11,7 +11,6 @@ export function buildCartDataset({
   scope,
   documento,
 }) {
-
   let filtrados = [...carritos];
 
   // Filtra por estado
@@ -22,7 +21,7 @@ export function buildCartDataset({
   // Filtra por documento del cliente
   if (scope === "document" && documento) {
     filtrados = filtrados.filter((c) =>
-      String(c.documento_cliente).includes(documento.trim())
+      String(c.documento_cliente).includes(documento.trim()),
     );
   }
 
@@ -34,7 +33,7 @@ export function buildCartDataset({
     selectedFields.map((field) => {
       const value = carrito[field.key];
       return value ?? "";
-    })
+    }),
   );
 
   return { headers, rows };

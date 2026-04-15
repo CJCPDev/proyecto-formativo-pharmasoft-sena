@@ -23,7 +23,7 @@ import { ProfileUserPage } from "@/features/users";
 import { EditUserPage } from "@/features/users";
 import { UserReportPage } from "@/features/users";
 import PermissionsPage from "../../features/users/pages/PermissionsPage";
-import ClientProfilePage from "../../features/home/pages/ClientProfilePage"
+import ClientProfilePage from "../../features/home/pages/ClientProfilePage";
 
 // Import Ventas
 import CreateSalePage from "../../features/sales/pages/CreateSalePage";
@@ -31,7 +31,6 @@ import ListSalePage from "@/features/sales/pages/ListSalePage";
 import SaleDetailPage from "@/features/sales/pages/SaleDetailPage";
 import SalesEditPage from "../../features/sales/pages/SalesEditPage";
 import { SaleForm } from "../../features/sales";
-
 
 // ------
 
@@ -59,282 +58,274 @@ import DetailCartPage from "../../features/cart/pages/DetailCartPage";
 import PasarelaPage from "../../features/home/pages/PasarelaPage";
 
 const router = createBrowserRouter([
-    {
+  {
     path: "/",
     element: <HomePage />,
-    },
-    {
+  },
+  {
     path: "/CarSellHome",
-    element: <CarSellHome/>,
-    },
-    {
+    element: <CarSellHome />,
+  },
+  {
     path: "/pasarela",
     element: (
-        <ProtectedRoute rolesPermitidos={[2]}>
-            <PasarelaPage />
-        </ProtectedRoute>
-        ),
-    },
-    {
+      <ProtectedRoute rolesPermitidos={[2]}>
+        <PasarelaPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
     path: "ver-card/:id_medicamento",
     element: <DetailProductPage />,
-    },
-    {
-        path: "mi-perfil",
-        element: (
-            <ProtectedRoute rolesPermitidos={[2]}>
-                <ClientProfilePage />
-            </ProtectedRoute>
-        )
-    },
-{
+  },
+  {
+    path: "mi-perfil",
+    element: (
+      <ProtectedRoute rolesPermitidos={[2]}>
+        <ClientProfilePage />
+      </ProtectedRoute>
+    ),
+  },
+  {
     element: <MainLayout />,
     children: [
-                //Ruta protegida
-                {
-                    path: "DashboardMain",
-                    element: (
-                        <ProtectedRoute>
-                                <AutoricedPage/>
-                            </ProtectedRoute>
-                        ) 
-                    },
-                    {
-                        path: "crear-proveedor",
-                        element: (
-                        <ProtectedRoute>
-                            <SuppliersPage/>
-                        </ProtectedRoute> 
-                        )
-                    },
-                    {
-                        path: "listar-proveedor",
-                        element: (
-                            <ProtectedRoute>
-                                <SuppliersListPage/>
-                            </ProtectedRoute>
-                        ) 
-                    },
-                    {
-                        path: "reportar-proveedor",
-                        element: (
-                            <ProtectedRoute>
-                                <SuppliersReportPage/> 
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "ver-proveedor/:id",
-                        element: (
-                            <ProtectedRoute>
-                                <SuppliersDetailPage/>
-                            </ProtectedRoute>
-                        ) 
-                    },
-                    {
-                        path: "ver-proveedor/:id/editar",
-                        element: (
-                            <ProtectedRoute>
-                                <SupplierEditPage/>
-                            </ProtectedRoute>
-                        ) 
-                    },
-                    {
-                        path: "medicamentos",
-                        element: (
-                            <ProtectedRoute rolesPermitidos={[1, 3]}>
-                                <AdminProductListPage />
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "crear-medicamento",
-                        element: (
-                            <ProtectedRoute>
-                                <CreateProductPage/>
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "ver-medicamento/:id",
-                        element: (
-                            <ProtectedRoute>
-                                <AdminProductDetailPage/>
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "editar-medicamento/:id",
-                        element: (
-                            <ProtectedRoute>
-                                <ProductsEditPage/>
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "listar-ventas",
-                        element: (
-                            <ProtectedRoute>
-                                <ListSalePage/>
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                    path: "/ver-venta/:id",
-                    element: <SaleDetailPage />
-                    },
-                    {
-                    path: "/ver-venta/:id/editar",
-                    element: <SaleDetailPage/>
-                    },
-                    {
-                        path: "crear-venta",
-                        element: <CreateSalePage/>
-                    },
-                    {
-                        path: "perfil",
-                        element: <ProfilePage/> //Definir pagina
-                    },
-        
-                    //Ruta protegida y con permiso de ingreso segun roll
-                    {
-                        path: "usuarios",
-                        element: (
-                        <ProtectedRoute 
-                            rolesPermitidos={[1,3]}
-                            permisosRequeridos={['listar_usuarios']}
-                            >
-                            <UserListPage/>
-                        </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "crear-usuarios",
-                        element: (
-                        <ProtectedRoute 
-                            rolesPermitidos={[1,3]}
-                            permisosRequeridos={['crear_usuario']}
-                            >
-                            <CreateUserPage/>
-                        </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "generar-reporte",
-                        element: (
-                            <ProtectedRoute>
-                                <UserReportPage/>
-                            </ProtectedRoute>
-                        ) 
-                    },
-                    {
-                        path: "editar-usuarios/:id",
-                        element: (
-                            <ProtectedRoute 
-                                rolesPermitidos={[1,3]}
-                                permisosRequeridos={['actualizar_usuario']}
-                                >
-                                <EditUserPage/> 
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "ver-usuarios/:id",
-                        element: (
-                            <ProtectedRoute 
-                                rolesPermitidos={[1,3]}
-                                permisosRequeridos={['visualizar_usuario']}
-                                >
-                                <ProfileUserPage/> 
-                            </ProtectedRoute>
-                        )
-        
-                    },
-                    {
-                        path: "permisos",
-                        element: (
-                            <ProtectedRoute rolesPermitidos={[1]}>
-                                <PermissionsPage/> 
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "carritos",
-                        element: (
-                            <ProtectedRoute rolesPermitidos={[1, 3]}>
-                                <CartListPage />
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "crear-carrito",
-                        element: (
-                            <ProtectedRoute rolesPermitidos={[1, 3]}>
-                                <CreateCartPage />
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "editar-carrito/:id",
-                        element: (
-                            <ProtectedRoute rolesPermitidos={[1]}>
-                                <EditCartPage />
-                            </ProtectedRoute>
-                        )
-                    },
-                    {
-                        path: "ver-carrito/:id",
-                        element: (
-                            <ProtectedRoute rolesPermitidos={[1, 3]}>
-                                <DetailCartPage />
-                            </ProtectedRoute>
-                        )
-                    },
-                ],
-            },
-    
-    {
+      //Ruta protegida
+      {
+        path: "DashboardMain",
+        element: (
+          <ProtectedRoute>
+            <AutoricedPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "crear-proveedor",
+        element: (
+          <ProtectedRoute>
+            <SuppliersPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "listar-proveedor",
+        element: (
+          <ProtectedRoute>
+            <SuppliersListPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "reportar-proveedor",
+        element: (
+          <ProtectedRoute>
+            <SuppliersReportPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "ver-proveedor/:id",
+        element: (
+          <ProtectedRoute>
+            <SuppliersDetailPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "ver-proveedor/:id/editar",
+        element: (
+          <ProtectedRoute>
+            <SupplierEditPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "medicamentos",
+        element: (
+          <ProtectedRoute rolesPermitidos={[1, 3]}>
+            <AdminProductListPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "crear-medicamento",
+        element: (
+          <ProtectedRoute>
+            <CreateProductPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "ver-medicamento/:id",
+        element: (
+          <ProtectedRoute>
+            <AdminProductDetailPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "editar-medicamento/:id",
+        element: (
+          <ProtectedRoute>
+            <ProductsEditPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "listar-ventas",
+        element: (
+          <ProtectedRoute>
+            <ListSalePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/ver-venta/:id",
+        element: <SaleDetailPage />,
+      },
+      {
+        path: "/ver-venta/:id/editar",
+        element: <SaleDetailPage />,
+      },
+      {
+        path: "crear-venta",
+        element: <CreateSalePage />,
+      },
+      {
+        path: "perfil",
+        element: <ProfilePage />, //Definir pagina
+      },
+
+      //Ruta protegida y con permiso de ingreso segun roll
+      {
+        path: "usuarios",
+        element: (
+          <ProtectedRoute
+            rolesPermitidos={[1, 3]}
+            permisosRequeridos={["listar_usuarios"]}
+          >
+            <UserListPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "crear-usuarios",
+        element: (
+          <ProtectedRoute
+            rolesPermitidos={[1, 3]}
+            permisosRequeridos={["crear_usuario"]}
+          >
+            <CreateUserPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "generar-reporte",
+        element: (
+          <ProtectedRoute>
+            <UserReportPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "editar-usuarios/:id",
+        element: (
+          <ProtectedRoute
+            rolesPermitidos={[1, 3]}
+            permisosRequeridos={["actualizar_usuario"]}
+          >
+            <EditUserPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "ver-usuarios/:id",
+        element: (
+          <ProtectedRoute
+            rolesPermitidos={[1, 3]}
+            permisosRequeridos={["visualizar_usuario"]}
+          >
+            <ProfileUserPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "permisos",
+        element: (
+          <ProtectedRoute rolesPermitidos={[1]}>
+            <PermissionsPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "carritos",
+        element: (
+          <ProtectedRoute rolesPermitidos={[1, 3]}>
+            <CartListPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "crear-carrito",
+        element: (
+          <ProtectedRoute rolesPermitidos={[1, 3]}>
+            <CreateCartPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "editar-carrito/:id",
+        element: (
+          <ProtectedRoute rolesPermitidos={[1]}>
+            <EditCartPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "ver-carrito/:id",
+        element: (
+          <ProtectedRoute rolesPermitidos={[1, 3]}>
+            <DetailCartPage />
+          </ProtectedRoute>
+        ),
+      },
+    ],
+  },
+
+  {
     //Login con rutas completo
     element: <AuthLayout />,
     children: [
-        {
+      {
         path: "perfil",
         element: <AuthLayout />,
-        },
-        {
-        },
-        {
+      },
+      {},
+      {
         path: "login",
         element: <LoginPage />,
-        },
-        {
-        },
-        {
+      },
+      {},
+      {
         path: "forgot-password",
         element: <ForgotPasswordPage />,
-        },
-        {
-        },
-        {
+      },
+      {},
+      {
         path: "reset-password",
         element: <ResetPasswordPage />,
-        },
-        {
-        },
-        {
+      },
+      {},
+      {
         path: "validation",
         element: <Loading />,
-        },
-        {
-        },
-        {
+      },
+      {},
+      {
         path: "validationPassword",
         element: <ConfirmationPassword />,
-        },
-        
+      },
     ],
-    },
-
+  },
 ]);
 
 export default router;

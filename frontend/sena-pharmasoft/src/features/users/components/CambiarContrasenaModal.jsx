@@ -11,21 +11,23 @@ import { cambiarContrasena } from "../services/usuarioService";
 import { getUsuarioActual } from "@/features/auth/services/authService";
 
 // Schema de validación de contraseña
-const contrasenaSchema = z.object({
-  contrasena_actual: z.string().min(1, "La contraseña actual es requerida"),
-  nueva_contrasena: z.string()
-    .min(8, "La contraseña debe tener mínimo 8 caracteres")
-    .regex(/[A-Z]/, "Debe tener al menos una letra mayúscula")
-    .regex(/[a-z]/, "Debe tener al menos una letra minúscula")
-    .regex(/[^A-Za-z0-9]/, "Debe tener al menos un carácter especial"),
-  confirmar_contrasena: z.string().min(1, "Confirma tu nueva contraseña"),
-}).refine((data) => data.nueva_contrasena === data.confirmar_contrasena, {
-  message: "Las contraseñas no coinciden",
-  path: ["confirmar_contrasena"],
-});
+const contrasenaSchema = z
+  .object({
+    contrasena_actual: z.string().min(1, "La contraseña actual es requerida"),
+    nueva_contrasena: z
+      .string()
+      .min(8, "La contraseña debe tener mínimo 8 caracteres")
+      .regex(/[A-Z]/, "Debe tener al menos una letra mayúscula")
+      .regex(/[a-z]/, "Debe tener al menos una letra minúscula")
+      .regex(/[^A-Za-z0-9]/, "Debe tener al menos un carácter especial"),
+    confirmar_contrasena: z.string().min(1, "Confirma tu nueva contraseña"),
+  })
+  .refine((data) => data.nueva_contrasena === data.confirmar_contrasena, {
+    message: "Las contraseñas no coinciden",
+    path: ["confirmar_contrasena"],
+  });
 
 export default function CambiarContrasenaModal({ isOpen, onClose }) {
-
   const [formData, setFormData] = useState({
     contrasena_actual: "",
     nueva_contrasena: "",
@@ -78,9 +80,10 @@ export default function CambiarContrasenaModal({ isOpen, onClose }) {
         });
         onClose();
       }, 2000);
-
     } catch (err) {
-      setErrorGeneral(err.response?.data?.error || "Error al cambiar la contraseña");
+      setErrorGeneral(
+        err.response?.data?.error || "Error al cambiar la contraseña",
+      );
     } finally {
       setLoading(false);
     }
@@ -91,18 +94,21 @@ export default function CambiarContrasenaModal({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
       <div className="bg-white rounded-xl shadow-xl w-full max-w-sm mx-4 flex flex-col max-h-[90vh] overflow-y-auto">
-
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
           <h2 className="text-xl font-bold text-brand-hover">
             Cambiar contraseña
           </h2>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700 text-xl font-bold">✕</button>
+          <button
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 text-xl font-bold"
+          >
+            ✕
+          </button>
         </div>
 
         {/* Contenido */}
         <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-4">
-
           <Input
             label="Contraseña actual"
             type="password"
@@ -135,17 +141,39 @@ export default function CambiarContrasenaModal({ isOpen, onClose }) {
 
           {/* Indicador de requisitos */}
           <div className="text-xs text-gray-500 bg-gray-50 rounded-lg p-3 grid gap-1">
-            <p className={formData.nueva_contrasena.length >= 8 ? "text-green-600" : ""}>
-              {formData.nueva_contrasena.length >= 8 ? "✅" : "⚪"} Mínimo 8 caracteres
+            <p
+              className={
+                formData.nueva_contrasena.length >= 8 ? "text-green-600" : ""
+              }
+            >
+              {formData.nueva_contrasena.length >= 8 ? "✅" : "⚪"} Mínimo 8
+              caracteres
             </p>
-            <p className={/[A-Z]/.test(formData.nueva_contrasena) ? "text-green-600" : ""}>
-              {/[A-Z]/.test(formData.nueva_contrasena) ? "✅" : "⚪"} Al menos una mayúscula
+            <p
+              className={
+                /[A-Z]/.test(formData.nueva_contrasena) ? "text-green-600" : ""
+              }
+            >
+              {/[A-Z]/.test(formData.nueva_contrasena) ? "✅" : "⚪"} Al menos
+              una mayúscula
             </p>
-            <p className={/[a-z]/.test(formData.nueva_contrasena) ? "text-green-600" : ""}>
-              {/[a-z]/.test(formData.nueva_contrasena) ? "✅" : "⚪"} Al menos una minúscula
+            <p
+              className={
+                /[a-z]/.test(formData.nueva_contrasena) ? "text-green-600" : ""
+              }
+            >
+              {/[a-z]/.test(formData.nueva_contrasena) ? "✅" : "⚪"} Al menos
+              una minúscula
             </p>
-            <p className={/[^A-Za-z0-9]/.test(formData.nueva_contrasena) ? "text-green-600" : ""}>
-              {/[^A-Za-z0-9]/.test(formData.nueva_contrasena) ? "✅" : "⚪"} Al menos un carácter especial (!@#$...)
+            <p
+              className={
+                /[^A-Za-z0-9]/.test(formData.nueva_contrasena)
+                  ? "text-green-600"
+                  : ""
+              }
+            >
+              {/[^A-Za-z0-9]/.test(formData.nueva_contrasena) ? "✅" : "⚪"} Al
+              menos un carácter especial (!@#$...)
             </p>
           </div>
 
@@ -163,16 +191,24 @@ export default function CambiarContrasenaModal({ isOpen, onClose }) {
 
           {/* Botones */}
           <div className="flex justify-end gap-4 pt-2">
-            <Button variant="secondary" size="sm" type="button" onClick={onClose}>
+            <Button
+              variant="secondary"
+              size="sm"
+              type="button"
+              onClick={onClose}
+            >
               Cancelar
             </Button>
-            <Button variant="primary" size="md" type="submit" disabled={loading}>
+            <Button
+              variant="primary"
+              size="md"
+              type="submit"
+              disabled={loading}
+            >
               {loading ? "Guardando..." : "Cambiar contraseña"}
             </Button>
           </div>
-
         </form>
-
       </div>
     </div>
   );

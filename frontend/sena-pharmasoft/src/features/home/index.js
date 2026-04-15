@@ -1,14 +1,12 @@
 export { default as HomePage } from "./pages/HomePage";
-export { default as Carousel } from "./components/Carousel"
-export {default as AuthModal } from "./components/AuthModal"
-export {default as InputHome } from "./components/InputHome"
-export {default as PaymentResult} from "./components/PaymentResult"
-export {default as PaymentSummary} from "./components/PaymentSummary"
-export {default as CarSellHome} from "./components/CarSellHome"
-export {default as HomeNavbar} from "./components/HomeNavbar"
-export {default as CashPayment} from "./components/CashPayment"
-export {default as CreditCardPayment} from "./components/CreditCardPayment"
-export {default as PsePayment} from "./components/PsePayment"
-export {default as PaymentMethods} from "./components/PaymentMethods"
-
-
+export { default as Carousel } from "./components/Carousel";
+export { default as AuthModal } from "./components/AuthModal";
+export { default as InputHome } from "./components/InputHome";
+export { default as PaymentResult } from "./components/PaymentResult";
+export { default as PaymentSummary } from "./components/PaymentSummary";
+export { default as CarSellHome } from "./components/CarSellHome";
+export { default as HomeNavbar } from "./components/HomeNavbar";
+export { default as CashPayment } from "./components/CashPayment";
+export { default as CreditCardPayment } from "./components/CreditCardPayment";
+export { default as PsePayment } from "./components/PsePayment";
+export { default as PaymentMethods } from "./components/PaymentMethods";

@@ -12,7 +12,11 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8000/api";
 
-export default function CartForm({ onAddProduct, onCartDataChange, products = [] }) {
+export default function CartForm({
+  onAddProduct,
+  onCartDataChange,
+  products = [],
+}) {
   const navigate = useNavigate();
   const { id } = useParams();
   const isEdit = Boolean(id);
@@ -60,7 +64,9 @@ export default function CartForm({ onAddProduct, onCartDataChange, products = []
       return;
     }
     const filtrados = todosMedicamentos.filter((m) =>
-      m.nombre_medicamento.toLowerCase().includes(busquedaMedicamento.toLowerCase())
+      m.nombre_medicamento
+        .toLowerCase()
+        .includes(busquedaMedicamento.toLowerCase()),
     );
     setMedicamentosEncontrados(filtrados);
   }, [busquedaMedicamento, todosMedicamentos]);
@@ -95,9 +101,10 @@ export default function CartForm({ onAddProduct, onCartDataChange, products = []
       setClientesEncontrados([]);
       return;
     }
-    const filtrados = todosLosClientes.filter((u) =>
-      u.name.toLowerCase().includes(busquedaCliente.toLowerCase()) ||
-      String(u.documentNumber).includes(busquedaCliente)
+    const filtrados = todosLosClientes.filter(
+      (u) =>
+        u.name.toLowerCase().includes(busquedaCliente.toLowerCase()) ||
+        String(u.documentNumber).includes(busquedaCliente),
     );
     setClientesEncontrados(filtrados);
   }, [busquedaCliente, todosLosClientes]);
@@ -106,14 +113,19 @@ export default function CartForm({ onAddProduct, onCartDataChange, products = []
     const { name, value } = e.target;
     const nuevosData = { ...formData, [name]: value };
     setFormData(nuevosData);
-    if (onCartDataChange) onCartDataChange({ ...nuevosData, id_cliente: clienteSeleccionado?.id_tipo_usuario });
+    if (onCartDataChange)
+      onCartDataChange({
+        ...nuevosData,
+        id_cliente: clienteSeleccionado?.id_tipo_usuario,
+      });
   };
 
   const handleSeleccionarCliente = (cliente) => {
     setClienteSeleccionado(cliente);
     setClientesEncontrados([]);
     setBusquedaCliente("");
-    if (onCartDataChange) onCartDataChange({ ...formData, id_cliente: cliente.id_tipo_usuario });
+    if (onCartDataChange)
+      onCartDataChange({ ...formData, id_cliente: cliente.id_tipo_usuario });
   };
 
   const handleNuevoMedicamentoChange = (e) => {
@@ -139,27 +151,37 @@ export default function CartForm({ onAddProduct, onCartDataChange, products = []
 
     const subtotal = parseFloat(cantidad) * parseFloat(precio_unitario);
     const listaProductos = Array.isArray(products) ? products : [];
-    const existente = listaProductos.find(p => String(p.id_medicamento) === String(id_medicamento));
+    const existente = listaProductos.find(
+      (p) => String(p.id_medicamento) === String(id_medicamento),
+    );
 
     if (existente) {
       onAddProduct({
         ...existente,
         cantidad: existente.cantidad + parseInt(cantidad),
-        subtotal: (existente.cantidad + parseInt(cantidad)) * parseFloat(precio_unitario),
-        _actualizar: true
+        subtotal:
+          (existente.cantidad + parseInt(cantidad)) *
+          parseFloat(precio_unitario),
+        _actualizar: true,
       });
     } else {
       onAddProduct({
         id: Date.now(),
         id_medicamento,
-        nombre_medicamento: medicamentoSeleccionado?.nombre_medicamento || `Medicamento #${id_medicamento}`,
+        nombre_medicamento:
+          medicamentoSeleccionado?.nombre_medicamento ||
+          `Medicamento #${id_medicamento}`,
         cantidad: parseInt(cantidad),
         precio_unitario: parseFloat(precio_unitario),
         subtotal,
       });
     }
 
-    setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
+    setNuevoMedicamento({
+      id_medicamento: "",
+      cantidad: "",
+      precio_unitario: "",
+    });
     setMedicamentoSeleccionado(null);
   };
 
@@ -174,8 +196,12 @@ export default function CartForm({ onAddProduct, onCartDataChange, products = []
         {clienteSeleccionado && (
           <div className="bg-green-50 border border-green-200 rounded-lg p-3 flex justify-between items-center">
             <div>
-              <p className="font-semibold text-green-700">{clienteSeleccionado.name}</p>
-              <p className="text-sm text-gray-500">Doc: {clienteSeleccionado.documentNumber}</p>
+              <p className="font-semibold text-green-700">
+                {clienteSeleccionado.name}
+              </p>
+              <p className="text-sm text-gray-500">
+                Doc: {clienteSeleccionado.documentNumber}
+              </p>
             </div>
             <button
               onClick={() => setClienteSeleccionado(null)}
@@ -203,13 +229,17 @@ export default function CartForm({ onAddProduct, onCartDataChange, products = []
                     className="w-full text-left px-4 py-2 hover:bg-brand-soft/30 border-b flex justify-between"
                   >
                     <span className="font-medium">{cliente.name}</span>
-                    <span className="text-sm text-gray-500">{cliente.documentNumber}</span>
+                    <span className="text-sm text-gray-500">
+                      {cliente.documentNumber}
+                    </span>
                   </button>
                 ))}
               </div>
             )}
             {busquedaCliente && clientesEncontrados.length === 0 && (
-              <p className="text-sm text-gray-500 text-center">No se encontraron clientes</p>
+              <p className="text-sm text-gray-500 text-center">
+                No se encontraron clientes
+              </p>
             )}
           </>
         )}
@@ -244,13 +274,24 @@ export default function CartForm({ onAddProduct, onCartDataChange, products = []
         {medicamentoSeleccionado ? (
           <div className="bg-green-50 border border-green-200 rounded-lg p-3 flex justify-between items-center">
             <div>
-              <p className="font-semibold text-green-700">{medicamentoSeleccionado.nombre_medicamento}</p>
-              <p className="text-sm text-gray-500">Precio: ${parseFloat(medicamentoSeleccionado.precio_venta).toLocaleString()}</p>
+              <p className="font-semibold text-green-700">
+                {medicamentoSeleccionado.nombre_medicamento}
+              </p>
+              <p className="text-sm text-gray-500">
+                Precio: $
+                {parseFloat(
+                  medicamentoSeleccionado.precio_venta,
+                ).toLocaleString()}
+              </p>
             </div>
             <button
               onClick={() => {
                 setMedicamentoSeleccionado(null);
-                setNuevoMedicamento({ id_medicamento: "", cantidad: "", precio_unitario: "" });
+                setNuevoMedicamento({
+                  id_medicamento: "",
+                  cantidad: "",
+                  precio_unitario: "",
+                });
               }}
               className="text-red-500 text-sm hover:text-red-700"
             >
@@ -273,14 +314,20 @@ export default function CartForm({ onAddProduct, onCartDataChange, products = []
                     onClick={() => handleSeleccionarMedicamento(med)}
                     className="w-full text-left px-4 py-2 hover:bg-brand-soft/30 border-b flex justify-between"
                   >
-                    <span className="font-medium">{med.nombre_medicamento}</span>
-                    <span className="text-sm text-gray-500">${parseFloat(med.precio_venta).toLocaleString()}</span>
+                    <span className="font-medium">
+                      {med.nombre_medicamento}
+                    </span>
+                    <span className="text-sm text-gray-500">
+                      ${parseFloat(med.precio_venta).toLocaleString()}
+                    </span>
                   </button>
                 ))}
               </div>
             )}
             {busquedaMedicamento && medicamentosEncontrados.length === 0 && (
-              <p className="text-sm text-gray-500 text-center">No se encontraron medicamentos</p>
+              <p className="text-sm text-gray-500 text-center">
+                No se encontraron medicamentos
+              </p>
             )}
           </>
         )}

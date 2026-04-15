@@ -4,7 +4,7 @@
 // Pasa el ID de la URL al formulario UserForm
 // ─────────────────────────────────────────────
 
-import UserForm from "../components/UserForm"
+import UserForm from "../components/UserForm";
 
 export default function EditUserPage() {
   return (

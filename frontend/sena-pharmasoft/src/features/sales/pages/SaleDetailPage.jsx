@@ -17,7 +17,7 @@ export default function SaleDetailPage() {
 
         const data = await getSalesById(id);
 
-        console.log("SALE BACKEND:", data); // 🔥 DEBUG IMPORTANTE
+        console.log("SALE BACKEND:", data);
 
         setSaleData({
           numeroFactura: data.numeroFactura || data.id_factura,
@@ -29,9 +29,7 @@ export default function SaleDetailPage() {
           total: data.total_venta,
         });
 
-        // 🔥 importante: asegurar array
         setProducts(Array.isArray(data.productos) ? data.productos : []);
-
       } catch (error) {
         console.error("Error cargando venta:", error);
       } finally {
@@ -43,17 +41,12 @@ export default function SaleDetailPage() {
   }, [id]);
 
   if (loading) {
-    return (
-      <div className="p-6 text-center">
-        Cargando venta...
-      </div>
-    );
+    return <div className="p-6 text-center">Cargando venta...</div>;
   }
 
   return (
     <div className="w-full min-h-screen p-6 flex justify-center">
       <div className="w-full flex gap-6">
-
         {/* FORM SOLO LECTURA */}
         <div className="w-95 flex flex-col gap-2 mt-11">
           <div className="bg-white border border-brand-hover/20 rounded-lg">
@@ -78,7 +71,6 @@ export default function SaleDetailPage() {
             />
           </div>
         </div>
-
       </div>
     </div>
   );

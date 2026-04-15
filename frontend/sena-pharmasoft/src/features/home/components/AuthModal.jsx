@@ -5,10 +5,10 @@
 // ─────────────────────────────────────────────
 
 import { useState, useEffect } from "react";
-import { InputHome} from "@/features/home";
+import { InputHome } from "@/features/home";
 import { Select } from "@/shared/components";
 import axios from "@/shared/services/axiosConfig";
-import { Button} from "@/shared/components"
+import { Button } from "@/shared/components";
 
 const API_URL = "http://localhost:8000/api";
 
@@ -18,7 +18,6 @@ export default function AuthModal({
   setOpenLogin,
   setOpenRegister,
 }) {
-
   // Estados del login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -63,7 +62,7 @@ export default function AuthModal({
   };
 
   // Login del cliente
-const handleLogin = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setErrorLogin(null);
     setLoadingLogin(true);
@@ -71,34 +70,35 @@ const handleLogin = async (e) => {
     try {
       const response = await axios.post(`${API_URL}/auth/login/`, {
         email,
-        password
+        password,
       });
 
       // Verificamos que sea un cliente (rol 2)
       if (response.data.usuario.id_rol !== 2) {
-        setErrorLogin("Este acceso es solo para clientes. Por favor usa el login de administradores.");
+        setErrorLogin(
+          "Este acceso es solo para clientes. Por favor usa el login de administradores.",
+        );
         return;
       }
 
-      localStorage.setItem('access_token', response.data.access);
-      localStorage.setItem('refresh_token', response.data.refresh);
-      localStorage.setItem('usuario', JSON.stringify(response.data.usuario));
-      localStorage.setItem('expiracion', response.data.expiracion);
-      localStorage.setItem('horas_sesion', response.data.horas_sesion);
+      localStorage.setItem("access_token", response.data.access);
+      localStorage.setItem("refresh_token", response.data.refresh);
+      localStorage.setItem("usuario", JSON.stringify(response.data.usuario));
+      localStorage.setItem("expiracion", response.data.expiracion);
+      localStorage.setItem("horas_sesion", response.data.horas_sesion);
 
       try {
         const permisosResponse = await axios.get(
-          `${API_URL}/usuarios/${response.data.usuario.id}/permisos-combinados/`
+          `${API_URL}/usuarios/${response.data.usuario.id}/permisos-combinados/`,
         );
-        const permisos = permisosResponse.data.map(p => p.codigo);
-        localStorage.setItem('permisos', JSON.stringify(permisos));
+        const permisos = permisosResponse.data.map((p) => p.codigo);
+        localStorage.setItem("permisos", JSON.stringify(permisos));
       } catch (error) {
-        localStorage.setItem('permisos', JSON.stringify([]));
+        localStorage.setItem("permisos", JSON.stringify([]));
       }
 
       setOpenLogin(false);
       window.location.reload();
-
     } catch (err) {
       setErrorLogin(err.response?.data?.error || "Credenciales inválidas");
     } finally {
@@ -140,7 +140,6 @@ const handleLogin = async (e) => {
       setOpenRegister(false);
       setOpenLogin(true);
       alert("Cuenta creada correctamente. Ahora puedes iniciar sesión.");
-
     } catch (err) {
       setErrorRegistro(err.response?.data?.error || "Error al crear la cuenta");
     } finally {
@@ -154,7 +153,6 @@ const handleLogin = async (e) => {
       {openRegister && (
         <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
           <div className="bg-white rounded-2xl w-7xl p-6 relative">
-
             <button
               onClick={() => setOpenRegister(false)}
               className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl font-bold"
@@ -171,7 +169,10 @@ const handleLogin = async (e) => {
               </span>
             </div>
 
-            <form onSubmit={handleRegistro} className="grid grid-cols-3 gap-6 m-6 p-6">
+            <form
+              onSubmit={handleRegistro}
+              className="grid grid-cols-3 gap-6 m-6 p-6"
+            >
               <div className="grid grid-cols-1 gap-6">
                 <Select
                   label="Tipo de documento"
@@ -245,7 +246,9 @@ const handleLogin = async (e) => {
 
                 {/* Mensaje de error */}
                 {errorRegistro && (
-                  <p className="text-red-500 text-sm text-center">{errorRegistro}</p>
+                  <p className="text-red-500 text-sm text-center">
+                    {errorRegistro}
+                  </p>
                 )}
 
                 <button
@@ -257,8 +260,8 @@ const handleLogin = async (e) => {
                 </button>
               </div>
             </form>
-              <div className="flex text-center w-full gap-6 justify-center">
-            <Button
+            <div className="flex text-center w-full gap-6 justify-center">
+              <Button
                 onClick={() => {
                   setOpenRegister(false);
                   setOpenLogin(true);
@@ -266,14 +269,9 @@ const handleLogin = async (e) => {
                 variant="secondary"
               >
                 Regresar
-              
-            </Button>
-              <Button 
-                variant= "primary"
-              >
-                Guardar
               </Button>
-          </div>
+              <Button variant="primary">Guardar</Button>
+            </div>
           </div>
         </div>
       )}

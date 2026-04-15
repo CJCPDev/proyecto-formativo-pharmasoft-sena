@@ -1,58 +1,3 @@
-// // src/modules/products/services/selectService.js
-
-// export async function getPharmaForm() {
-//   const res = await fetch("http://127.0.0.1:8000/api/formas-farmaceuticas/");
-//   const data = await res.json();
-//   return data.map(item => ({
-//     value: item.id_forma_farmaceutica,
-//     label: item.nombre_forma_farmaceutica
-//   }));
-// }
-
-// export async function getAdministrationTypes() {
-//   const res = await fetch("http://127.0.0.1:8000/api/vias-administracion/");
-//   const data = await res.json();
-//   return data.map(item => ({
-//     value: item.id_via_administracion,
-//     label: item.nombre_via_administracion
-//   }));
-// }
-
-// export async function getSuppliers() {
-//   const res = await fetch("http://127.0.0.1:8000/api/suppliers/");  
-//   const data = await res.json();
-//   return data.map(item => ({
-//     value: item.id,
-//     label: item.nombre
-//   }));
-// }
-
-// export async function getLaboratoriesTypes() {
-//   const res = await fetch("http://127.0.0.1:8000/api/laboratorios/");
-//   const data = await res.json();
-//   return data.map(item => ({
-//     value: item.id_laboratorio,
-//     label: item.nombre_laboratorio
-//   }));
-// }
-
-// export async function getStatesTypes() {
-//   const res = await fetch("http://127.0.0.1:8000/api/estados-medicamento/");
-//   const data = await res.json();
-//   return data.map(item => ({
-//     value: item.id_estado,
-//     label: item.nombre_estado
-//   }));
-// }
-
-// export const getSubformasFarmaceuticas = async (idForma) => {
-//   const res = await fetch(`http://127.0.0.1:8000/api/subformas-farmaceuticas/?id_forma=${idForma}`);
-//   const data = await res.json();
-//   return data.map((s) => ({
-//     value: s.id_subforma_farmaceutica,
-//     label: s.nombre_subforma_farmaceutica,
-//   }));
-// };
 // Servicios que consultan la API para obtener las opciones de los selects del formulario.
 // Cada función retorna un array con el formato { value, label } que esperan los componentes Select.
 
@@ -61,9 +6,9 @@ export async function getPharmaForm() {
   const res = await fetch("http://127.0.0.1:8000/api/formas-farmaceuticas/");
   const data = await res.json();
   // Mapeamos al formato { value, label } que consume el componente Select
-  return data.map(item => ({
+  return data.map((item) => ({
     value: item.id_forma_farmaceutica,
-    label: item.nombre_forma_farmaceutica
+    label: item.nombre_forma_farmaceutica,
   }));
 }
 
@@ -71,9 +16,9 @@ export async function getPharmaForm() {
 export async function getAdministrationTypes() {
   const res = await fetch("http://127.0.0.1:8000/api/vias-administracion/");
   const data = await res.json();
-  return data.map(item => ({
+  return data.map((item) => ({
     value: item.id_via_administracion,
-    label: item.nombre_via_administracion
+    label: item.nombre_via_administracion,
   }));
 }
 
@@ -81,9 +26,9 @@ export async function getAdministrationTypes() {
 export async function getSuppliers() {
   const res = await fetch("http://127.0.0.1:8000/api/suppliers/");
   const data = await res.json();
-  return data.map(item => ({
+  return data.map((item) => ({
     value: item.id,
-    label: item.nombre
+    label: item.nombre,
   }));
 }
 
@@ -91,9 +36,9 @@ export async function getSuppliers() {
 export async function getLaboratoriesTypes() {
   const res = await fetch("http://127.0.0.1:8000/api/laboratorios/");
   const data = await res.json();
-  return data.map(item => ({
+  return data.map((item) => ({
     value: item.id_laboratorio,
-    label: item.nombre_laboratorio
+    label: item.nombre_laboratorio,
   }));
 }
 
@@ -101,9 +46,9 @@ export async function getLaboratoriesTypes() {
 export async function getStatesTypes() {
   const res = await fetch("http://127.0.0.1:8000/api/estados-medicamento/");
   const data = await res.json();
-  return data.map(item => ({
+  return data.map((item) => ({
     value: item.id_estado,
-    label: item.nombre_estado
+    label: item.nombre_estado,
   }));
 }
 
@@ -111,7 +56,9 @@ export async function getStatesTypes() {
 // Recibe el id de la forma para filtrar solo las subformas que le pertenecen
 // (ej: si la forma es "tableta", las subformas pueden ser "masticable", "efervescente", etc.)
 export const getSubformasFarmaceuticas = async (idForma) => {
-  const res = await fetch(`http://127.0.0.1:8000/api/subformas-farmaceuticas/?id_forma=${idForma}`);
+  const res = await fetch(
+    `http://127.0.0.1:8000/api/subformas-farmaceuticas/?id_forma=${idForma}`,
+  );
   const data = await res.json();
   return data.map((s) => ({
     value: s.id_subforma_farmaceutica,

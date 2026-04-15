@@ -71,15 +71,15 @@ export default function SaleProducts({
     setLoading(true);
 
     try {
- const payload = {
-  usuario: saleData.usuario,
-  farmaceuta: saleData.farmaceuta,
-  subtotal_venta: subtotal,
-  iva_venta: iva,
-  total_venta: total,
-  descuento_venta: 0,
-  productos: products,
-};
+      const payload = {
+        usuario: saleData.usuario,
+        farmaceuta: saleData.farmaceuta,
+        subtotal_venta: subtotal,
+        iva_venta: iva,
+        total_venta: total,
+        descuento_venta: 0,
+        productos: products,
+      };
       console.log(payload);
 
       const response = await createSale(payload);
@@ -174,44 +174,39 @@ export default function SaleProducts({
       </div>
 
       {/* BOTONES */}
-{!saleCreated && (
-  <div className="flex justify-end gap-2 mt-4">
-    
-    <Button
-      disabled={isLocked}
-      onClick={() => {
-        setProducts([]);
-        navigate(-1);
-      }}
-      className="rounded-xl w-40 bg-gray-500 text-white hover:bg-gray-800 z-10"
-    >
-      Cancelar
-    </Button>
+      {!saleCreated && (
+        <div className="flex justify-end gap-2 mt-4">
+          <Button
+            disabled={isLocked}
+            onClick={() => {
+              setProducts([]);
+              navigate(-1);
+            }}
+            className="rounded-xl w-40 bg-gray-500 text-white hover:bg-gray-800 z-10"
+          >
+            Cancelar
+          </Button>
 
-    <Button
-      onClick={handleCreateSale}
-      disabled={isLocked || loading}
-    >
-      {loading ? "Creando..." : "Crear venta"}
-    </Button>
-
-  </div>
-)}
+          <Button onClick={handleCreateSale} disabled={isLocked || loading}>
+            {loading ? "Creando..." : "Crear venta"}
+          </Button>
+        </div>
+      )}
 
       {/* FACTURA MODAL */}
       {showFactura && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-20">
           <div className="bg-white p-6 rounded-lg shadow-lg relative w-90 h-110 grid grid-cols-1">
             {/* BOTÓN CERRAR */}
-<button
-  className="absolute top-1 font-bold right-2 text-red-500 cursor-pointer"
-  onClick={() => {
-    setShowFactura(false);
-    navigate("/listar-ventas");
-  }}
->
-  ✕
-</button>
+            <button
+              className="absolute top-1 font-bold right-2 text-red-500 cursor-pointer"
+              onClick={() => {
+                setShowFactura(false);
+                navigate("/listar-ventas");
+              }}
+            >
+              ✕
+            </button>
 
             {/* FACTURA */}
             <FacturaPos saleData={saleData} products={products} />

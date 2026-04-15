@@ -4,7 +4,7 @@ const API_URL = "http://localhost:8000/api/ventas/";
 
 export const getVentas = async () => {
   const response = await axios.get(API_URL);
-  return response.data; 
+  return response.data;
 };
 
 export const updateSaleStatus = async (id, is_active) => {

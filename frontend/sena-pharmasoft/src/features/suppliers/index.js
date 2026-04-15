@@ -2,4 +2,4 @@
 // Implementar index.js en cada feature.
 // Definir APIs públicas coherentes con el dominio.
 
-export { default as SuppliersPage } from "./pages/SuppliersPage"
+export { default as SuppliersPage } from "./pages/SuppliersPage";

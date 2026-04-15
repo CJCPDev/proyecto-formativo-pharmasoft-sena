@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const suppliersApi = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/suppliers/"
+  baseURL: "http://127.0.0.1:8000/api/suppliers/",
 });
 
 export const getAllSuppliers = async () => {
@@ -15,15 +15,11 @@ export const getSupplierById = async (id) => {
 };
 
 export const createSupplier = async (supplier) => {
- 
-    const response = await suppliersApi.post("/", supplier);
-    return response.data;
- 
+  const response = await suppliersApi.post("/", supplier);
+  return response.data;
 };
 
 export const updateSupplier = async (id, supplier) => {
-  
-    const response = await suppliersApi.put(`/${id}/`, supplier);
-    return response.data;
-  
+  const response = await suppliersApi.put(`/${id}/`, supplier);
+  return response.data;
 };

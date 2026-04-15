@@ -7,17 +7,16 @@ import SupplierRowAction from "../components/SupplierRowAction";
 // Definición de las columnas de la tabla de usuarios
 // Este arreglo suele usarse en librerías de tablas como TanStack Table
 export const SupplierColumns = [
-
   // Columna ID
   {
     accessorKey: "id", // Propiedad del objeto supplier que se mostrará en la columna
-    header: "Id",      // Título de la columna
+    header: "Id", // Título de la columna
   },
 
   // Columna Razon social
   {
     accessorKey: "razonSocial", // Campo del objeto supplier
-    header: "Razon Social",    // Encabezado visible
+    header: "Razon Social", // Encabezado visible
   },
 
   // Columna Email
@@ -36,7 +35,7 @@ export const SupplierColumns = [
     accessorKey: "nombreCiudad",
     header: "Ciudad",
   },
-   // Columna Ciudad
+  // Columna Ciudad
   {
     accessorKey: "nombreDepartamento",
     header: "Departamento",
@@ -50,24 +49,23 @@ export const SupplierColumns = [
     // Render personalizado de la celda
     // Permite mostrar un componente en lugar de solo texto
     cell: ({ row }) => {
-
       // Se obtiene el objeto completo del usuario de la fila
       const supplier = row.original;
 
       // Función que se ejecuta cuando cambia el switch
-       const handleChange = async (value) => {
-      try {
-        await updateSupplier(supplier.id, { ...supplier, estado: value });
-      } catch (error) {
-        console.error("Error actualizando estado:", error);
-      }
-    };
+      const handleChange = async (value) => {
+        try {
+          await updateSupplier(supplier.id, { ...supplier, estado: value });
+        } catch (error) {
+          console.error("Error actualizando estado:", error);
+        }
+      };
 
       return (
         // Componente reutilizable para mostrar el switch
         <StatusSwitch
           checked={supplier.estado} // Estado actual del usuario
-          onChange={handleChange}  // Función que maneja el cambio
+          onChange={handleChange} // Función que maneja el cambio
         />
       );
     },

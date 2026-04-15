@@ -2,7 +2,7 @@ import { Button, Input, Modal } from "@/shared/components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { login } from "../services/authService";
-import { loginSchema } from "../schemas/loginSchema"
+import { loginSchema } from "../schemas/loginSchema";
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -14,7 +14,7 @@ export default function LoginForm() {
   });
 
   //Estado para mostrar errores
-  const [error, setErrors] = useState({})
+  const [error, setErrors] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
 
@@ -33,24 +33,24 @@ export default function LoginForm() {
     setLoading(true);
 
     try {
-       const result = loginSchema.safeParse(formData); 
-        // Si la validación falla 
-        if (!result.success) { 
-            // Objeto donde se almacenarán los errores por campo 
-            const fieldErrors = {}; 
-            // Zod devuelve los errores en un arreglo llamado issues 
-            // Se recorren para asociar cada error a su campo correspondiente 
-            result.error.issues.forEach((issue) => { 
-                // issue.path contiene la ruta del campo que falló 
-                const field = issue.path[0]; 
-                // Se guarda el mensaje de error en el objeto fieldErrors 
-                fieldErrors[field] = issue.message; 
-            }); 
-            // Se actualiza el estado de errores para mostrarlos en el formulario 
-            setErrors(fieldErrors); 
-            // Se detiene la ejecución porque el formulario tiene errores 
-            return; 
-        }
+      const result = loginSchema.safeParse(formData);
+      // Si la validación falla
+      if (!result.success) {
+        // Objeto donde se almacenarán los errores por campo
+        const fieldErrors = {};
+        // Zod devuelve los errores en un arreglo llamado issues
+        // Se recorren para asociar cada error a su campo correspondiente
+        result.error.issues.forEach((issue) => {
+          // issue.path contiene la ruta del campo que falló
+          const field = issue.path[0];
+          // Se guarda el mensaje de error en el objeto fieldErrors
+          fieldErrors[field] = issue.message;
+        });
+        // Se actualiza el estado de errores para mostrarlos en el formulario
+        setErrors(fieldErrors);
+        // Se detiene la ejecución porque el formulario tiene errores
+        return;
+      }
       const data = await login(formData.email, formData.password);
 
       //Redirigimos según el rol del usuario
@@ -127,12 +127,10 @@ export default function LoginForm() {
             {/* Iniciar sesion */}
           </Button>
         </div>
-         {showModal && (
-              <Modal onClose={() => setShowModal(false)}>
-                {modalMessage}
-              </Modal>
-            )}
-        </form>
-        </div>
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>{modalMessage}</Modal>
+        )}
+      </form>
+    </div>
   );
 }

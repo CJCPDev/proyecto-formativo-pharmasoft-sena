@@ -51,7 +51,6 @@ export default function AdminProductListPage() {
 
       {/* Barra de acciones: botones de navegación y acciones principales */}
       <div className="flex justify-between gap-6 items-center">
-
         {/* Grupo izquierdo: botón para regresar y el modal de reportes */}
         <div className="flex justify-end gap-6">
           {/* navigate(-1) regresa a la pantalla anterior en el historial del navegador */}
@@ -86,9 +85,12 @@ export default function AdminProductListPage() {
       {/* Contenedor de la tabla con los medicamentos cargados desde la API */}
       <div className="w-full overflow-x-auto">
         {/* <div className="w-full h-full"> */}
-          {/* DataTable recibe los datos y las columnas para renderizar la tabla */}
-          <DataTable data={products} columns={getProductsColumns(cargarProductos)} />
-        </div>
+        {/* DataTable recibe los datos y las columnas para renderizar la tabla */}
+        <DataTable
+          data={products}
+          columns={getProductsColumns(cargarProductos)}
+        />
+      </div>
       {/* </div> */}
     </div>
   );

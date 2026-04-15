@@ -1,26 +1,25 @@
 // Fuente de datos de usuarios (mock o fuente centralizada)
-import { getVentas} from "../../services/saleService";
+import { getVentas } from "../../services/saleService";
 
 // Utilidad para transformar datos en dataset de reporte
-import { buildReportDataset } from "../utils/buildReportDataset"; 
+import { buildReportDataset } from "../utils/buildReportDataset";
 import { generateExcelReport } from "../services/generateExcelReport";
 import { generatePdfReport } from "../services/generatePdfReport";
 
 export async function generateSalesReport({
-  format,          // "excel" | "pdf"
-  selectedFields,  // Campos seleccionados por el usuario
-  scope,           // Alcance del reporte
-  documentNumber   // Filtro opcional
+  format, // "excel" | "pdf"
+  selectedFields, // Campos seleccionados por el usuario
+  scope, // Alcance del reporte
+  documentNumber, // Filtro opcional
 }) {
-
   // Construcción del dataset (desacoplado de la UI)
   const ventas = await getVentas();
-  console.log("sales", ventas)
+  console.log("sales", ventas);
   const { headers, rows } = buildReportDataset({
     ventas,
     selectedFields,
     scope,
-    documentNumber
+    documentNumber,
   });
 
   // Validación: evita generar archivos vacíos
@@ -37,7 +36,7 @@ export async function generateSalesReport({
     generateExcelReport({
       headers,
       rows,
-      fileName: `ReportedeVentas-${timestamp}.xlsx`
+      fileName: `ReportedeVentas-${timestamp}.xlsx`,
     });
   }
 
@@ -45,8 +44,7 @@ export async function generateSalesReport({
     generatePdfReport({
       headers,
       rows,
-      fileName: `ReportedeVentas-${timestamp}.pdf`
+      fileName: `ReportedeVentas-${timestamp}.pdf`,
     });
   }
 }
-

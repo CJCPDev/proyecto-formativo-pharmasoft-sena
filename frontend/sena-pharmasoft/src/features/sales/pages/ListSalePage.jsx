@@ -1,13 +1,12 @@
-import { Button, Title} from "@/shared/components";
+import { Button, Title } from "@/shared/components";
 import { Link, useNavigate } from "react-router-dom";
 import SaleReportPage from "./SaleReportPage";
-import { useState} from "react";
+import { useState } from "react";
 import ReportConfigModal from "../reports/components/ReportConfigModal";
 
 export default function ListSalePage() {
   const navigate = useNavigate();
   const [IsReportModalOpen, setIsReportModalOpen] = useState(false);
-
 
   return (
     <div className="relative grid gap-6 bg-white rounded-xl shadow-2xl p-4 w-350 h-150">

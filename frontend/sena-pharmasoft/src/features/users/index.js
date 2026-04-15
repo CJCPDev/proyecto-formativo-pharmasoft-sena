@@ -1,10 +1,10 @@
 // export { default as ProfilePage } from "./pages/ProfilePage"
-export { default as CreateUserPage } from "./pages/CreateUserPage"
-export { default as UserListPage } from "./pages/UserListPage"
-export { default as UserForm } from "./components/UserForm"
-export { default as CardUser} from "./components/CardUser"
-export { default as ProfileUserPage } from "./pages/ProfileUserPage"
+export { default as CreateUserPage } from "./pages/CreateUserPage";
+export { default as UserListPage } from "./pages/UserListPage";
+export { default as UserForm } from "./components/UserForm";
+export { default as CardUser } from "./components/CardUser";
+export { default as ProfileUserPage } from "./pages/ProfileUserPage";
 // export { default as ListUserPage} from "./pages/ListUserPage"
-export { default as EditUserPage} from "./pages/EditUserPage"
-export { default as UserReportPage } from "./pages/UserReportPage"
-export { default as CambiarContrasenaModal } from "./components/CambiarContrasenaModal"
+export { default as EditUserPage } from "./pages/EditUserPage";
+export { default as UserReportPage } from "./pages/UserReportPage";
+export { default as CambiarContrasenaModal } from "./components/CambiarContrasenaModal";

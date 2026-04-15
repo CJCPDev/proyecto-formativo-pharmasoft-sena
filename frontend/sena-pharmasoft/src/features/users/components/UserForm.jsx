@@ -5,11 +5,17 @@
 // La imagen se sube al servidor cuando se guarda el formulario
 // ─────────────────────────────────────────────
 
-import { Title, Input, Select, Button, AvatarUploader } from "@/shared/components"
-import { useState, useEffect } from "react"
-import { userSchema } from "../schemas/userSchema"
-import { useNavigate, useParams } from "react-router-dom"
-import { Plus, Minus } from "lucide-react"
+import {
+  Title,
+  Input,
+  Select,
+  Button,
+  AvatarUploader,
+} from "@/shared/components";
+import { useState, useEffect } from "react";
+import { userSchema } from "../schemas/userSchema";
+import { useNavigate, useParams } from "react-router-dom";
+import { Plus, Minus } from "lucide-react";
 
 import {
   createUsuario,
@@ -17,21 +23,24 @@ import {
   getUsuario,
   getTiposDocumento,
   getRoles,
-  subirAvatar
-} from "../services/usuarioService"
+  subirAvatar,
+} from "../services/usuarioService";
 
-import PermisosModal from "../components/PermisosModal"
-import { guardarPermisosUsuario, getPermisos } from "../services/permisosService"
+import PermisosModal from "../components/PermisosModal";
+import {
+  guardarPermisosUsuario,
+  getPermisos,
+} from "../services/permisosService";
 
 export default function UserForm() {
-
   const navigate = useNavigate();
   const { id } = useParams();
   const isEdit = Boolean(id);
 
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [mostrarTelefonoAdicional, setMostrarTelefonoAdicional] = useState(false);
+  const [mostrarTelefonoAdicional, setMostrarTelefonoAdicional] =
+    useState(false);
   const [tiposDocumento, setTiposDocumento] = useState([]);
   const [roles, setRoles] = useState([]);
   const [isPermisosModalOpen, setIsPermisosModalOpen] = useState(false);
@@ -57,7 +66,7 @@ export default function UserForm() {
       try {
         const [tiposDoc, rolesData] = await Promise.all([
           getTiposDocumento(),
-          getRoles()
+          getRoles(),
         ]);
         setTiposDocumento(tiposDoc);
         setRoles(rolesData);
@@ -144,7 +153,11 @@ export default function UserForm() {
         }
       }
 
-      alert(isEdit ? "Usuario actualizado correctamente" : "Usuario creado correctamente");
+      alert(
+        isEdit
+          ? "Usuario actualizado correctamente"
+          : "Usuario creado correctamente",
+      );
       navigate(-1);
     } catch (error) {
       console.error("Error al guardar el usuario:", error);
@@ -158,8 +171,11 @@ export default function UserForm() {
 
   return (
     <div className="bg-white grid gap-2 w-full max-w-7xl mx-auto rounded-xl p-4">
-
-      {isEdit ? <Title title="Editar Usuario" /> : <Title title="Crear Usuarios" />}
+      {isEdit ? (
+        <Title title="Editar Usuario" />
+      ) : (
+        <Title title="Crear Usuarios" />
+      )}
 
       <PermisosModal
         isOpen={isPermisosModalOpen}
@@ -172,7 +188,6 @@ export default function UserForm() {
       <form onSubmit={handleSubmit} className="w-full px-2 sm:px-6 rounded-xl">
         {/* Grid responsive — 1 col móvil, 2 col tablet, 3 col desktop */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-
           {/* ── Columna 1 ── */}
           <div className="flex flex-col gap-3">
             <Select
@@ -247,7 +262,8 @@ export default function UserForm() {
                 </Button>
                 {Object.values(permisosExtra).filter(Boolean).length > 0 && (
                   <span className="text-sm text-brand-hover">
-                    {Object.values(permisosExtra).filter(Boolean).length} permisos
+                    {Object.values(permisosExtra).filter(Boolean).length}{" "}
+                    permisos
                   </span>
                 )}
               </div>
@@ -259,13 +275,19 @@ export default function UserForm() {
                 <Button
                   size="md"
                   aria-label="Adiccionar teléfono"
-                  onClick={() => setMostrarTelefonoAdicional(!mostrarTelefonoAdicional)}
+                  onClick={() =>
+                    setMostrarTelefonoAdicional(!mostrarTelefonoAdicional)
+                  }
                 >
                   {mostrarTelefonoAdicional ? <Minus /> : <Plus />}
-                  {mostrarTelefonoAdicional ? "Quitar Telefono" : "Agregar Telefono"}
+                  {mostrarTelefonoAdicional
+                    ? "Quitar Telefono"
+                    : "Agregar Telefono"}
                 </Button>
               </div>
-              <div className={`grid gap-3 ${mostrarTelefonoAdicional ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"}`}>
+              <div
+                className={`grid gap-3 ${mostrarTelefonoAdicional ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1"}`}
+              >
                 <Input
                   label="Celular"
                   type="tel"
@@ -318,31 +340,50 @@ export default function UserForm() {
                   setFormData((prev) => ({ ...prev, avatarUrl: file }))
                 }
                 currentImage={
-                  typeof formData.avatarUrl === 'string' ? formData.avatarUrl : null
+                  typeof formData.avatarUrl === "string"
+                    ? formData.avatarUrl
+                    : null
                 }
               />
             </div>
           </div>
-
         </div>
 
         {/* Botones */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8 pb-4">
           {isEdit ? (
             <>
-              <Button onClick={() => navigate(-1)} variant="secondary" size="sm">
+              <Button
+                onClick={() => navigate(-1)}
+                variant="secondary"
+                size="sm"
+              >
                 Cancelar
               </Button>
-              <Button variant="primary" size="md" type="submit" disabled={loading}>
+              <Button
+                variant="primary"
+                size="md"
+                type="submit"
+                disabled={loading}
+              >
                 {loading ? "Actualizando..." : "Actualizar"}
               </Button>
             </>
           ) : (
             <>
-              <Button variant="secondary" size="sm" onClick={() => navigate(-1)}>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => navigate(-1)}
+              >
                 Regresar
               </Button>
-              <Button variant="primary" size="md" type="submit" disabled={loading}>
+              <Button
+                variant="primary"
+                size="md"
+                type="submit"
+                disabled={loading}
+              >
                 {loading ? "Creando..." : "Crear"}
               </Button>
             </>
